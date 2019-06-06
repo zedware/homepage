@@ -1,0 +1,214 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>The C programming Language</title>
+<meta name="description" content="The C programming Language by Brian W. Kernighan and Dennis M. Ritchie">
+<meta name="keywords" content="programming, C, kernighan, ritchie">
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+-->
+</style>
+</head>
+<body>
+<hr>
+
+<h1>The C Programming Language (known as K&amp;R C) </h1>
+<strong>By Brian W. <span class="STYLE1">K</span>ernighan and Dennis M. <span class="STYLE1">R</span>itchie.</strong>
+<p>
+P<strong>ublished by Prentice-Hall in 1988<br>
+Revised by zedware in 2007<br>
+Revised by zedware in 2008
+<br>
+Revised by zedware in 2009</strong>
+<p><strong><span class="STYLE1">所有中文部分都来自 zedware，少数英文句子也是zedware增加或修改的。若有错漏，请联系：<a href="mailto: zedware@gmail.com">zedware@gmail.com</a>。</span></strong>
+<p>
+ISBN 0-13-110362-8 (paperback)<br>
+ISBN 0-13-110370-9
+
+<h2>Contents</h2>
+<ul>
+<li><a href="preface.html">Preface</a>
+<li><a href="preface1.html">Preface to the first edition</a>
+<li><a href="intro.html">Introduction</a>
+</ul>
+<ol>
+<li><a href="chapter1.html">Chapter 1: A Tutorial Introduction</a>
+<ol>
+<li><a href="chapter1.html#s1.1">Getting Started</a>
+<li><a href="chapter1.html#s1.2">Variables and Arithmetic Expressions</a>
+<li><a href="chapter1.html#s1.3">The for statement</a>
+<li><a href="chapter1.html#s1.4">Symbolic Constants</a>
+<li><a href="chapter1.html#s1.5">Character Input and Output</a>
+<ol>
+<li><a href="chapter1.html#s1.5.1">File Copying</a>
+<li><a href="chapter1.html#s1.5.2">Character Counting</a>
+<li><a href="chapter1.html#s1.5.3">Line Counting</a>
+<li><a href="chapter1.html#s1.5.4">Word Counting</a>
+</ol>
+<li><a href="chapter1.html#s1.6">Arrays</a>
+<li><a href="chapter1.html#s1.7">Functions</a>
+<li><a href="chapter1.html#s1.8">Arguments - Call by Value</a>
+<li><a href="chapter1.html#s1.9">Character Arrays</a>
+<li><a href="chapter1.html#s1.10">External Variables and Scope</a>
+</ol>
+<p>
+<li><a href="chapter2.html">Chapter 2: Types, Operators and Expressions</a>
+<ol>
+<li><a href="chapter2.html#s2.1">Variable Names</a>
+<li><a href="chapter2.html#s2.2">Data Types and Sizes</a>
+<li><a href="chapter2.html#s2.3">Constants</a>
+<li><a href="chapter2.html#s2.4">Declarations</a>
+<li><a href="chapter2.html#s2.5">Arithmetic Operators</a>
+<li><a href="chapter2.html#s2.6">Relational and Logical Operators</a>
+<li><a href="chapter2.html#s2.7">Type Conversions</a>
+<li><a href="chapter2.html#s2.8">Increment and Decrement Operators</a>
+<li><a href="chapter2.html#s2.9">Bitwise Operators</a>
+<li><a href="chapter2.html#s2.10">Assignment Operators and Expressions</a>
+<li><a href="chapter2.html#s2.11">Conditional Expressions</a>
+<li><a href="chapter2.html#s2.12">Precedence and Order of Evaluation</a>
+</ol>
+<p>
+<li><a href="chapter3.html">Chapter 3: Control Flow</a>
+<ol>
+<li><a href="chapter3.html#s3.1">Statements and Blocks</a>
+<li><a href="chapter3.html#s3.2">If-Else</a>
+<li><a href="chapter3.html#s3.3">Else-If</a>
+<li><a href="chapter3.html#s3.4">Switch</a>
+<li><a href="chapter3.html#s3.5">Loops - While and For</a>
+<li><a href="chapter3.html#s3.6">Loops - Do-While</a>
+<li><a href="chapter3.html#s3.7">Break and Continue</a>
+<li><a href="chapter3.html#s3.8">Goto and labels</a>
+</ol>
+<p>
+<li><a href="chapter4.html">Chapter 4: Functions and Program Structure</a>
+<ol>
+<li><a href="chapter4.html#s4.1">Basics of Functions</a>
+<li><a href="chapter4.html#s4.2">Functions Returning Non-integers</a>
+<li><a href="chapter4.html#s4.3">External Variables</a>
+<li><a href="chapter4.html#s4.4">Scope Rules</a>
+<li><a href="chapter4.html#s4.5">Header Files</a>
+<li><a href="chapter4.html#s4.6">Static Variables</a>
+<li><a href="chapter4.html#s4.7">Register Variables</a>
+<li><a href="chapter4.html#s4.8">Block Structure</a>
+<li><a href="chapter4.html#s4.9">Initialization</a>
+<li><a href="chapter4.html#s4.10">Recursion</a>
+<li><a href="chapter4.html#s4.11">The C Preprocessor</a>
+<ol>
+<li><a href="chapter4.html#s4.11.1">File Inclusion</a>
+<li><a href="chapter4.html#s4.11.2">Macro Substitution</a>
+<li><a href="chapter4.html#s4.11.3">Conditional Inclusion</a>
+<!-- wlzhang -->
+<li><a href="chapter4.html#s4.11.4">Compilers</a>
+</ol>
+</ol>
+<p>
+<li><a href="chapter5.html">Chapter 5: Pointers and Arrays</a>
+<ol>
+<li><a href="chapter5.html#s5.1">Pointers and Addresses</a>
+<li><a href="chapter5.html#s5.2">Pointers and Function Arguments</a>
+<li><a href="chapter5.html#s5.3">Pointers and Arrays</a>
+<li><a href="chapter5.html#s5.4">Address Arithmetic</a>
+<li><a href="chapter5.html#s5.5">Character Pointers and Functions</a>
+<li><a href="chapter5.html#s5.6">Pointer Arrays; Pointers to Pointers</a>
+<li><a href="chapter5.html#s5.7">Multi-dimensional Arrays</a>
+<li><a href="chapter5.html#s5.8">Initialization of Pointer Arrays</a>
+<li><a href="chapter5.html#s5.9">Pointers vs. Multi-dimensional Arrays</a>
+<li><a href="chapter5.html#s5.10">Command-line Arguments</a>
+<li><a href="chapter5.html#s5.11">Pointers to Functions</a>
+<li><a href="chapter5.html#s5.12">Complicated Declarations</a>
+</ol>
+<p>
+<li><a href="chapter6.html">Chapter 6: Structures</a>
+<ol>
+<li><a href="chapter6.html#s6.1">Basics of Structures</a>
+<li><a href="chapter6.html#s6.2">Structures and Functions</a>
+<li><a href="chapter6.html#s6.3">Arrays of Structures</a>
+<li><a href="chapter6.html#s6.4">Pointers to Structures</a>
+<li><a href="chapter6.html#s6.5">Self-referential Structures</a>
+<li><a href="chapter6.html#s6.6">Table Lookup</a>
+<li><a href="chapter6.html#s6.7">Typedef</a>
+<li><a href="chapter6.html#s6.8">Unions</a>
+<li><a href="chapter6.html#s6.9">Bit-fields</a>
+</ol>
+<p>
+<li><a href="chapter7.html">Chapter 7: Input and Output</a>
+<ol>
+<li><a href="chapter7.html#s7.1">Standard Input and Output</a>
+<li><a href="chapter7.html#s7.2">Formatted Output - printf</a>
+<li><a href="chapter7.html#s7.3">Variable-length Argument Lists</a>
+<li><a href="chapter7.html#s7.4">Formatted Input - Scanf</a>
+<li><a href="chapter7.html#s7.5">File Access</a>
+<li><a href="chapter7.html#s7.6">Error Handling - Stderr and Exit</a>
+<li><a href="chapter7.html#s7.7">Line Input and Output</a>
+<li><a href="chapter7.html#s7.8">Miscellaneous Functions</a>
+<ol>
+<li><a href="chapter7.html#s7.8.1">String Operations</a>
+<li><a href="chapter7.html#s7.8.2">Character Class Testing and Conversion</a>
+<li><a href="chapter7.html#s7.8.3">Ungetc</a>
+<li><a href="chapter7.html#s7.8.4">Command Execution</a>
+<li><a href="chapter7.html#s7.8.5">Storage Management</a>
+<li><a href="chapter7.html#s7.8.6">Mathematical Functions</a>
+<li><a href="chapter7.html#s7.8.7">Random Number generation</a>
+</ol>
+</ol>
+<p>
+<li><a href="chapter8.html">Chapter 8: The UNIX System Interface</a>
+<ol>
+<li><a href="chapter8.html#s8.1">File Descriptors</a>
+<li><a href="chapter8.html#s8.2">Low Level I/O - Read and Write</a>
+<li><a href="chapter8.html#s8.3">Open, Creat, Close, Unlink</a>
+<li><a href="chapter8.html#s8.4">Random Access - Lseek</a>
+<li><a href="chapter8.html#s8.5">Example - An implementation of Fopen and Getc</a>
+<li><a href="chapter8.html#s8.6">Example - Listing Directories</a>
+<li><a href="chapter8.html#s8.7">Example - A Storage Allocator</a>
+</ol>
+</ol>
+<ul>
+<li><a href="appa.html">Appendix A: Reference Manual</a>
+<ol>
+<li><a href="appa.html#sa.1">Introduction</a>
+<li><a href="appa.html#sa.2">Lexical Conventions</a>
+<li><a href="appa.html#sa.3">Syntax Notation</a>
+<li><a href="appa.html#sa.4">Meaning of Identifiers</a>
+<li><a href="appa.html#sa.5">Objects and Lvalues</a>
+<li><a href="appa.html#sa.6">Conversions</a>
+<li><a href="appa.html#sa.7">Expressions</a>
+<li><a href="appa.html#sa.8">Declarations</a>
+<li><a href="appa.html#sa.9">Statements</a>
+<li><a href="appa.html#sa.10">External Declarations</a>
+<li><a href="appa.html#sa.11">Scope and Linkage</a>
+<li><a href="appa.html#sa.12">Preprocessor</a>
+<li><a href="appa.html#sa.13">Grammar</a>
+</ol>
+<p>
+<li><a href="appb.html">Appendix B: Standard Library</a>
+<ol>
+<li><a href="appb.html#sb.1">Input and Output: &lt;stdio.h&gt;</a>
+<ol>
+<li><a href="appb.html#sb.1.1">File Operations</a>
+<li><a href="appb.html#sb.1.2">Formatted Output</a>
+<li><a href="appb.html#sb.1.3">Formatted Input</a>
+<li><a href="appb.html#sb.1.4">Character Input and Output Functions</a>
+<li><a href="appb.html#sb.1.5">Direct Input and Output Functions</a>
+<li><a href="appb.html#sb.1.6">File Positioning Functions</a>
+<li><a href="appb.html#sb.1.7">Error Functions</a>
+</ol>
+<li><a href="appb.html#sb.2">Character Class Tests: &lt;ctype.h&gt;</a>
+<li><a href="appb.html#sb.3">String Functions: &lt;string.h&gt;</a>
+<li><a href="appb.html#sb.4">Mathematical Functions: &lt;math.h&gt;</a>
+<li><a href="appb.html#sb.5">Utility Functions: &lt;stdlib.h&gt;</a>
+<li><a href="appb.html#sb.6">Diagnostics: &lt;assert.h&gt;</a>
+<li><a href="appb.html#sb.7">Variable Argument Lists: &lt;stdarg.h&gt;</a>
+<li><a href="appb.html#sb.8">Non-local Jumps: &lt;setjmp.h&gt;</a>
+<li><a href="appb.html#sb.9">Signals: &lt;signal.h&gt;</a>
+<li><a href="appb.html#sb.10">Date and Time Functions: &lt;time.h&gt;</a>
+<li><a href="appb.html#sb.11">Implementation-defined Limits: &lt;limits.h&gt; and &lt;float.h&gt;</a>
+</ol>
+<p>
+<li><a href="appc.html">Appendix C: Summary of Changes</a>
+</ul>
+<p>
+<hr>
+</body>
+</html>

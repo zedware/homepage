@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta http-equiv="Content-Type"
+
+content="text/html; charset=gb2312">
+<meta name="uniware" content="zedware_at_gmail_dot_com">
+<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+<title>SQL标准</title>
+<style type="text/css">
+<!--
+.style1 {
+	font-size: larger;
+}
+-->
+</style>
+</head>
+<body> 
+<p align="center" class="style1">SQL标准</p> 
+<hr> 
+<p align="left">　　SQL是Structured Query Language的缩写，一般读作/`si:kju:/或“ess-que-el”，即字母“S”、“Q”、“L”的发音。作为一种访问关系型数据库的标准接口，SQL自问世以来得到了广泛的应用，不仅是著名的大型商用数据库产品Oracle、Sybase、Informix、DB2、Ingres、Microsoft SQL Server支持它，一些小型的产品如Visual Foxpro、Access等也支持SQL，很多开源的数据库产品PostgreSQL、MySQL、Firebird等也支持SQL。如果您是一个初学者，不妨到<a href="http://sqlcourse.com">sqlcourse.com</a>和<a href="http://sqlcourse2.com">sqlcourse2.com</a>去练习一下，很快就能掌握最基本的SQL语句。</p> 
+<p align="left">　　蓝色巨人IBM对SQL语言的形成和规范化产生了重大的影响，著名的关系数据库原型系统System R就是IBM的研究成果，它就提供了初步的SQL语言，不过那时称为SEQUL2。Oracle在1979年率先推出了支持SQL的商用产品，当然，那时的Oracle并不好用。随着数据库技术和应用的发展，为各种不同的关系数据库系统提供一致的访问接口成了一种现实需要。</p> 
+<p align="left">　　对SQL标准影响最大的机构自然是那些著名的数据库产商，而具体的制订者则是一些所谓的非营利机构，例如ISO、ANSI等。各国通常会按照ISO标准和ANSI标准（这两个东西的标准很多时候是差不多的）制定自己的国标，我国大致就是翻译一个对应的中文版，也许外加一点中国特色。其实标准这个东西本来就很难读，翻译成中文也往往是词不达意，对于学习者和数据库系统实现者而言，还不如直接读英文的好。另外，通常的标准都是要MONEY才能得到的，穷学生们要拜读一下还真是不容易。虽然正式的标准不像RFC那样可以轻易从网络上免费获得，标准草案还是比较容易找到的。想粗略的学习一下标准，有一个标准草案也可以了。</p> 
+<p align="left"> 　 下面是SQL发展的简要历史：</p> 
+<ul> 
+  <li> 1986年，ANSI X3.135-1986，ISO/IEC 9075:1986，SQL-86 </li> 
+  <li>1989年，ANSI X3.135-1989，ISO/IEC 9075:1989，SQL-89</li> 
+  <li> 1992年，ANSI X3.135-1992, ISO/IEC 9075:1992，SQL-92（SQL2）</li> 
+  <li>1999年，ISO/IEC 9075:1999, SQL:1999（SQL3）</li> 
+  <li>2003年，ISO/IEC 9075:2003, SQL:2003（SQL4） </li> 
+  <li>200N年，ISO/IEC 9075:200N, SQL:200N（SQL5） </li>
+</ul> 
+<p align="left">&nbsp;&nbsp; 细心的读者能发现，从SQL:1999开始，标准简称中的短横线（-）被换成了冒号（:），而且标准制定的年份也改用四位数字了。前一个修改的原因是ISO标准习惯上采用冒号，ANSI标准则一直采用短横线。后一个修改的原因是标准的命名也遇到了2000年问题。</p>
+<p align="left">&nbsp;&nbsp;从SQL:1999开始，SQL标准的个头就非常大了，其内容可以说是包罗万象，已经不仅仅限于SQL语言本身了。SQL:2003就包括以下9个部分：</p>
+<ol>
+  <li>ISO/IEC 9075-1: Framework (SQL/Framework).</li>
+  <li>ISO/IEC 9075-2: Foundation (SQL/Foundation).</li>
+  <li>ISO/IEC 9075-3: Call Level Interface (SQL/CLI).</li>
+  <li>ISO/IEC 9075-4: Persistent Stored Modules (SQL/PSM).</li>
+  <li>ISO/IEC 9075-9: Management of External Data (SQL/MED).</li>
+  <li>ISO/IEC 9075-10: Object Language Bindings (SQL/OLB).</li>
+  <li>ISO/IEC 9075-11: Information and Definition Schemas (SQL/Schemata).</li>
+  <li>ISO/IEC 9075-13: Java Routines and Types Using the Java Programming Language (SQL/JRT).</li>
+  <li>ISO/IEC 9075-14: XML-Related Specifications (SQL/XML).</li>
+</ol>
+<p align="left">&nbsp;&nbsp;&nbsp;负责具体制定工作的是ISO和IEC联合成立的一个技术委员会JTC1/SC32，其全名是：Joint Technical Committee ISO/IEC JTC 1, Information
+technology, Subcommittee SC 32, Data management and interchange。</p>
+<p align="left">　 文章《<a href="http://www.tdan.com/i016hy01.htm">Is SQL a Real Standard Anymore?</a>》对SQL标准化进程提出了置疑？作者是：<br> 
+  　 　 Michael M. Gorman - Whitemarsh Information Systems, Corp.<br> 
+  　 　 Secretary - ANSI NCITS H2 Technical Committee on Database</p>
+<p align="left"><strong>参考文献：</strong></p>
+<ol>
+  <li><a href="http://www.ansi.org">http://www.ansi.org</a> </li>
+  <li><a href="http://www.iso.ch">http://www.iso.ch</a></li>
+  <li><a href="http://sqlstandards.org/">http://sqlstandards.org</a></li>
+  <li><a href="http://www.wiscorp.com/SQLStandards.html">http://www.wiscorp.com</a></li>
+  <li><a href="sql99-overview.pdf">SQL99, SQL/MM, and SQLJ: An SQL99, SQL/MM, and SQLJ: An Overview of the SQL Overview of the SQL Standards</a></li>
+  <li><a href="sql99-known-as-sql3.pdf">SQL:1999, Formerly known as SQL3</a> </li>
+  <li>ISO/IEC 9075系列标准或其草案</li>
+</ol>
+<div align="center">
+  <hr> 
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br> 
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Tuesday, 2005-08-09<!-- #EndDate --> 
+  </div> 
+</div> 
+</body>
+</html>

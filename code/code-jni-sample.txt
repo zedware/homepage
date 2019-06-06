@@ -1,0 +1,105 @@
+Steps:
+
+1. Write file ReadFile.java
+
+C:\> more ReadFile.java
+/*
+ * JNI sample based on:
+ * http://java.sun.com/developer/onlineTraining/Programming/JDCBook/jni.html.  
+ */ 
+import java.util.*;
+
+class ReadFile {
+ //Native method declaration
+   native byte[] loadFile(String name);
+ //Load the library
+   static {
+     System.loadLibrary("nativelib");
+   }
+
+ public static void main(String args[]) {
+     byte buf[];
+
+  //Create class instance
+  ReadFile mappedFile = new ReadFile();
+
+  //Call native method to load ReadFile.java
+  buf=mappedFile.loadFile("ReadFile.java");
+
+  //Print contents of ReadFile.java
+  for(int i = 0; i<buf.length; i++) {
+   System.out.print((char) buf[i]);
+    }
+  }
+}
+
+2. Generate head file from ReadFile.java:
+
+C:\> javah -jni ReadFile
+
+3. Write file nativelib.c to implement C functions.
+
+C:\> more nativelib.c
+/*
+ * JNI sample based on:
+ * http://java.sun.com/developer/onlineTraining/Programming/JDCBook/jni.html.  
+ */ 
+#include <jni.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+/*
+ * Prototype copied from generated head file ReadFile.h.
+ */ 
+JNIEXPORT jbyteArray JNICALL Java_ReadFile_loadFile
+  (JNIEnv *env, jobject jobj, jstring name) 
+{
+    jbyteArray  jb = NULL;
+    jboolean  iscopy;
+    struct stat finfo;
+    char   *buf = NULL;
+    const char  *mfile = (*env)->GetStringUTFChars(env, name, &iscopy);
+    int   fd = -1;
+
+ fd = open(mfile, O_RDONLY);
+    if (fd == -1) {
+     printf("Could not open %s\n", mfile);
+  goto error_exit;
+    }
+
+    if (fstat(fd, &finfo) == -1)
+  goto error_exit;
+  
+    buf = (char *) malloc(finfo.st_size);
+    if (buf == NULL)
+  goto error_exit;
+
+ if (read(fd, buf, finfo.st_size) != finfo.st_size)
+  goto error_exit;
+
+    jb = (*env)->NewByteArray(env, finfo.st_size);
+ if (jb == NULL)
+  goto error_exit;
+
+    (*env)->SetByteArrayRegion(env, jb, 0, 
+  finfo.st_size, (jbyte *)buf);
+
+error_exit:
+
+ if (fd >= 0)
+  close(fd);
+ if (buf != NULL)
+  free(buf);
+    (*env)->ReleaseStringUTFChars(env, name, mfile);
+    return jb; 
+}
+
+4. Compile and run:
+
+C:\> cl /I"C:\Program Files\IBM\Java142\include" /I"C:\Program Files\IBM\Java142\include\win32" /LD nativelib.c /Fenativelib.dll
+C:\> javac ReadFile.java
+C:\> set path=%path%;.;
+C:\> java ReadFile
+
+http://blog.china-pub.com/more.asp?name=uniware&id=39358

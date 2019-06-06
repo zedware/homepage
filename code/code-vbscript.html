@@ -1,0 +1,37 @@
+<html>
+<!-- DW6 -->
+<head>
+<title>用VBScript自动生成大量的Excel文件</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+.style1 {font-size: larger}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF"> 
+<p align="center" class="style1">用VBScript自动生成大量的Excel文件</p> 
+<hr> 
+<p> &nbsp;&nbsp;&nbsp;&nbsp;有几百趟列车的里程表数据，需要将其画成阶梯形的里程表（公交车上一般也有类似的东西——阶梯形的价目表）。如果每个表都要手工去做，则不知道猴年马月才能完成。考虑到原始数据是Excel文件，里程表也可以用Excel表格来做，我决定写个小程序来完成这个事情。当然了，在Windows上，很多编程语言都可以完成这个功能。不过这样的事情似乎犯不着动用C#、VC++这样的重型武器，用VB这样的工具倒是可以考虑。不过我的VB用得不好，再说我那可怜的Windows 98上也没有这些开发工具。最后我选择了VBScript来完成这项任务。</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;程序的基本结构很简单：</p>
+<ul>
+  <li>读取输入的Excel文件中的每一行，抽取其中的原始数据；</li>
+  <li>为每趟列车的里程信息生成一个独立的Excel文件，存放对应的阶梯形表格。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;程序很快就能工作了，然而任务却还没有结束： </p>
+<ul>
+  <li> 程序的用户可能对计算机很不熟悉，我还得加点界面，允许选择输入文件、输出目录；处理完毕时要有明确的提示信息。 </li>
+  <li>我所假设的输入文件格式存在问题。如果每趟车的信息占用两列，则一个Sheet只能存放128趟列车的信息，这样需要件数据按行存放或放在多个 Sheet中。实际拿到的数据并非我假设的格式，它是单个文件多个Sheet，每行一条记录。奇怪的是，原始数据中存在不少错误，我还得修订程序对数据进行一些校验。 </li>
+  <li>某些表格因为站数太多，一屏可能显示不下。需要调整部分格式。 </li>
+  <li>程序的效率不高。在我的破机器上要执行个把小时。假设列车数为M，每趟车的站数为N，则程序的复杂度大致为O(M*N^2)。因为我要填写大约 M*N^2/2个Cells。考虑到程序要做的运算较多，又用了脚本语言，多花点执行时间还是正常的。实际上我们也有足够的时间和耐心来运行它，也许下一次执行是半年以后的事情了。  </li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;    当然也还有一些其他的小问题。如果这是我在日常开发中遇到的某个问题，可能解决起来要顺利的多。因为我不需要考虑界面，也能预先知道输入文件格式和输出的要求等。这是一个小的不能再小的工具，然而要让一个对电脑很不熟悉的用户用起来很顺手，也是一件比较困难的事情。 </p>
+<div align="center"> 
+  <hr> 
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2006,zedware_at_gmail_dot_com</a><br> 
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Thursday, 2006-05-18<!-- #EndDate --> 
+  </div> 
+</div> 
+</body>
+</html>

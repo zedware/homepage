@@ -1,0 +1,15 @@
+[Event "Computer Chess Game"]
+[Site "CNENZHANGW8L1C"]
+[Date "2012.03.04"]
+[Round "-"]
+[White "zhangw8"]
+[Black "Houdini 1.5a"]
+[Result "*"]
+[TimeControl "40/2400"]
+[Annotator "5... +0.02"]
+
+1. e4 c5 2. Bc4 e6 3. Nf3 d6 4. O-O Nf6 5. Nc3 a6 {+0.02/21 1:56} 6. d4
+cxd4 {+0.03/21 1:23} 7. Nxd4 Be7 8. Bg5 Qc7 {+0.11/19 1:39} 9. Bb3 O-O
+{+0.21/20 1:04} 10. f4 h6 {+0.34/20 58} 11. Bxh6
+*
+

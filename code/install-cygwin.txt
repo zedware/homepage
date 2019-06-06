@@ -1,0 +1,78 @@
+
+1、安装
+==========
+
+请用文件 Setup.exe 进行安装。
+
+安装过程中请根据需要选择要安装的包。如果不做开发，默认的
+选择就可以了。要是做开发，需要选择“Develop”等。
+
+Cygwin 安装完毕后，可以将 ipcdaemon2 安装为
+Windows 下的服务，开机就自动启动。请在 Cgywin 或 Windows
+的 Shell 环境下运行：
+	$ ipc-daemon2 --install-as-service
+以安装 ipc-daemon2。
+
+	$ ipc-daemon2 --remove-as-service
+以卸载 ipc-daemon2 。	
+
+安装完毕后想立即启动该服务，请运行：
+	$ net start "ipc-daemon2"
+或打开 Windows 的服务窗口，自行启动。服务窗口可以在菜单
+“开始”->“运行”中输入：services.msc 打开。
+
+2、配置
+==========
+ 
+以下内容可以加入你的 etc/profile 或 
+.bash_profile 中，以方便使用。
+
+	export LD_LIBRARY_PATH="/usr/local/foo/lib"
+	export PATH="/usr/local/foo/bin:$PATH"
+
+重新配置并生成 GNU 软件的步骤如下：
+
+	$ ./configure [options...] 
+	$ ./make install
+
+3、使用
+==========
+
+Cygwin 的 Shell 环境下可以直接访问 Windows 下的各个分区，
+包括光盘和软盘。要转到 C 盘，直接在 Shell 环境中输入:
+
+	$ cd c: 
+
+或
+
+	$ cd /cgdrive/c
+
+要转到 C 盘的 foo 目录，输入：
+
+	$ cd c:/foo
+
+或
+
+	$ cd "c:\foo"
+	（这个功能比较方便，可以直接使用拷贝来的路径了）
+
+或
+
+	$ cd /cgdrive/c/foo
+
+注意，此处目录之间的分隔符为斜线，而不是 Windows 认识的
+反斜线。
+
+请在开始工作之前仔细阅读 Cygwin 的 FAQ。
+ 
+4、参考资料
+=============
+
+	http://www.cygwin.com
+	http://www.gnu.org
+
+5、版权
+
+	http://zedware.org
+	http://blog.china-pub.com
+	2000-2004 版权所有，转载请注明出处。 

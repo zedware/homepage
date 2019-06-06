@@ -1,0 +1,25 @@
+[Event "Computer Chess Game"]
+[Site "CNENZHANGW8L1C"]
+[Date "2012.03.03"]
+[Round "-"]
+[White "Houdini 1.5a"]
+[Black "zhangw8"]
+[Result "1-0"]
+[TimeControl "40/300"]
+[FEN "2Bnk3/6K1/1N6/3Nn3/1p6/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+{--------------
+. . B n k . . .
+. . . . . . K .
+. N . . . . . .
+. . . N n . . .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+white to play
+--------------}
+1. Bd7+ {+99.95/15} Nxd7 2. Nc7+ {+99.97/71 0.1} Ke7 3. Nc8# {+99.99/67 47}
+{Xboard adjudication: Checkmate} 1-0
+

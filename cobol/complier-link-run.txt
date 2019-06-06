@@ -1,0 +1,116 @@
+//APPRG05C JOB ACCT,&SYSUID,CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1),          00010099
+
+//             NOTIFY=&SYSUID,PASSWORD=HOWAREYOU,USER=&SYSUID           00020099
+
+//*                                                                     00030080
+
+//*  //开始于1,2列,名字不超过8字符;                             	00040080
+
+//*  续行要求71列之前将参数,子参数以及后面的逗号写完;             	00050080
+
+//*  续行的新行要在16列之前开始;                                    	00060080
+
+//*                                                                     00070080
+
+//**************************************                                00080070
+
+//***      编译源文件              ***                                	00090099
+
+//**************************************                                00100070
+
+//COMP     EXEC  PGM=IGYCRCTL,REGION=1024K,                             00110099
+
+//             PARM='TEST(ALL,SYM),OBJECT,DBCS,LIB,NOSEQ,DECK'          00120099
+
+//STEPLIB  DD  DSN=IGY.V2R1M0.SIGYCOMP,DISP=SHR                         00130050
+
+//*        DD  DSN=IGY.V2R1M0.SIGYCLST,DISP=SHR                         00140050
+
+//*        DD  DSN=IGY.V2R1M0.SIGYMAC,DISP=SHR                          00150050
+
+//*        DD  DSN=IGY.V2R1M0.SIGYPROC,DISP=SHR                         00160050
+
+//*        DD  DSN=IGY.V2R1M0.SIGYSAMP,DISP=SHR                         00170050
+
+//SYSPRINT DD  SYSOUT=*                                                 00180003
+
+//SYSUT1   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00190003
+
+//SYSUT2   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00200003
+
+//SYSUT3   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00210003
+
+//SYSUT4   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00220003
+
+//SYSUT5   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00230003
+
+//SYSUT6   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00240003
+
+//SYSUT7   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00250003
+
+//SYSLIN   DD  DSN=&OBJECT,UNIT=SYSDA,DISP=(MOD,PASS),                  00260099
+
+//             DCB=(RECFM=FB,LRECL=80,BLKSIZE=800),                     00270099
+
+//             SPACE=(TRK,(2,3))                                        00280099
+
+//*FOR COPY SUBCLAUSE USING TESTCPY1                                    00290083
+
+//*SYSLIB   DD  DSNAME=APPRG05.IDIOT.LIB(CHKDATE),DISP=SHR              00300099
+
+//SYSPUNCH DD  DUMMY                                                    00310003
+
+//SYSIN    DD  DSN=APPRG05.IDIOT.COBOL(TESTPRG),DISP=SHR                00320099
+
+//********************************                                      00330003
+
+//***      连接目标文件      ***                                        00340099
+
+//********************************                                      00350003
+
+//LKED     EXEC  PGM=IEWL,REGION=0512K,COND=(0,LT,COMP),                00360082
+
+//             PARM='LET,AMODE=31'                                      00370099
+
+//SYSLIB   DD  DSN=CEE.SCEERUN,DISP=SHR                                 00380003
+
+//         DD  DSN=CEE.SCEELKED,DISP=SHR                                00390003
+
+//SYSLIN   DD  DSN=&OBJECT,DISP=(OLD,DELETE)                            00400099
+
+//SYSLMOD  DD  DSN=APPRG05.JCL.LOAD(TESTPRG),DISP=SHR                   00410099
+
+//SYSUT1   DD  DSN=SYSDLLDA,SPACE=(1024,(50,20))                        00420003
+
+//SYSPRINT DD  SYSOUT=*                                                 00430003
+
+//SYSIN    DD  DUMMY                                                    00440003
+
+//***************************************/                              00450086
+
+//***  运行程序                     ***/                                00460099
+
+//***************************************/                              00470086
+
+//RUN      EXEC PGM=TESTPRG,REGION=4096K,                               00480099
+
+//             COND=((0,LT,COMP),(0,LT,LKED)),                          00490099
+
+//             PARM='HELLO'                                             00500099
+
+//STEPLIB  DD  DSNAME=APPRG05.JCL.LOAD,DISP=SHR                         00510099
+
+//SYSOUT   DD  SYSOUT=*                                                 00520099
+
+//SYSPRINT DD  SYSOUT=*                                                 00530099
+
+//SFSW2STB DD  DSNAME=BCARD.TEST.SFSW2STB,DISP=SHR                      00540099
+
+//SFTRTJB  DD  DSNAME=BCARD.TEST.SFTRTJB,DISP=SHR                       00550099
+
+//TEMPFILE DD  DSN=APPRG05.JCL.D1000(TEMP),DISP=SHR                     00560099
+
+//SYSIN    DD *                                                         00570091
+
+/*                                                                      00580088
+

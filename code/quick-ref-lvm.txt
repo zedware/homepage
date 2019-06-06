@@ -1,0 +1,10 @@
+
+1. create a new hard disk using VMware's menu "VM".
+2. # pvcreate /dev/sdc1
+3. # vgextend VolGroup /dev/sdc1
+4. # lvextend VolGroup/lv_root /dev/sdc1
+5. # lvs
+6. # resize2fs -p /dev/VolGroup/lv_root
+7. # df
+
+http://sxzx.360doc.com/content/090413/11/36491_3114684.html

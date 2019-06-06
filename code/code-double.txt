@@ -1,0 +1,120 @@
+
+$ cat double.c
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <errno.h>
+#include <assert.h>
+
+#define dimof(x)    (sizeof(x) / sizeof(x[0]))
+
+void print_out(double d);
+
+int main(void)
+{
+	int		i;
+	double	d[] = 
+        {	1.2345e+20,
+			1.234567890e+09
+		};
+
+	for (i = 0; i < dimof(d); i++)
+	{
+		print_out(d[i]);
+	}
+
+    printf("\n");
+    
+	return 0;
+}
+
+void print_out(double d)
+{
+	printf("\n%g", d);
+	printf("\n%f", d);
+	printf("\n%e", d);
+	printf("\n%E", d);
+}
+
+MinGW:
+
+$ uname -a
+MINGW32_NT-5.2 ZEDWARE 1.0.10(0.46/3/2) 2004-03-15 07:17 i686 unknown
+
+$ gcc --version
+gcc.exe (GCC) 3.4.2 (mingw-special)
+Copyright (C) 2004 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+$ gcc -Wall double.c
+
+$ ./a.exe
+
+1.2345e+020
+123450000000000000000.000000
+1.234500e+020
+1.234500E+020
+1.23457e+009
+1234567890.000000
+1.234568e+009
+1.234568E+009
+
+Win32:
+
+C:\> ver
+Microsoft Windows [版本 5.2.3790]
+
+C:\> cl /D WIN32 double.c
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 12.00.8804 for 80x86
+Copyright (C) Microsoft Corp 1984-1998. All rights reserved.
+
+double.c
+Microsoft (R) Incremental Linker Version 6.00.8447
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+/out:double.exe
+double.obj
+
+C:\> double.exe
+
+1.2345e+020
+123450000000000000000.000000
+1.234500e+020
+1.234500E+020
+1.23457e+009
+1234567890.000000
+1.234568e+009
+1.234568E+009
+
+Linux:
+
+$ uname -a
+Linux dev 2.4.21-9.30AXsmp #1 SMP Wed May 26 23:37:09 EDT 2004 i686 i686 i386 GNU/Linux
+
+$ gcc --version
+gcc (GCC) 3.2.3 20030502 (Asianux 1.0 3.2.3-36)
+Copyright (C) 2002 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+$ gcc -Wall double.c
+
+$ ./a.out
+
+1.2345e+20
+123450000000000000000.000000
+1.234500e+20
+1.234500E+20
+1.23457e+09
+1234567890.000000
+1.234568e+09
+1.234568E+09
+
+    可以看出MinGW/gcc下的运行结果和Windows/MSVC++下的结果是一致的，而Linux/gcc下
+的结果略有不同。前二者对指数部分的处理都是打印为三位，不足三位的前面补0。后者
+则是打印为两位，不足两位的前面补0。当然了，从这个例子中也可以看到%g, %f, %e, %E
+的一些差别。
+
+

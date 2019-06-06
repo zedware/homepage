@@ -1,0 +1,13 @@
+
+1. Install MSYS first (C:\msys\1.0).
+
+2. Read MSYS's readme.    
+
+3. Install MinGW. And edit MSYS's /etc/fstab:
+C:/MinGW /mingw
+
+4. Install Flex and Bison (C:\MinGW\bin)
+
+5. Edit MSYS's /etc/profile. Remove Windows's PATH
+   to avoid troubles made by Cygwin.
+   

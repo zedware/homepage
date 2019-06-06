@@ -1,0 +1,1184 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=gb2312">
+<title>Chapter 2 - Types, Operators and Expressions</title>
+<style type="text/css">
+<!--
+.STYLE1 {
+	color: #FF0000;
+	font-weight: bold;
+	font-style: italic;
+}
+.STYLE2 {color: #FF0000}
+.STYLE3 {font-weight: bold}
+.STYLE4 {font-weight: bold}
+.STYLE10 {font-weight: bold}
+.STYLE11 {font-weight: bold}
+.STYLE12 {font-weight: bold}
+.STYLE14 {font-weight: bold}
+.STYLE15 {font-weight: bold}
+.STYLE16 {font-weight: bold}
+.STYLE18 {font-weight: bold}
+.STYLE19 {font-weight: bold}
+.STYLE20 {font-weight: bold}
+.STYLE22 {font-weight: bold}
+.STYLE23 {font-weight: bold}
+.STYLE24 {font-weight: bold}
+.STYLE26 {font-weight: bold}
+.STYLE27 {font-weight: bold}
+.STYLE28 {font-weight: bold}
+-->
+</style>
+</head>
+<body>
+<hr>
+<p align="center">
+<a href="chapter1.html">Back to Chapter 1</a>&nbsp;--&nbsp;
+<a href="index.html">Index</a>&nbsp;--&nbsp;
+<a href="chapter3.html">Chapter 3</a>
+<p>
+<hr>
+
+<h1>Chapter 2 - Types, Operators and Expressions</h1>
+<strong>Variables and constants are the basic data objects manipulated in a program.
+Declarations list the variables to be used, and state what type they have and
+perhaps what their initial values are. Operators specify what is to be done
+to them. Expressions combine variables and constants to produce new values. The
+type of an object determines the set of values it can have and what operations
+can be performed on it. These building blocks are the topics of this chapter.</strong>
+<p>
+The ANSI standard has made many small changes and additions to basic types and
+expressions. There are now <tt>signed</tt> and <tt>unsigned</tt> forms of all
+integer types, and notations for unsigned constants and hexadecimal character
+constants. Floating-point operations may be done in single precision; there is
+also a <tt>long</tt> double type for extended precision. String constants may 
+be concatenated at compile time. Enumerations have become part of the language,
+formalizing a feature of long standing. Objects may be declared <tt>const</tt>,
+which prevents them from being changed. The rules for automatic coercions
+among arithmetic types have been augmented to handle the richer set of types.
+<p><strong>数据类型的基本属性：类型名字，值域，精度和标度，输入格式，输出格式，运算。</strong>
+<p><strong>型和值的区别：数据类型和值的关系，类和对象的关系，表定义和数据的关系。</strong>
+<p><strong>不同编译器中数据类型的区别一般不太大，不同DBMS中数据类型的区别会更大一些。</strong>
+<p><strong>C等高级语言的数据类型与SQL数据类型的异同点：都具备基本属性，但是这些属性的具体含义存在细微的乃至重大的区别。</strong>
+<table width="547" border="1">
+  <tr>
+    <td width="123" class="STYLE10"><div align="center"> &nbsp;&nbsp;</div></td>
+    <td width="242" class="STYLE11"><div align="center">C</div></td>
+    <td width="160" class="STYLE12"><div align="center">SQL</div></td>
+  </tr>
+  <tr>
+    <td class="STYLE14"><div align="center">字符[串]型</div></td>
+    <td class="STYLE15"><div align="center">[signed|unsigned] char </div></td>
+    <td class="STYLE16"><div align="center">
+      <p>CHAR(n)<br>
+        VARCHAR(n)<br>
+        CLOB(n)</p>
+      </div></td>
+  </tr>
+  <tr>
+    <td class="STYLE18"><div align="center">整型</div></td>
+    <td class="STYLE19"><div align="center">
+      <p>[signed | unsigned] short<br>
+        [signed | unsigned] int<br>
+        [signed | unsigned] long</p>
+      </div></td>
+    <td class="STYLE20"><div align="center">
+      <p>TINYINT<br>
+        SMALLINT<br>
+        BIGINT</p>
+      </div></td>
+  </tr>
+  <tr>
+    <td class="STYLE22"><div align="center">浮点型</div></td>
+    <td class="STYLE23"><div align="center">
+      <p>float<br>
+        double<br>
+        long double </p>
+      </div></td>
+    <td class="STYLE24"><div align="center">
+      <p>REAL<br>
+        FLOAT(n)<br>
+        DOUBLE PRECISION </p>
+      </div></td>
+  </tr>
+  <tr>
+    <td height="17" class="STYLE26"><div align="center">And many more </div></td>
+    <td class="STYLE27"><div align="center">&nbsp;</div></td>
+    <td class="STYLE28"><div align="center">&nbsp;</div></td>
+  </tr>
+</table>
+<p><a name="s2.1">2.1 Variable Names</a>
+Although we didn't say so in <a href="chapter1.html">Chapter 1</a>, there are some
+restrictions on the names of variables and symbolic constants. Names are made
+up of letters and digits; the first character must be a letter. The underscore
+``<tt>_</tt>'' counts as a letter; it is sometimes useful for improving the
+readability of long variable names. <strong>Don't begin variable names with underscore,
+however, since library routines often use such names. </strong>Upper and lower case
+letters are distinct, so <tt>x</tt> and <tt>X</tt> are two different names.
+<strong>Traditional C practice is to use lower case for variable names, and all upper
+case for symbolic constants.</strong>
+<p>
+At least the first 31 characters of an internal name are significant. For
+function names and external variables, the number may be less than 31, because
+external names may be used by assemblers and loaders over which the language
+has no control. For external names, the standard guarantees uniqueness only for
+6 characters and a single case. Keywords like <tt>if</tt>, <tt>else</tt>,
+<tt>int</tt>, <tt>float</tt>, etc., are reserved: you can't use them as
+variable names. They must be in lower case.
+<p>
+It's wise to choose variable names that are related to the purpose of the
+variable, and that are unlikely to get mixed up typographically. We tend to
+use short names for local variables, especially loop indices, and longer names
+for external variables.
+<p><strong>考虑到字母L的小写形式（l）与数字一（1）很容易分不清，代码中应该避免采用单个的小写L做变量名。类似的，字母O和数字0也比较难以区分。在我们的实际工作中，就多次遇到了小写字母L和数字1混淆的语法错误。</strong>
+<h2><a name="s2.2">2.2 Data Types and Sizes</a></h2>
+<p>There are only a few basic data types in C:
+  <br>
+</p>
+<table align="center" border=0>
+<td><strong><tt>char</tt></strong></td>
+<td><strong>a single byte, capable of holding one character in the local character set</strong></td>
+<tr>
+<td><strong><tt>int</tt></strong></td>
+<td><strong>an integer, typically reflecting the natural size of integers on the host machine</strong></td>
+<tr>
+<td><strong><tt>float</tt></strong></td>
+<td><strong>single-precision floating point</strong></td>
+<tr>
+<td><strong><tt>double</tt></strong></td>
+<td><strong>double-precision floating point</strong></td>
+</table>
+<p>
+In addition, there are a number of qualifiers that can be applied to these
+basic types. <strong><tt>short</tt> and <tt>long</tt> apply to integers:</strong>
+<pre>
+   short int sh;
+   long int counter;
+</pre>
+The word <tt>int</tt> can be omitted in such declarations, and typically it is.
+<p>
+The intent is that <tt>short</tt> and <tt>long</tt> should provide different
+lengths of integers where practical; <tt>int</tt> will normally be the natural
+size for a particular machine. <tt>short</tt> is often 16 bits long, and
+<tt>int</tt> either 16 or 32 bits. Each compiler is free to choose appropriate sizes
+for its own hardware, subject only to the the restriction that <tt>short</tt>s
+and </tt>int</tt>s are at least 16 bits, <tt>long</tt>s are at least 32 bits, and
+<tt>short</tt> is no longer than <tt>int</tt>, which is no longer than <tt>long</tt>.
+<p>
+  <strong>The qualifier <tt>signed</tt> or <tt>unsigned</tt> may be applied to <tt>char</tt> or
+any integer. <tt>unsigned</tt> numbers are always positive or zero, and obey the
+laws of arithmetic modulo <em>2<sup>n</sup></em>, where <em>n</em> is the number of bits in the type.
+So, for instance, if <tt>char</tt>s are 8 bits, <tt>unsigned char</tt> variables
+have values between 0 and 255, while <tt>signed char</tt>s have values between
+-128 and 127 (in a two's complement machine.) Whether plain <tt>char</tt>s are
+signed or unsigned is machine-dependent, but printable characters are always
+positive.</strong>
+<p>
+The type <tt>long double</tt> specifies extended-precision floating point. As
+with integers, the sizes of floating-point objects are implementation-defined;
+<tt>float</tt>, <tt>double</tt> and <tt>long double</tt> could represent one,
+two or three distinct sizes.
+<p>
+<strong>The standard headers <tt>&lt;limits.h&gt;</tt> and <tt>&lt;float.h&gt;</tt> contain symbolic
+constants for all of these sizes, along with other properties of the machine
+and compiler. These are discussed in </strong><a href="appb.html">Appendix B</a>.
+<p>
+<strong>Exercise 2-1.</strong> Write a program to determine the ranges of <tt>char</tt>,
+<tt>short</tt>, <tt>int</tt>, and <tt>long</tt> variables, both <tt>signed</tt> and
+<tt>unsigned</tt>, by printing appropriate values from standard headers and by direct
+computation. Harder if you compute them: determine the ranges of the various
+floating-point types.
+<h2><a name="s2.3">2.3 Constants</a></h2>
+<strong>An integer constant like <tt>1234</tt> is an <tt>int</tt>. A <tt>long</tt> constant is
+written with a terminal <tt>l</tt> (ell) or <tt>L</tt>, as in <tt>123456789L</tt>; an
+integer constant too big to fit into an <tt>int</tt> will also be taken as a
+long. Unsigned constants are written with a terminal <tt>u</tt> or <tt>U</tt>, and
+the suffix <tt>ul</tt> or <tt>UL</tt> indicates <tt>unsigned long</tt></strong>.
+<p><strong>
+Floating-point constants contain a decimal point (<tt>123.4</tt>) or an exponent
+(<tt>1e-2</tt>) or both; their type is <tt>double</tt>, unless suffixed. The
+suffixes <tt>f</tt> or <tt>F</tt> indicate a <tt>float</tt> constant; <tt>l</tt>
+or <tt>L</tt> indicate a <tt>long double</tt>.
+</strong>
+<p>
+<strong>The value of an integer can be specified in octal or hexadecimal instead of
+decimal.</strong> A leading <tt>0</tt> (zero) on an integer constant means octal; a
+leading <tt>0x</tt> or <tt>0X</tt> means hexadecimal. For example, decimal 31 
+can be written as <tt>037</tt> in octal and <tt>0x1f</tt> or <tt>0x1F</tt> in
+hex. Octal and hexadecimal constants may also be followed by <tt>L</tt> to make
+them <tt>long</tt> and <tt>U</tt> to make them <tt>unsigned</tt>: <tt>0XFUL</tt>
+is an <em>unsigned long</em> constant with value 15 decimal.
+<p>
+A <tt>character constant</tt> is an integer, written as one character within
+single quotes, such as <tt>'x'</tt>. The value of a character constant is the
+numeric value of the character in the machine's character set. For example,
+in the ASCII character set the character constant <tt>'0'</tt> has the value 48,
+which is unrelated to the numeric value 0. If we write <tt>'0'</tt> instead of
+a numeric value like 48 that depends on the character set, the program is
+independent of the particular value and easier to read. Character constants
+participate in numeric operations just as any other integers, although they
+are most often used in comparisons with other characters.
+<p>
+Certain characters can be represented in character and string constants by
+escape sequences like <tt>\n</tt> (newline); these sequences look like two
+characters, but represent only one. In addition, an arbitrary byte-sized bit
+pattern can be specified by
+<pre>
+   '\<em>ooo</em>'
+</pre>
+where <em>ooo</em> is one to three octal digits (0...7) or by
+<pre>
+   '\x<em>hh</em>'
+</pre>
+where <em>hh</em> is one or more hexadecimal digits (<tt>0...9, a...f, A...F</tt>).
+So we might write
+<pre>
+   #define VTAB '\013'   /* ASCII vertical tab */
+   #define BELL '\007'   /* ASCII bell character */
+</pre>
+or, in hexadecimal,
+<pre>
+   #define VTAB '\xb'   /* ASCII vertical tab */
+   #define BELL '\x7'   /* ASCII bell character */
+</pre>
+The complete set of escape sequences is<br>
+<br>
+<table align="center" border=1>
+<td><strong>&nbsp;<tt>\a</tt>&nbsp;</strong></td><td><strong>&nbsp;alert (bell) character&nbsp;</strong></td><td><strong>&nbsp;<tt>\\</tt></strong></td><td><strong>&nbsp;&nbsp;backslash</strong></td>
+<tr>
+<td><strong>&nbsp;<tt>\b</tt>&nbsp;</strong></td><td><strong>&nbsp;backspace</strong></td><td><strong>&nbsp;<tt>\?</tt></strong></td><td><strong>&nbsp;question mark</strong></td>
+<tr>
+<td><strong>&nbsp;<tt>\f</tt>&nbsp;</strong></td><td><strong>&nbsp;formfeed</strong></td><td><strong>&nbsp;&nbsp;<tt>\'</tt></strong></td><td><strong>&nbsp;single quote</strong></td>
+<tr>
+<td><strong>&nbsp;<tt>\n</tt>&nbsp;</strong></td><td><strong>&nbsp;newline</strong></td><td><strong>&nbsp;<tt>\"</tt>&nbsp;</strong></td><td><strong>&nbsp;double quote</strong></td>
+<tr>
+<td><strong>&nbsp;<tt>\r</tt>&nbsp;</strong></td><td><strong>&nbsp;carriage return</strong></td><td><strong>&nbsp;<tt>\</tt><em>ooo</em>&nbsp;</strong></td><td><strong>&nbsp;octal number</strong></td>
+<tr>
+<td><strong>&nbsp;<tt>\t</tt>&nbsp;</strong></td><td><strong>&nbsp;horizontal tab</strong></td><td><strong>&nbsp;<tt>\x</tt><em>hh</em>&nbsp;</strong></td><td><strong>&nbsp;hexadecimal number&nbsp;</strong></td>
+<tr>
+<td><strong>&nbsp;<tt>\v</tt>&nbsp;</strong></td><td><strong>&nbsp;vertical tab</strong></td>
+</table>
+<p><strong>
+The character constant <tt>'\0'</tt> represents the character with value zero,
+the null character. <tt>'\0'</tt> is often written instead of <tt>0</tt> to
+emphasize the character nature of some expression, but the numeric value is
+just 0.
+</strong>
+<p>
+A <em>constant expression</em> is an expression that involves only constants.
+Such expressions may be evaluated at during compilation rather than run-time,
+and accordingly may be used in any place that a constant can  occur, as in
+<pre>
+   #define MAXLINE 1000
+   char line[MAXLINE+1];
+</pre>
+or
+<pre>
+   #define LEAP 1 /* in leap years */
+   int days[31+28+LEAP+31+30+31+30+31+31+30+31+30+31];
+</pre>
+A <em>string constant</em>, or <em>string literal</em>, is a sequence of zero
+or more characters surrounded by double quotes, as in
+<pre>
+   "I am a string"
+</pre>
+or
+<pre>
+   "" /* the empty string */
+</pre>
+The quotes are not part of the string, but serve only to delimit it. The same
+escape sequences used in character constants apply in strings; <tt>\"</tt>
+represents the double-quote character. String constants can be concatenated
+at compile time:
+<pre>
+   "hello, " "world"
+</pre>
+is equivalent to
+<pre>
+   "hello, world"
+</pre>
+This is useful for splitting up long strings across several source lines.
+<p>
+<strong>Technically, a string constant is an array of characters. The internal
+representation of a string has a null character <tt>'\0'</tt> at the end, so
+the physical storage required is one more than the number of characters
+written between the quotes. </strong>This representation means that there is no limit
+to how long a string can be, but programs must scan a string completely to
+determine its length. The standard library function <tt>strlen(s)</tt> returns
+the length of its character string argument <tt>s</tt>, excluding the terminal
+<tt>'\0'</tt>. Here is our version:
+<pre>
+   /* strlen:  return length of s */
+   int strlen(char s[])
+   {
+       int i;
+
+       while (s[i] != '\0')
+           ++i;
+       return i;
+   }
+</pre>
+<strong><tt>strlen</tt> and other string functions are declared in the standard header
+<tt>&lt;string.h&gt;</tt>.</strong>
+<p><strong>
+Be careful to distinguish between a character constant and a string that
+contains a single character: <tt>'x'</tt> is not the same as <tt>"x"</tt>. The
+former is an integer, used to produce the numeric value of the letter <em>x</em> in
+the machine's character set. The latter is an array of characters that
+contains one character (the letter <em>x</em>) and a <tt>'\0'</tt>.
+</strong>
+<p>
+There is one other kind of constant, the <span class="STYLE1">enumeration constant</span>. An
+enumeration is a list of constant integer values, as in
+<pre>
+   enum boolean { NO, YES };
+</pre>
+The first name in an <tt>enum</tt> has value 0, the next 1, and so on, unless
+explicit values are specified. If not all values are specified, unspecified
+values continue the progression from the last specified value, as the second
+of these examples:
+<pre>
+   enum escapes { BELL = '\a', BACKSPACE = '\b', TAB = '\t',
+                  NEWLINE = '\n', VTAB = '\v', RETURN = '\r' };
+
+   enum months { JAN = 1, FEB, MAR, APR, MAY, JUN,
+                 JUL, AUG, SEP, OCT, NOV, DEC };
+                       /* FEB = 2, MAR = 3, etc. */
+</pre>
+Names in different enumerations must be distinct. Values need not be distinct
+in the same enumeration.
+<p>
+Enumerations provide a convenient way to associate constant values with
+names, an alternative to <tt>#define</tt> with the advantage that the values
+can be generated for you. Although variables of <tt>enum</tt> types may be
+declared, compilers need not check that what you store in such a variable is
+a valid value for the enumeration. Nevertheless, enumeration variables offer
+the chance of checking and so are often better than <tt>#define</tt>s. In
+addition, a debugger may be able to print values of enumeration variables in
+their symbolic form.
+<h2><a name="s2.4">2.4 Declarations</a></h2>
+All variables must be declared before use, although certain declarations
+can be made implicitly by content. A declaration specifies a type, and
+contains a list of one or more variables of that type, as in
+<pre>
+   int  lower, upper, step;
+   char c, line[1000];
+</pre>
+Variables can be distributed among declarations in any fashion; the lists
+above could well be written as
+<pre>
+   int  lower;
+   int  upper;
+   int  step;
+   char c;
+   char line[1000];
+</pre>
+The latter form takes more space, but is convenient for adding a comment to
+each declaration for subsequent modifications.
+<p>
+A variable may also be initialized in its declaration. If the name is
+followed by an equals sign and an expression, the expression serves as an
+initializer, as in
+<pre>
+   char  esc = '\\';
+   int   i = 0;
+   int   limit = MAXLINE+1;
+   float eps = 1.0e-5;
+</pre>
+If the variable in question is not automatic, the initialization is done
+once only, conceptionally before the program starts executing, and the
+initializer must be a constant expression. An explicitly initialized
+automatic variable is initialized each time the function or block it is in is
+entered; the initializer may be any expression. External and static variables
+are initialized to zero by default. Automatic variables for which is no
+explicit initializer have undefined (i.e., garbage) values.
+<p>
+<strong>The qualifier <tt>const</tt> can be applied to the declaration of any variable
+to specify that its value will not be changed. </strong>For an array, the <tt>const</tt>
+qualifier says that the elements will not be altered.
+<pre>
+   const double e = 2.71828182845905;
+   const char msg[] = "warning: ";
+</pre>
+The <tt>const</tt> declaration can also be used with array arguments, to
+indicate that the function does not change that array:
+<pre>
+   int strlen(const char[]);
+</pre>
+The result is <span class="STYLE2">implementation-defined</span> if an attempt is made to change a
+<tt>const</tt>.
+
+<h2><a name="s2.5">2.5 Arithmetic Operators</a></h2>
+The binary arithmetic operators are <tt>+</tt>, <tt>-</tt>, <tt>*</tt>,
+<tt>/</tt>, and the modulus operator <tt>%</tt>. Integer division truncates
+any fractional part. The expression
+<pre>
+   x % y
+</pre>
+produces the remainder when <tt>x</tt> is divided by <tt>y</tt>, and thus is
+zero when <tt>y</tt> divides <tt>x</tt> exactly. For example, a year is a leap
+year if it is divisible by 4 but not by 100, except that years divisible by 400
+<em>are</em> leap years. Therefore
+<pre>
+   if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+       printf("%d is a leap year\n", year);
+   else
+       printf("%d is not a leap year\n", year);
+</pre>
+The <tt>%</tt> operator cannot be applied to a <tt>float</tt> or <tt>double</tt>.
+The direction of truncation for <tt>/</tt> and the sign of the result for <tt>%</tt>
+are machine-dependent for negative operands, as is the action taken on
+overflow or underflow.
+<p>
+The binary <tt>+</tt> and <tt>-</tt> operators have the same precedence, which
+is lower than the precedence of <tt>*</tt>, <tt>/</tt> and <tt>%</tt>, which is
+in turn lower than unary <tt>+</tt> and <tt>-</tt>. Arithmetic operators
+associate left to right.
+<p>
+Table 2.1 at the end of this chapter summarizes precedence
+and associativity for all operators.
+<h2><a name="s2.6">2.6 Relational and Logical Operators</a></h2>
+The relational operators are
+<pre>
+   &gt;   &gt;=   &lt;   &lt;=
+</pre>
+They all have the same precedence. Just below them in precedence are the
+equality operators:
+<pre>
+   ==   !=
+</pre>
+Relational operators have lower precedence than arithmetic operators, so an
+expression like <tt>i &lt; lim-1</tt> is taken as <tt>i &lt; (lim-1)</tt>, as
+would be expected.
+<p>
+More interesting are the logical operators <tt>&&</tt> and <tt>||</tt>.
+Expressions connected by <tt>&amp;&amp;</tt> or <tt>||</tt> are evaluated
+left to right, and evaluation stops as soon as the truth or falsehood of the
+result is known. Most C programs rely on these properties. For example, here
+is a loop from the input function <tt>getline</tt> that we wrote in
+<a href="chapter1.html">Chapter 1</a>:
+<pre>
+   for (i=0; i &lt; lim-1 && (c=getchar()) != '\n' && c != EOF; ++i)
+       s[i] = c;
+</pre>
+Before reading a new character it is necessary to check that there is room to
+store it in the array <tt>s</tt>, so the test <tt>i &lt; lim-1</tt>
+<em>must</em> be made first. Moreover, if this test fails, we must not go on
+and read another character.
+<p>
+Similarly, it would be unfortunate if <tt>c</tt> were tested against
+<tt>EOF</tt> before <tt>getchar</tt> is called; therefore the call and
+assignment must occur before the character in <tt>c</tt> is tested.
+<p>
+The precedence of <tt>&amp;&amp;</tt> is higher than that of <tt>||</tt>, and
+both are lower than relational and equality operators, so expressions like
+<pre>
+   i &lt; lim-1 && (c=getchar()) != '\n' && c != EOF
+</pre>
+need no extra parentheses. But since the precedence of <tt>!=</tt> is higher
+than assignment, parentheses are needed in
+<pre>
+   (c=getchar()) != '\n'
+</pre>
+to achieve the desired result of assignment to <tt>c</tt> and then comparison
+with <tt>'\n'</tt>.
+<p>
+By definition, the numeric value of a relational or logical expression is 1
+if the relation is true, and 0 if the relation is false.
+<p>
+The unary negation operator <tt>!</tt> converts a non-zero operand into 0, and
+a zero operand in 1. A common use of <tt>!</tt> is in constructions like
+<pre>
+   if (!valid)
+</pre>
+rather than
+<pre>
+   if (valid == 0)
+</pre>
+It's hard to generalize about which form is better. Constructions like
+<tt>!valid</tt> read nicely (``if not valid''), but more complicated ones can
+be hard to understand.
+<p>
+<strong>Exercise 2-2.</strong> Write a loop equivalent to the <tt>for</tt>
+loop above without using <tt>&amp;&amp;</tt> or <tt>||</tt>.
+<h2><a name="s2.7">2.7 Type Conversions</a></h2>
+When an operator has operands of different types, they are converted to a
+common type according to a small number of rules. In general, the only
+automatic conversions are those that convert a ``narrower'' operand into a
+``wider'' one without losing information, such as converting an integer into
+floating point in an expression like <tt>f + i</tt>. Expressions that don't make
+sense, like using a <tt>float</tt> as a subscript, are disallowed. Expressions
+that might lose information, like assigning a longer integer type to a
+shorter, or a floating-point type to an integer, may draw a warning, but they
+are not illegal.
+<p class="STYLE3">
+A <tt>char</tt> is just a small integer, so <tt>char</tt>s may be freely used
+in arithmetic expressions. This permits considerable flexibility in certain
+kinds of character transformations. One is exemplified by this naive
+implementation of the function <tt>atoi</tt>, which converts a string of digits
+into its numeric equivalent.
+<pre><strong>   /* atoi:  convert s to integer */
+   int atoi(char s[])
+   {
+       int i, n;
+
+       n = 0;
+       for (i = 0; s[i] &gt;= '0' && s[i] &lt;= '9'; ++i)
+           n = 10 * n + (s[i] - '0');
+       return n;
+   }
+</strong></pre>
+As we discussed in <a href="chapter1.html">Chapter 1</a>, the expression
+<pre>
+    s[i] - '0'
+</pre>
+gives the numeric value of the character stored in <tt>s[i]</tt>, because the
+values of <tt>'0'</tt>, <tt>'1'</tt>, etc., form a contiguous increasing
+sequence.
+<p>
+Another example of <tt>char</tt> to <tt>int</tt> conversion is the function
+<tt>lower</tt>, which maps a single character to lower case <em>for the ASCII
+character set</em>. If the character is not an upper case letter,
+<tt>lower</tt> returns it unchanged.
+<pre><strong>   /* lower:  convert c to lower case; ASCII only */
+   int lower(int c)
+   {
+       if (c &gt;= 'A' && c &lt;= 'Z')
+           return c + 'a' - 'A';
+       else
+           return c;
+   }
+</strong></pre>
+This works for ASCII because corresponding upper case and lower case letters
+are a fixed distance apart as numeric values and each alphabet is contiguous
+-- there is nothing but letters between <tt>A</tt> and <tt>Z</tt>. This latter
+observation is not true of the EBCDIC character set, however, so this code
+would convert more than just letters in EBCDIC.
+<p>
+The standard header <tt>&lt;ctype.h&gt;</tt>, described in <a
+href="appb.html">Appendix B</a>, defines a family of functions that provide
+tests and conversions that are independent of character set. For example, the
+function <tt>tolower</tt> is a portable replacement for the function
+<tt>lower</tt> shown above. Similarly, the test
+<pre>
+   c &gt;= '0' && c &lt;= '9'
+</pre>
+can be replaced by
+<pre>
+   isdigit(c)
+</pre>
+<strong>We will use the <tt>&lt;ctype.h&gt;</tt> functions from now on.</strong>
+<p>
+There is one subtle point about the conversion of characters to integers. The
+language does not specify whether variables of type <tt>char</tt> are signed
+or unsigned quantities. When a <tt>char</tt> is converted to an <tt>int</tt>,
+can it ever produce a negative integer? The answer varies from machine to
+machine, reflecting differences in architecture. On some machines a
+<tt>char</tt> whose leftmost bit is 1 will be converted to a negative integer
+(``sign extension''). On others, a <tt>char</tt> is promoted to an int by
+adding zeros at the left end, and thus is always positive.
+<p>
+The definition of C guarantees that any character in the machine's standard
+printing character set will never be negative, so these characters will
+always be positive quantities in expressions. But arbitrary bit patterns
+stored in character variables may appear to be negative on some machines, yet
+positive on others. For portability, specify <tt>signed</tt> or <tt>unsigned</tt>
+if non-character data is to be stored in <tt>char</tt> variables.
+<p>
+Relational expressions like <tt>i &gt; j</tt> and logical expressions
+connected by <tt>&amp;&amp;</tt> and <tt>||</tt> are defined to have value 1
+if true, and 0 if false. Thus the assignment
+<pre>
+   d = c &gt;= '0' && c &lt;= '9'
+</pre>
+sets <tt>d</tt> to 1 if <tt>c</tt> is a digit, and 0 if not. However, functions like
+<tt>isdigit</tt> may return any non-zero value for true. In the test part of
+<tt>if</tt>, <tt>while</tt>, <tt>for</tt>, etc., ``true'' just means ``non-zero'',
+so this makes no difference.
+<p>
+Implicit arithmetic conversions work much as expected. In general, if an
+operator like <tt>+</tt> or <tt>*</tt> that takes two operands (a binary operator)
+has operands of different types, the ``lower'' type is <em>promoted</em> to the
+``higher'' type before the operation proceeds. The result is of the integer
+type. <a href="appa.html#sa.6">Section 6 of <a href="appa.html">Appendix A</a>
+states the conversion rules precisely. If there are no <tt>unsigned</tt>
+operands, however, the following informal set of rules will suffice:
+<ul>
+<li><strong>If either operand is <tt>long double</tt>, convert the other to <tt>long double</tt>.
+</strong>
+<li><strong>Otherwise, if either operand is <tt>double</tt>, convert the other to <tt>double</tt>.
+</strong>
+<li><strong>Otherwise, if either operand is <tt>float</tt>, convert the other to <tt>float</tt>.
+</strong>
+<li><strong>Otherwise, convert <tt>char</tt> and <tt>short</tt> to <tt>int</tt>.
+</strong>
+<li><strong>Then, if either operand is <tt>long</tt>, convert the other to <tt>long</tt>.
+</strong>
+</ul>
+Notice that <tt>float</tt>s in an expression are not automatically converted to
+<tt>double</tt>; this is a change from the original definition. In general,
+mathematical functions like those in <tt>&lt;math.h&gt;</tt> will use double precision.
+The main reason for using <tt>float</tt> is to save storage in large arrays, or,
+less often, to save time on machines where double-precision arithmetic is
+particularly expensive.
+<p>
+Conversion rules are more complicated when <tt>unsigned</tt> operands are
+involved. The problem is that comparisons between signed and unsigned values
+are machine-dependent, because they depend on the sizes of the various integer
+types. For example, suppose that <tt>int</tt> is 16 bits and <tt>long</tt> is 32
+bits. Then <tt>-1L &lt; 1U</tt>, because <tt>1U</tt>, which is an <tt>unsigned int</tt>, is
+promoted to a <tt>signed long</tt>. But <tt>-1L &gt; 1UL</tt> because <tt>-1L</tt>
+is promoted to <tt>unsigned long</tt> and thus appears to be a large positive
+number.
+<p>
+Conversions take place across assignments; the value of the right side is
+converted to the type of the left, which is the type of the result.
+<p>
+A character is converted to an integer, either by sign extension or not, as
+described above.
+<p>
+Longer integers are converted to shorter ones or to <tt>char</tt>s by dropping
+the excess high-order bits. Thus in
+<pre>
+   int  i;
+   char c;
+
+   i = c;
+   c = i;
+</pre>
+the value of <tt>c</tt> is unchanged. This is true whether or not sign extension
+is involved. Reversing the order of assignments might lose information,
+however.
+<p>
+If <tt>x</tt> is <tt>float</tt> and <tt>i</tt> is <tt>int</tt>, then <tt>x = i</tt>
+and <tt>i = x</tt> both cause conversions; <tt>float</tt> to <tt>int</tt> causes
+truncation of any fractional part. When a <tt>double</tt> is converted to <tt>float</tt>,
+whether the value is rounded or truncated is implementation dependent.
+<p>
+Since an argument of a function call is an expression, type conversion also
+takes place when arguments are passed to functions. In the absence of a
+function prototype, <tt>char</tt> and <tt>short</tt> become int, and <tt>float</tt>
+becomes <tt>double</tt>. This is why we have declared function arguments to be
+<tt>int</tt> and <tt>double</tt> even when the function is called with <tt>char</tt>
+and <tt>float</tt>.
+<p>
+Finally, explicit type conversions can be forced (``coerced'') in any
+expression, with a unary operator called a <tt>cast</tt>. In the construction
+<p>
+&nbsp;&nbsp;(<em>type name</em>) <em>expression</em>
+<p>
+the <em>expression</em> is converted to the named type by the conversion rules
+above. The precise meaning of a cast is as if the <em>expression</em> were
+assigned to a variable of the specified type, which is then used in place of
+the whole construction. For example, the library routine <tt>sqrt</tt> expects
+a <tt>double</tt> argument, and will produce nonsense if inadvertently handled
+something else. (<tt>sqrt</tt> is declared in <tt>&lt;math.h&gt;</tt>.) So if
+<tt>n</tt> is an integer, we can use
+<pre>
+   sqrt((double) n)
+</pre>
+to convert the value of <tt>n</tt> to <tt> double</tt> before passing it to
+<tt>sqrt</tt>. Note that the cast produces the <em>value</em> of <tt>n</tt> in the
+proper type; <tt>n</tt> itself is not altered. The cast operator has the same
+high precedence as other unary operators, as summarized in the table at the
+end of this chapter.
+<p>
+If arguments are declared by a function prototype, as the normally should be,
+the declaration causes automatic coercion of any arguments when the function
+is called. Thus, given a function prototype for <tt>sqrt</tt>:
+<pre>
+   double sqrt(double)
+</pre>
+the call
+<pre>
+   root2 = sqrt(2)
+</pre>
+coerces the integer <tt>2</tt> into the <tt>double</tt> value <tt>2.0</tt>
+without any need for a cast.
+<p><strong>
+The standard library includes a portable implementation of a
+pseudo-random number generator and a function for initializing the seed; the
+former illustrates a cast:
+</strong>
+<pre>
+   unsigned long int next = 1;
+
+   /* rand:  return pseudo-random integer on 0..32767 */
+   int rand(void)
+   {
+       next = next * 1103515245 + 12345;
+       return (unsigned int)(next/65536) % 32768;
+   }
+
+   /* srand:  set seed for rand() */
+   void srand(unsigned int seed)
+   {
+       next = seed;
+   }
+</pre>
+<strong>*Exercise 2-3.</strong> <strong>Write a function <tt>htoi(s)</tt>, which converts a string
+of hexadecimal digits (including an optional <tt>0x</tt> or <tt>0X</tt>) into its
+equivalent integer value. The allowable digits are <tt>0</tt> through <tt>9</tt>,
+<tt>a</tt> through <tt>f</tt>, and <tt>A</tt> through <tt>F</tt>.
+
+</strong>
+<p class="STYLE4">
+Assume:<br>
+(1) The input string's character set is ANSI.<br>
+(2) The algorithm only deal with the first valid hexdecimal substring.<br>
+(3) Return 0 when error occurs and no hexdecimal string is found. For better<br>
+   &nbsp;&nbsp;&nbsp; processing, we can indicate the position when invalid characters are detected.<br>
+(4) The function should be thread-safety.<br>
+</p>
+<p><strong>
+Candidates (feel free to invert your own version):<br>
+(1) int htoi(const char *s);
+<br>
+(2) int htoi(const char *s, char **endp);
+<br>
+(3) bool htoi(const char *s, char **endp, int *result);</strong></p>
+
+<h2><a name="s2.8">2.8 Increment and Decrement Operators</a></h2>
+C provides two unusual operators for incrementing and decrementing variables.
+The increment operator <tt>++</tt> adds 1 to its operand, while the decrement
+operator <tt>--</tt> subtracts 1. We have frequently used <tt>++</tt> to increment
+variables, as in
+<pre>
+   if (c == '\n')
+       ++nl;
+</pre>
+The unusual aspect is that <tt>++</tt> and <tt>--</tt> may be used either as prefix
+operators (before the variable, as in <tt>++n</tt>), or postfix operators (after
+the variable: <tt>n++</tt>). In both cases, the effect is to increment <tt>n</tt>.
+But the expression <tt>++n</tt> increments <tt>n</tt> <em>before</em> its value is
+used, while <tt>n++</tt> increments <tt>n</tt> <em>after</em> its value has been used.
+This means that in a context where the value is being used, not just the
+effect, <tt>++n</tt> and <tt>n++</tt> are different. If <tt>n</tt> is 5, then
+<pre>
+   x = n++;
+</pre>
+sets <tt>x</tt> to 5, but
+<pre>
+   x = ++n;
+</pre>
+sets <tt>x</tt> to 6. In both cases, <tt>n</tt> becomes 6. The increment and
+decrement operators can only be applied to variables; an expression like
+<tt>(i+j)++</tt> is illegal.
+<p>
+In a context where no value is wanted, just the incrementing effect, as in
+<pre>
+   if (c == '\n')
+       nl++;
+</pre>
+prefix and postfix are the same. But there are situations where one or the
+other is specifically called for. For instance, consider the function
+<tt>squeeze(s,c)</tt>, which removes all occurrences of the character
+<tt>c</tt> from the string <tt>s</tt>.
+<pre>
+   /* squeeze:  delete all c from s */
+   void squeeze(char s[], int c)
+   {
+      int i, j;
+
+      for (i = j = 0; s[i] != '\0'; i++)
+          if (s[i] != c)
+              s[j++] = s[i];
+      s[j] = '\0';
+   }
+</pre>
+Each time a non-<tt>c</tt> occurs, it is copied into the current <tt>j</tt>
+position, and only then is <tt>j</tt> incremented to be ready for the next
+character. This is exactly equivalent to
+<pre>
+   if (s[i] != c) {
+       s[j] = s[i];
+       j++;
+   }
+</pre>
+Another example of a similar construction comes from the <tt>getline</tt>
+function that we wrote in <a href="chapter1.html">Chapter 1</a>, where we can replace
+<pre>
+   if (c == '\n') {
+       s[i] = c;
+       ++i;
+   }
+</pre>
+by the more compact
+<pre>
+   if (c == '\n')
+      s[i++] = c;
+</pre>
+As a third example, consider the standard function <tt>strcat(s,t)</tt>, which
+concatenates the string <tt>t</tt> to the end of string <tt>s</tt>. <tt>strcat</tt>
+assumes that there is enough space in <tt>s</tt> to hold the combination. As we
+have written it, <tt>strcat</tt> returns no value; the standard library version
+returns a pointer to the resulting string.
+<pre>
+   /* strcat:  concatenate t to end of s; s must be big enough */
+   void strcat(char s[], char t[])
+   {
+       int i, j;
+
+       i = j = 0;
+       while (s[i] != '\0') /* find end of s */
+           i++;
+       while ((s[i++] = t[j++]) != '\0') /* copy t */
+           ;
+   }
+</pre>
+As each member is copied from <tt>t</tt> to <tt>s</tt>, the postfix <tt>++</tt> is
+applied to both <tt>i</tt> and <tt>j</tt> to make sure that they are in position
+for the next pass through the loop.
+<p>
+<strong>Exercise 2-4.</strong> Write an alternative version of <tt>squeeze(s1,s2)</tt> that
+deletes each character in <tt>s1</tt> that matches any character in the 
+<em>string</em> <tt>s2</tt>.
+<p>
+<strong>Exercise 2-5.</strong> Write the function <tt>any(s1,s2)</tt>, which returns the
+first location in a string <tt>s1</tt> where any character from the string
+<tt>s2</tt> occurs, or <tt>-1</tt> if <tt>s1</tt> contains no characters from <tt>s2</tt>.
+(The standard library function <tt>strpbrk</tt> does the same job but returns a
+pointer to the location.)
+<h2><a name="s2.9">2.9 Bitwise Operators</a></h2>
+C provides six operators for bit manipulation; these may only be applied to
+integral operands, that is, <tt>char</tt>, <tt>short</tt>, <tt>int</tt>, and
+<tt>long</tt>, whether signed or unsigned.<br>
+<br>
+<table align="center">
+<td><strong><tt>&</tt></strong></td>       <td><strong>bitwise AND</strong></td>
+<tr>
+<td><strong><tt>|</tt></strong></td>       <td><strong>bitwise inclusive OR</strong></td>
+<tr>
+<td><strong><tt>^</tt></strong></td><td><strong>bitwise exclusive OR</strong></td>
+<tr>
+<td><strong><tt>&lt;&lt;</tt>&nbsp;&nbsp;</strong></td><td><strong>left shift</strong></td>
+<tr>
+<td><strong><tt>&gt;&gt;</tt></strong></td><td><strong>right shift</strong></td>
+<tr>
+<td><strong><tt>~</tt></strong></td>       <td><strong>one's complement (unary)</strong></td>
+</table>
+<p>
+The bitwise AND operator <tt>&</tt> is often used to mask off some set of bits,
+for example
+<pre>
+   n = n & 0177;
+</pre>
+sets to zero all but the low-order 7 bits of <tt>n</tt>.
+<p>
+The bitwise OR operator <tt>|</tt> is used to turn bits on:
+<pre>
+   x = x | SET_ON;
+</pre>
+sets to one in <tt>x</tt> the bits that are set to one in <tt>SET_ON</tt>.
+<p>
+The bitwise exclusive OR operator <tt>^</tt> sets a one in each bit position
+where its operands have different bits, and zero where they are the same.
+<p>
+One must distinguish the bitwise operators <tt>&</tt> and <tt>|</tt> from the
+logical operators <tt>&&</tt> and <tt>||</tt>, which imply left-to-right
+evaluation of a truth value. For example, if <tt>x</tt> is 1 and <tt>y</tt> is 2,
+then <tt>x & y</tt> is zero while <tt>x && y</tt> is one.
+<p>
+The shift operators <tt>&lt;&lt;</tt> and <tt>&gt;&gt;</tt> perform left and right shifts of
+their left operand by the number of bit positions given by the right operand,
+which must be non-negative. Thus <tt>x &lt;&lt; 2</tt> shifts the value of
+<tt>x</tt> by two positions, filling vacated bits with zero; this is equivalent to
+multiplication by 4. Right shifting an <tt>unsigned</tt> quantity always fits
+the vacated bits with zero. Right shifting a signed quantity will fill with
+bit signs (``arithmetic shift'') on some machines and with 0-bits (``logical
+shift'') on others.
+<p>
+The unary operator <tt>~</tt> yields the one's complement of an integer; that
+is, it converts each 1-bit into a 0-bit and vice versa. For example
+<pre>
+   x = x & ~077
+</pre>
+sets the last six bits of <tt>x</tt> to zero. Note that <tt>x & ~077</tt> is
+independent of word length, and is thus preferable to, for example,
+<tt>x & 0177700</tt>, which assumes that <tt>x</tt> is a 16-bit quantity. The
+portable form involves no extra cost, since <tt>~077</tt> is a constant
+expression that can be evaluated at compile time.
+<p>
+As an illustration of some of the bit operators, consider the function
+<tt>getbits(x,p,n)</tt> that returns the (right adjusted) <tt>n</tt>-bit
+field of <tt>x</tt> that begins at position <tt>p</tt>. We assume that bit
+position 0 is at the right end and that <tt>n</tt> and <tt>p</tt> are
+sensible positive values. For example, <tt>getbits(x,4,3)</tt> returns the
+three bits in positions 4, 3 and 2, right-adjusted.
+<pre><strong>   /* getbits:  get n bits from position p */
+   unsigned getbits(unsigned x, int p, int n)
+   {
+       return (x &gt;&gt; (p+1-n)) & ~(~0 &lt;&lt; n);
+   }</strong></pre>
+<strong>The expression <tt>x &gt;&gt; (p+1-n)</tt> moves the desired field to the right end
+of the word. <tt>~0</tt> is all 1-bits; shifting it left <tt>n</tt> positions with
+<tt>~0&lt;&lt;n</tt> places zeros in the rightmost <tt>n</tt> bits; complementing that
+with <tt>~</tt> makes a mask with ones in the rightmost <tt>n</tt> bits.</strong>
+<p>
+<strong>*Exercise 2-6.</strong> Write a function <tt>setbits(x,p,n,y)</tt> that returns
+<tt>x</tt> with the <tt>n</tt> bits that begin at position <tt>p</tt> set to the rightmost
+<tt>n</tt> bits of <tt>y</tt>, leaving the other bits unchanged.
+<p>
+<strong>*Exercise 2-7.</strong> Write a function <tt>invert(x,p,n)</tt> that returns <tt>x</tt>
+with the <tt>n</tt> bits that begin at position <tt>p</tt> inverted (i.e., 1
+changed into 0 and vice versa), leaving the others unchanged.
+<p>
+<strong>*Exercise 2-8.</strong> Write a function <tt>rightrot(x,n)</tt> that returns the
+value of the integer <tt>x</tt> rotated to the right by <tt>n</tt> positions.
+<h2><a name="s2.10">2.10 Assignment Operators and Expressions</a></h2>
+An expression such as
+<pre>
+   i = i + 2
+</pre>
+in which the variable on the left side is repeated immediately on the right,
+can be written in the compressed form
+<pre>
+   i += 2
+</pre>
+The operator <tt>+=</tt> is called an <em>assignment operator</em>.
+<p>
+Most binary operators (operators like <tt>+</tt> that have a left and right
+operand) have a corresponding assignment operator <em>op</em><tt>=</tt>, where
+<em>op</em> is one of
+<pre>
+   +   -   *   /   %   &lt;&lt;   &gt;&gt;   &amp;   ^   |
+</pre>
+If <em>expr<sub>1</sub></em> and <em>expr<sub>2</sub></em> are expressions, then
+<pre>
+   <em>expr<sub>1</sub> op= expr<sub>2</sub></em>
+</pre>
+is equivalent to
+<pre>
+   <em>expr<sub>1</sub></em> = (<em>expr<sub>1</sub></em>) <em>op</em> (<em>expr<sub>2</sub></em>)
+</pre>
+except that <em>expr<sub>1</sub></em> is computed only once. Notice the
+parentheses around <em>expr<sub>2</sub></em>:
+<pre>
+   x *= y + 1
+</pre>
+means
+<pre>
+   x = x * (y + 1)
+</pre>
+rather than
+<pre>
+   x = x * y + 1
+</pre>
+<strong>As an example, the function <tt>bitcount</tt> counts the number of 1-bits in its
+integer argument.</strong>
+<pre><strong>   /* bitcount:  count 1 bits in x */
+   int bitcount(unsigned x)
+   {
+       int b;
+
+       for (b = 0; x != 0; x &gt;&gt;= 1)
+           if (x & 01)
+               b++;
+       return b;
+   }
+</strong></pre>
+Declaring the argument <tt>x</tt> to be an <tt>unsigned</tt> ensures that when it
+is right-shifted, vacated bits will be filled with zeros, not sign bits,
+regardless of the machine the program is run on.
+<p>
+Quite apart from conciseness, assignment operators have the advantage that
+they correspond better to the way people think. We say ``add 2 to <tt>i</tt>''
+or ``increment <tt>i</tt> by 2'', not ``take <tt>i</tt>, add 2, then put the result
+back in <tt>i</tt>''. Thus the expression <tt>i += 2</tt> is preferable to
+<tt>i = i+2</tt>. In addition, for a complicated expression like
+<pre>
+   yyval[yypv[p3+p4] + yypv[p1]] += 2
+</pre>
+the assignment operator makes the code easier to understand, since the reader
+doesn't have to check painstakingly that two long expressions are indeed the
+same, or to wonder why they're not. And an assignment operator may even help
+a compiler to produce efficient code.
+<p>
+We have already seen that the assignment statement has a value and can occur
+in expressions; the most common example is
+<pre>
+   while ((c = getchar()) != EOF)
+       ...
+</pre>
+The other assignment operators (<tt>+=</tt>, <tt>-=</tt>, etc.) can  also occur in
+expressions, although this is less frequent.
+<p>
+In all such expressions, the type of an assignment expression is the type of
+its left operand, and the value is the value after the assignment.
+<p>
+<strong>*Exercise 2-9.</strong> In a two's complement number system, <tt>x &= (x-1)</tt>
+deletes the rightmost 1-bit in <tt>x</tt>. Explain why. Use this observation to
+write a faster version of <tt>bitcount</tt>.
+<h2><a name="s2.11">2.11 Conditional Expressions</a></h2>
+The statements
+<pre>
+   if (a &gt; b)
+       z = a;
+   else
+       z = b;
+</pre>
+compute in <tt>z</tt> the maximum of <tt>a</tt> and <tt>b</tt>. The
+<em>conditional expression</em>, written with the ternary operator
+``<tt>?:</tt>'', provides an alternate way to write this and similar
+constructions. In the expression
+<pre>
+   <em>expr<sub>1</sub></em> ? <em>expr<sub>2</sub></em> : <em>expr<sub>3</sub></em>
+</pre>
+the expression <em>expr<sub>1</sub></em> is evaluated first. If it is
+non-zero (true), then the expression <em>expr<sub>2</sub></em> is evaluated,
+and that is the value of the conditional expression. Otherwise
+<em>expr<sub>3</sub></em> is evaluated, and that is the value. Only one of
+<em>expr<sub>2</sub></em> and <em>expr<sub>3</sub></em> is evaluated. Thus to
+set <tt>z</tt> to the maximum of <tt>a</tt> and <tt>b</tt>,
+<pre>
+   z = (a &gt; b) ? a : b;    /* z = max(a, b) */
+</pre>
+It should be noted that the conditional expression is indeed an expression,
+and it can be used wherever any other expression can be. If
+<em>expr<sub>2</sub></em> and <em>expr<sub>3</sub></em> are of different
+types, the type of the result is determined by the conversion rules discussed
+earlier in this chapter. For example, if <tt>f</tt> is a <tt>float</tt> and
+<tt>n</tt> an <tt>int</tt>, then the expression
+<pre>
+   (n &gt; 0) ? f : n
+</pre>
+is of type <tt>float</tt> regardless of whether <tt>n</tt> is positive.
+<p>
+Parentheses are not necessary around the first expression of a conditional
+expression, since the precedence of <tt>?:</tt> is very low, just above
+assignment. They are advisable anyway, however, since they make the condition
+part of the expression easier to see.
+<p>
+The conditional expression often leads to succinct code. For example, this
+loop prints <tt>n</tt> elements of an array, 10 per line, with each column
+separated by one blank, and with each line (including the last) terminated by
+a newline.
+<pre>
+   for (i = 0; i &lt; n; i++)
+       printf("%6d%c", a[i], (i%10==9 || i==n-1) ? '\n' : ' ');
+</pre>
+A newline is printed after every tenth element, and after the <tt>n</tt>-th.
+All other elements are followed by one blank. This might look tricky, but it's
+more compact than the equivalent <tt>if-else</tt>. Another good example is
+<pre>
+   printf("You have %d items%s.\n", n, n==1 ? "" : "s");
+</pre>
+<strong>Exercise 2-10.</strong> Rewrite the function <tt>lower</tt>, which
+converts upper case letters to lower case, with a conditional expression
+instead of <tt>if-else</tt>.
+
+<h2><a name="s2.12">2.12 Precedence and Order of Evaluation</a></h2>
+Table 2.1  summarizes the rules for precedence and associativity of all
+operators, including those that we have not yet discussed. Operators on the
+same line have the same precedence; rows are in order of decreasing
+precedence, so, for example, <tt>*</tt>, <tt>/</tt>, and <tt>%</tt> all have
+the same precedence, which is higher than that of binary <tt>+</tt> and
+<tt>-</tt>. The ``operator'' <tt>()</tt> refers to function call. The
+operators <tt>-&gt;</tt> and <tt>.</tt> are used to access members of
+structures; they will be covered in <a href="chapter6.html">Chapter 6</a>,
+along with <tt>sizeof</tt> (size of an object). <a
+href="chapter5.html">Chapter 5</a> discusses <tt>*</tt> (indirection
+through a pointer) and <tt>&</tt> (address of an object), and
+<a href="chapter3.html">Chapter 3</a> discusses the comma operator.
+<p>
+<table align="center" border=1>
+<th align="center">Operators <th align="center">Associativity
+<tr>
+<td><tt>()  []  -&gt;  .</tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>!   ~  ++  --  +  -  *</tt>  (<em>type</em>)  <tt>sizeof</tt></td><td>&nbsp;right to left</td>
+<tr>
+<td><tt>*   /   % </tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>+   -     </tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>&lt;&lt;&nbsp;&nbsp;&gt;&gt;  </tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>&lt;   &lt;=   &gt;   &gt;= </tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>==   !=   </tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>&amp;     </tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>^         </tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>|         </tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>&amp;&amp;</tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>||        </tt></td><td>&nbsp;left to right</td>
+<tr>
+<td><tt>?:        </tt></td><td>&nbsp;right to left</td>
+<tr>
+<td><tt>= += -= *= /= %= &= ^= |= &lt;&lt;= &gt;&gt;=</tt></td><td>&nbsp;right to left</td>
+<tr>
+<td><tt>,         </tt></td><td>&nbsp;left to right</td>
+</table>
+<p>
+Unary &amp; +, -, and * have higher precedence than the binary forms.
+<p align="center">
+<em><strong>Table 2.1:</strong> Precedence and Associativity of Operators</em>
+<p>
+Note that the precedence of the bitwise operators <tt>&amp;</tt>, <tt>^</tt>,
+and <tt>|</tt> falls below <tt>==</tt> and <tt>!=</tt>. This implies that
+bit-testing expressions like
+<pre>
+   if ((x & MASK) == 0) ...
+</pre>
+must be fully parenthesized to give proper results.
+<p>
+C, like most languages, does not specify the order in which the operands of
+an operator are evaluated. (The exceptions are <tt>&amp;&amp;</tt>,
+<tt>||</tt>, <tt>?:</tt>, and `<tt>,</tt>'.) For example, in a statement like
+<pre>
+   x = f() + g();
+</pre>
+<tt>f</tt> may be evaluated before <tt>g</tt> or vice versa; thus if either
+<tt>f</tt> or <tt>g</tt> alters a variable on which the other depends,
+<tt>x</tt> can depend on the order of evaluation. Intermediate results can
+be stored in temporary variables to ensure a particular sequence.
+<p>
+Similarly, the order in which function arguments are evaluated is not
+specified, so the statement
+<pre>
+   printf("%d %d\n", ++n, power(2, n));   /* WRONG */
+</pre>
+can produce different results with different compilers, depending on whether
+<tt>n</tt> is incremented before <tt>power</tt> is called. The solution, of
+course, is to write
+<pre>
+   ++n;
+   printf("%d %d\n", n, power(2, n));
+</pre>
+Function calls, nested assignment statements, and increment and decrement
+operators cause ``side effects'' - some variable is changed as a by-product
+of the evaluation of an expression. In any expression involving side effects,
+there can be subtle dependencies on the order in which variables taking part
+in the expression are updated. One unhappy situation is typified by the
+statement
+<pre>
+   a[i] = i++;
+</pre>
+The question is whether the subscript is the old value of <tt>i</tt> or the
+new. Compilers can interpret this in different ways, and generate different
+answers depending on their interpretation. The standard intentionally leaves
+most such matters unspecified. When side effects (assignment to variables)
+take place within an expression is left to the discretion of the compiler,
+since the best order depends strongly on machine architecture. (The standard
+does specify that all side effects on arguments take effect before a function
+is called, but that would not help in the call to <tt>printf</tt> above.)
+<p><strong>
+The moral is that writing code that depends on order of evaluation is a bad
+programming practice in any language. Naturally, it is necessary to know what
+things to avoid, but if you don't know <em>how</em> they are done on various
+machines, you won't be tempted to take advantage of a particular
+implementation.</strong>
+<hr>
+<p align="center">
+<a href="chapter1.html">Back to Chapter 1</a>&nbsp;--&nbsp;
+<a href="index.html">Index</a>&nbsp;--&nbsp;
+<a href="chapter3.html">Chapter 3</a>
+<p>
+<hr>
+</body>
+</html>

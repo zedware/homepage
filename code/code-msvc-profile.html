@@ -1,0 +1,47 @@
+<html>
+<!-- DW6 -->
+<head>
+<title>Microsoft VC++中prep/profile/plist的使用</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+.style1 {font-size: larger}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF"> 
+<p align="center" class="style1">Microsoft VC++中prep/profile/plist的使用</p> 
+<hr> 
+<p>A 命令行方式 </p>
+<p> 需要在Build时产生map文件，它可以在项目设置的Link中修改。Steps: <br>
+  <br>
+  1. Prepare executable for profiling. <br>
+  &nbsp;&nbsp;&nbsp;C:\Profile&gt; prep /ft /fc /fv foo.exe <br>
+  <br>
+  2. Start executable with profile. <br>
+  &nbsp;&nbsp;&nbsp;C:\Profile&gt; profile foo.exe &lt;arguments&gt; <br>
+  <br>
+  3. Preprocess gathered information. <br>
+  &nbsp;&nbsp;&nbsp;C:\Profile&gt; prep /io foo.pbi /it foo.pbt /ot foo2.pbt <br>
+  <br>
+  4. Show the results. <br>
+  &nbsp;&nbsp;&nbsp;C:\Profile&gt; plist foo2.pbt </p>
+<p>B IDE方式 </p>
+<p> 设置：Project-&gt;Settings-&gt;Link-&gt;General-&gt;Enable profiling <br>
+  编译连接：Build整个项目 <br>
+  执行：Build-&gt;Profile... <br>
+  <br>
+  注意： <br>
+  1. 默认情况下.map文件在Debug目录下，可执行程序也放在该处 <br>
+  2. 不是所有的项目都要进行设置，有些项目是没有Link选项的，比如一些静态链接库。 <br>
+  3. profile支持Release版本，测试性能瓶颈的时候建议使用Release。 <br>
+  4. 在某些机器上，菜单项“Build-&gt;Profile...”是灰色的（禁用状态)，请参考： <a href="http://www.mip.sdu.dk/ipl98/unofficial/visualc/tips_and_tricks.htm">Tips and tricks for Visual C++ </a> 中的问题8。 </p>
+<div align="center"> 
+  <hr> 
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2006,zedware_at_gmail_dot_com</a><br> 
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Thursday, 2006-05-18<!-- #EndDate --> 
+  </div> 
+</div> 
+</body>
+</html>

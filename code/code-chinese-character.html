@@ -1,0 +1,179 @@
+<html>
+<!-- DW6 -->
+<head>
+<title>汉字编码备忘</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+.style1 {font-size: larger}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF"> 
+<p align="center" class="style1 style1">汉字编码备忘</p> 
+<hr> 
+<p><strong>0 注意</strong></p>
+<ol>
+  <li type="a">全国信息技术标准化委员会对<a href="http://www.nits.gov.cn/sc2/jishufile1.asp">GB18030</a>的介绍。</li>
+  <li type="a">维基百科上对<a href="http://zh.wikipedia.org/wiki/GBK">GBK</a>、<a href="http://zh.wikipedia.org/wiki/GB18030">GB18030</a>的介绍。</li>
+  <li type="a">Sun Solaris支持<a href="http://developers.sun.com/dev/gadc/technicalpublications/articles/gb18030.html">GB18030-2000</a>，也提供了GB18030和UNICODE的码表对应。</li>
+  <li type="a">Windows 2000/XP中采用的<a href="http://www.microsoft.com/china/windows2000/downloads/18030.asp">GB18030 Support Package</a>。</li>
+  <li type="a">Ask Dr. International Column #15, New Chinese Encoding GB-18030<a href=http://www.microsoft.com/globaldev/DrIntl/columns/015/default.mspx</a>。</li> 
+</ol>
+<p><strong>1 概述</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;区位码的前两位是区号，后两位是位号。区号的范围是从1到94，位号的范围也是从1到94。01到15区是图形符号和字母，而16到87区是汉字。区位码的编码范围是0101—9494（0x0101—0x5E5E），而GB2312-80的内码范围是0xA1A1-0xFEFE，二者的对应关系为：</p>
+<blockquote>
+  <p>区位码+0xA0A0 = GB2312-80的内码。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Windows NT 4.0以后，区位码输入支持《信息交换用汉字编码字符集—基本集》即GB2312-80的内码输入方式。内码编码的范围为：0xA1A1～0xFEFE。GBK内码输入覆盖了汉字扩展内码规范—GBK中规定的全部汉字。UNICODE码输入支持《通用多八位编码字符集(UCS)》，即国际标准ISO/IEC10646.1-1993中规定的全部汉字。</p>
+<table border=1 align="center" cellpadding=0 cellspacing=0>
+  <tr>
+    <td width=72 valign=top class="Normal">
+      <p align=right style='text-align:right'><span
+  style='font-size:9.0pt;font-family:宋体;"Times New Roman";"Times New Roman"'>编码</span></p></td>
+    <td width=108 valign=top class="Normal">
+      <p align=center style='text-align:center'><span
+  style='font-family:宋体;"Times New Roman"'>区位码</span></p></td>
+    <td width=120 valign=top class="Normal">
+      <p align=center style='text-align:center'><span lang=EN-US>GB2312-80</span></p></td>
+    <td width=108 valign=top class="Normal">
+      <p align=center style='text-align:center'><span lang=EN-US>GBK</span></p></td>
+    <td width=108 valign=top class="Normal">
+      <p align=center style='text-align:center'><span lang=EN-US>UNICODE</span></p></td>
+  </tr>
+  <tr>
+    <td width=72 valign=top class="Normal">
+      <p><span style='font-family:宋体;
+  "Times New Roman"'>符合标准</span></p></td>
+    <td width=108 valign=top class="Normal">&nbsp; </td>
+    <td width=120 valign=top class="Normal">
+      <p><span lang=EN-US>GB2312-80</span></p></td>
+    <td width=108 valign=top class="Normal">
+      <p><span lang=EN-US>GBK</span></p></td>
+    <td width=108 valign=top class="Normal">
+      <p><span lang=EN-US>UCS</span></p></td>
+  </tr>
+  <tr>
+    <td width=72 valign=top class="Normal">
+      <p><span style='font-family:宋体;
+  "Times New Roman"'>编码范围</span></p></td>
+    <td width=108 valign=top class="Normal">
+      <p><span lang=EN-US>0x0101-0x5E5E</span></p></td>
+    <td width=120 valign=top class="Normal">
+      <p><span lang=EN-US>0xA1A1-0xFEFE</span></p></td>
+    <td width=108 valign=top class="Normal">
+      <p><span lang=EN-US>0x8140-0xFE7E</span></p>
+      <p><span lang=EN-US>0x8180-0xFEFE</span></p></td>
+    <td width=108 valign=top class="Normal">
+      <p><span lang=EN-US>0x4E00-0x9FA5</span></p></td>
+  </tr>
+</table>
+<p><strong>2 国标GB2312-80</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;《GB2312-80》即《信息交换用汉字编码字符集基本集》，对7445个图形字符作了二进制数编码，这些图形字符是：</p>
+<ul>
+  <li>6763个汉字，字体为简化字，分成两级。第一级汉字3755个，按拼音排序，约占近代文献汉字累计使用频度 99.9% 左右；二级汉字3008个，按部首、笔画排序。一、二级汉字约占累计使用频度99.99%以上。</li>
+  <li>202个一般符号。其中包括1～20，(1)～(20)，①～⑩，(-)～(+)等。</li>
+  <li>22个数字。其中0～9共10个，Ⅰ～Ⅻ 共12个。</li>
+  <li>52个拉丁字母。其中大写字母A～Z，26个，小写字母a～z，26个。</li>
+  <li>169个日文假名。其中平假名83个，片假名86个。</li>
+  <li>48个希腊字母。其中大写字母Α～Ω24个，小写字母α～ω24个。</li>
+  <li>66个俄文字母。其中大写字母А～Я33个，小写字母а～я33个。</li>
+  <li>26个汉语拼音符号，包括带声调符号和其它符号的字母。</li>
+  <li>37个汉语注音字母，ㄅ～ㄥ。</li>
+</ul>
+<p><strong>3 GBK</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;汉字扩展内码规范——GBK的目的是解决汉字收字不足、简繁同平面共存、简化代码体系间转换等汉字信息交换的瓶颈问题，并在保持已有应用软件兼容性的前提下，向最终的国际统一双字节字符集标准ISO10646.1 迈进。</p>
+<ul>
+  <li>扩展汉字内码规范的原则</li>
+</ul>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;与《信息交换用汉字编码字符集——基本集》即国家标准GB2312-80的内码体系标准完全兼容。在字汇一级支持ISO 10466.1/《CJK统一汉字编码字符集》即国家标准GB13000.1的全部CJK汉字。非汉字符号同时涵盖大部分常用的《BIG5》非汉字符号。</p>
+</blockquote>
+<ul>
+  <li>规范的名称与简称</li>
+</ul>
+<blockquote>
+  <p>中文名称：汉字内码规范<br>
+  英文名称：Chinese Internal Code Specification<br>
+  简称：GBK（K是“扩展”的汉语拼音第一个字母）</p>
+</blockquote>
+<ul>
+  <li>规范的内容</li>
+</ul>
+<blockquote>
+  <p>适用范围：<br>
+  作为非UCS (ISO 10646)体系的代码页(Code Page)，适用于中文信息的处理、交换、存储、显现、输入和输出。</p>
+  <p>字汇：</p>
+  <p>GB2312-80的全部汉字、非汉字符号。GB13000.1中的其他CJK汉字。以上两项合计为20902个GB化汉字。</p>
+  <p>《简化字总表》中尚未收入GB 13000.1的52个汉字；即GBK不但能包括《现代汉语通用字表》的全部七千个汉字，还能够包含《简化字总表》中的全部简体字及其对应的繁体字。</p>
+  <p>《康熙字典》及《辞海》中尚未收入GB 13000.1的部首及重要构件共28个。</p>
+  <p>13个汉字结构符。</p>
+  <p>BIG5 中未被GB2312——80收入的、单在ISO 10646.1中存在的图形符号139个。</p>
+  <p>正式收入带音调的拼音字母30个和ɑ、ɡ（按GB 12345-90印刷本）。</p>
+  <p>汉字“O”（GB13001.1代码 0x3007“零”。</p>
+  <p>GB 12345-90中编码的竖排标点符号19个，但凡是UCS中没有编码的暂不收入。</p>
+  <p>从ISO 10646.1/GB 13000.1的CJK 兼容区挑选出来的21个汉字，以保证若干BIG5 (TCACNS11643)文件、JIS文件及IBM文件在双向往返转换中不致丢失信息。</p>
+  <p>31个IBM OS/2专用符号，凡是 ISO 10646.1/GB13000.1已经收入的全部收入或认同。</p>
+  <p>汉字字序：</p>
+  <p>GB2312-80的汉字仍然按照原有的I级字，II级字，分别按拼音、部首/笔画排列。GB13000.1的其他CJK汉字，按UCS代码大小顺序排列。追加的80个汉字、部首/构件，与上述两类字汇分开，按康熙字典页码．字位单独排列。</p>
+  <p>码位分配：</p>
+</blockquote>
+<p><a href="images/png/code-map.png"><img alt=码位分配图 src="images/png/code-map.png" align=middle border=1></a></p>
+<blockquote>
+  <p>总体采用8140-FEFE的矩形区域，剔除xx7F一条线，共23940个码位。如下图所示： <br>
+  </p>
+  <p>汉字区：</p>
+  <p>21008个码位。GB2312-80汉字区B0A1-F7FE，6768个码位，6763个汉字；GB13000.1扩充汉字区8140-A0FE的矩形区，剔除 xx7F，6080个码位；AA40-FEA0，剔除xx7F，8160个码位，其中，21个CJK兼容汉字编码在FD9C-FE4F；80个增补汉字/部首/构件在 FE50-FEA0。</p>
+  <p>图形符号区：</p>
+  <p>1038个码位。GB2312-80非汉字区A1A1-A9FE，846个码位，除了原有的标准字符外，其中还有：10个小写罗马数字《补充在A2A1-A2AA，30个带音调拼音字母及ɑ、ɡ安排在A8A1-A8C0，19个竖排符号安排在A6E0-A6F5之间。GB13000.1扩充非汉字区A840-A9A0，剔除xx7F，192个码位，BIG5 非汉字字符、结构符和“O”排列在此区域。</p>
+  <p>用户自定义区：</p>
+  <p>1894个码位，AAA1-AFFE的矩形区，564 个码位；F8A1-FEFE的矩形区，658个码位，A140-A7A0的矩形区，672个码位（剔除xx7F）。</p>
+  <p>GBK 与 GB 13000.1 的对应关系：</p>
+  <p>汉字区和图形符号区的所有字符，都与 GB 13000.1 已经编码的字符一一对应。</p>
+  <p>52个追加汉字、28 个部首/构件以及 13 个结构符均暂时对应于 GB 13000.1 的专用区( Private Use Area, E000-F8FE),如果今后这些字符正式收入了ISO 10646/ GB 13000,本规格将作相应修改。</p>
+  <p>带音调的拼音字母，与 GB 13000.1 中 A_Zone 的 Latin 编码字符相对应；与 GB 13000.1 不能对应的两个字母，有待向 SC2/WG2 申请码位。</p>
+  <p>GBK 的字形：</p>
+  <p>GBK 字形要与 ISO 10646.1/GB 13000.1 保持一致。</p>
+  <p>在CJK汉字认同规则的总框架内，选用“无重码正形”后的（GB 化）的汉字字形。</p>
+</blockquote>
+<p><strong>4 BIG5</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;BIG5 是台湾的汉字编码字符集。它包含了 420 个图形符号和 13070 个汉字（不包含简化汉字）。编码范围是 0x8140--0xFE7E、0x81A1--0xFEFE，其中 0xA140--0xA17E、0xA1A1--0xA1FE 是图形符号区，0xA440--0xF97E、0xA4A1--0xF9FE 是汉字区。</p>
+<p><strong>5 ISO/IEC10646.1-1993</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;国际标准ISO/IEC10646.1-1993，即《通用多八位编码字符集(UCS)》。用于世界上各种语言的书面形式以及附加符号的表示、传输、交换、处理、存储、输入及显现。</p>
+<ul>
+  <li>UCS的总体结构</li>
+</ul>
+<blockquote>
+  <p>UCS 编码字符集的总体结构是一个四维编码空间，它包含 00 ~ 7F 共 128 个三维组，每一个三维组中包含 00 ~ FF 共 256 个二维平面，每一个二维平面包含 00 ~ FF 共 256 个一维行，每行共 256 个字位（00 ~ FF），每个字位用一个字节二进制数表示。因此在 UCS 中每一个字符用 4 个二进制数编码，以确定每个字符在编码空间的组、平面、行和字位。上述四个 8 位二进制数编码形式称为 UCS 的四八位正则形式，记作 UCS-4。</p>
+</blockquote>
+<ul>
+  <li>基本多文种平面</li>
+</ul>
+<blockquote>
+  <p>在UCS 编码空间中 00组的 00平面称为基本多文种平面。在此平面包含了字母文字、音节文字和表意文字中通常使用的字符以及各种符号和数字。</p>
+  <p>基本多文种平面的组编码为 00H。UCS 规定当正则形式的组、平面编码为 00H 时可以省略，因此安排在基本多文种平面上的字符可用两个字节的二进制数来表示，形成双八位编码字符集，记作 UCS-2。</p>
+  <p>基本多文种平面分成 A、I、O、R 四个区。</p>
+  <p>A区：</p>
+  <p>代码位置从 0000 ~ 4DFF，共 19903 个字位。此区用于字母文字、音节文字以及各种符号的编码，其中 0000 ~ 001F 和 007E ~ 009F 保留用于控制字符。</p>
+  <p>I区：</p>
+  <p>代码位置从 4E00 ~ 9FFF，共 20992 个字位。此区用于中、日、韩（CJK）统一的表意文字，即中国、日本、韩国等三国汉字的编码。</p>
+  <p>O区：</p>
+  <p>代码位置从 A000 ~ DFFF，共 16384 个字位。此区目前未用，留作未来的标准化。</p>
+  <p>R区：</p>
+  <p>代码位置从 E000 ~ FFFD，共 8190 个字位。此区是限制使用区，用于专用字符、变形显现形式和兼容字符的编码。</p>
+</blockquote>
+<ul>
+  <li>CJK 统一汉字的编码</li>
+</ul>
+<blockquote>
+  <p>在I区统一编码的汉字共 20902 个，按部首—比画排序。其中中国用汉字约 17000 个，源字集是 GB 基本集简化字，第一、三、五辅助集繁体字，现代汉语通用字表，邮电通信字符集，台湾地区的 CNS11643 《通用汉字标准交换码》，此外还吸收了香港用字 58 个，延边地区朝鲜族使用的“吏读”字 92 个。CJK 统一汉字编码字符集中日本用汉字和韩国用汉字源字集分别为日、韩两国的有关标准。</p>
+</blockquote>
+<div align="center"> 
+  <hr> 
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br> 
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Tuesday, 2005-09-27<!-- #EndDate --> 
+  </div> 
+</div> 
+</body>
+</html>

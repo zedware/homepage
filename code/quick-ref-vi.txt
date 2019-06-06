@@ -1,0 +1,44 @@
+
+ctags -R
+vim -t main
+:ta main
+Ctrl+] vs. Ctrl+o
+:set tags
+[{	goto the previous { in column 1.
+}]	goto the next } in column 1.
+{	previous empty line
+}	next empty line
+gd	goto the definition of the current local variable
+*	next place of current word
+#	previous place of current word
+
+:tag main
+:tags
+
+Ctrl+t	go back to previous tag
+
+:3tag
+:tag
+
+:split
+:stag main
+
+Ctrl+w ]
+
+:ptag main
+
+Ctrl+w }
+
+:pclose
+
+:pedit main.h
+
+:psearch popen
+
+%
+
+[#	
+
+]#
+
+

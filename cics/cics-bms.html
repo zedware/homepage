@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb_2312-80">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>使用BMS设计CICS风格的画面</TITLE>
+<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+<style type="text/css">
+.style1 {
+	font-size: larger;
+</style>
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080"> 
+<P ALIGN="CENTER" class="style1"><font face="宋体">使用BMS设计CICS风格的画面</font></P> 
+<hr> 
+<FONT FACE="宋体" > 
+<P>　<span class="110V">　CICS支持的画面是针对字符终端的，没有Windows那样的GUI风格好用。设计这样的画面需要用到所谓的BMS支持，即基本屏幕映射。大致的步骤如下： </span></P> 
+<span class="110V">
+<OL>
+  <LI>用CICS提供的宏定义画面样式；</LI>
+  <LI>用CICS提供的编译程序将上述定义生成对应的汇编代码和COBOL拷贝文件；</LI>
+  <LI>在COBOL程序中用CICS命令SEND MAP和RECEIVE MAP等处理画面；</LI>
+  <LI>编译上述COBOL程序；</LI>
+  <LI>在CICS中定义BMS对应的MAPSET，COBOL程序，COBOL程序对应的交易，COBOL程序用到的文件等；</LI>
+  <LI>如果一切顺利，现在可以在CICS中执行刚才定义的交易，看看结果了。</LI>
+</OL>
+</span></FONT><span class="110V">
+<P><FONT FACE="System,黑体" >　</font><FONT FACE="宋体" >上述的这些功能一步步说起来很麻烦，还是看看实际的例子为好：</font></P>
+</span> 
+<OL> 
+  <LI><span class="110V"><font face="宋体">定义画面样式</font></span></LI> 
+  <LI><span class="110V"><font face="宋体">编译上述定义</font></span></LI> 
+  <LI><span class="110V"><font face="宋体">处理BMS的COBOL程序</font></span></LI> 
+  <LI><span class="110V"><font face="宋体">编译COBOL程序</font></span></LI> 
+  <LI><span class="110V"><font face="宋体">定义MAPSET、程序、交易，乃至文件等</font></span></LI> 
+</OL> 
+<p><FONT FACE="宋体" >　<span class="110V">　</span></FONT>在CICS中，执行以下命令。执行某些命令后会出现输入菜单，还需要填写一些项目。命 
+  <!-- #BeginDate format:fcIS1 --> 
+  Monday, 2004-09-06 
+  <!-- #EndDate --> 
+  EDA DEFINE MAPSET(MEXAM) GROUP(GEXAM)<br> 
+  CEDA INSTALL MAPSET(UEXAM) <br> 
+  </li> 
+<li>定义程序：<br> 
+  CEDA DEFINE PROGRAM(PEXAM) GROUP(GEXAM) LANGUAGE(COBOL)<br> 
+  CEDA ISNTALL PROGRAM(PEXAM)<br> 
+</li> 
+<li>定义交易：<br> 
+  CEDA DEFINE TRANSACTION(EXAM) GROUP(GEXAM) PROGRAM(PEXAM)<br> 
+  CEDA INSTALL TRANSACTION(EXAM)<br> 
+</li> 
+<li>定义文件：<br> 
+  CEDA DEFINE FILE(FEXAM) GROUP(EXAM)<br> 
+  CEDA INSTALL FILE(FEXAM)<br> 
+</li> 
+<li>用CICS提供的交易CEMT检查上述定义是否得到了期望的结果，例如：<br> 
+  CEMT INQUIRE PROGRAM(PEXAM)<br> 
+  <br> 
+  MAPSET也在PROGAM里面，因此也应该用“CEMT I PROG(MEXAM)”查看，<br> 
+  而不是用“CEMT I MAPSET(MEXAM)”。 <br> 
+</li> 
+<li>运行交易 <br> 
+  在CICS中输入交易名字，例如上述的“EXAM”并按执行键即可，慢慢欣赏您的杰作吧。 </li> 
+</ol> 
+<hr> 
+<div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a> <br> 
+  Last modified on
+  <!-- #BeginDate format:fcIS1 --> 
+  Saturday, 2004-09-04 
+  <!-- #EndDate --> 
+</div> 
+</BODY>
+</HTML>

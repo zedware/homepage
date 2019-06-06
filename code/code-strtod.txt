@@ -1,0 +1,122 @@
+$ uname -a
+Linux dev 2.6.9-11.19AX #1 Fri Aug 5 05:12:07 EDT 2005 i686 i686 i386 GNU/Linux
+
+$ gcc --version
+gcc (GCC) 3.4.3 20050227 (Asianux 2.0 3.4.3-22.1.1)
+Copyright (C) 2004 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+$ cat strtod.c
+#include <stdlib.h> 
+#include <stdio.h> 
+#include <float.h>
+#include <errno.h> 
+
+void test(const char *s);
+
+int main(void) 
+{
+    test("4.9406564584124654e-324");
+    test("4.9406564584124654e-320");
+
+    return 0;
+}
+
+void test(const char *s)
+{ 
+    char    *endptr; 
+    double      d; 
+
+    d = strtod(s, &endptr); 
+
+    printf("d = %f, endptr = %s, errno = %d\n", d, endptr ? endptr : "", errno); 
+} 
+
+$ ./a.out 
+d = 0.000000, endptr = , errno = 0
+d = 0.000000, endptr = , errno = 0
+
+Woo. errno is zero, which indicates no error occurred. But why the output of d
+is zero? Is strtod() buggy? Let's try it on Windows with VC++. 
+
+C:\> ver
+
+Microsoft Windows [版本 5.2.3790]
+
+C:\> cl strtod.c
+用于 80x86 的 Microsoft (R) 32 位 C/C++ 优化编译器 14.00.50727.762 版
+版权所有(C) Microsoft Corporation。保留所有权利。
+
+strtod.c
+Microsoft (R) Incremental Linker Version 8.00.50727.762
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:strtod.exe
+strtod.obj
+LIBCMT.lib(crt0init.obj) : warning LNK4254: 节“.CRT”(40000040)合并到具有不同属
+性的“.data”(C0000040)
+
+C:\> strtod
+d = 0.000000, endptr = , errno = 34
+d = 0.000000, endptr = , errno = 34
+
+They are different. VC++'s strtod() cannot handle so small a value. errno = 34,
+which is ERANGE. And the output of d seems correct. 
+
+And now, let's find what "4.9406564584124654e-324" stands for.
+
+$ gcc -E -dM -xc /dev/null | grep 324
+#define __DBL_DENORM_MIN__ 4.9406564584124654e-324
+
+Here are more examples of "gcc -E". We can learn more about the options from
+man pages.
+
+$ gcc -E -xc /dev/null | grep __DBL_MIN__
+<Nothing found.>
+
+$ gcc -E -dM -xc /dev/null | grep __DBL_MIN__
+#define __DBL_MIN__ 2.2250738585072014e-308
+
+Why does the test program give the magic output? After some thoughts, we can 
+find the value of d is too small for %f to print it out correctly. Let's try
+with %e instead. 
+
+$ cat strtod2.c 
+#include <stdlib.h> 
+#include <stdio.h> 
+#include <float.h> 
+#include <errno.h> 
+
+void test(const char *s); 
+
+int main(void) 
+{ 
+    test("4.9406564584124654e-324"); 
+    test("4.9406564584124654e-320"); 
+
+    return 0; 
+} 
+
+void test(const char *s) 
+{ 
+    char    *endptr; 
+    double      d; 
+
+    d = strtod(s, &endptr); 
+
+    printf("s = %s, d = %30.20e, endptr = %s, errno = %d\n", 
+        s, d, endptr ? endptr : "", errno); 
+} 
+
+$ ./a.out 
+s = 4.9406564584124654e-324, d =    4.94065645841246544177e-324, endptr = , errno = 0 
+s = 4.9406564584124654e-320, d =    4.94065645841246544177e-320, endptr = , errno = 0 
+
+C:\> strtod2 
+s = 4.9406564584124654e-324, d =    0.00000000000000000000e+000, endptr = , errno = 34 
+s = 4.9406564584124654e-320, d =    0.00000000000000000000e+000, endptr = , errno = 34
+
+Finally, we get the correct outputs. 
+
+http://blog.china-pub.com/more.asp?name=uniware&id=40378

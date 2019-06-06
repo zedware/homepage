@@ -1,0 +1,73 @@
+
+●
+  http://gcc.gnu.org/gcc-version/changes.html
+●
+
+
+　　# Ctrl + A - Go to the beginning of the line you are currently typing on
+　　# Ctrl + E - Go to the end of the line you are currently typing on
+　　切到命令行开始｜结尾
+　　# Ctrl + L - Clears the Screen, similar to the clear command
+　　清屏，类似于 clear 命令
+　　# Ctrl + U - Clears the line before the cursor position. If you are at the end of the line, clears the entire line.
+　　清除光标以前
+　　# Ctrl + H - Same as backspace
+　　退格键 backspace
+　　# Ctrl + R - Let’s you search through previously used commands
+　　从命令历史中找
+　　# Ctrl + C - Kill whatever you are running
+　　终止命令
+　　# Ctrl + D - Exit the current shell
+　　退出 shell
+　　# Ctrl + Z - Puts whatever you are running into a suspended background process. fg restores it.
+　　??
+　　# Ctrl + W - Delete the word before the cursor
+　　清除光标之前
+　　# Ctrl + K - Clear the line after the cursor
+　　清除光标之后
+　　# Ctrl + T - Swap the last two characters before the cursor
+　　# Esc + T - Swap the last two words before the cursor
+　　切换光标前最后两个字母（单词）
+　　# Alt + F - Move cursor forward one word on the current line
+　　# Alt + B - Move cursor backward one word on the current line
+　　??在 ubuntu x windows终端中会切换到菜单！tty 可能可以
+　　# Tab - Auto-complete files and folder names
+　　自动补全
+　　# Ctrl + Y - to paste it (as in delete and copy) all text in front of the cursor
+　　粘贴（刚才 ctrl+w 或者 ctrl+k 的内容）
+　　# Esc + . (or Esc + Underscore) - Insert Last Argument
+　　??
+　　# Ctrl + b - Move back a character
+　　# Ctrl + f - Move forward a character
+　　向前｜后移动一个字母
+　　# Ctrl + r - Search the history backwards
+　　??
+　　# Ctrl + xx - Move between EOL and current cursor position
+　　光标在当前位置和 EOL 之间切换（EOL end of line?但我实验，是在开头和当前位置之间切换，怎么理解？谁知道？）
+　　# Ctrl + x @ - Show possible hostname completions
+　　# Alt +
+　　# Alt + > - Move to the last line in the history
+　　# Alt + ? - Show current completion list
+　　# Alt + * - Insert all possible completions
+　　# Alt + / - Attempt to complete filename
+　　# Alt + . - Yank last argument to previous command
+　　# Alt + c - Capitalize the word
+　　# Alt + d - Delete word
+　　# Alt + l - Make word lowercase
+　　# Alt + n - Search the history forwards non-incremental
+　　# Alt + p - Search the history backwards non-incremental
+　　# Alt + r - Recall command
+　　# Alt + t - Move words around
+　　# Alt + u - Make word uppercase
+　　# Alt + back-space - Delete backward from cursor
+　　# Here "2T" means Press TAB twice
+　　# $ 2T - All available commands(common)
+　　# $ (string) 2T - All available commands starting with (string)
+　　# $ /2T - Entire directory structure including Hidden one
+　　# $ 2T - Only Sub Dirs inside including Hidden one
+　　# $ *2T - Only Sub Dirs inside without Hidden one
+　　# $ ~2T - All Present Users on system from "/etc/passwd"
+　　# $ $2T - All Sys variables
+　　# $ @2T - Entries from "/etc/hosts"
+　　# $ =2T - Output like ls or dir
+　　文章来源: baike.duba.net

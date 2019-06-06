@@ -1,0 +1,32 @@
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=TCPL.chm
+Contents file=TCPL.hhc
+Default topic=index.html
+Display compile progress=Yes
+Full-text search=Yes
+Index file=Index.hhk
+Language=0x804 中文(中国)
+Title=The C Programming Language - 2nd Edition
+
+
+[FILES]
+index.html
+preface.html
+preface1.html
+intro.html
+chapter1.html
+chapter2.html
+chapter3.html
+chapter4.html
+chapter5.html
+chapter6.html
+chapter7.html
+chapter8.html
+appa.html
+appb.html
+appc.html
+
+[INFOTYPES]
+

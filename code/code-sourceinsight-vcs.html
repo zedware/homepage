@@ -1,0 +1,84 @@
+<html>
+<!-- DW6 -->
+<head>
+<title>在SourceInsight中集成版本管理工具</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+.style1 {font-size: larger}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF"> 
+<p align="center" class="style1">在SourceInsight中集成版本管理工具</p> 
+<hr> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;SourceInsight是一个功能强大的源码阅读和编辑工具，它也支持用户自定义的命令。我们可以选取主菜单中的“View”-&gt;“Toolbars”中的“Source Control”和“Build”以便显示版本管理和构建工具栏。</p>
+<p align="center"><img src="images/jpg/si-toolbars.jpg" alt="si-toolbars.jpg" width="387" height="242"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这两个工具栏所对应的命令都是可以定制的，更多的定制命令可以在“Options”-&gt;“Custom Commands...”中看到和修改：</p>
+<p align="center"><img src="images/jpg/si-custom-commands.jpg" alt="si-custom-commands.jpg" width="498" height="374"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;点击其中的“Menu...”按钮还可以将常用的自定义命令放到菜单中，例如我将常用的命令放到了“Help”后的“Work”菜单中：</p>
+<p align="center"><img src="images/jpg/si-menu-assignments.jpg" alt="si-menu-assignments.jpg" width="534" height="384"></p>
+<p>&nbsp;&nbsp;&nbsp;SourceInsight默认集成的版本管理工具是VSS，当然我们也可以进行更多的修改。《<a href="http://www.heynew.com/scmchina/topic.asp?TOPIC_ID=1880&FORUM_ID=38&CAT_ID=9">在SourceInsight中集成Visual SourceSafe</a>》中有详细的介绍。在按下Ctrl键后点击工具栏或菜单上的项目时都可以快速打开自定义命令的设置窗口，更多的使用方法请参考联机帮助或<a href="http://www.sourceinsight.com/docs35/ae1180684.htm">在线文档</a>。为了集成Hansky Firefly，我们需要修改“Custom Commands”对话框中的“Run：”文本。“Dir:”默认的就是SourceInsight项目的主目录，而Firefly的脚本的工作目录必须为Firefly本地工作区所在的目录。我们将项目的主目录设置为Firefly本地工作区所在的目录，就可以避免修改“Dir:”的设置了。</p>
+<p align="center"><img src="images/jpg/si-checkout.jpg" alt="si-checkout.jpg" width="498" height="374"></p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;上面写的是“C:\MyScripts\checkout.bat %f”。其中checkou.bat是我们需要编写的批处理文件，“%f”是SourceInsight支持的命令扩展，它会自动替换为当前编辑文件的完整路径（带文件名）。checkout.bat的内容非常简单：</p>
+<blockquote>
+  <p align="left">@echo off<br>
+    hff edit %1  </p>
+</blockquote>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;类似的，“Check In”对应的“Run”语句为：C:\MyScripts\checkin.bat %f。<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;“Undo Checkout”对应的“Run”语句为：C:\MyScripts\unedit.bat %f。<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;“Sync to Source Control Project”对应的“Run”语句为：C:\MyScripts\bringover.bat。<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;“Sync File to Source Control Project”对应的“Run”语句为：C:\MyScripts\bringover.bat %f。 <br>
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;当然了，Hansky Firefly特有的一些功能也可以通过增加新的命令还完成，例如：</p>
+<ul>
+  <li>要将当前文件（不受控）添加到Firefly中，可以新增一个命令“Add File to Source Control”来实现，它对应的“Run”语句为：C:\MyScripts\create.bat。</li>
+  <li>要Check in全部的文件，可以新增一个命令“Check in All Files”来实现，它对应的“Run”语句为：C:\MyScripts\checkinall.bat。</li>
+</ul>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;下面是这些脚本的内容：</p>
+<table width="250" border="1" align="center">
+  <tr>
+    <td width="98"><div align="center">脚本文件</div></td>
+    <td width="136"><div align="center">脚本内容</div></td>
+  </tr>
+  <tr>
+    <td>create.bat</td>
+    <td>@echo off<br>
+    hff create -e %1</td>
+  </tr>
+  <tr>
+    <td>checkin.bat</td>
+    <td>@echo off<br>
+    hff putback %1</td>
+  </tr>
+  <tr>
+    <td>checkout.bat</td>
+    <td>@echo off<br>
+    hff edit %1</td>
+  </tr>
+  <tr>
+    <td>bringover.bat</td>
+    <td>@echo off<br>
+    hff bringover %1</td>
+  </tr>
+  <tr>
+    <td>unedit.bat</td>
+    <td>@echo off<br>
+    hff unedit %1</td>
+  </tr>
+  <tr>
+    <td>checkinall.bat</td>
+    <td>@echo off<br>
+    hff putback %1</td>
+  </tr>
+</table>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;需要特别注意的是，脚本中引用hff（其实是hff.bat）时没有加全路径。这些脚本的正常运行需要将Hansky Firefly的安装路径（例如：C:\Program Files\hansky\firefly\client\bin\java）加入到PATH环境变量中。Hansky Firefly的命令行还可以完成很多其他的操作，可以查看hff.bat输出的信息或Hansky的联机帮助获得更多的信息。</p>
+<div align="center">
+<hr>
+<div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br> 
+  Last modified on
+  <!-- #BeginDate format:fcIS1 -->Thursday, 2005-02-24<!-- #EndDate --> 
+</div>
+</div> 
+</body>
+</html>

@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb_2312-80">
+<TITLE>ASCII编码和EBCDIC编码</TITLE>
+<STYLE type="text/css">
+<!--
+.style1 {font-size: larger}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF" LINK="#0000ff" VLINK="#800080"> 
+<p align="center" class="style1"><font>ASCII编码和EBCDIC编码</font></p> 
+<hr> 
+<p><font>　　平常我们接触的系统多半采用的是ASCII编码，要是需要支持汉字等多字节字符，则对ASCII码进行一些扩充。ASCII码是一种7位编码，也就是说，它对多只能定义128个字符，这对英语等语言是足够了。为了处理多字节字符，大家就各显神通，在此基础上产生了多种编码方案，例如GB2312、BIG5、HZ等等，日本鬼子和韩国人也设计了一些编码。这种万马奔腾的局面也许还要过一段时间才能消除。</font></p> 
+<p><font>　　IBM采用的编码则更加奇怪，它彻头彻尾的和ASCII码不同，这就是EBCDIC编码。想当年，金戈铁马、气吞万里如虎的就是这只恐龙了。历史的车轮转到了今天，EBCDIC编码越来越失去关注，只在IBM以及与其兼容的少数机器上发挥余热了。EBCDIC码是8位编码，多数字符的位置和ASCII码不同，有兴趣者可以研究一下二者的不同，做个对照表进行互换。</font></p> 
+<p><font>　　中国是个巨大的市场，IBM主机在此也有不少用户，它也就需要扩展编码，增加对汉字的支持。不过，在EBCDIC上面扩展可不象那样还有字节的最高位可资利用，于是IBM选择了其中的两个特殊控制字符SHIFT IN和SHIFT OUT作为汉字字符串的开始和结束标志，一个汉字还是需要两个字节表示，但是为了和相邻的单字节字符区分开来，无论单个汉字还是多个汉字都必须被视为一个字符串。于是一个汉字实际占用的字节数不再是两个字节了。例如：</font></p> 
+<p><font>　　汉字“中”在文档中单独出现，或者夹在两个英文字母之间时（如“A 中 B”）就需要占用4字节，注意A后面和B前面的空格在此处表示SHIFT IN和SHIFT OUT。</font></p> 
+<p><font>　　如果你不幸地混排汉字和英文字符，字符串的最大长度就不那么好算了。这可能会对实际的一些应用产生较大的影响。</font></p> 
+<hr> 
+<div align="center"><a href="mailto:zedware_at_gmail_dot_com"> 
+  <font face="Times New Roman, Times, serif" size="3">Copyright 2000-2005，zedware_at_gmail_dot_com</font></a><br>
+Last modified on
+<!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08<!-- #EndDate -->
+</div> 
+</BODY>
+</HTML>

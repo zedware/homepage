@@ -1,0 +1,60 @@
+
+    Windows网络中经常会有一些共享文件的机器，在Windows中通过网络邻居可以很容易的访问它们。当然也可以通过net use/copy等DOS命令去访问。类似的，在Linux中也可以通过SMB服务提供类似的功能，让其他的机器访问。在Linux上也可以通过图形化的文件管理器查看网上邻居资源，而在命令行方式下，一般可以用smbclient工具。
+
+ $ man smbclient
+SMBCLIENT(1)                                                                          SMBCLIENT(1)
+
+NAME 
+       smbclient - ftp-like client to access SMB/CIFS resources on servers
+...
+
+    最简单的用法是：
+
+$ smbclient //192.168.1.8/Temp -UGuest
+Password: 
+Domain=[FILESRV] OS=[Windows Server 2003 3790] Server=[Windows Server 2003 5.2]
+smb: \> help
+?              altname        archive        blocksize      cancel         
+case_sensitive cd             chmod          chown          del            
+dir            du             exit           get            getfacl        
+hardlink       help           history        lcd            link           
+lowercase      ls             mask           md             mget           
+mkdir          more           mput           newer          open           
+print          printmode      prompt         put            pwd            
+q              queue          quit           rd             recurse        
+reget          rename         reput          rm             rmdir          
+setmode        stat           symlink        tar            tarmode        
+translate      vuid           logon          listconnect    showconnect    
+!              
+smb: \> q
+$
+
+    对于一些经常性的工作，还可以让脚本程序来帮我们自动运行。例如：
+
+$ cat -n smb.sh
+     1  #!/bin/sh
+     2  #
+     3  # Use smbclient to visit Windows file server.
+     4  #
+     5
+     6
+     7  host_name=192.168.1.8
+     8  shared_name=Software
+     9  user_name=guest
+    10  #
+    11  # Execute some smbclient commands.
+    12  cmd='cd "Windows path may contains spaces";dir;mget *.zip'
+    13
+    14  smbclient //"$host_name"/"$shared_name" -N -U "$user_name" -c "$cmd" <<SMBIT
+    15  y
+    16  y
+    17  y
+    18  y
+    19  y
+    20  y
+    21  y
+    22  quit
+    23  SMBIT
+    24
+
+http://blog.china-pub.com/more.asp?name=uniware&id=38685 

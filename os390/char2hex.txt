@@ -1,0 +1,122 @@
+*ASM XOPTS(NOEPILOG)
+
+         TITLE 'CHANGE 16-BYTE-CHAR TO 8-BYTE-HEX'
+
+*        AUTHOR uniware@zedware.org 
+
+         EJECT
+
+*----------------------------------------------------------------------
+
+*        SYS1.MACLIB(YREGS)
+
+*----------------------------------------------------------------------
+
+         YREGS
+
+COMMREG  EQU     R10
+
+*----------------------------------------------------------------------
+
+*        DYNAMIC STORAGE
+
+*----------------------------------------------------------------------
+
+         DFHEISTG
+
+         SPACE 1
+
+BUF1     DS     CL16
+
+BUF2     DS     CL9
+
+*
+
+LINKAREA DSECT
+
+         USING *,COMMREG
+
+CHARBUF  DS     CL16
+
+HEXBUF   DS     CL08
+
+RETCODE  DS     CL01
+
+*-------------------------------------------------------------------
+
+CONVERT  DFHEIENT CODEREG=(3,4)
+
+         EXEC  CICS HANDLE ABEND LABEL(ABND)
+
+         L     COMMREG,DFHEICAP
+
+         MVC   BUF1(16),CHARBUF
+
+         TR    BUF1(16),TABLE
+
+         LA    R5,BUF1
+
+         LA    R6,BUF2
+
+         PACK  0(5,R6),0(9,R5)
+
+         PACK  4(5,R6),8(9,R5)
+
+         MVC   HEXBUF(8),BUF2
+
+         MVI   RETCODE,C'0'
+
+         B     RETURN
+
+ABND     MVI   RETCODE,C'1'
+
+RETURN   EXEC  CICS RETURN
+
+         EJECT
+
+*
+
+         LTORG
+
+         DS    0D
+
+OPERCHAR DC    X'F00FF00FF00FF00FF00FF00FF00FF00F'
+
+         DS    0D
+
+TABLE    EQU   *
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0FAFBFCFDFEFFF0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0FAFBFCFDFEFFF0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0'
+
+         DC    X'F0F1F2F3F4F5F6F7F8F9F0F0F0F0F0F0'
+
+         END
+

@@ -1,0 +1,82 @@
+000100*A---B-------2---------3---------4---------5---------6---------7--00010011
+
+000200******标志部.                                                   00020012
+
+000300 IDENTIFICATION DIVISION.                                         00030000
+
+000400 PROGRAM-ID.    TESTPRG.                                          00040007
+
+000500*AUTHOR.        UNIWARE.                                    00050011
+
+000600*DATE-WRITTEN.  2000/08/10.                                       00060011
+
+000700*DATE-COMPLIED. 2000/08/10.                                       00070011
+
+000800*                                                                 00080011
+
+000900******环境部.                                                   00090012
+
+001000 ENVIRONMENT DIVISION.                                            00100000
+
+001100 CONFIGURATION SECTION.                                           00110000
+
+001200 SOURCE-COMPUTER. ES9000.                                         00120070
+
+001300 OBJECT-COMPUTER. ES9000.                                         00130000
+
+001400 SPECIAL-NAMES.                                                   00140000
+
+001500      CURRENCY IS  '$'.                                           00150002
+
+001600*                                                                 00160012
+
+001700******数据部.                                                   00170012
+
+001800 DATA DIVISION.                                                   00180000
+
+001900 WORKING-STORAGE SECTION.                                         00190057
+
+002000 77 COUNTER           PIC 9(5).                                   00200093
+
+002100 77 SEED              PIC 9(5).                                   00210099
+
+002200 77 RESULT            PIC 9(10).                                  00220099
+
+002300***过程部.                                                      00230011
+
+002400 PROCEDURE DIVISION.                                              00240000
+
+002500D          DISPLAY 'DEBUG IS ON.'.                                00250067
+
+002600           DISPLAY 'ACCEPT SEED:'.                                00260099
+
+002700           ACCEPT  SEED.                                          00270099
+
+002800           MOVE 1 TO COUNTER.                                     00280099
+
+002900           MOVE 1 TO RESULT.                                      00290099
+
+003000           DISPLAY 'SEED:', SEED, ' RESULT:', RESULT.             00300099
+
+003100           PERFORM CALC                                           00310099
+
+003200           UNTIL COUNTER = SEED.                                  00320099
+
+003300                PERFORM WIDING-UP.                                00330099
+
+003400                                                                  00340099
+
+003500 CALC.                                                            00350099
+
+003600           MULTIPLY COUNTER BY RESULT.                            00360099
+
+003700           ADD 1 TO COUNTER.                                      00370099
+
+003800*                                                                 00380088
+
+003900 WIDING-UP.                                                       00390057
+
+004000           DISPLAY SEED, 'RESULT IS:', RESULT.                    00400099
+
+004100           STOP RUN.                                              00410057
+

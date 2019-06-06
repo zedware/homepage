@@ -1,0 +1,115 @@
+*---1--------2---------3---------4---------5--------6---------7--
+
+**********************************************************        
+
+***子程序功能:检查输入的日期是否正确                              
+
+***调用方法:   CALL 'CHKDATE' USING CONTENT WORK-DATE             
+
+***                  REFERENCE DATE-OK                            
+
+***输入数据:   YYYYMMDD格式的年月日                               
+
+***输出数据:  通过变量DATE-OK返回检查结果                         
+
+***              1 ---日期格式正确                                
+
+***              0 ---日期格式错误                                
+
+**********************************************************        
+
+ IDENTIFICATION DIVISION.                                         
+
+ PROGRAM-ID. CHKDATE.                                             
+
+*                                                                 
+
+ DATA DIVISION.                                                   
+
+ WORKING-STORAGE SECTION.                                         
+
+ 01 MMDD-TAB.                                                     
+
+    04 DAYS PIC X(24) VALUE '312831303130313130313031'.           
+
+    04 MMDD REDEFINES DAYS PIC 9(2) OCCURS 12 TIMES.              
+
+ 77 WORK-YEAR         PIC S9(4) BINARY.                           
+
+ 77 REM               PIC S9(4) BINARY.                           
+
+                                                                  
+
+ LINKAGE SECTION.                                                 
+
+ 01 DATE-OK           PIC 9(01).                                  
+
+ 01 WORK-DATE.                                                    
+
+    04 WORK-YYYY      PIC 9(04).                                  
+
+    04 WORK-MM        PIC 9(02).                                  
+
+    04 WORK-DD        PIC 9(02).                                  
+
+*                                                                 
+
+ PROCEDURE DIVISION USING WORK-DATE, DATE-OK.                     
+
+     MOVE 1 TO DATE-OK.                                           
+
+     IF WORK-YYYY IS NOT NUMERIC OR                               
+
+        WORK-MM IS NOT NUMERIC OR                                 
+
+        WORK-DD IS NOT NUMERIC OR                                 
+
+        WORK-MM < 1   OR                                          
+
+        WORK-MM > 12  OR                                          
+
+        WORK-DD < 1                                               
+
+         MOVE 0 TO DATE-OK                                        
+
+         EXIT PROGRAM                                             
+
+     END-IF.                                                      
+
+     MOVE 28 TO MMDD(2).                                          
+
+     DIVIDE WORK-YYYY BY 400 GIVING WORK-YEAR REMAINDER REM       
+
+     IF REM = 0                                                   
+
+         MOVE 29 TO MMDD(2)                                       
+
+     ELSE                                                         
+
+         DIVIDE WORK-YYYY BY 4 GIVING WORK-YEAR REMAINDER REM     
+
+         IF REM = 0                                               
+
+           DIVIDE WORK-YYYY BY 100 GIVING WORK-YEAR REMAINDER REM 
+
+             IF REM NOT = 0                                       
+
+                 MOVE 29 TO MMDD(2)                               
+
+             END-IF                                               
+
+         END-IF                                                   
+
+     END-IF.                                                      
+
+     IF WORK-DD > MMDD(WORK-MM)                                   
+
+        MOVE 0 TO DATE-OK                                         
+
+        EXIT PROGRAM                                              
+
+     END-IF.                                                      
+
+ END PROGRAM CHKDATE.                                             
+
+*                                                                 

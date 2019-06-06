@@ -1,0 +1,46 @@
+//SYSPRG5C JOB  (SS8UCP),'&PROGRAM',CLASS=A,MSGCLASS=X,                 00010068
+
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                            00020003
+
+//****************************************                              00030003
+
+//*******  COBOL COMPILER ...........*****                              00040003
+
+//******   1998,12,14  OK            *****                              00050003
+
+//****************************************                              00060003
+
+//COBOL    EXEC  PGM=IGYCRCTL,REGION=1024K,                             00070068
+
+//             PARM='OBJECT,APOST,LIB,DECK'                             00080056
+
+//STEPLIB  DD  DSN=IGY.V2R1M0.SIGYCOMP,DISP=SHR                         00090003
+
+//SYSPRINT DD  SYSOUT=*                                                 00100003
+
+//SYSUT1   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00110003
+
+//SYSUT2   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00120003
+
+//SYSUT3   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00130003
+
+//SYSUT4   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00140003
+
+//SYSUT5   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00150003
+
+//SYSUT6   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00160003
+
+//SYSUT7   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00170003
+
+//SYSLIN   DD  DSN=SYSPRG5.JCL.LOAD(TJBPRGP),                           00180071
+
+//             UNIT=3390,DISP=(OLD,KEEP),                               00190071
+
+//             SPACE=(1024,(20,10))                                     00200065
+
+//SYSPUNCH DD  DUMMY                                                    00210003
+
+//SYSIN    DD  DSN=SYSPRG5.IT@ABC.COBOL(TJBPRGP),DISP=SHR               00220067
+
+/*                                                                      00230003
+

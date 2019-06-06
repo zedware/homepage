@@ -1,0 +1,86 @@
+/*
+ * Microsoft SQL Server
+ */
+print 'Let''s take a look at DBMS''s data types.'
+print ''
+
+/* 
+ * char(4000)
+ */
+declare @count int
+declare @sql char(4000)
+
+set @sql = ''
+set @count = 9
+
+print 'test case 1:'
+while @count > 0
+begin
+	set @sql = @sql + cast(@count as char(4))
+	print @sql
+	set @count = @count - 1
+end
+
+go
+
+/* 
+ * char(4000), but change the string concat expr.
+ */
+declare @count int
+declare @sql char(4000)
+
+set @sql = ''
+set @count = 9
+
+print 'test case 2:'
+while @count > 0
+begin
+	-- only changed here.
+	set @sql = cast(@count as char(4)) + @sql;
+	print @sql
+	set @count = @count - 1
+end
+
+go
+
+/* 
+ * varchar(4000)
+ */
+declare @count int
+declare @sql varchar(4000) -- nvarchar also works
+
+set @sql = ''
+set @count = 9
+
+print 'test case 3:'
+while @count > 0
+begin
+	-- only changed here.
+	set @sql = @sql + cast(@count as varchar(4))
+	print @sql
+	set @count = @count - 1
+end
+
+go
+
+/* 
+ * varchar(4000)
+ */
+declare @count int
+declare @sql varchar(4000) -- nvarchar also works
+
+set @sql = ''
+set @count = 9
+
+print 'test case 4:'
+while @count > 0
+begin
+	set @sql = cast(@count as varchar(4)) + @sql
+	print @sql
+	set @count = @count - 1
+end
+
+go
+
+print 'That''s the end of the story. Can you figure it out?'
+go

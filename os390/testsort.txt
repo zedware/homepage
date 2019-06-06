@@ -1,0 +1,142 @@
+000100*A---B-------2---------3---------4---------5---------6---------7--00010011
+
+000200*SORT.                                                            00020099
+
+000300 IDENTIFICATION DIVISION.                                         00030000
+
+000400 PROGRAM-ID.    TESTPRG.                                          00040007
+
+000500*AUTHOR.        UNIWARE.                                    00050011
+
+000600*DATE-WRITTEN.  2000/08/10.                                       00060011
+
+000700*DATE-COMPLIED. 2000/08/10.                                       00070011
+
+000800*                                                                 00080011
+
+000900 ENVIRONMENT DIVISION.                                            00090000
+
+001000 CONFIGURATION SECTION.                                           00100000
+
+001100 SOURCE-COMPUTER. ES9000 WITH DEBUGGING MODE.                     00110099
+
+001200 OBJECT-COMPUTER. ES9000.                                         00120000
+
+001300 SPECIAL-NAMES.                                                   00130000
+
+001400      CURRENCY IS  '$'.                                           00140002
+
+001500 INPUT-OUTPUT SECTION.                                            00150099
+
+001600 FILE-CONTROL.                                                    00160099
+
+001700     SELECT SORT-FILE ASSIGN TO DISK.                             00170099
+
+001800     SELECT IN-FILE   ASSIGN TO DATAIN                            00180099
+
+001900         FILE STATUS IS IN-FILE-CODE.                             00190099
+
+002000     SELECT OUT-FILE  ASSIGN TO DATAOUT                           00200099
+
+002100         FILE STATUS IS OUT-FILE-CODE.                            00210099
+
+002200 DATA DIVISION.                                                   00220000
+
+002300 FILE SECTION.                                                    00230099
+
+002400 SD SORT-FILE.                                                    00240099
+
+002500 01 SORT-RECORD.                                                  00250099
+
+002600    03 PART-NO     PIC X(12).                                     00260099
+
+002700    03 PART-STATUS PIC X.                                         00270099
+
+002800    03 PART-COST   PIC 9(4).                                      00280099
+
+002900 FD IN-FILE.                                                      00290099
+
+003000 01 IN-RECORD.                                                    00300099
+
+003100    03 PART-NO     PIC X(12).                                     00310099
+
+003200    03 PART-STATUS PIC X.                                         00320099
+
+003300    03 PART-CODE   PIC 9(4).                                      00330099
+
+003400 FD OUT-FILE.                                                     00340099
+
+003500 01 OUT-RECORD.                                                   00350099
+
+003600    03 PART-NO     PIC X(12).                                     00360099
+
+003700    03 PART-STATUS PIC X.                                         00370099
+
+003800    03 PART-COST   PIC 9(4).                                      00380099
+
+003900 WORKING-STORAGE SECTION.                                         00390099
+
+004000 77 IN-FILE-CODE   PIC 99 VALUE 0.                                00400099
+
+004100 77 OUT-FILE-CODE  PIC 99 VALUE 0.                                00410099
+
+004200 PROCEDURE DIVISION.                                              00420000
+
+004300 P-01.                                                            00430099
+
+004400D    DISPLAY 'BEGINNING OF EXEC...'.                              00440099
+
+004500     SORT SORT-FILE                                               00450099
+
+004600         ASCENDING KEY PART-NO OF SORT-RECORD                     00460099
+
+004700         INPUT PROCEDURE IS P-02 THRU P-02-END                    00470099
+
+004800         GIVING OUT-FILE.                                         00480099
+
+004900     DISPLAY 'END OF EXEC...'.                                    00490099
+
+005000     STOP RUN.                                                    00500099
+
+005100 P-02.                                                            00510099
+
+005200D    DISPLAY 'OPENING IN-FILE...'.                                00520099
+
+005300     OPEN INPUT IN-FILE.                                          00530099
+
+005400     IF IN-FILE-CODE NOT = 0                                      00540099
+
+005500        DISPLAY 'OPEN INPUT FILE FAILED.'                         00550099
+
+005600     END-IF.                                                      00560099
+
+005700 P-02-1.                                                          00570099
+
+005800D    DISPLAY 'READING IN-FILE.'.                                  00580099
+
+005900     READ IN-FILE AT END                                          00590099
+
+006000         CLOSE IN-FILE                                            00600099
+
+006100         GO TO P-02-END                                           00610099
+
+006200     END-READ                                                     00620099
+
+006300D    DISPLAY 'FILTER RECORD CONTAIN A.'.                          00630099
+
+006400     IF PART-STATUS OF IN-RECORD NOT = 'A'                        00640099
+
+006500         GO TO P-02-1                                             00650099
+
+006600     END-IF                                                       00660099
+
+006700     RELEASE SORT-RECORD FROM IN-RECORD                           00670099
+
+006800     GO TO P-02-1.                                                00680099
+
+006900 P-02-END.                                                        00690099
+
+007000*    DISPLAY 'GO INTO P-02-END, BEFORE EXIT                       00700099
+
+007100     EXIT.                                                        00710099
+

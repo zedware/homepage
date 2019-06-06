@@ -1,0 +1,58 @@
+
+Quick reference for Oracle 11gR2's installation on Fedora Core 11 (VMware 6.5)
+
+zedware@gmail.com
+2009-10-3 16:43:31
+
+1. Download packages from Oracle's website.
+2. Unzip them into /tmp/oracle.
+3. Start the installer at /tmp/oracle/database/runInstaller
+   The installer will autodetect the hardware and software dependencies.
+   Here are the failures I got, and the steps to fix them: 
+
+1) Hardware
+
+mem: >=1GB
+
+Add memory in VMware, and restart the VM.
+
+swap: >= 2GB
+
+# Create a free partition and make it as swap.
+# Use LVM.
+mkswap -v /dev/mapper/VolGroup-vl_swap
+
+swapon -a
+swapon -s
+
+# Add a line to /etc/fstab
+/dev/mapper/VolGroup-lv_swap                  none      swap    defaults    1 1
+
+2) /etc/profile
+
+ulimit -n 65536
+ulimit -u 16384
+
+3) /etc/sysctl.conf
+
+kernel.sem = 250 32000 100 128
+kernel.shmmax = 536870912
+fs.file-max = 6815744
+net.ipv4.ip_local_port_range = 9000 65500
+net.core.rmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_default = 262144
+net.core.wmem_max = 1048576
+fs.aio-max-nr = 1048576
+
+4) Packages
+
+libaio-devel-0.3.105	# fc11's version is 0.3.107, ignore this failure is ok.
+sysstat-5.0.5
+unixODBC-2.2.11			# fc11's version is 2.2.14, ignore this failure is ok.
+unixODBC-devel-2.2.11
+pdksh-5.2.14			# download and install it.
+
+4. The installation was slow but succeeded.
+   Web: https://localhost:1521/em
+   CLI: sqlplus, exp, imp, ...

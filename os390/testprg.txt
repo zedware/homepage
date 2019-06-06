@@ -1,0 +1,40 @@
+000100 IDENTIFICATION DIVISION.                                         00010001
+
+000200 PROGRAM-ID. TESTPRG.                                             00020043
+
+000300*                                                                 00030000
+
+000400 ENVIRONMENT DIVISION.                                            00040001
+
+000500 CONFIGURATION SECTION.                                           00050001
+
+000600 SOURCE-COMPUTER. S-390.                                          00060037
+
+000700 OBJECT-COMPUTER. S-390.                                          00070036
+
+000800*                                                                 00080000
+
+000900 DATA DIVISION.                                                   00090001
+
+001000 WORKING-STORAGE SECTION.                                         00100004
+
+001100 77  I  PIC 9999.                                                 00110036
+
+001200 LINKAGE SECTION.                                                 00120039
+
+001300 01 PARM.                                                         00130039
+
+001400    03 PARM-LENGTH    PIC 9(4) COMP.                              00140039
+
+001500    03 PARM-DATA      PIC X(100).                                 00150039
+
+001600*                                                                 00160000
+
+001700 PROCEDURE DIVISION.                                              00170001
+
+001800     MOVE PARM-LENGTH TO I.                                       00180042
+
+001900     STOP RUN.                                                    00190001
+
+002000 END PROGRAM TESTPRG.                                             00200043
+

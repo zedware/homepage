@@ -1,0 +1,9 @@
+# Contact info submission
+url: zedware.org
+site_owner: William ZHANG
+address1: Haidian, Beijing
+city: Beijing
+country: CHINA
+display_email: zedware@gmail.com
+site_name: zedware.org
+site_description: Personal Web Site on programming and database technology.

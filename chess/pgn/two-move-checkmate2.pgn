@@ -1,0 +1,61 @@
+[Event "Edited position"]
+[Site "CNENZHANGW8L1C"]
+[Date "2012.01.14"]
+[Round "-"]
+[White "-"]
+[Black "-"]
+[Result "*"]
+[FEN "6K1/pN2R1PQ/p7/r2k3r/N2n4/1P2p3/BB5p/2Rb2bk w - - 0 1"]
+[SetUp "1"]
+
+{--------------
+. . . . . . K .
+p N . . R . P Q
+p . . . . . . .
+r . . k . . . r
+N . . n . . . .
+. P . . p . . .
+B B . . . . . p
+. . R b . . b k
+white to play
+--------------}
+*
+
+[Event "Computer Chess Game"]
+[Site "CNENZHANGW8L1C"]
+[Date "2012.01.14"]
+[Round "-"]
+[White "zhangw8"]
+[Black "Fairy-Max 4.8O"]
+[Result "1-0"]
+[TimeControl "40/300"]
+[FEN "6K1/pN2R1PQ/p7/r2k3r/N2n4/1P2p3/BB5p/2Rb2bq w - - 0 1"]
+[SetUp "1"]
+
+{--------------
+. . . . . . K .
+p N . . R . P Q
+p . . . . . . .
+r . . k . . . r
+N . . n . . . .
+. P . . p . . .
+B B . . . . . p
+. . R b . . b q
+white to play
+--------------}
+{
+--------------
+. . . . . . K .
+p N . . R . P Q
+p . . . . . . .
+r . . k . . . r
+N . . n . . . .
+. P . . p . . .
+B B . . . . . p
+. . R b . . b k
+white to play
+--------------
+}
+1. Rcc7 Rxh7 2. Nc3#
+{White mates} 1-0
+

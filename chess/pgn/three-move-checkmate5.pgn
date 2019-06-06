@@ -1,0 +1,23 @@
+[Event "Edited position"]
+[Site "CNENZHANGW8L1C"]
+[Date "2012.07.05"]
+[Round "-"]
+[White "-"]
+[Black "-"]
+[Result "*"]
+[FEN "5Q2/8/4p3/8/8/2N1k3/4B3/B6K w - - 0 1"]
+[SetUp "1"]
+
+{--------------
+. . . . . Q . .
+. . . . . . . .
+. . . . p . . .
+. . . . . . . .
+. . . . . . . .
+. . N . k . . .
+. . . . B . . .
+B . . . . . . K
+white to play
+--------------}
+*
+

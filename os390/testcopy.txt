@@ -1,0 +1,52 @@
+000100****************************************                          00010014
+
+000200***  USE COPY STATEMENT              ***                          00020036
+
+000300***                                  ***                          00030036
+
+000400****************************************                          00040014
+
+000500 IDENTIFICATION DIVISION.                                         00050001
+
+000600 PROGRAM-ID. COPYX.                                               00060038
+
+000700*                                                                 00070000
+
+000800 ENVIRONMENT DIVISION.                                            00080001
+
+000900 CONFIGURATION SECTION.                                           00090001
+
+001000 SOURCE-COMPUTER. IBM-390 WITH DEBUGGING MODE.                    00100036
+
+001100 OBJECT-COMPUTER. IBM-390.                                        00110036
+
+001200*                                                                 00120000
+
+001300 DATA DIVISION.                                                   00130001
+
+001400 WORKING-STORAGE SECTION.                                         00140004
+
+001500 COPY TESTCPY1.                                                   00150037
+
+001600*                                                                 00160000
+
+001700 PROCEDURE DIVISION.                                              00170001
+
+001800     DISPLAY 'BEGIN OF EXECUTION.'.                               00180036
+
+001900     DISPLAY 'COPY-RECORD:', COPY-RECORD.                         00190036
+
+002000     MOVE 'ZHANGWL' TO COPY-NAME.                                 00200036
+
+002100     MOVE 1 TO COPY-SEX.                                          00210036
+
+002200     MOVE 25 TO COPY-AGE.                                         00220036
+
+002300     DISPLAY 'COPY-RECORD:', COPY-RECORD.                         00230036
+
+002400     DISPLAY 'END OF EXECUTION.'.                                 00240036
+
+002500     STOP RUN.                                                    00250001
+
+002600 END PROGRAM COPYX.                                               00260038
+

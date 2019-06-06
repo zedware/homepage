@@ -1,0 +1,84 @@
+[Event "Edited game"]
+[Site "CNENZHANGW8L1C"]
+[Date "2011.03.05"]
+[Round "-"]
+[White "-"]
+[Black "-"]
+[Result "*"]
+[FEN "5B2/p7/qpB5/1p1p1n2/b1kr1n2/RN3P2/PPN1p2K/8 w - - 0 1"]
+[SetUp "1"]
+
+{--------------
+. . . . . B . .
+p . . . . . . .
+q p B . . . . .
+. p . p . n . .
+b . k r . n . .
+R N . . . P . .
+P P N . p . . K
+. . . . . . . .
+white to play
+--------------}
+1. Nd2+ Rxd2 2. Rc3#
+*
+
+[Event "Edited game"]
+[Site "CNENZHANGW8L1C"]
+[Date "2011.03.05"]
+[Round "-"]
+[White "-"]
+[Black "-"]
+[Result "*"]
+[FEN "5B2/p7/qpB5/1p1p1n2/b1kr1n2/RN3P2/PPN1p2K/8 w - - 0 1"]
+[SetUp "1"]
+
+{--------------
+. . . . . B . .
+p . . . . . . .
+q p B . . . . .
+. p . p . n . .
+b . k r . n . .
+R N . . . P . .
+P P N . p . . K
+. . . . . . . .
+white to play
+--------------}
+1. Nd2+ Rxd2 2. Rc3#
+*
+
+[Event "Edited position"]
+[Site "CNENZHANGW8L1C"]
+[Date "2011.03.05"]
+[Round "-"]
+[White "-"]
+[Black "-"]
+[Result "*"]
+[FEN "5B2/p7/qpB5/1p1p1n2/b1k1rn2/RN3P2/PPNRp2K/8 w - - 0 1"]
+[SetUp "1"]
+
+{--------------
+. . . . . B . .
+p . . . . . . .
+q p B . . . . .
+. p . p . n . .
+b . k . r n . .
+R N . . . P . .
+P P N R p . . K
+. . . . . . . .
+white to play
+--------------}
+{
+--------------
+. . . . . B . .
+p . . . . . . .
+q p B . . . . .
+. p . p . n . .
+b . k r . n . .
+R N . . . P . .
+P P N . p . . K
+. . . . . . . .
+white to play
+--------------
+}
+*
+

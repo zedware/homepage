@@ -1,0 +1,81 @@
+实验三：进程通讯和死锁避免
+
+1.实验目的
+    ·加深对进程并发执行的理解；
+    ·初步掌握进程间通讯的方法；
+    ·加深系统对死锁问题采用的解决方法。
+
+2.实验预备知识
+    ·常见的Bash命令和简单的bash脚本语法
+    ·Linux中有关信号量和共享内存的系统调用
+
+3.实验内容
+
+   （1）教材习题6。
+   （2）用C语言在Linux环境中解决“哲学家就餐”问题。
+   	要求:(可参考教材中的代码)适当地将哲学家的信息显示在屏幕上。
+   （3）编写C语言程序模拟“银行家”算法，
+   	要求：银行家循环处理每一个客户的申请，判断是否是安全状态，
+   	     将客户的申请和银行家的决定记录到日志文件中
+
+4.相关的系统调用
+    
+    共享内存：int shmget(key_t key, size_t size, int oflag);
+    	     例如：shmget(IPC_PRIVATE, sizeof(int) * N, 
+    	     		IPC_CREAT | 0660)；
+    	     void *shmat(int shmid, const void *shmaddr, int flag);
+    	     例如：shmat(k, NULL, 0);
+    	     
+    	     int shmdt(const void *shmaddr);
+    	     例如：shmdt(state);
+    	     
+    	     int shmctl(int shmid, int cmd, struct shmid_ds *buff);
+    	     例如：shmctl(shm, IPC_RMID, NULL);
+    	     
+    
+    信号量：int semget(key_t key, int nsems, int oflag);
+    	   例如：semget(IPC_PRIVATE, 1, IPC_CREAT | 0660);
+    	   
+    	   int semctl(int semid, int semnum, int cmd,/*union semun arg*/);
+    	   	semnum: 只有当cmd为GETVAL, SETVAL, GETNCNT, GETZCNT, GETPID时使用，
+    	   	        指明信号量成员
+    	   	arg: 该参数可选，只针对特定的命令使用；且该union类型定义不出现在
+    	   	     系统头文件中，需专门定义：
+    	   	     union semun {
+    	   	     	int		val;	/* 用于SETVAL */
+    	   	     	struct semid_ds	*buf; 	/* 用于IPC_SET和IPC_STAT */
+    	   	     	ushort		*array;	/* 用于GETALL和SETALL */
+    	   	     };
+    	   例如:
+    	   { 
+    	   	union semun arg,
+    	   	
+    	   	arg.val = 0;
+    	   	...
+    	   	semctl(semid, 0, SETVAL, arg);
+    	   	...
+    	   	
+    	   	semctl(semid, 0, IPC_RMID);
+    	   }
+    	   
+    	   
+    	   int semop(int semid, struct sembuf *opsptr, size_t nops);
+    	   例如：
+    	   {
+    	   	struct sembuf ops[2];
+    	   	
+    	   	ops[0].sem_num = 0;
+    	   	ops[0].sem_op = 0;
+    	   	ops[0].sem_flg = 0;
+    	   	ops[1].sem_num = 0;
+    	   	ops[1].sem_op = 1;
+    	   	ops[1].sem_flg = SEM_UNDO;
+    	   	
+    	   	semop(semid, &ops[0], 2);
+    	   	...
+    	   }
+    	   
+   
+	     
+5.注意问题
+    交本次实验报告的时间不迟于五一假后第一次上课。

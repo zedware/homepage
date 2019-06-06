@@ -1,0 +1,1253 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chapter 6 - Structures</title>
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+-->
+</style>
+</head>
+<body>
+<hr>
+<p align="center">
+<a href="chapter5.html">Back to Chapter 5</a>&nbsp;--&nbsp;
+<a href="index.html">Index</a>&nbsp;--&nbsp;
+<a href="chapter7.html">Chapter 7</a>
+<p>
+<hr>
+
+<h1>Chapter 6 - Structures</h1>
+A structure is a collection of one or more variables, possibly of different
+types, grouped together under a single name for convenient handling.
+(Structures are called ``<span class="STYLE1">records</span>'' in some languages, notably Pascal.)
+Structures help to organize complicated data, particularly in large programs,
+because they permit a group of related variables to be treated as a unit
+instead of as separate entities.
+<p>
+One traditional example of a structure is the payroll record: an employee is
+described by a set of attributes such as name, address, social security
+number, salary, etc. Some of these in turn could be structures: a name has
+several components, as does an address and even a salary. Another example,
+more typical for C, comes from graphics: a point is a pair of coordinate, a
+rectangle is a pair of points, and so on.
+<p>
+The main change made by the ANSI standard is to define structure assignment
+- structures may be copied and assigned to, passed to functions, and
+returned by functions. This has been supported by most compilers for many
+years, but the properties are now precisely defined. Automatic structures and
+arrays may now also be initialized.
+
+<h2><a name="s6.1">6.1 Basics of Structures</a></h2>
+Let us create a few structures suitable for graphics. The basic object is a
+point, which we will assume has an <em>x</em> coordinate and a <em>y</em>
+coordinate, both integers.
+<p align="center">
+<img src="pic61.gif">
+<p>
+The two components can be placed in a structure declared like this:
+<pre>
+   struct point {
+       int x;
+       int y;
+   };
+</pre>
+The keyword <tt>struct</tt> introduces a structure declaration, which is a list
+of declarations enclosed in braces. An optional name called a <em>structure
+tag</em> may follow the word <tt>struct</tt> (as with <tt>point</tt> here). The tag
+names this kind of structure, and can be used subsequently as a shorthand for
+the part of the declaration in braces.
+<p>
+The variables named in a structure are called <em>members</em>. A structure
+member or tag and an ordinary (i.e., non-member) variable can have the same
+name without conflict, since they can always be distinguished by context.
+Furthermore, the same member names may occur in different structures,
+although as a matter of style one would normally use the same names only for
+closely related objects.
+<p>
+A <tt>struct</tt> declaration defines a type. The right brace that terminates
+the list of members may be followed by a list of variables, just as for any
+basic type. That is,
+<pre>
+   struct { ... } x, y, z;
+</pre>
+is syntactically analogous to
+<pre>
+   int x, y, z;
+</pre>
+in the sense that each statement declares <tt>x</tt>, <tt>y</tt> and <tt>z</tt> to be
+variables of the named type and causes space to be set aside for them.
+<p>
+A structure declaration that is not followed by a list of variables reserves
+no storage; it merely describes a template or shape of a structure. If the
+declaration is tagged, however, the tag can be used later in definitions of
+instances of the structure. For example, given the declaration of <tt>point</tt>
+above,
+<pre>
+   struct point pt;
+</pre>
+defines a variable <tt>pt</tt> which is a structure of type <tt>struct point</tt>.
+A structure can be initialized by following its definition with a list of
+initializers, each a constant expression, for the members:
+<pre>
+   struct point maxpt = { 320, 200 };
+</pre>
+An automatic structure may also be initialized by assignment or by calling a
+function that returns a structure of the right type.
+<p>
+A member of a particular structure is referred to in an expression by a
+construction of the form
+<p>
+&nbsp;&nbsp;<em>structure-name.member</em>
+<p>
+The structure member operator ``.'' connects the structure name and the
+member name. To print the coordinates of the point <tt>pt</tt>, for instance,
+<pre>
+   printf("%d,%d", pt.x, pt.y);
+</pre>
+or to compute the distance from the origin (0,0) to <tt>pt</tt>,
+<pre>
+   double dist, sqrt(double);
+
+   dist = sqrt((double) pt.x * pt.x + (double) pt.y * pt.y);
+</pre>
+Structures can be nested. One representation of a rectangle is a pair of
+points that denote the diagonally opposite corners:
+<p align="center">
+<img src="pic62.gif">
+
+<pre>
+   struct rect {
+       struct point pt1;
+       struct point pt2;
+   };
+</pre>
+The <tt>rect</tt> structure contains two <tt>point</tt> structures. If we declare
+<tt>screen</tt> as
+<pre>
+   struct rect screen;
+</pre>
+then
+<pre>
+   screen.pt1.x
+</pre>
+refers to the <em>x</em> coordinate of the <tt>pt1</tt> member of <tt>screen</tt>.
+
+<h2><a name="s6.2">6.2 Structures and Functions</a></h2>
+The only legal operations on a structure are copying it or assigning to it as
+a unit, taking its address with <tt>&amp;</tt>, and accessing its members. Copy
+and assignment include passing arguments to functions and returning values
+from functions as well. <span class="STYLE1">Structures may not be compared. </span>A structure may be
+initialized by a list of constant member values; an automatic structure may
+also be initialized by an assignment.
+<p>
+Let us investigate structures by writing some functions to manipulate points
+and rectangles. There are at least three possible approaches: pass components
+separately, pass an entire structure, or pass a pointer to it. Each has its
+good points and bad points.
+<p>
+The first function, <tt>makepoint</tt>, will take two integers and return a
+<tt>point</tt> structure:
+<pre>
+   /* makepoint:  make a point from x and y components */
+   struct point makepoint(int x, int y)
+   {
+       struct point temp;
+
+       temp.x = x;
+       temp.y = y;
+       return temp;
+   }
+</pre>
+Notice that there is no conflict between the argument name and the member
+with the same name; indeed the re-use of the names stresses the relationship.
+<p>
+<tt>makepoint</tt> can now be used to initialize any structure dynamically,
+or to provide structure arguments to a function:
+<pre>
+   struct rect screen;
+   struct point middle;
+   struct point makepoint(int, int);
+
+   screen.pt1 = makepoint(0,0);
+   screen.pt2 = makepoint(XMAX, YMAX);
+   middle = makepoint((screen.pt1.x + screen.pt2.x)/2,
+                      (screen.pt1.y + screen.pt2.y)/2);
+</pre>
+The next step is a set of functions to do arithmetic on points. For instance,
+<pre>
+   /* addpoints:  add two points */
+   struct addpoint(struct point p1, struct point p2)
+   {
+       p1.x += p2.x;
+       p1.y += p2.y;
+       return p1;
+   }
+</pre>
+Here both the arguments and the return value are structures. We incremented
+the components in <tt>p1</tt> rather than using an explicit temporary variable
+to emphasize that structure parameters are passed by value like any others.
+<p>
+As another example, the function <tt>ptinrect</tt> tests whether a point is
+inside a rectangle, where we have adopted the convention that a rectangle
+includes its left and bottom sides but not its top and right sides:
+<pre>
+   /* ptinrect:  return 1 if p in r, 0 if not */
+   int ptinrect(struct point p, struct rect r)
+   {
+       return p.x &gt;= r.pt1.x && p.x &lt; r.pt2.x
+           && p.y &gt;= r.pt1.y && p.y &lt; r.pt2.y;
+   }
+</pre>
+This assumes that the rectangle is presented in a standard form where the
+<tt>pt1</tt> coordinates are less than the <tt>pt2</tt> coordinates. The following
+function returns a rectangle guaranteed to be in canonical form:
+<pre>
+   #define min(a, b) ((a) &lt; (b) ? (a) : (b))
+   #define max(a, b) ((a) &gt; (b) ? (a) : (b))
+
+   /* canonrect: canonicalize coordinates of rectangle */
+   struct rect canonrect(struct rect r)
+   {
+       struct rect temp;
+
+       temp.pt1.x = min(r.pt1.x, r.pt2.x);
+       temp.pt1.y = min(r.pt1.y, r.pt2.y);
+       temp.pt2.x = max(r.pt1.x, r.pt2.x);
+       temp.pt2.y = max(r.pt1.y, r.pt2.y);
+       return temp;
+   }
+</pre>
+If a large structure is to be passed to a function, it is generally more
+efficient to pass a pointer than to copy the whole structure. Structure
+pointers are just like pointers to ordinary variables. The declaration
+<pre>
+   struct point *pp;
+</pre>
+says that <tt>pp</tt> is a pointer to a structure of type <tt>struct point</tt>. If
+<tt>pp</tt> points to a <tt>point</tt> structure, <tt>*pp</tt> is the structure, and
+<tt>(*pp).x</tt> and <tt>(*pp).y</tt> are the members. To use <tt>pp</tt>, we might
+write, for example,
+<pre>
+   struct point origin, *pp;
+
+   pp = &origin;
+   printf("origin is (%d,%d)\n", (*pp).x, (*pp).y);
+</pre>
+The parentheses are necessary in <tt>(*pp).x</tt> because the precedence of
+the structure member operator <tt>.</tt> is higher then <tt>*</tt>. The
+expression <tt>*pp.x</tt> means <tt>*(pp.x)</tt>, which is illegal here
+because <tt>x</tt> is not a pointer.
+<p>
+Pointers to structures are so frequently used that an alternative notation is
+provided as a shorthand. If <tt>p</tt> is a pointer to a structure, then
+<pre>
+   p-&gt;<em>member-of-structure</em>
+</pre>
+refers to the particular member. So we could write instead
+<pre>
+   printf("origin is (%d,%d)\n", pp-&gt;x, pp-&gt;y);
+</pre>
+Both <tt>.</tt> and <tt>-&gt;</tt> associate from left to right, so if we
+have <pre>
+   struct rect r, *rp = &r;
+</pre>
+then these four expressions are equivalent:
+<pre>
+   r.pt1.x
+   rp-&gt;pt1.x
+   (r.pt1).x
+   (rp-&gt;pt1).x
+</pre>
+The structure operators <tt>.</tt> and <tt>-&gt;</tt>, together with
+<tt>()</tt> for function calls and <tt>[]</tt> for subscripts, are at the top
+of the precedence hierarchy and thus bind very tightly. For example, given
+the declaration
+<pre>
+   struct {
+       int len;
+       char *str;
+   } *p;
+</pre>
+then
+<pre>
+   ++p-&gt;len
+</pre>
+increments <tt>len</tt>, not <tt>p</tt>, because the implied parenthesization
+is <tt>++(p-&gt;len)</tt>. Parentheses can be used to alter binding:
+<tt>(++p)-&gt;len</tt> increments <tt>p</tt> before accessing <tt>len</tt>,
+and <tt>(p++)-&gt;len</tt> increments <tt>p</tt> afterward. (This last set of
+parentheses is unnecessary.)
+<p>
+In the same way, <tt>*p-&gt;str</tt> fetches whatever <tt>str</tt> points to;
+<tt>*p-&gt;str++</tt> increments <tt>str</tt> after accessing whatever it
+points to (just like <tt>*s++</tt>); <tt>(*p-&gt;str)++</tt> increments
+whatever <tt>str</tt> points to; and <tt>*p++-&gt;str</tt> increments
+<tt>p</tt> after accessing whatever <tt>str</tt> points to.
+
+<h2><a name="s6.3">6.3 Arrays of Structures</a></h2>
+Consider writing a program to count the occurrences of each C keyword.
+We need an array of character strings to hold the names, and an array of
+integers for the counts. One possibility is to use two parallel arrays,
+<tt>keyword</tt> and <tt>keycount</tt>, as in
+<pre>
+   char *keyword[NKEYS];
+   int keycount[NKEYS];
+</pre>
+But the very fact that the arrays are parallel suggests a different
+organization, an array of structures. Each keyword is a pair:
+<pre>
+   char *word;
+   int cout;
+</pre>
+and there is an array of pairs. The structure declaration
+<pre>
+   struct key {
+       char *word;
+       int count;
+   } keytab[NKEYS];
+</pre>
+declares a structure type <tt>key</tt>, defines an array <tt>keytab</tt> of
+structures of this type, and sets aside storage for them. Each element of the
+array is a structure. This could also be written
+<pre>
+   struct key {
+       char *word;
+       int count;
+   };
+
+   struct key keytab[NKEYS];
+</pre>
+Since the structure <tt>keytab</tt> contains a constant set of names, it is
+easiest to make it an external variable and initialize it once and for all when
+it is defined. The structure initialization is analogous to earlier ones - the
+definition is followed by a list of initializers enclosed in braces:
+<pre>
+   struct key {
+       char *word;
+       int count;
+   } keytab[] = {
+       "auto", 0,
+       "break", 0,
+       "case", 0,
+       "char", 0,
+       "const", 0,
+       "continue", 0,
+       "default", 0,
+       /* ... */
+       "unsigned", 0,
+       "void", 0,
+       "volatile", 0,
+       "while", 0
+   };
+</pre>
+The initializers are listed in pairs corresponding to the structure members.
+It would be more precise to enclose the initializers for each "row" or
+structure in braces, as in
+<pre>
+   { "auto", 0 },
+   { "break", 0 },
+   { "case", 0 },
+   ...
+</pre>
+but inner braces are not necessary when the initializers are simple variables
+or character strings, and when all are present. As usual, the number of entries
+in the array <tt>keytab</tt> will be computed if the initializers are present
+and the <tt>[]</tt> is left empty.
+<p>
+The keyword counting program begins with the definition of <tt>keytab</tt>.
+The main routine reads the input by repeatedly calling a function
+<tt>getword</tt> that fetches one word at a time. Each word is looked up in
+<tt>keytab</tt> with a version of the binary search function that we wrote in
+<a href="chapter3.html">Chapter 3</a>. The list of keywords must be sorted in
+increasing order in the table.
+<pre>
+   #include &lt;stdio.h&gt;
+   #include &lt;ctype.h&gt;
+   #include &lt;string.h&gt;
+
+   #define MAXWORD 100
+
+   int getword(char *, int);
+   int binsearch(char *, struct key *, int);
+
+   /* count C keywords */
+   int main(void)
+   {
+       int n;
+       char word[MAXWORD];
+
+       while (getword(word, MAXWORD) != EOF)
+           if (isalpha(word[0]))
+               if ((n = binsearch(word, keytab, NKEYS)) &gt;= 0)
+                   keytab[n].count++;
+       for (n = 0; n &lt; NKEYS; n++)
+           if (keytab[n].count &gt; 0)
+               printf("%4d %s\n",
+                   keytab[n].count, keytab[n].word);
+       return 0;
+   }
+
+   /* binsearch:  find word in tab[0]...tab[n-1] */
+   int binsearch(char *word, struct key tab[], int n)
+   {
+       int cond;
+       int low, high, mid;
+
+       low = 0;
+       high = n - 1;
+       while (low &lt;= high) {
+           mid = (low+high) / 2;
+           if ((cond = strcmp(word, tab[mid].word)) &lt; 0)
+               high = mid - 1;
+           else if (cond &gt; 0)
+               low = mid + 1;
+           else
+               return mid;
+       }
+	   
+       return -1;
+   }
+</pre>
+We will show the function <tt>getword</tt> in a moment; for now it suffices to
+say that each call to <tt>getword</tt> finds a word, which is copied into the
+array named as its first argument.
+<p>
+The quantity <tt>NKEYS</tt> is the number of keywords in <tt>keytab</tt>. Although
+we could count this by hand, it's a lot easier and safer to do it by machine,
+especially if the list is subject to change. One possibility would be to
+terminate the list of initializers with a null pointer, then loop along
+<tt>keytab</tt> until the end is found.
+<p>
+But this is more than is needed, since the size of the array is completely
+determined at compile time. The size of the array is the size of one entry
+times the number of entries, so the number of entries is just
+<p>
+&nbsp;&nbsp;<em>size of</em> <tt>keytab / </tt><em>size of</em> <tt>struct key</tt>
+<p>
+C provides a compile-time unary operator called <tt>sizeof</tt> that can be
+used to compute the size of any object. The expressions
+<pre>
+   sizeof <em>object</em>
+</pre>
+and
+<pre>
+   sizeof (<em>type name</em>)
+</pre>
+yield an integer equal to the size of the specified object or type in bytes.
+(Strictly, <tt>sizeof</tt> produces an unsigned integer value whose type,
+<tt>size_t</tt>, is defined in the header <tt>&lt;stddef.h&gt;</tt>.) An object can be a
+variable or array or structure. A type name can be the name of a basic type
+like <tt>int</tt> or <tt>double</tt>, or a derived type like a structure or a
+pointer.
+<p>
+In our case, the number of keywords is the size of the array divided by the
+size of one element. This computation is used in a <tt>#define</tt> statement
+to set the value of <tt>NKEYS</tt>:
+<pre>
+   #define NKEYS (sizeof keytab / sizeof(struct key))
+</pre>
+Another way to write this is to divide the array size by the size of a specific
+element:
+<pre>
+   #define NKEYS (sizeof keytab / sizeof(keytab[0]))
+</pre>
+<span class="STYLE1">This has the advantage that it does not need to be changed if the type changes.</span>
+<p>
+A <tt>sizeof</tt> can not be used in a <tt>#if</tt> line, because the preprocessor
+does not parse type names. But the expression in the <tt>#define</tt> is not
+evaluated by the preprocessor, so the code here is legal.
+<p>
+Now for the function <tt>getword</tt>. We have written a more general
+<tt>getword</tt> than is necessary for this program, but it is not complicated.
+<tt>getword</tt> fetches the next ``word'' from the input, where a word is either
+a string of letters and digits beginning with a letter, or a single non-white
+space character. The function value is the first character of the word, or
+<tt>EOF</tt> for end of file, or the character itself if it is not alphabetic.
+<pre>
+   /* getword:  get next word or character from input */
+   int getword(char *word, int lim)
+   {
+       int c, getch(void);
+       void ungetch(int);
+       char *w = word;
+
+       while (isspace(c = getch()))
+           ;
+       if (c != EOF)
+           *w++ = c;
+       if (!isalpha(c)) {
+           *w = '\0';
+           return c;
+       }
+       for ( ; --lim &gt; 0; w++)
+           if (!isalnum(*w = getch())) {
+               ungetch(*w);
+               break;
+           }
+       *w = '\0';
+       return word[0];
+   }
+</pre>
+<tt>getword</tt> uses the <tt>getch</tt> and <tt>ungetch</tt> that we wrote
+in <a href="chapter4.html">Chapter 4</a>. When the collection of an
+alphanumeric token stops, <tt>getword</tt> has gone one character too far.
+The call to <tt>ungetch</tt> pushes that character back on the input for the
+next call. <tt>getword</tt> also uses <tt>isspace</tt> to skip whitespace,
+<tt>isalpha</tt> to identify letters, and <tt>isalnum</tt> to identify
+letters and digits; all are from the standard header
+<tt>&lt;ctype.h&gt;</tt>.
+<p>
+<strong>*Exercise 6-1.</strong> Our version of <tt>getword</tt> does not
+properly handle underscores, string constants, comments, or preprocessor
+control lines. Write a better version.
+
+<h2><a name="s6.4">6.4 Pointers to Structures</a></h2>
+To illustrate some of the considerations involved with pointers to and arrays
+of structures, let us write the keyword-counting program again, this time
+using pointers instead of array indices.
+<p>
+The external declaration of <tt>keytab</tt> need not change, but <tt>main</tt>
+and <tt>binsearch</tt> do need modification.
+<pre>
+   #include &lt;stdio.h&gt;
+   #include &lt;ctype.h&gt;
+   #include &lt;string.h&gt;
+<br>   #define MAXWORD 100
+
+   int getword(char *, int);
+   struct key *binsearch(char *, struct key *, int);
+
+   /* count C keywords; pointer version */
+   int main(void)
+   {
+       char word[MAXWORD];
+       struct key *p;
+
+       while (getword(word, MAXWORD) != EOF)
+           if (isalpha(word[0]))
+               if ((p = binsearch(word, keytab, NKEYS)) != NULL)
+                   p-&gt;count++;
+<br>       for (p = keytab; p &lt; keytab + NKEYS; p++)
+           if (p-&gt;count &gt; 0)
+               printf("%4d %s\n", p-&gt;count, p-&gt;word);
+<br>       return 0;
+   }
+
+   /* binsearch: find word in tab[0]...tab[n-1] */
+   struct key *binsearch(char *word, struck key *tab, int n)
+   {
+       int cond;
+       struct key *low = &tab[0];
+       struct key *high = &tab[n];
+       struct key *mid;
+
+       while (low &lt; high) {
+           mid = low + (high - low) / 2;
+           if ((cond = strcmp(word, mid-&gt;word)) &lt; 0)
+               high = mid;
+           else if (cond &gt; 0)
+               low = mid + 1;
+           else
+               return mid;
+       }<br>
+       return NULL;
+   }
+</pre>
+There are several things worthy of note here. First, the declaration of
+<tt>binsearch</tt> must indicate that it returns a pointer to <tt>struct key</tt>
+instead of an integer; this is declared both in the function prototype and
+in <tt>binsearch</tt>. If <tt>binsearch</tt> finds the word, it returns a pointer
+to it; if it fails, it returns <tt>NULL</tt>.
+<p>
+Second, the elements of <tt>keytab</tt> are now accessed by pointers. This
+requires significant changes in <tt>binsearch</tt>.
+<p>
+The initializers for <tt>low</tt> and <tt>high</tt> are now pointers to the
+beginning and just past the end of the table.
+<p>
+The computation of the middle element can no longer be simply
+<pre>
+   mid = (low + high) / 2    /* WRONG */
+</pre>
+because the addition of pointers is illegal. Subtraction is legal, however,
+so <tt>high - low</tt> is the number of elements, and thus
+<pre>
+   mid = low + (high - low) / 2
+</pre>
+sets <tt>mid</tt> to the element halfway between <tt>low</tt> and <tt>high</tt>.
+<p>
+The most important change is to adjust the algorithm to make sure that it
+does not generate an illegal pointer or attempt to access an element outside
+the array. The problem is that <tt>&amp;tab[-1]</tt> and <tt>&amp;tab[n]</tt>
+are both outside the limits of the array <tt>tab</tt>. The former is strictly
+illegal, and it is illegal to dereference the latter. The language definition
+does guarantee, however, that pointer arithmetic that involves the first
+element beyond the end of an array (that is, <tt>&amp;tab[n]</tt>) will work
+correctly.
+<p>
+In <tt>main</tt> we wrote
+<pre>
+   for (p = keytab; p &lt; keytab + NKEYS; p++)
+</pre>
+If <tt>p</tt> is a pointer to a structure, arithmetic on <tt>p</tt> takes into
+account the size of the structure, so <tt>p++</tt> increments <tt>p</tt> by the
+correct amount to get the next element of the array of structures, and the
+test stops the loop at the right time.
+<p>
+Don't assume, however, that the size of a structure is the sum of the sizes
+of its members. <span class="STYLE1">Because of alignment requirements for different objects,
+there may be unnamed ``holes'' in a structure. </span>Thus, for instance, if a
+<tt>char</tt> is one byte and an <tt>int</tt> four bytes, the structure
+<pre>
+   struct {
+       char c;
+       int i;
+   };
+</pre>
+might well require eight bytes, not five. The <tt>sizeof</tt> operator returns
+the proper value.
+<p>
+Finally, an aside on program format: when a function returns a complicated
+type like a structure pointer, as in
+<pre>
+   struct key *binsearch(char *word, struct key *tab, int n)
+</pre>
+the function name can be hard to see, and to find with a text editor.
+Accordingly an alternate style is sometimes used:
+<pre class="STYLE1">
+   struct key *
+   binsearch(char *word, struct key *tab, int n)
+</pre>
+This is a matter of personal taste; pick the form you like and hold to it.
+
+我们认为还是后面这种写法更清楚一点。
+<h2><a name="s6.5">6.5 Self-referential Structures</a></h2>
+Suppose we want to handle the more general problem of counting the
+occurrences of <em>all</em> the words in some input. Since the list of words
+isn't known in advance, we can't conveniently sort it and use a binary
+search. Yet we can't do a linear search for each word as it arrives, to see
+if it's already been seen; the program would take too long. (More precisely,
+its running time is likely to grow quadratically with the number of input
+words.) How can we organize the data to copy efficiently with a list or
+arbitrary words?
+<p>
+One solution is to keep the set of words seen so far sorted at all times, by
+placing each word into its proper position in the order as it arrives. This
+shouldn't be done by shifting words in a linear array, though - that also
+takes too long. Instead we will use a data structure called a <em>binary
+tree</em>.
+<p>
+The tree contains one ``node'' per distinct word; each node contains
+<ul>
+<li>A pointer to the text of the word,
+<li>A count of the number of occurrences,
+<li>A pointer to the left child node,
+<li>A pointer to the right child node.
+</ul>
+No node may have more than two children; it might have only zero or one.
+<p>
+The nodes are maintained so that at any node the left subtree contains only
+words that are lexicographically less than the word at the node, and the
+right subtree contains only words that are greater. This is the tree for the
+sentence ``now is the time for all good men to come to the aid of their
+party'', as built by inserting each word as it is encountered:
+<p align="center">
+<img src="pic63.gif">
+<p>
+To find out whether a new word is already in the tree, start at the root and
+compare the new word to the word stored at that node. If they match, the
+question is answered affirmatively. If the new record is less than the tree
+word, continue searching at the left child, otherwise at the right child. If
+there is no child in the required direction, the new word is not in the tree,
+and in fact the empty slot is the proper place to add the new word. This
+process is recursive, since the search from any node uses a search from one
+of its children. Accordingly, recursive routines for insertion and printing
+will be most natural.
+<p>
+Going back to the description of a node, it is most conveniently represented
+as a structure with four components:
+<pre>
+   struct tnode {     /* the tree node: */
+       char *word;           /* points to the text */
+       int count;            /* number of occurrences */
+       struct tnode *left;   /* left child */
+       struct tnode *right;  /* right child */
+   };
+</pre>
+This recursive declaration of a node might look chancy, but it's correct. It
+is illegal for a structure to contain an instance of itself, but
+<pre>
+    struct tnode *left;
+</pre>
+declares <tt>left</tt> to be a pointer to a <tt>tnode</tt>, not a <tt>tnode</tt>
+itself.
+<p>
+Occasionally, one needs a variation of self-referential structures: two
+structures that refer to each other. The way to handle this is:
+<pre>
+   struct t {
+       ...
+       struct s *p;   /* p points to an s */
+   };
+   struct s {
+       ...
+       struct t *q;   /* q points to a t */
+   };
+</pre>
+The code for the whole program is surprisingly small, given a handful of
+supporting routines like <tt>getword</tt> that we have already written. The main
+routine reads words with <tt>getword</tt> and installs them in the tree with
+<tt>addtree</tt>.
+<pre>
+   #include &lt;stdio.h&gt;
+   #include &lt;ctype.h&gt;
+   #include &lt;string.h&gt;
+
+   #define MAXWORD 100
+<br>   struct tnode *addtree(struct tnode *, char *);
+   void treeprint(struct tnode *);
+   int getword(char *, int);
+
+   /* word frequency count */
+   int main(void)
+   {
+       struct tnode *root;
+       char word[MAXWORD];
+
+       root = NULL;
+       while (getword(word, MAXWORD) != EOF)
+           if (isalpha(word[0]))
+               root = addtree(root, word);
+       treeprint(root);
+       return 0;
+   }
+</pre>
+The function <tt>addtree</tt> is recursive. A word is presented by
+<tt>main</tt> to the top level (the root) of the tree. At each stage, that
+word is compared to the word already stored at the node, and is percolated
+down to either the left or right subtree by a recursive call to
+<tt>addtree</tt>. Eventually, the word either matches something already in the
+tree (in which case the count is incremented), or a null pointer is
+encountered, indicating that a node must be created and added to the tree. If
+a new node is created, <tt>addtree</tt> returns a pointer to it, which is
+installed in the parent node.
+<pre>
+   struct tnode *talloc(void);
+   char *strdup(char *);
+
+   /* addtree:  add a node with w, at or below p */
+   struct treenode *addtree(struct tnode *p, char *w)
+   {
+       int cond;<br>
+       if (p == NULL) {     /* a new word has arrived */
+           p = talloc();    /* make a new node */
+           p-&gt;word = strdup(w);
+           p-&gt;count = 1;
+           p-&gt;left = p-&gt;right = NULL;
+       } else if ((cond = strcmp(w, p-&gt;word)) == 0)
+           p-&gt;count++;      /* repeated word */
+       else if (cond &lt; 0)   /* less than into left subtree */
+           p-&gt;left = addtree(p-&gt;left, w);
+       else             &nbsp;&nbsp;&nbsp;&nbsp;/* greater than into right subtree */
+           p-&gt;right = addtree(p-&gt;right, w);
+       return p;
+   }
+</pre>
+Storage for the new node is fetched by a routine <tt>talloc</tt>, which returns
+a pointer to a free space suitable for holding a tree node, and the new word
+is copied into a hidden space by <tt>strdup</tt>. (We will discuss these routines
+in a moment.) The count is initialized, and the two children are made null.
+This part of the code is executed only at the leaves of the tree, when a new
+node is being added. We have (unwisely) omitted error checking on the values
+returned by <tt>strdup</tt> and <tt>talloc</tt>.
+<p>
+<tt>treeprint</tt> prints the tree in sorted order; at each node, it prints
+the left subtree (all the words less than this word), then the word itself,
+then the right subtree (all the words greater). If you feel shaky about how
+recursion works, simulate <tt>treeprint</tt> as it operates on the tree shown
+above.
+<pre>
+   /* treeprint:  in-order print of tree p */
+   void treeprint(struct tnode *p)
+   {
+       if (p != NULL) {
+           treeprint(p-&gt;left);
+           printf("%4d %s\n", p-&gt;count, p-&gt;word);
+           treeprint(p-&gt;right);
+       }
+   }
+</pre>
+A practical note: if the tree becomes ``<span class="STYLE1">unbalanced</span>'' because the words don't
+arrive in random order, the running time of the program can grow too much.
+As a worst case, if the words are already in order, this program does an
+expensive simulation of linear search. There are generalizations of the
+binary tree that do not suffer from this worst-case behavior, but we will
+not describe them here.
+<p>
+Before leaving this example, it is also worth a brief digression on a problem
+related to storage allocators. Clearly it's desirable that there be only one
+storage allocator in a program, even though it allocates different kinds of
+objects. But if one allocator is to process requests for, say, pointers to
+<tt>char</tt>s and pointers to <tt>struct tnode</tt>s, two questions arise. First,
+how does it meet the requirement of most real machines that objects of certain
+types must satisfy <span class="STYLE1">alignment</span> restrictions (for example, integers often must
+be located at even addresses)? Second, what declarations can cope with the
+fact that an allocator must necessarily return different kinds of pointers?
+<p>
+Alignment requirements can generally be satisfied easily, at the cost of some
+wasted space, by ensuring that the allocator always returns a pointer that
+meets <em>all</em> alignment restrictions. The <tt>alloc</tt> of <a
+href="chapter5.html">Chapter 5</a> does not guarantee any particular
+alignment, so we will use the standard library function <tt>malloc</tt>, which
+does. In <a href="chapter8.html">Chapter 8</a> we will show one way to
+implement <tt>malloc</tt>.
+<p>
+The question of the type declaration for a function like <tt>malloc</tt> is a
+vexing one for any language that takes its type-checking seriously. In C, the
+proper method is to declare that <tt>malloc</tt> returns a pointer to
+<tt>void</tt>, then explicitly coerce the pointer into the desired type with
+a cast. <tt>malloc</tt> and related routines are declared in the standard
+header <tt>&lt;stdlib.h&gt;</tt>. Thus <tt>talloc</tt> can be written as
+<pre>
+   #include &lt;stdlib.h&gt;
+
+   /* talloc:  make a tnode */
+   struct tnode *talloc(void)
+   {
+       return (struct tnode *) malloc(sizeof(struct tnode));
+   }
+</pre>
+<tt>strdup</tt> merely copies the string given by its argument into a safe
+place, obtained by a call on <tt>malloc</tt>:
+<pre>
+   char *strdup(char *s)   /* make a duplicate of s */
+   {
+       char *p;
+
+       /* 最好先检查参数 s 的取值是不是为 NULL。 */
+       p = (char *) malloc(strlen(s) + 1); /* +1 for '\0' */
+       if (p != NULL)
+           strcpy(p, s);
+       return p;
+   }
+</pre>
+<tt>malloc</tt> returns <tt>NULL</tt> if no space is available; <tt>strdup</tt>
+passes that value on, leaving error-handling to its caller.
+<p>
+Storage obtained by calling <tt>malloc</tt> may be freed for re-use by
+calling <tt>free</tt>; see <a href="chapter8.html">Chapters 8</a> and
+<a href="chapter7.html">7</a>.
+<p>
+<strong>*Exercise 6-2.</strong> Write a program that reads a C program and prints
+in alphabetical order each group of variable names that are identical in the
+first 6 characters, but different somewhere thereafter. Don't count words
+within strings and comments. Make 6 a parameter that can be set from the
+command line.
+<p>
+<strong>*Exercise 6-3.</strong> Write a cross-referencer that prints a list of all words
+in a document, and for each word, a list of the line numbers on which it
+occurs. Remove noise words like ``the,'' ``and,'' and so on.
+<p>
+<strong>*Exercise 6-4.</strong> Write a program that prints the distinct words in its
+input sorted into decreasing order of frequency of occurrence. Precede each
+word by its count.
+
+<h2><a name="s6.6">6.6 Table Lookup</a></h2>
+In this section we will write the innards of a table-lookup package, to
+illustrate more aspects of structures. This code is typical of what might be
+found in the symbol table management routines of a macro processor or a
+compiler. For example, consider the <tt>#define</tt> statement. When a line
+like
+<pre>
+   #define  IN  1
+</pre>
+is encountered, the name <tt>IN</tt> and the replacement text <tt>1</tt> are
+stored in a table. Later, when the name <tt>IN</tt> appears in a statement
+like
+<pre>
+   state = IN;
+</pre>
+it must be replaced by <tt>1</tt>.
+<p>
+There are two routines that manipulate the names and replacement texts.
+<tt>install(s,t)</tt> records the name <tt>s</tt> and the replacement text
+<tt>t</tt> in a table; <tt>s</tt> and <tt>t</tt> are just character strings.
+<tt>lookup(s)</tt> searches for <tt>s</tt> in the table, and returns a pointer to
+the place where it was found, or <tt>NULL</tt> if it wasn't there.
+<p>
+The algorithm is a hash-search - the incoming name is converted into a small
+non-negative integer, which is then used to index into an array of pointers.
+An array element points to the beginning of a linked list of blocks describing
+names that have that hash value. It is <tt>NULL</tt> if no names have hashed to
+that value.
+<p align="center">
+<img src=pic64.gif>
+<p>
+A block in the list is a structure containing pointers to the name, the
+replacement text, and the next block in the list. A null next-pointer marks
+the end of the list.
+<pre>
+   struct nlist {       /* table entry: */
+       struct nlist *next;   /* next entry in chain */
+       char *name;           /* defined name */
+       char *defn;           /* replacement text */
+   };
+</pre>
+The pointer array is just
+<pre>
+   #define HASHSIZE 101
+
+   static struct nlist *hashtab[HASHSIZE];  /* pointer table */
+</pre>
+The hashing function, which is used by both <tt>lookup</tt> and <tt>install</tt>,
+adds each character value in the string to a scrambled combination of the
+previous ones and returns the remainder modulo the array size. This is not the
+best possible hash function, but it is short and effective.
+<pre>
+   /* hash:  form hash value for string s */
+   unsigned hash(const char *s)
+   {
+       unsigned hashval;
+
+       for (hashval = 0; *s != '\0'; s++)
+           hashval = *s + 31 * hashval;
+
+       return hashval % HASHSIZE;
+   }
+</pre>
+Unsigned arithmetic ensures that the hash value is non-negative.
+<p>
+The hashing process produces a starting index in the array <tt>hashtab</tt>; if
+the string is to be found anywhere, it will be in the list of blocks beginning
+there. The search is performed by <tt>lookup</tt>. If <tt>lookup</tt> finds the entry
+already present, it returns a pointer to it; if not, it returns <tt>NULL</tt>.
+<pre>
+   /* lookup:  look for s in hashtab */
+   struct nlist *lookup(const char *s)
+   {
+       struct nlist *np;
+
+       for (np = hashtab[hash(s)];  np != NULL; np = np-&gt;next)
+       {
+           if (strcmp(s, np-&gt;name) == 0)
+               return np;     /* found */
+       }
+
+       return NULL;           /* not found */
+   }
+</pre>
+The <tt>for</tt> loop in <tt>lookup</tt> is the standard idiom for walking
+along a linked list:
+<pre>
+   for (ptr = head; ptr != NULL; ptr = ptr-&gt;next)
+   ...
+</pre>
+<tt>install</tt> uses <tt>lookup</tt> to determine whether the name being
+installed is already present; if so, the new definition  will supersede the
+old one. Otherwise,  a new entry is created. <tt>install</tt> returns
+<tt>NULL</tt> if for any reason there is no room for a new entry.
+<pre>
+   struct nlist *lookup(char *);
+   char *strdup(char *);
+
+
+   /* install:  put (name, defn) in hashtab */
+   struct nlist *install(char *name, char *defn)
+   {
+       struct nlist *np;
+       unsigned hashval;
+	   
+       if ((np = lookup(name)) == NULL) { /* not found */
+           np = (struct nlist *) malloc(sizeof(*np));
+           if (np == NULL || (np-&gt;name = strdup(name)) == NULL)
+               return NULL;
+           hashval = hash(name);
+           np-&gt;next = hashtab[hashval];
+           hashtab[hashval] = np;
+       } else       /* already there */
+           free((void *) np-&gt;defn);   /* free previous defn */
+
+       if ((np-&gt;defn = strdup(defn)) == NULL)
+           return NULL;
+
+       return np;
+   }
+</pre>
+<strong>*Exercise 6-5.</strong> Write a function <tt>undef</tt> that will remove a name and
+definition from the table maintained by <tt>lookup</tt> and <tt>install</tt>.
+<p>
+<strong>*Exercise 6-6.</strong> Implement a simple version of the <tt>#define</tt> processor
+(i.e., no arguments) suitable for use with C programs, based on the routines of
+this section. You may also find <tt>getch</tt> and <tt>ungetch</tt> helpful.
+
+<h2><a name="s6.7">6.7 Typedef</a></h2>
+C provides a facility called <tt>typedef</tt> for creating new data type names.
+For example, the declaration
+<pre>
+   typedef int Length;
+</pre>
+makes the name <tt>Length</tt> a synonym for <tt>int</tt>. The type
+<tt>Length</tt> can be used in declarations, casts, etc., in exactly the same
+ways that the <tt>int</tt> type can be:
+<pre>
+   Length len, maxlen;
+   Length *lengths[];
+</pre>
+Similarly, the declaration
+<pre>
+   typedef char *String;
+</pre>
+makes <tt>String</tt> a synonym for <tt>char *</tt> or character pointer,
+which may then be used in declarations and casts:
+<pre>
+   String p, lineptr[MAXLINES], alloc(int);
+   int strcmp(String, String);
+
+
+   p = (String) malloc(100);
+</pre>
+Notice that the type being declared in a <tt>typedef</tt> appears in the
+position of a variable name, not right after the word <tt>typedef</tt>.
+Syntactically, <tt>typedef</tt> is like the storage classes <tt>extern</tt>,
+<tt>static</tt>, etc. <span class="STYLE1">We have used capitalized names for <tt>typedef</tt>s,
+to make them stand out.</span>
+<p>
+As a more complicated example, we could make <tt>typedef</tt>s for the tree nodes
+shown earlier in this chapter:
+<pre>
+   typedef struct tnode *Treeptr;
+
+   typedef struct tnode { /* the tree node: */
+       char *word;           /* points to the text */
+       int count;            /* number of occurrences */
+       struct tnode *left;   /* left child */
+       struct tnode *right;  /* right child */
+   } Treenode;
+</pre>
+This creates two new type keywords called <tt>Treenode</tt> (a structure) and
+<tt>Treeptr</tt> (a pointer to the structure). Then the routine <tt>talloc</tt>
+could become
+<pre>
+   Treeptr talloc(void)
+   {
+       return (Treeptr) malloc(sizeof(Treenode));
+   }
+</pre>
+It must be emphasized that a <tt>typedef</tt> declaration does not create a new
+type in any sense; it merely adds a new name for some existing type. Nor are
+there any new semantics: variables declared this way have exactly the same
+properties as variables whose declarations are spelled out explicitly. In
+effect, <tt>typedef</tt> is like <tt>#define</tt>, except that since it is
+interpreted by the compiler, it can cope with textual substitutions that are
+beyond the capabilities of the preprocessor. For example,
+<pre>
+   typedef int (*PFI)(char *, char *);
+</pre>
+creates the type <tt>PFI</tt>, for ``pointer to function (of two <tt>char *</tt>
+arguments) returning <tt>int</tt>,'' which can be used in contexts like
+<pre>
+   PFI strcmp, numcmp;
+</pre>
+in the sort program of <a href="chapter5.html">Chapter 5</a>.
+<p>
+Besides purely aesthetic issues, there are two main reasons for using
+<tt>typedef</tt>s.<span class="STYLE1"> The first</span> is to parameterize a program against portability
+problems. If <tt>typedef</tt>s are used for data types that may be
+machine-dependent, only the <tt>typedef</tt>s need change when the program is
+moved. One common situation is to use <tt>typedef</tt> names for various integer
+quantities, then make an appropriate set of choices of <tt>short</tt>, <tt>int</tt>,
+and <tt>long</tt> for each host machine. Types like <span class="STYLE1"><tt>size_t</tt></span> and
+<span class="STYLE1"><tt>ptrdiff_t</tt></span> from the standard library are examples.
+<span class="STYLE1">The second</span> purpose of <tt>typedef</tt>s is to provide better documentation for a
+program - a type called <tt>Treeptr</tt> may be easier to understand than one
+declared only as a pointer to a  complicated structure.
+<h2><a name="s6.8">6.8 Unions</a></h2>
+A <em>union</em> is a variable that may hold (at different times) objects of
+different types and sizes, with the compiler keeping track of size and
+alignment requirements. Unions provide a way to manipulate different kinds of
+data in a single area of storage, without embedding any machine-dependent
+information in the program. They are analogous to variant records in pascal.
+<p>
+As an example such as might be found in a compiler symbol table manager,
+suppose that a constant may be an <tt>int</tt>, a <tt>float</tt>, or a character
+pointer. The value of a particular constant must be stored in a variable of
+the proper type, yet it is most convenient for table management if the value
+occupies the same amount of storage and is stored in the same place
+regardless of its type. This is the purpose of a union - a single variable
+that can legitimately hold any of one of several types. The syntax is based
+on structures:
+<pre>
+   union u_tag {
+       int ival;
+       float fval;
+       char *sval;
+   } u;
+</pre>
+The variable <tt>u</tt> will be large enough to hold the largest of the three
+types; the specific size is implementation-dependent. Any of these types may
+be assigned to <tt>u</tt> and then used in expressions, so long as the usage is
+consistent: the type retrieved must be the type most recently stored. It is
+the programmer's responsibility to keep track of which type is currently
+stored in a union; the results are implementation-dependent if something is
+stored as one type and extracted as another.
+<p>
+Syntactically, members of a union are accessed as
+<p>
+&nbsp;&nbsp;<em>union-name</em><tt>.</tt><em>member</em>
+<p>
+or
+<p>
+&nbsp;&nbsp;<em>union-pointer</em><tt>-&gt;</tt><em>member</em>
+<p>
+just as for structures. If the variable <tt>utype</tt> is used to keep track
+of the current type stored in <tt>u</tt>, then one might see code such as
+<pre>
+   if (utype == INT)
+       printf("%d\n", u.ival);
+   if (utype == FLOAT)
+       printf("%f\n", u.fval);
+   if (utype == STRING)
+       printf("%s\n", u.sval);
+   else
+       printf("bad type %d in utype\n", utype);
+</pre>
+Unions may occur within structures and arrays, and vice versa. The notation
+for accessing a member of a union in a structure (or vice versa) is identical
+to that for nested structures. For example, in the structure array defined by
+<pre>
+   struct {
+       char *name;
+       int flags;
+       int utype;
+       union {
+           int ival;
+           float fval;
+           char *sval;
+       } u;
+   } symtab[NSYM];
+</pre>
+the member <tt>ival</tt> is referred to as
+<pre>
+   symtab[i].u.ival
+</pre>
+and the first character of the string <tt>sval</tt> by either of
+<pre>
+   *symtab[i].u.sval
+
+   symtab[i].u.sval[0]
+</pre>
+In effect, a union is a structure in which all members have <span class="STYLE1">offset zero</span> from
+the base, the structure is big enough to hold the ``widest'' member, and the
+alignment is appropriate for all of the types in the union. The same
+operations are permitted on unions as on structures: assignment to or copying
+as a unit, taking the address, and accessing a member.
+<p>
+A union may only be initialized with a value of the type of its first member;
+thus union <tt>u</tt> described above can only be initialized with an integer
+value.
+<p>
+The storage allocator in <a href="chapter8.html">Chapter 8</a> shows how a
+union can be used to force a variable to be aligned on a particular kind of
+storage boundary.
+
+<h2><a name="s6.9">6.9 Bit-fields</a></h2>
+When storage space is at a premium, it may be necessary to pack several
+objects into a single machine word; one common use is a set of single-bit
+flags in applications like compiler symbol tables. Externally-imposed data
+formats, such as interfaces to hardware devices, also often require the
+ability to get at pieces of a word.
+<p>
+Imagine a fragment of a compiler that manipulates a symbol table. Each
+identifier in a program has certain information associated with it, for
+example, whether or not it is a keyword, whether or not it is external and/or
+static, and so on. The most compact way to encode such information is a set
+of one-bit flags in a single <tt>char</tt> or <tt>int</tt>.
+<p>
+The usual way this is done is to define a set of ``masks'' corresponding to
+the relevant bit positions, as in
+<pre>
+   #define KEYWORD  01
+   #define EXTRENAL 02
+   #define STATIC   04
+</pre>
+or
+<pre>
+   enum { KEYWORD = 01, EXTERNAL = 02, STATIC = 04 };
+</pre>
+The numbers must be powers of two. Then accessing the bits becomes a matter
+of ``bit-fiddling'' with the shifting, masking, and complementing operators
+that were described in <a href="chapter2.html">Chapter 2</a>.
+<p>
+Certain idioms appear frequently:
+<pre>
+   flags |= EXTERNAL | STATIC;
+</pre>
+turns on the <tt>EXTERNAL</tt> and <tt>STATIC</tt> bits in <tt>flags</tt>, while
+<pre>
+   flags &= ~(EXTERNAL | STATIC);
+</pre>
+turns them off, and
+<pre>
+   if ((flags & (EXTERNAL | STATIC)) == 0) ...
+</pre>
+is true if both bits are off.
+<p>
+Although these idioms are readily mastered, as an alternative C offers the
+capability of defining and accessing fields within a word directly rather
+than by bitwise logical operators. A <em>bit-field</em>, or <em>field</em>
+for short, is a set of adjacent bits within a single implementation-defined
+storage unit that we will call a ``word.'' For example, the symbol table
+<tt>#define</tt>s above could be replaced by the definition of three fields:
+<pre>
+   struct {
+       unsigned int is_keyword : 1;
+       unsigned int is_extern  : 1;
+       unsigned int is_static  : 1;
+   } flags;
+</pre>
+This defines a variable table called <tt>flags</tt> that contains three 1-bit
+fields. The number following the colon represents the field width in bits.
+The fields are declared <tt>unsigned int</tt> to ensure that they are unsigned
+quantities.
+<p>
+Individual fields are referenced in the same  way as other structure members:
+<tt>flags.is_keyword</tt>, <tt>flags.is_extern</tt>, etc. Fields behave like
+small integers, and may participate in arithmetic expressions just like other
+integers. Thus the previous examples may be written more naturally as
+<pre>
+   flags.is_extern = flags.is_static = 1;
+</pre>
+to turn the bits on;
+<pre>
+   flags.is_extern = flags.is_static = 0;
+</pre>
+to turn them off; and
+<pre>
+   if (flags.is_extern == 0 && flags.is_static == 0)
+       ...
+</pre>
+to test them.
+<p class="STYLE1">
+Almost everything about fields is implementation-dependent. Whether a field
+may overlap a  word boundary is implementation-defined. Fields need not be
+names; unnamed fields (a colon and width only) are used for padding. The
+special width 0 may be used to force alignment at the next word boundary.
+<p>
+<span class="STYLE1">Fields are assigned left to right on some machines and right to left on
+others. </span>This means that although fields are useful for maintaining
+internally-defined data structures, the question of which end comes first
+has to be carefully considered when picking apart externally-defined data;
+programs that depend on such things are not portable. Fields may be declared
+only as <span class="STYLE1"><tt>int</tt>s</span>; for portability, specify <tt>signed</tt> or
+<tt>unsigned</tt> explicitly. They are not arrays and they do not have
+addresses, so the <tt>&amp;</tt> operator cannot be applied on them.
+<hr>
+<p align="center">
+<a href="chapter5.html">Back to Chapter 5</a>&nbsp;--&nbsp;
+<a href="index.html">Index</a>&nbsp;--&nbsp;
+<a href="chapter7.html">Chapter 7</a>
+<p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,104 @@
+000100*8    B                                                           00010028
+
+000200 IDENTIFICATION DIVISION.                                         00020028
+
+000300 PROGRAM-ID. TESTPRG.                                             00030028
+
+000400 ENVIRONMENT DIVISION.                                            00040028
+
+000500 DATA DIVISION.                                                   00050028
+
+000600 WORKING-STORAGE SECTION.                                         00060028
+
+000700 77    X PICTURE  9(4).                                           00070028
+
+000800 77    A PICTURE  9(4).                                           00080028
+
+000900 77    B PICTURE  9(4).                                           00090028
+
+001000 77    C PICTURE  9(4).                                           00100028
+
+001100 01    T.                                                         00110028
+
+001200 02    T1  PIC 9(4).                                              00120028
+
+001300 02    T2  PIC 9(4).                                              00130028
+
+001400 02    T3  PIC 9(4).                                              00140028
+
+001500 02    T4  PIC 9(4).                                              00150028
+
+001600 PROCEDURE DIVISION.                                              00160028
+
+001700           DISPLAY 'INPUT A, B, C:'.                              00170028
+
+001800           ACCEPT A.                                              00180028
+
+001900           ACCEPT B.                                              00190028
+
+002000           ACCEPT C.                                              00200028
+
+002100           DISPLAY 'COMPUTE X = ( A + B )/ C'.                    00210028
+
+002200           COMPUTE X = ( A + B )/ C.                              00220028
+
+002300           MOVE A TO T1.                                          00230028
+
+002400           MOVE B TO T2.                                          00240028
+
+002500           MOVE C TO T3.                                          00250028
+
+002600           MOVE X TO T4.                                          00260028
+
+002700           DISPLAY 'A=', A, ' B=', B, ' C=', C.                   00270028
+
+002800           DISPLAY 'X=', X.                                       00280028
+
+002900           MOVE 0 TO X.                                           00290028
+
+003000           DISPLAY 'ADD A TO X'.                                  00300028
+
+003100           ADD A TO X.                                            00310028
+
+003200           DISPLAY X.                                             00320028
+
+003300           DISPLAY 'ADD 10 TO X'.                                 00330028
+
+003400           MOVE 0 TO X.                                           00340028
+
+003500           ADD 10 TO X.                                           00350028
+
+003600           DISPLAY X.                                             00360028
+
+003700           DISPLAY  'SUBTRACT SECTION.'.                          00370028
+
+003800           MOVE 100 TO X.                                         00380028
+
+003900           SUBTRACT A, B FROM X.                                  00390028
+
+004000           DISPLAY ' X = X - A - B'.                              00400028
+
+004100           DISPLAY X.                                             00410028
+
+004200           DISPLAY 'MUPLTIPLY SECTION.'.                          00420028
+
+004300           MOVE 1 TO X.                                           00430028
+
+004400           MULTIPLY 100 BY X.                                     00440028
+
+004500           DISPLAY  ' X = X * 100'.                               00450028
+
+004600           DISPLAY  X.                                            00460028
+
+004700           MOVE 100  TO X.                                        00470028
+
+004800           DISPLAY  'DIVIDE SECTION.'.                            00480028
+
+004900           DIVIDE 10 INTO X.                                      00490028
+
+005000           DISPLAY ' X = X / 10'.                                 00500028
+
+005100           DISPLAY X.                                             00510028
+
+005200           STOP RUN.                                              00520028
+

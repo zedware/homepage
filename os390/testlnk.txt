@@ -1,0 +1,26 @@
+//SYSPRG5C JOB  (SS8UCP),'&PROGRAM',CLASS=A,MSGCLASS=X,                 00010060
+
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                            00020060
+
+//****************************************                              00030060
+
+//LKED     EXEC  PGM=IEWL                                               00040061
+
+//SYSLIB   DD    DSN=CEE.SCEERUN,DISP=SHR                               00050060
+
+//         DD    DSN=CEE.SCEELKED,DISP=SHR                              00060060
+
+//SYSLIN   DD    DSN=SYSPRG5.JCL.LOAD(TESTSUB),DISP=SHR                 00070062
+
+//         DD    DSN=SYSPRG5.JCL.LOAD(TESTSUB1),DISP=SHR                00080062
+
+//SYSLMOD  DD    DSN=SYSPRG5.JCL.LOAD(TESTSUB),DISP=SHR                 00090060
+
+//SYSUT1   DD    DSN=SYSDLLDA,SPACE=(1024,(50,20))                      00100060
+
+//SYSPRINT DD    SYSOUT=*                                               00110060
+
+//SYSIN    DD    DUMMY                                                  00120060
+
+/*                                                                      00130060
+

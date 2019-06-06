@@ -1,0 +1,184 @@
+000100****************************************                          00010014
+
+000200*** 用Y2K补丁获得8位日期       ***                          00020033
+
+000300*** 计算两个给定日期之间的天数     ***                          00030033
+
+000400*** 打印日历                       ***                          00040014
+
+000500****************************************                          00050014
+
+000600 IDENTIFICATION DIVISION.                                         00060001
+
+000700 PROGRAM-ID. DATES.                                               00070002
+
+000800*                                                                 00080000
+
+000900 ENVIRONMENT DIVISION.                                            00090001
+
+001000 CONFIGURATION SECTION.                                           00100001
+
+001100 SOURCE-COMPUTER. ES9000 WITH DEBUGGING MODE.                     00110003
+
+001200 OBJECT-COMPUTER. ES9000.                                         00120003
+
+001300*                                                                 00130000
+
+001400 DATA DIVISION.                                                   00140001
+
+001500 WORKING-STORAGE SECTION.                                         00150004
+
+001600 01 DATE-NAMES   PIC X(28)                                        00160022
+
+001700                 VALUE '一二三四五六七'.            00170022
+
+001800 01 DATE-TAB.                                                     00180017
+
+001900    03 DATE-LINE PIC X(28) OCCURS 6 TIMES.                        00190027
+
+002000 01 DATE-NOS REDEFINES DATE-TAB.                                  00200022
+
+002100    03 DATE-VAL OCCURS 42 TIMES.                                  00210027
+
+002200       05 FILLER  PIC X.                                          00220028
+
+002300       05 DATE-NO PIC Z9.                                         00230025
+
+002400       05 FILLER  PIC X.                                          00240028
+
+002500 01 NORMAL-DATE-1.                                                00250022
+
+002600    03 NORMAL-DATE1 PIC 99999999.                                 00260022
+
+002700    03 NORMAL-DATE1-R REDEFINES NORMAL-DATE1.                     00270022
+
+002800       05 YEAR1 PIC 9999.                                         00280022
+
+002900       05 MONTH1 PIC 99.                                          00290022
+
+003000       05 DAY1 PIC 99.                                            00300022
+
+003100 01 NORMAL-DATE-2.                                                00310031
+
+003200    03 NORMAL-DATE2 PIC 99999999.                                 00320031
+
+003300    03 NORMAL-DATE1-R REDEFINES NORMAL-DATE2.                     00330031
+
+003400       05 YEAR2 PIC 9999.                                         00340031
+
+003500       05 MONTH2 PIC 99.                                          00350031
+
+003600       05 DAY2 PIC 99.                                            00360031
+
+003700 77 ANSI-DATE1   PIC 99999999.                                    00370008
+
+003800 77 ANSI-DATE2   PIC 99999999.                                    00380008
+
+003900 77 DAYS-BETWEEN PIC 99999999.                                    00390008
+
+004000 77 THE-DATE     PIC 9.                                           00400014
+
+004100 77 NO-USE       PIC 99999999.                                    00410015
+
+004200 77 I            PIC 99.                                          00420014
+
+004300 77 J            PIC 99.                                          00430023
+
+004400*                                                                 00440000
+
+004500 PROCEDURE DIVISION.                                              00450001
+
+004600*    USE THE Y2K PATCH TO GET YYYYMMDD                            00460032
+
+004700     CALL 'IGZEDT4' USING BY REFERENCE NORMAL-DATE1.              00470032
+
+004800     DISPLAY 'PATCH Y2K:', NORMAL-DATE1.                          00480032
+
+004900     DISPLAY SPACES.                                              00490035
+
+005000*    COMPUTE THE DAYS BETWEEN TWO DATES                           00500029
+
+005100     ACCEPT NORMAL-DATE1.                                         00510001
+
+005200     ACCEPT NORMAL-DATE2.                                         00520001
+
+005300     COMPUTE ANSI-DATE1 = FUNCTION INTEGER-OF-DATE(NORMAL-DATE1). 00530013
+
+005400     COMPUTE ANSI-DATE2 = FUNCTION INTEGER-OF-DATE(NORMAL-DATE2). 00540013
+
+005500     DISPLAY 'NORMAL-DATE1:', NORMAL-DATE1, ' ANSI-DATE1:',       00550001
+
+005600             ANSI-DATE1.                                          00560001
+
+005700     DISPLAY 'NORMAL-DATE2:', NORMAL-DATE2, ' ANSI-DATE2:',       00570001
+
+005800             ANSI-DATE2.                                          00580001
+
+005900     COMPUTE DAYS-BETWEEN = ANSI-DATE2 - ANSI-DATE1.              00590001
+
+006000     DISPLAY 'DAYS-BETWEEN:', DAYS-BETWEEN.                       00600014
+
+006100     DISPLAY SPACES.                                              00610034
+
+006200* PRINT THE CALENDAR OF A MONTH                                   00620029
+
+006300     MOVE ALL SPACES TO DATE-TAB.                                 00630027
+
+006400     ACCEPT NORMAL-DATE1.                                         00640029
+
+006500     IF YEAR1 < 1600                                              00650030
+
+006600         DISPLAY 'YEAR MUST EQUAL OR GREATER THAN 1600'           00660030
+
+006700         MOVE 1600 TO YEAR1.                                      00670030
+
+006800     MOVE 1 TO DAY1.                                              00680030
+
+006900     MOVE NORMAL-DATE1 TO NORMAL-DATE2                            00690030
+
+007000     IF MONTH1 >= 1 AND MONTH1 < 12                               00700030
+
+007100         ADD 1 TO MONTH2                                          00710030
+
+007200     ELSE IF MONTH1 = 12                                          00720030
+
+007300         MOVE 1 TO MONTH2                                         00730030
+
+007400         ADD 1 TO YEAR2                                           00740030
+
+007500     ELSE                                                         00750030
+
+007600          STOP RUN.                                               00760030
+
+007700     COMPUTE ANSI-DATE1 = FUNCTION INTEGER-OF-DATE(NORMAL-DATE1). 00770022
+
+007800     COMPUTE ANSI-DATE2 = FUNCTION INTEGER-OF-DATE(NORMAL-DATE2). 00780030
+
+007900     COMPUTE DAYS-BETWEEN = ANSI-DATE2 - ANSI-DATE1.              00790030
+
+008000     DIVIDE 7 INTO ANSI-DATE1 GIVING NO-USE REMAINDER THE-DATE.   00800023
+
+008100     PERFORM VARYING I FROM 1 BY 1 UNTIL I > DAYS-BETWEEN         00810030
+
+008200         COMPUTE J = THE-DATE + I - 1                             00820027
+
+008300         MOVE DAY1 TO DATE-NO(J)                                  00830023
+
+008400         ADD 1 TO NORMAL-DATE1                                    00840022
+
+008500     END-PERFORM.                                                 00850014
+
+008600*                                                                 00860024
+
+008700     DISPLAY DATE-NAMES.                                          00870025
+
+008800     PERFORM VARYING I FROM 1 BY 1 UNTIL I > 6                    00880027
+
+008900         DISPLAY DATE-LINE(I)                                     00890024
+
+009000     END-PERFORM.                                                 00900024
+
+009100     STOP RUN.                                                    00910001
+
+009200 END PROGRAM DATES.                                               00920006
+

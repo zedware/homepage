@@ -1,0 +1,86 @@
+
+Win32 Assembly Memo
+
+Author:  uniware
+Purpose: memo
+Date:    2003-07-16
+
+1. General purpose registers
+
+32-bit	16bit 	8bit	purpose
+---------------------------------------
+eax		ax,		ah, al	Accumulator
+ebx		bx,		bh, bl	Base
+ecx		cx,		ch, cl	Counter
+edx		dx, 	dh, dl	Data
+
+2. 16-bit segment registers
+
+16bit	purpose
+---------------------------------------
+cs		code segment
+ds		data segment
+ss		stack segment
+es		extra segment
+fs(286+)general purpose 
+gs(386+)general purpose
+
+3. Pointer registers
+
+32-bit	16-bit	purpose
+-----------------------------------------
+esi		si		source index
+edi		di		destination index
+eip		ip		instruction pointer
+
+4. Stack registers
+
+32-bit	16-bit
+------------------------------------------
+esp	sp	current stack position 
+ebp	bp	used in functions as pointer 
+		to local variables
+
+5. Assembly code for hello world
+
+source code in C:
+
+int main(void)
+{
+	printf("hello world\n");
+
+	return 0;
+}
+
+Assembly:
+
+0x00401005 E946A40000     JMP     0x0040B450            ; SYM:main	; (*+0xA44B) 
+;********************************************************************************
+	; SYM:main
+0x0040B450 55             PUSH    EBP                   ; <==0x00401005(*-0xA44B)
+				save current pointer to local variables.		
+0x0040B451 8BEC           MOV     EBP,ESP                       
+				set current stack position as this function's 
+				pointer to local variables.
+0x0040B453 83EC40         SUB     ESP,0x40                      
+0x0040B456 53             PUSH    EBX                           
+0x0040B457 56             PUSH    ESI                           
+0x0040B458 57             PUSH    EDI                           
+0x0040B459 8D7DC0         LEA     EDI,[EBP-0x40]        ; VAR:0x40
+0x0040B45C B910000000     MOV     ECX,0x10                      
+0x0040B461 B8CCCCCCCC     MOV     EAX,0xCCCCCCCC                
+0x0040B466 F3AB           REP     STOSD                         
+0x0040B468 6850FE4100     PUSH    0x41FE50              ; SYM:`string' ; DATA:hello world|
+0x0040B46D E87E020000     CALL    0x0040B6F0            ; SYM:printf
+0x0040B472 83C404         ADD     ESP,0x4                      
+0x0040B475 33C0           XOR     EAX,EAX                       
+0x0040B477 5F             POP     EDI                           
+0x0040B478 5E             POP     ESI                           
+0x0040B479 5B             POP     EBX                           
+0x0040B47A 83C440         ADD     ESP,0x40                      
+0x0040B47D 3BEC           CMP     EBP,ESP                       
+0x0040B47F E82C020000     CALL    0x0040B6B0            ; SYM:_chkesp_chkesp
+0x0040B484 8BE5           MOV     ESP,EBP                       
+0x0040B486 5D             POP     EBP                           
+0x0040B487 C3             RET                                   
+;********************************************************************************

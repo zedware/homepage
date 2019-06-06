@@ -1,0 +1,180 @@
+//SYSPRG5C JOB  (SS8UCP),'&PROGRAM',CLASS=A,MSGCLASS=X,                 00010063
+
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                            00020003
+
+//*                                                                     00030075
+
+//*  //开始于1,2列,名字不超过8字符;                             00040075
+
+//*  续行要求71列之前将参数,子参数以及后面的逗号写完;             00050075
+
+//*  续行的新行要在16列之前开始;                                    00060075
+
+//*                                                                     00070075
+
+//****************************************                              00080003
+
+//*******  COBOL COMPILER STEP 1     *****                              00090070
+
+//****************************************                              00100003
+
+//CMP1     EXEC  PGM=IGYCRCTL,REGION=1024K,                             00110072
+
+//             PARM='TEST(ALL,SYM),OBJECT,APOST,LIB,DECK'               00120054
+
+//STEPLIB  DD  DSN=IGY.V2R1M0.SIGYCOMP,DISP=SHR                         00130050
+
+//SYSPRINT DD  SYSOUT=*                                                 00140003
+
+//SYSUT1   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00150003
+
+//SYSUT2   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00160003
+
+//SYSUT3   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00170003
+
+//SYSUT4   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00180003
+
+//SYSUT5   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00190003
+
+//SYSUT6   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00200003
+
+//SYSUT7   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00210003
+
+//SYSLIN   DD  DSN=&OBJECT1,UNIT=SYSDA,DISP=(MOD,PASS),                 00220070
+
+//             DCB=(RECFM=FB,LRECL=80,BLKSIZE=800),                     00230003
+
+//             SPACE=(TRK,(2,3))                                        00240003
+
+//SYSPUNCH DD  DUMMY                                                    00250003
+
+//SYSIN    DD  DSN=SYSPRG5.IT@ABC.COBOL(TESTSUB),DISP=SHR               00260070
+
+//****************************************                              00270070
+
+//*******  COBOL COMPILER STEP 2     *****                              00280070
+
+//****************************************                              00290070
+
+//CMP2     EXEC  PGM=IGYCRCTL,REGION=1024K,COND=(4,LE,CMP1),            00300072
+
+//             PARM='TEST(ALL,SYM),OBJECT,APOST,LIB,DECK'               00310070
+
+//STEPLIB  DD  DSN=IGY.V2R1M0.SIGYCOMP,DISP=SHR                         00320070
+
+//SYSPRINT DD  SYSOUT=*                                                 00330070
+
+//SYSUT1   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00340070
+
+//SYSUT2   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00350070
+
+//SYSUT3   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00360070
+
+//SYSUT4   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00370070
+
+//SYSUT5   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00380070
+
+//SYSUT6   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00390070
+
+//SYSUT7   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00400070
+
+//SYSLIN   DD  DSN=&OBJECT2,UNIT=SYSDA,DISP=(MOD,PASS),                 00410070
+
+//             DCB=(RECFM=FB,LRECL=80,BLKSIZE=800),                     00420070
+
+//             SPACE=(TRK,(2,3))                                        00430070
+
+//SYSPUNCH DD  DUMMY                                                    00440070
+
+//SYSIN    DD  DSN=SYSPRG5.IT@ABC.LIB(TESTSUB1),DISP=SHR                00450075
+
+//****************************************                              00460075
+
+//*******  COBOL COMPILER STEP 3     *****                              00470075
+
+//****************************************                              00480075
+
+//CMP3     EXEC  PGM=IGYCRCTL,REGION=1024K,                             00490078
+
+//             COND=((4,LE,CMP1),(4,LE,CMP2)),                          00500078
+
+//             PARM='TEST(ALL,SYM),OBJECT,APOST,LIB,DECK'               00510075
+
+//STEPLIB  DD  DSN=IGY.V2R1M0.SIGYCOMP,DISP=SHR                         00520075
+
+//SYSPRINT DD  SYSOUT=*                                                 00530075
+
+//SYSUT1   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00540075
+
+//SYSUT2   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00550075
+
+//SYSUT3   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00560075
+
+//SYSUT4   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00570075
+
+//SYSUT5   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00580075
+
+//SYSUT6   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00590075
+
+//SYSUT7   DD  UNIT=3390,SPACE=(TRK,(2,3))                              00600075
+
+//SYSLIN   DD  DSN=&OBJECT3,UNIT=SYSDA,DISP=(MOD,PASS),                 00610075
+
+//             DCB=(RECFM=FB,LRECL=80,BLKSIZE=800),                     00620075
+
+//             SPACE=(TRK,(2,3))                                        00630075
+
+//SYSPUNCH DD  DUMMY                                                    00640075
+
+//SYSIN    DD  DSN=SYSPRG5.IT@ABC.LIB(DATE),DISP=SHR                    00650079
+
+//********************************                                      00660070
+
+//*******  LINKEDIT            ***                                      00670071
+
+//********************************                                      00680003
+
+//LKED     EXEC  PGM=IEWL,REGION=0512K,                                 00690078
+
+//          COND=((4,LE,CMP1),(4,LE,CMP2),(4,LE,CMP3)),                 00700078
+
+//          PARM='LIST,LET,AMODE=31'                                    00710076
+
+//SYSLIB   DD  DSN=CEE.SCEERUN,DISP=SHR                                 00720003
+
+//         DD  DSN=CEE.SCEELKED,DISP=SHR                                00730003
+
+//SYSLIN   DD  DSN=&OBJECT1,DISP=(OLD,DELETE)                           00740070
+
+//         DD  DSN=&OBJECT2,DISP=(OLD,DELETE)                           00750070
+
+//         DD  DSN=&OBJECT3,DISP=(OLD,DELETE)                           00760075
+
+//SYSLMOD  DD  DSN=SYSPRG5.JCL.LOAD(TESTSUB),DISP=SHR                   00770072
+
+//SYSUT1   DD  DSN=SYSDLLDA,SPACE=(1024,(50,20))                        00780003
+
+//SYSPRINT DD  SYSOUT=*                                                 00790003
+
+//SYSIN    DD  DUMMY                                                    00800003
+
+**********************************                                      00810071
+
+***   RUN PROGRAM              ***                                      00820071
+
+**********************************                                      00830071
+
+//RUN      EXEC  PGM=TESTSUB,REGION=4096K,                              00840078
+
+//          COND=((4,LE,CMP1),(4,LE,CMP2),(4,LE,CMP3),(4,LE,LKED))      00850078
+
+//STEPLIB  DD DSNAME=SYSPRG5.JCL.LOAD,DISP=SHR                          00860071
+
+//SYSOUT   DD SYSOUT=*                                                  00870071
+
+//SYSPRINT DD SYSOUT=*                                                  00880071
+
+20010228                                                                00890081
+
+/*                                                                      00900071
+

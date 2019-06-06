@@ -1,0 +1,117 @@
+
+又遇到 OracleDBConsoleORCL 服务启动不了的问题
+
+问题原因：安装Oracle时采用的是无线上网的，现在用的是局域网，IP地址不同了。
+解决步骤：
+
+1. 首次尝试
+
+C:\> set oracle_sid=orcl
+C:\> emctl start dbconsole
+
+OC4J Configuration issue. D:\app\mobile\product\11.1.0\db_1/oc4j/j2ee/OC4J_DBConsole_mobile_orcl not found.
+
+查看目录：D:\app\mobile\product\11.1.0\db_1\oc4j\j2ee，确实没有错误信息所说的目录或文件存在。只有一个类似的目录叫做：192.168.140.1_orcl。其代表的IP地址可能是用无线网的时候获得的，并不是我现在用局域网时的IP地址。将该目录复制一份，重新命名为：OC4J_DBConsole_mobile_orcl。
+
+2. 继续尝试
+
+C:\> emctl start dbconsole
+
+或
+
+C:\> emctl status dbconsole
+
+都报告如下的错误：
+
+EM Configuration issue. D:\app\mobile\product\11.1.0\db_1/mobile_orcl not found.
+
+查看了目录，原来其下有个目录叫做：192.168.140.1_orcl。参照上面的修复步骤，拷贝一份，并改名为：mobile_orcl。
+
+执行：
+
+C:\> emctl start dbconsole
+
+Oracle Enterprise Manager 11g Database Control Release 11.1.0.6.0
+Copyright (c) 1996, 2007 Oracle Corporation.  All rights reserved.
+https://192.168.140.1:1158/em/console/aboutApplication
+Starting Oracle Enterprise Manager 11g Database Control ...请求的服务已经启动。
+
+请键入 NET HELPMSG 2182 以获得更多的帮助。
+
+看来服务成功启动了。不过用 netstat -na 却看不到监听的端口1158，并且上述提示信息中用的还是旧的IP地址。查找目录“D:\app\mobile\product\11.1.0\db_1\mobile_orcl”下所有文件，发现有很多192.168.140.1，将其全部替换为机器名“mobile”。
+
+C:\> emctl start dbconsole
+Oracle Enterprise Manager 11g Database Control Release 11.1.0.6.0
+Copyright (c) 1996, 2007 Oracle Corporation.  All rights reserved.
+https://mobile:1158/em/console/aboutApplication
+Starting Oracle Enterprise Manager 11g Database Control ...请求的服务已经启动。
+
+请键入 NET HELPMSG 2182 以获得更多的帮助。
+
+C:\> netstat -na | grep 1158
+
+还是没有监听。
+
+对目录“D:\app\mobile\product\11.1.0\db_1\oc4j\j2ee\OC4J_DBConsole_mobile_orcl”如法炮制。
+
+C:\> emctl start dbconsole
+Oracle Enterprise Manager 11g Database Control Release 11.1.0.6.0
+Copyright (c) 1996, 2007 Oracle Corporation.  All rights reserved.
+https://mobile:1158/em/console/aboutApplication
+Starting Oracle Enterprise Manager 11g Database Control ...请求的服务已经启动。
+
+请键入 NET HELPMSG 2182 以获得更多的帮助。
+
+C:\> netstat -na | grep 1158
+  TCP    0.0.0.0:1158           0.0.0.0:0              LISTENING
+
+看起来正常了。
+
+在IE浏览器中输入地址：https://mobile:1158/em/console/aboutApplication，报告什么证书有问题。考虑到是测试，忽略此问题，继续访问，终于看到久违的Web界面了。
+
+可是页面还是有几个错误：
+1. Enterprise Manager 无法连接到数据库实例。下面列出了组件的状态。
+2. ORA-12505: TNS: 监听程序当前无法识别连接描述符中所给出的 SID (DBD ERROR: OCIServerAttach)
+3. 主机  192.168.140.1 
+
+3. 再次尝试
+
+看来还是用的旧IP地址。停止服务，删掉旧的配置文件目录再说。
+
+C:\> emctl start dbconsole
+Oracle Enterprise Manager 11g Database Control Release 11.1.0.6.0
+Copyright (c) 1996, 2007 Oracle Corporation.  All rights reserved.
+https://mobile:1158/em/console/aboutApplication
+Starting Oracle Enterprise Manager 11g Database Control ...OracleDBConsoleorcl
+服务正在启动 .
+OracleDBConsoleorcl 服务无法启动。
+
+系统出错。
+
+发生系统错误 3。
+
+系统找不到指定的路径。
+
+还是不行。找到了下面的办法，可是祸不单行，又忘记了SYS等用户的密码。又去删除旧的密码文件，然后用：orapwd file=D:\app\mobile\product\11.1.0\db_1\database\PWDorcl.ora password='xxx' entries=30 生成个新的。
+
+1) 删除配置 
+
+emca -deconfig dbcontrol db -repos drop  
+
+2) 用sys或system as sysdba 登录删除以下对象: 
+	a. drop user sysman cascade; 
+	b. drop role MGMT_USER; 
+	c. drop user MGMT_VIEW cascade; 
+	d. drop public synonym MGMT_TARGET_BLACKOUTS; 
+	e. drop public synonym SETEMVIEWUSERCONTEXT; 
+(这些对象根本就不存在)
+
+3) 重建配置
+
+emca -config dbcontrol db -repos create 
+
+期间又要用到DBSNMP、SYSMAN的密码。可以在 sqlplus 中用：alter user dbsnmp identified by xxx修改。
+
+最后一步又出错了：严重: 将配置数据上载到资料档案库时出错。
+
+从开始菜单上找到那个数据库配置程序，删除数据库，再创建就好了。

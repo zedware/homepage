@@ -1,0 +1,24 @@
+
+Quick Reference of Ant
+
+Author:  uniware
+Purpose: memo
+Date:    2003-07-16
+
+1. Compile and install on Windows
+	build.bat will do the work for you.
+	bootstrap.bat not used in mormal case.
+	After running the two batch file, you can see dist\.
+	Copy dist\ to any directory you want, e.g. c:\ant.
+		set environment variable ANT_HOME to C:\ANT.
+		set environment variable JAVA_HOME to JDK's home directory. e.g. C:\JDK1.4
+		set ant's bin\ to search path.
+		set ant's lib\ to classpath
+	Summary:
+		set ANT_HOME=c:\ant
+		set JAVA_HOME=c:\jdk1.4
+		set PATH=%PATH%;%ANT_HOME%\bin
+		set CLASSPATH=%CLASSPATH%;%ANT_HOME%\lib\ant.jar;%ANT_HOME%\lib\optional.jar
+		
+	(JDK 1.1 or latter should be installed before compiling).
+		

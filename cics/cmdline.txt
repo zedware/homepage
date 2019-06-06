@@ -1,0 +1,286 @@
+      *---------------------------------------------------------------
+
+      *  TEST only, corresponding TRANSACTION is BABI.
+
+      *  Usage: BABI (BABY|MAMA|DADY) <IDno> (X|C)
+
+      *  Notes:
+
+      *       <IDno> is 123456 etc.
+
+      *       'X' means Hex, 'C' means Char.
+
+      *---------------------------------------------------------------
+
+       IDENTIFICATION DIVISION.
+
+       PROGRAM-ID.    BABI.
+
+       AUTHOR.        UNIWARE.
+
+      *
+
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+
+       01 COMM-HEX-CHAR.
+
+          02 HEX-CHAR-IN  PIC X(08).
+
+          02 HEX-CHAR-OUT PIC X(16).
+
+          02 HEX-CHAR-RET PIC X(01).
+
+       01 COMM-BABYKEE.
+
+          02 BABYKEE-TYPE PIC X(04).
+
+          02 BABYKEE-RET  PIC X(01).
+
+          02 BABYKEE-ID   PIC 9(06).
+
+          02 BABYKEE-NAME PIC 9(08).
+
+       01 WS-START-CODE   PIC X(02) VALUE SPACES.
+
+          88 START-WITH-DATA        VALUE 'SD'.
+
+       01 WS-SCREEN.
+
+          02 WS-WARNING   PIC X(80) OCCURS 2.
+
+      *
+
+       77 WS-COMMAND-LINE PIC X(80).
+
+       77 WS-TYPE         PIC X(04).
+
+       77 WS-ID           PIC X(06).
+
+       77 WS-CX-FLAG      PIC X(01).
+
+       77 WS-NAME         PIC X(16).
+
+       77 WS-RESP         PIC S9(8) COMP.
+
+      *
+
+       PROCEDURE DIVISION.
+
+           EXEC CICS HANDLE ABEND
+
+               LABEL(9999-ABEND-EXIT)
+
+           END-EXEC.
+
+           PERFORM 0200-INIT-COMMAREA.
+
+           PERFORM 0400-RECEIVE-COMMAND.
+
+           PERFORM 0600-PROCESS-COMMAND.
+
+           PERFORM 0800-SEND-MESSAGE.
+
+           EXEC CICS RETURN END-EXEC.
+
+      *
+
+       0200-INIT-COMMAREA.
+
+           INITIALIZE COMM-HEX-CHAR
+
+           INITIALIZE COMM-BABYKEE.
+
+      *
+
+       0400-RECEIVE-COMMAND.
+
+           EXEC CICS ASSIGN
+
+               STARTCODE(WS-START-CODE)
+
+           END-EXEC
+
+           IF START-WITH-DATA
+
+               MOVE 'Not allow STARTed by another TRAN!' TO
+
+                    WS-WARNING(1)
+
+               PERFORM 8888-SEND-ERRMSG
+
+           END-IF
+
+           INITIALIZE WS-COMMAND-LINE
+
+           EXEC CICS RECEIVE
+
+               INTO(WS-COMMAND-LINE)
+
+               RESP(WS-RESP)
+
+           END-EXEC
+
+           IF WS-RESP NOT = DFHRESP(NORMAL) AND
+
+              WS-RESP NOT = DFHRESP(EOC)
+
+               MOVE 'Receive from command line error!' TO WS-WARNING(1)
+
+               PERFORM 8888-SEND-ERRMSG
+
+           END-IF
+
+           MOVE WS-COMMAND-LINE(6:4)  TO WS-TYPE
+
+           IF WS-TYPE NOT = 'BABY' AND
+
+              WS-TYPE NOT = 'MAMA' AND
+
+              WS-TYPE NOT = 'DADY'
+
+               MOVE 'Option 1 not BABY or MAMA or DADY' TO
+
+                    WS-WARNING(1)
+
+               PERFORM 8888-SEND-ERRMSG
+
+           END-IF
+
+           MOVE WS-COMMAND-LINE(11:6) TO WS-ID
+
+           IF WS-ID IS NOT NUMERIC
+
+               MOVE 'IDno is not numeric!' TO WS-WARNING(1)
+
+               PERFORM 8888-SEND-ERRMSG
+
+           END-IF
+
+           MOVE WS-COMMAND-LINE(18:1) TO WS-CX-FLAG
+
+           IF WS-CX-FLAG NOT = 'C' AND WS-CX-FLAG NOT = 'X'
+
+               MOVE 'C' TO WS-CX-FLAG
+
+           END-IF
+
+           MOVE WS-TYPE           TO BABYKEE-TYPE
+
+           MOVE WS-ID             TO BABYKEE-ID.
+
+      *
+
+       0600-PROCESS-COMMAND.
+
+           EXEC CICS LINK
+
+               PROGRAM('BABYKEE') COMMAREA(COMM-BABYKEE)
+
+               LENGTH(LENGTH OF COMM-BABYKEE)
+
+           END-EXEC
+
+           IF BABYKEE-RET NOT = '0'
+
+               PERFORM 7777-SEND-WARNMSG
+
+           END-IF.
+
+      *
+
+       0800-SEND-MESSAGE.
+
+           INITIALIZE WS-SCREEN
+
+           EVALUATE TRUE
+
+               WHEN WS-CX-FLAG = 'C'
+
+                   MOVE 'The NAME you want is(CHAR):' TO WS-WARNING(1)
+
+                   MOVE BABYKEE-TYPE TO WS-WARNING(2)(1:4)
+
+                   MOVE BABYKEE-NAME TO WS-WARNING(2)(6:8)
+
+               WHEN WS-CX-FLAG = 'X'
+
+                   MOVE BABYKEE-NAME TO HEX-CHAR-IN
+
+                   EXEC CICS LINK
+
+                       PROGRAM('HEX2CHAR') COMMAREA(COMM-HEX-CHAR)
+
+                   END-EXEC
+
+                   IF HEX-CHAR-RET NOT = '0'
+
+                       MOVE 'HEX2CHAR failed!' TO WS-WARNING(1)
+
+                       PERFORM 7777-SEND-WARNMSG
+
+                   END-IF
+
+                   MOVE HEX-CHAR-OUT TO WS-WARNING(2)(6:16)
+
+      *
+
+                   MOVE 'The NAME you want is(HEX):' TO WS-WARNING(1)
+
+                   MOVE BABYKEE-TYPE TO WS-WARNING(2)(1:4)
+
+                   PERFORM 7777-SEND-WARNMSG
+
+               WHEN OTHER
+
+                   CONTINUE
+
+           END-EVALUATE
+
+           PERFORM 7777-SEND-WARNMSG
+
+           EXEC CICS RETURN END-EXEC.
+
+      *
+
+       7777-SEND-WARNMSG.
+
+           EXEC CICS SEND
+
+               FROM(WS-SCREEN) ERASE
+
+           END-EXEC.
+
+      *
+
+       8888-SEND-ERRMSG.
+
+           MOVE 'Usage: BABI (BABY|MAMA|DADY) <IDno> (C|X)' TO
+
+                WS-WARNING(2)
+
+           EXEC CICS SEND
+
+               FROM(WS-SCREEN) ERASE
+
+           END-EXEC
+
+           EXEC CICS RETURN END-EXEC.
+
+      *
+
+       9999-ABEND-EXIT.
+
+           INITIALIZE WS-SCREEN
+
+           MOVE 'BABI abend!' TO WS-WARNING(1)
+
+           EXEC CICS SEND
+
+               FROM(WS-SCREEN) ERASE
+
+           END-EXEC
+
+           EXEC CICS RETURN END-EXEC.
+

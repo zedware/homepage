@@ -1,0 +1,26 @@
+<html>
+<head>
+<meta http-equiv="Content-Type"
+
+content="text/html; charset=gb2312">
+<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+<title>如何找回不小心删除的文件？</title>
+<style type="text/css">
+<!--
+.style1 {font-size: larger}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF"> 
+<p align="center" class="style1">如何找回不小心删除的文件？</p> 
+<hr> 
+<p align="left"><font face="宋体">　　在日常工作中，总有马失前蹄的时候，最近我就一不小心删除了一个重要的程序。不要着急，通常还是有救的。不妨试试下面这个方法：</font></p> 
+<p align="left"><font face="宋体">　　</font>在ISPF的命令行状态下（P.6），执行PDSAVE命令，提示信息要求——INPUT，指定被删除文件所在的数据集；OUTPUT，指定恢复出来的所存放的数据集。执行结束后，就会在输出的数据集中看到一大堆名字叫PDSAVE001、PDSAVE002、……的文件，那就耐心地去找还需要的吧。</p> 
+<p align="left"> <font face="宋体">　　</font>如果此前刚好压缩了数据集，估计是没药救了！</p> 
+<hr> 
+<div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a> <br> 
+  Last modified on
+  <!-- #BeginDate format:fcIS1 -->Wednesday, 2005-02-16<!-- #EndDate --> 
+</div> 
+</body>
+</html>

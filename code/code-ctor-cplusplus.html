@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- DW6 -->
+<head>
+<title>有人咨询C++小程序的问题，记录一下</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+<!--
+.style1 {font-size: larger}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF"> 
+<p align="center" class="style1">有人咨询C++小程序的问题，记录一下</p> 
+<hr /> 
+<p>$ cat mydate.cpp<br />
+  /* C++ Puzzle */<br />
+  class MyDate<br />
+  {<br />
+  public:<br />
+            
+  MyDate() {}<br />
+          
+  MyDate(MyDate&amp;) {}<br />
+  };<br />
+  <br />
+  int   main(void)<br />
+  {<br />
+          
+  MyDate x;<br />
+          
+  MyDate y = MyDate(x);<br />
+            
+  return 0;<br />
+  }<br />
+  <br />
+  /*<br />
+  <br />
+  $ g++ -Wall mydate.cpp<br />
+  mydate.cpp: In   function `int main()':<br />
+  mydate.cpp:12: error: no matching function for call to <br />
+  `MyDate::MyDate(MyDate)'<br />
+  mydate.cpp:6: note: candidates are:   MyDate::MyDate(MyDate&amp;)<br />
+  <br />
+  */<br />
+  <br />
+  Q: How to fix it?<br />
+A: Blah, blah,   ...</p>
+<div align="center"> 
+  <hr /> 
+  <div align="center"><a href="mailto:zedware@gmail.com">Copyright 2009-2010, zedware_at_gmail.com</a><br /> 
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Friday, 2009-10-02<!-- #EndDate --> 
+  </div> 
+</div> 
+</body>
+</html>

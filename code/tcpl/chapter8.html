@@ -1,0 +1,1115 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chapter 8 - The UNIX System Interface</title>
+<style type="text/css">
+<!--
+.STYLE1 {
+	color: #FF0000;
+	font-style: italic;
+}
+.STYLE2 {color: #FF0000}
+-->
+</style>
+</head>
+<body>
+<hr>
+<p align="center">
+<a href="chapter7.html">Back to Chapter 7</a>&nbsp;--&nbsp;
+<a href="index.html">Index</a>&nbsp;--&nbsp;
+<a href="appa.html">Appendix A</a>
+<p>
+<hr>
+
+<h1>Chapter 8 - The UNIX System Interface</h1>
+The UNIX operating system provides its services through a set of <span class="STYLE1">system
+calls</span>, which are in effect functions within the operating system that may be
+called by user programs. This chapter describes how to use some of the most
+important system calls from C programs. If you use UNIX, this should be
+directly helpful, for it is sometimes necessary to employ system calls for
+maximum efficiency, or to access some facility that is not in the library.
+Even if you use C on a different operating system, however, you should be
+able to glean insight into C programming from studying these examples;
+although details vary, similar code will be found on any system. Since the
+ANSI C library is in many cases modeled on UNIX facilities, this code may
+help your understanding of the library as well.
+<p>
+This chapter is divided into three major parts: <span class="STYLE2">input/output, file system,
+and storage allocation</span>. The first two parts assume a modest familiarity with
+the external characteristics of UNIX systems.
+<p>
+<a href="chapter7.html">Chapter 7</a> was concerned with an input/output
+interface that is uniform across operating systems. On any particular system
+the routines of the standard library have to be written in terms of the
+facilities provided by the host system. In the next few sections we will
+describe the UNIX system calls for input and output, and show how parts of
+the standard library can be implemented with them.
+<h2><a name="s8.1">8.1 File Descriptors</a></h2>
+In the UNIX operating system, all input and output is done by reading or
+writing files, because all peripheral devices, even keyboard and screen, are
+files in the file system. This means that a single homogeneous interface
+handles all communication between a program and peripheral devices.
+<p>
+In the most general case, before you read and write a file, you must inform
+the system of your intent to do so, a process called <em>opening</em> the file.
+If you are going to write on a file it may also be necessary to create it or
+to discard its previous contents. The system checks your right to do so (Does
+the file exist? Do you have permission to access it?) and if all is well,
+returns to the program a small non-negative integer called a <span class="STYLE2"><em>file
+descriptor</em></span>. Whenever input or output is to be done on the file, the file
+descriptor is used instead of the name to identify the file. (A file
+descriptor is analogous to the file pointer used by the standard library,
+or to the file handle of MS-DOS.) All information about an open file is
+maintained by the system; the user program refers to the file only by the
+file descriptor.
+<p>
+Since input and output involving keyboard and screen is so common, special
+arrangements exist to make this convenient. When the command interpreter (the
+``shell'') runs a program, three files are open, <span class="STYLE2">with file descriptors 0, 1,
+and 2, called the standard input, the standard output, and the standard
+error.</span> If a  program reads 0 and writes 1 and 2, it can do input and output
+without worrying about opening files.
+<p>
+The user of a program can redirect I/O to and from files with &lt; and &gt;:
+<pre>
+   $ prog &lt;infile &gt;outfile
+</pre>
+In this case, the shell changes the default assignments for the file
+descriptors 0 and 1 to the named files. Normally file descriptor 2 remains
+attached to the screen, so error messages can go there. Similar observations
+hold for input or  output associated with a pipe. In all cases, the file
+assignments are changed by the shell, not by the program. The program does
+not know where its input comes from nor where its output goes, so long as it
+uses file 0 for input and 1 and 2 for output.
+
+<h2><a name="s8.2">8.2 Low Level I/O - Read and Write</a></h2>
+Input and output uses the <tt>read</tt> and <tt>write</tt> system calls,
+which are accessed from C programs through two functions called <tt>read</tt>
+and <tt>write</tt>. For both, the first argument is a file descriptor. The
+second argument is a character array in your program where the data is to go
+to or to come from. The third argument is the number is the number of bytes
+to be transferred.
+<pre>
+   int n_read = read(int fd, char *buf, int n);
+   int n_written = write(int fd, char *buf, int n);
+</pre>
+Each call returns a count of the number of bytes transferred. On reading, the
+number of bytes returned may be less than the number requested. A return
+value of zero bytes implies end of file, and <tt>-1</tt> indicates an error of
+some sort. For writing, the return value is the number of bytes written; an
+error has occurred if this isn't equal to the number requested.
+<p>
+Any number of bytes can be read or written in one call. The most common
+values are 1, which means one character at a time (``unbuffered''), and a
+number like 1024 or 4096 that corresponds to a physical block size on a
+peripheral device. Larger sizes will be more efficient because fewer system
+calls will be made.
+<p>
+Putting these facts together, we can write a simple program to copy its input
+to its output, the equivalent of the file copying program written for
+<a href="chapter1.html">Chapter 1</a>. This program will copy anything to
+anything, since the input and output can be redirected to any file or device.
+<pre>
+   #include "syscalls.h"
+
+   int main(void)  /* copy input to output */
+   {
+       char buf[BUFSIZ];
+       int n;
+
+       while ((n = read(0, buf, BUFSIZ)) &gt; 0)
+           write(1, buf, n);
+       return 0;
+   }
+</pre>
+We have collected function prototypes for the system calls into a file called
+<tt>syscalls.h</tt> so we can include it in the programs of this chapter.
+This name is not standard, however.
+<p>
+The parameter <tt>BUFSIZ</tt> is also defined in <tt>syscalls.h</tt>; its
+value is a good size for the local system. If the file size is not a multiple
+of <tt>BUFSIZ</tt>, some <tt>read</tt> will return a smaller number of bytes
+to be written by <tt>write</tt>; the next call to <tt>read</tt> after that
+will return zero.
+<p>
+It is instructive to see how <tt>read</tt> and <tt>write</tt> can be used to
+construct higher-level routines like <tt>getchar</tt>, <tt>putchar</tt>, etc.
+For example, here is a version of <tt>getchar</tt> that does unbuffered input,
+by reading the standard input one character at a time.
+<pre>
+   #include "syscalls.h"
+
+   /* getchar:  unbuffered single character input */
+   int getchar(void)
+   {
+       char c;
+
+       return (read(0, &c, 1) == 1) ? (unsigned char) c : EOF;
+   }
+</pre>
+<p><tt>c</tt> must be a <tt>char</tt>, because <tt>read</tt> needs a character
+  pointer.<span class="STYLE2"> Casting <tt>c</tt> to <tt>unsigned char</tt> in the return statement
+    eliminates any problem of sign extension.
+  </span></p>
+<p>为了弄清楚 char 的符号位影响，请参考下面的小程序：</p>
+<pre>
+   /**
+    * char may default to signed char.
+    * 0xFF is -1 for signed char, 255 for unsigned char.
+    * Cast as unsigned char before assigning char to int.
+    */
+   #include &lt;stdio.h&gt;
+
+   int main(void)
+   {
+       char c = 0xFF;
+       int i;
+       int j;
+
+       i = c;
+       j = (unsigned char) c;
+       printf("%d, %d\n", i, j);
+       return 0;
+   }
+</pre>
+<p>
+The second version of <tt>getchar</tt> does input in big chunks, and hands out
+the characters one at a time.
+<pre>
+   #include "syscalls.h"
+
+   /* getchar:  simple buffered version */
+   int getchar(void)
+   {
+       static char buf[BUFSIZ];
+       static char *bufp = buf;
+       static int n = 0;
+
+       if (n == 0) {  /* buffer is empty */
+           n = read(0, buf, sizeof buf);
+           bufp = buf;
+       }
+       return (--n &gt;= 0) ? (unsigned char) *bufp++ : EOF;
+   }
+</pre>
+If these versions of <tt>getchar</tt> were to be compiled with <tt>&lt;stdio.h&gt;</tt>
+included, it would be necessary to <tt>#undef</tt> the name <tt>getchar</tt> in
+case it is implemented as a macro.
+
+<h2><a name="s8.3">8.3 Open, <span class="STYLE2">Creat</span>, Close, Unlink</a></h2>
+Other than the default standard input, output and error, you must explicitly
+open files in order to read or write them. There are two system calls for
+this, <tt>open</tt> and <span class="STYLE2"><tt>creat</tt></span> [sic].
+<p>
+<tt>open</tt> is rather like the <tt>fopen</tt> discussed in
+<a href="chapter7.html">Chapter 7</a>, except that instead of returning a
+file pointer, it returns a file descriptor, which is just an <tt>int</tt>.
+<tt>open</tt> returns <tt>-1</tt> if any error occurs.
+<pre>
+   #include &lt;fcntl.h&gt;
+
+   int fd;
+   int open(char *name, int flags, int perms);
+
+   fd = open(name, flags, perms);
+</pre>
+As with <tt>fopen</tt>, the <tt>name</tt> argument is a character string
+containing the filename. The second argument, <tt>flags</tt>, is an <tt>int</tt>
+that specifies how the file is to be opened; the main values are
+<br>
+<br>
+<table align="center" border=0>
+<td><tt>O_RDONLY</tt></td><td>open for reading only</td>
+<tr>
+<td><tt>O_WRONLY</tt></td><td>open for writing only</td>
+<tr>
+<td><tt>O_RDWR  </tt></td><td>open for both reading and writing</td>
+</table>
+<p>
+These constants are defined in <tt>&lt;fcntl.h&gt;</tt> on System V UNIX
+systems, and in <tt>&lt;sys/file.h&gt;</tt> on Berkeley (BSD) versions.
+<p>
+To open an existing file for reading,
+<pre>
+   fd = open(name, O_RDONLY, 0);
+</pre>
+The <tt>perms</tt> argument is always zero for the uses of <tt>open</tt> that
+we will discuss.
+<p>
+It is an error to try to open a file that does not exist. The system call
+<tt>creat</tt> is provided to create new files, or to re-write old ones.
+<pre>
+   int creat(char *name, int perms);
+
+   fd = creat(name, perms);
+</pre>
+returns a file descriptor if it was able to create the file, and <tt>-1</tt> if
+not. If the file already exists, <tt>creat</tt> will truncate it to zero length,
+thereby discarding its previous contents; it is not an error to <tt>creat</tt> a
+file that already exists.
+<p>
+If the file does not already exist, <tt>creat</tt> creates it with the
+permissions specified by the <tt>perms</tt> argument. In the UNIX file system,
+there are nine bits of permission information associated with a file that
+control read, write and execute access for the owner of the file, for the
+owner's group, and for all others. Thus a three-digit octal number is
+convenient for specifying the permissions. For example, <tt>0775</tt> specifies
+read, write and execute permission for the owner, and read and execute
+permission for the group and everyone else.
+<p>
+To illustrate, here is a simplified version of the UNIX program <tt>cp</tt>,
+which copies one file to another. Our version copies only one file, it does
+not permit the second argument to be a directory, and it invents permissions
+instead of copying them.
+<pre>
+   #include &lt;stdio.h&gt;
+   #include &lt;fcntl.h&gt;
+   #include "syscalls.h"
+   
+   #define PERMS 0666     /* RW for owner, group, others */
+
+   void error(char *,  ...);
+
+   /* cp:  copy f1 to f2 */
+   int main(int argc, char *argv[])
+   {
+       int f1, f2, n;
+       char buf[BUFSIZ];
+
+       if (argc != 3)
+           error("Usage: cp from to");
+       if ((f1 = open(argv[1], O_RDONLY, 0)) == -1)
+           error("cp: can't open %s", argv[1]);
+       if ((f2 = creat(argv[2], PERMS)) == -1)
+           error("cp: can't create %s, mode %03o",
+               argv[2], PERMS);
+       while ((n = read(f1, buf, BUFSIZ)) &gt; 0)
+           if (write(f2, buf, n) != n)
+               error("cp: write error on file %s", argv[2]);
+       return 0;
+   }
+</pre>
+This program creates the output file with fixed permissions of <tt>0666</tt>.
+With the <tt>stat</tt> system call, described in <a href="#s8.6">Section 8.6</a>,
+we can determine the mode of an existing file and thus give the same mode to
+the copy.
+<p>
+<span class="STYLE2">Notice that the function <tt>error</tt> is called with variable argument
+lists much like <tt>printf</tt>. </span>The implementation of error illustrates how
+to use another member of the <tt>printf</tt> family. The standard library
+function <tt>vprintf</tt> is like <tt>printf</tt> except that the variable
+argument list is replaced by a single argument that has been initialized by
+calling the <tt>va_start</tt> macro. Similarly, <tt>vfprintf</tt> and
+<tt>vsprintf</tt> match <tt>fprintf</tt> and <tt>sprintf</tt>.
+<pre>
+   #include &lt;stdio.h&gt;
+   #include &lt;stdarg.h&gt;
+
+   /* error:  print an error message and die */
+   void error(char *fmt, ...)
+   {
+       va_list args;
+
+       va_start(args, fmt);
+       fprintf(stderr, "error: ");
+       vprintf(stderr, fmt, args);
+       fprintf(stderr, "\n");
+       va_end(args);
+       exit(1);
+   }
+</pre>
+<p>There is a limit (often about <span class="STYLE2">20</span>) on the number of files that a program may
+  open simultaneously. Accordingly, any program that intends to process many
+  files must be prepared to re-use file descriptors. The function
+  <tt>close(int fd)</tt> breaks the connection between a file descriptor and an
+  open file, and frees the file descriptor for use with some other file; it
+  corresponds to <tt>fclose</tt> in the standard library except that there is no
+  buffer to flush. Termination of a program via <tt>exit</tt> or return from the
+  main program closes all open files.</p>
+<p>现代的操作系统中，文件打开数默认都应该比较大。20 可以算是老黄历了，例如 DOS 和 SCO/UNIX 年代大约就是这样的水平。在 Windows 中，各种用户对象和内核对象的数目也是允许一个很大的数值的。在 Linux 下，可以采用：ulimit 命令来查看和设置该参数的值。例如：</p>
+<p># Check all of the limits. <br>
+  [zedware@fedora11 ~]$ ulimit -a<br>
+  core file size          (blocks, -c) 0<br>
+  data seg size           (kbytes, -d) unlimited<br>
+  scheduling priority             (-e) 0<br>
+  file size               (blocks, -f) unlimited<br>
+  pending signals                 (-i) 6144<br>
+  max locked memory       (kbytes, -l) 64<br>
+  max memory size         (kbytes, -m) unlimited<br>
+  open files                      (-n) 1024<br>
+  pipe size            (512 bytes, -p) 8<br>
+  POSIX message queues     (bytes, -q) 819200<br>
+  real-time priority              (-r) 0<br>
+  stack size              (kbytes, -s) 10240<br>
+  cpu time               (seconds, -t) unlimited<br>
+  max user processes              (-u) 1024<br>
+  virtual memory          (kbytes, -v) unlimited<br>
+file locks                      (-x) unlimited</p>
+<p># Set open files to 10. <br>
+  [zedware@fedora11 ~]$ ulimit -n 10 <br>
+  <br>
+  # Check open files again. <br>
+  [zedware@fedora11 ~]$ ulimit -n<br>
+  10</p>
+<p>
+The function <tt>unlink(char *name)</tt> removes the file <tt>name</tt> from the
+file system. It corresponds to the standard library function <tt>remove</tt>.
+<p>
+<strong>Exercise 8-1.</strong> Rewrite the program <tt>cat</tt> from
+<a href="chapter7.html">Chapter 7</a> using <tt>read</tt>, <tt>write</tt>,
+<tt>open</tt>, and <tt>close</tt> instead of their standard library
+equivalents. Perform experiments to determine the relative speeds of the two
+versions.
+<h2><a name="s8.4">8.4 Random Access - Lseek</a></h2>
+Input and output are normally sequential: each <tt>read</tt> or <tt>write</tt>
+takes place at a position in the file right after the previous one. When
+necessary, however, a file can be read or written in any arbitrary order. The
+system call <tt>lseek</tt> provides a way to move around in a file without
+reading or writing any data:
+<pre>
+   long lseek(int fd, long offset, int origin);
+</pre>
+<p>sets the current position in the file whose descriptor is <tt>fd</tt> to
+  <tt>offset</tt>, which is taken relative to the location specified by <tt>origin</tt>.
+Subsequent reading or writing will begin at that position. <tt>origin</tt> can
+be 0, 1, or 2 to specify that <tt>offset</tt> is to be measured from the
+beginning, from the current position, or from the end of the file
+respectively. For example, to append to a file (the redirection &gt;&gt; in the
+UNIX shell, or <tt>"a"</tt> for <tt>fopen</tt>), seek to the end before writing:</p>
+<pre>
+   lseek(fd, 0L, 2);
+</pre>
+To get back to the beginning (``rewind''),
+<pre>
+   lseek(fd, 0L, 0);
+</pre>
+<p>Notice the <tt>0L</tt> argument; it  could also be written as <tt>(long) 0</tt>
+  or just as <tt>0</tt> if <tt>lseek</tt> is properly declared.</p>
+<p>注意，现代的操作操作系统有一些细节的改进。例如：man lseek 在 Fedora Core 11 上给出的原型为：</p>
+<p>LSEEK(2)                   Linux Programmer’s Manual                  LSEEK(2)</p>
+<p>NAME<br>
+  lseek - reposition read/write file offset</p>
+<p>SYNOPSIS<br>
+  #include &lt;sys/types.h&gt;<br>
+  #include &lt;unistd.h&gt;</p>
+<p> <span class="STYLE2">off_t lseek(int fd, off_t offset, int whence);</span><br>
+</p>
+<p>
+With <tt>lseek</tt>, it is  possible to treat files more or less like arrays, at
+the price of slower access. For example, the following function reads any
+number of bytes from any arbitrary place in a file. It returns the number
+read, or <tt>-1</tt> on error.
+<pre>
+   #include "syscalls.h"
+
+   /*get:  read n bytes from position pos */
+   int get(int fd, long pos, char *buf, int n)
+   {
+       if (lseek(fd, pos, 0) &gt;= 0) /* get to pos */
+           return read(fd, buf, n);
+       else
+           return -1;
+   }
+</pre>
+The return value from <tt>lseek</tt> is a long that gives the new position in
+the file, or <tt>-1</tt> if an error occurs. The standard library function
+<tt>fseek</tt> is similar to <tt>lseek</tt> except that the first argument is
+a <tt>FILE *</tt> and the return is non-zero if an error occurred.
+
+<h2><a name="s8.5">8.5 Example - An implementation of Fopen and Getc</a></h2>
+Let us illustrate how some of these pieces fit together by showing an
+implementation of the standard library routines <tt>fopen</tt> and <tt>getc</tt>.
+<p>
+Recall that files in the standard library are described by file pointers
+rather than file descriptors. A file pointer is a pointer to a structure that
+contains several pieces of information about the file: a pointer to a buffer,
+so the file can be read in large chunks; a count of the number of characters
+left in the buffer; a pointer to the next character position in the buffer;
+the file descriptor; and flags describing read/write mode, error status, etc.
+<p>
+The data structure that describes a file is contained in <tt>&lt;stdio.h&gt;</tt>,
+which must be included (by <tt>#include</tt>) in any source file that uses
+routines from the standard input/output library. It is also included by
+functions in that library. In the following excerpt from a typical
+<tt>&lt;stdio.h&gt;</tt>, names that are intended for use only by functions of
+the library begin with an underscore so they are less likely to collide with
+names in a user's program. This convention is used by all standard library
+routines.
+<pre>
+   #define NULL      0
+   #define EOF       (-1)
+   #define BUFSIZ    1024
+   #define OPEN_MAX  20    /* max #files open at once */
+
+   typedef struct _iobuf {
+       int  cnt;       /* characters left */
+       char *ptr;      /* next character position */
+       char *base;     /* location of buffer */
+       int  flag;      /* mode of file access */
+       int  fd;        /* file descriptor */
+   } FILE;
+   extern FILE _iob[OPEN_MAX];
+
+   #define stdin   (&_iob[0])
+   #define stdout  (&_iob[1])
+   #define stderr  (&_iob[2])
+
+   enum _flags {
+       _READ   = 01,   /* file open for reading */
+       _WRITE  = 02,   /* file open for writing */
+       _UNBUF  = 04,   /* file is unbuffered */
+       _EOF    = 010,  /* EOF has occurred on this file */
+       _ERR    = 020   /* error occurred on this file */
+   };
+
+   int _fillbuf(FILE *);
+   int _flushbuf(int, FILE *);
+
+   #define feof(p)     ((p)-&gt;flag & _EOF) != 0)
+   #define ferror(p)   ((p)-&gt;flag & _ERR) != 0)
+   #define fileno(p)   ((p)-&gt;fd)
+
+   #define getc(p)   (--(p)-&gt;cnt &gt;= 0 \
+                  ? (unsigned char) *(p)-&gt;ptr++ : _fillbuf(p))
+   #define putc(x,p) (--(p)-&gt;cnt &gt;= 0 \
+                  ? *(p)-&gt;ptr++ = (x) : _flushbuf((x),p))
+
+   #define getchar()   getc(stdin)
+   #define putcher(x)  putc((x), stdout)
+</pre>
+The <tt>getc</tt> macro normally decrements the count, advances the pointer, and
+returns the character. (Recall that a long <tt>#define</tt> is continued with a
+backslash.) If the count goes negative, however, <tt>getc</tt> calls the function
+<tt>_fillbuf</tt> to replenish the buffer, re-initialize the structure contents,
+and return a character. <span class="STYLE2">The characters are returned <tt>unsigned</tt>, which
+ensures that all characters will be positive.
+</span>
+<p>
+Although we will not discuss any details, we have included the definition of
+<tt>putc</tt> to show that it operates in much the same way as <tt>getc</tt>, calling
+a function <tt>_flushbuf</tt> when its buffer is full. We have also included
+macros for accessing the error and end-of-file status and the file descriptor.
+<p>
+The function <tt>fopen</tt> can now be written. Most of <tt>fopen</tt> is
+concerned with getting the file opened and positioned at the right place, and
+setting the flag bits to indicate the proper state. <tt>fopen</tt> does not
+allocate any buffer space; this is done by <tt>_fillbuf</tt> when the file is
+first read.
+<pre>
+   #include &lt;fcntl.h&gt;
+   #include "syscalls.h"
+   
+   #define PERMS 0666    /* RW for owner, group, others */
+
+   FILE *fopen(char *name, char *mode)
+   {
+       int fd;
+       FILE *fp;
+
+       if (*mode != 'r' && *mode != 'w' && *mode != 'a')
+           return NULL;
+       for (fp = _iob; fp &lt; _iob + OPEN_MAX; fp++)
+           if ((fp-&gt;flag & (_READ | _WRITE)) == 0)
+               break;        /* found free slot */
+       if (fp &gt;= _iob + OPEN_MAX)   /* no free slots */
+           return NULL;
+
+       if (*mode == 'w')
+           fd = creat(name, PERMS);
+       else if (*mode == 'a') {
+           if ((fd = open(name, O_WRONLY, 0)) == -1)
+               fd = creat(name, PERMS);
+           lseek(fd, 0L, 2);
+       } else
+           fd = open(name, O_RDONLY, 0);
+       if (fd == -1)         /* couldn't access name */
+           return NULL;
+       fp-&gt;fd = fd;
+       fp-&gt;cnt = 0;
+       fp-&gt;base = NULL;
+       fp-&gt;flag = (*mode == 'r') ? _READ : _WRITE;
+       return fp;
+   }
+</pre>
+This version of <tt>fopen</tt> does not handle all of the access mode
+possibilities of the standard, though adding them would not take much code.
+In particular, our <tt>fopen</tt> does not recognize the ``<tt>b</tt>'' that
+signals binary access, since that is meaningless on UNIX systems, nor the
+``<tt>+</tt>'' that permits both reading and writing.
+<p>
+The first call to <tt>getc</tt> for a particular file finds a count of zero,
+which forces a call of <tt>_fillbuf</tt>. If <tt>_fillbuf</tt> finds that the file
+is not open for reading, it returns <tt>EOF</tt> immediately. Otherwise, it tries
+to allocate a buffer (if reading is to be buffered).
+<p>
+Once the buffer is established, <tt>_fillbuf</tt> calls <tt>read</tt> to fill it,
+sets the count and pointers, and returns the character at the beginning of
+the buffer. Subsequent calls to <tt>_fillbuf</tt> will find a buffer allocated.
+<pre>
+   #include "syscalls.h"
+
+   /* _fillbuf:  allocate and fill input buffer */
+   int _fillbuf(FILE *fp)
+   {
+       int bufsize;
+
+       if ((fp-&gt;flag&(_READ|_EOF_ERR)) != _READ)
+           return EOF;
+       bufsize = (fp-&gt;flag & _UNBUF) ? 1 : BUFSIZ;
+       if (fp-&gt;base == NULL)     /* no buffer yet */
+           if ((fp-&gt;base = (char *) malloc(bufsize)) == NULL)
+               return EOF;       /* can't get buffer */
+       fp-&gt;ptr = fp-&gt;base;
+       fp-&gt;cnt = read(fp-&gt;fd, fp-&gt;ptr, bufsize);
+       if (--fp-&gt;cnt &lt; 0) {
+           if (fp-&gt;cnt == -1)
+               fp-&gt;flag |= _EOF;
+           else
+               fp-&gt;flag |= _ERR;
+           fp-&gt;cnt = 0;
+           return EOF;
+       }
+       return (unsigned char) *fp-&gt;ptr++;
+   }
+</pre>
+The only remaining loose end is how everything gets started. The array
+<tt>_iob</tt> must be defined and initialized for <tt>stdin</tt>,
+<tt>stdout</tt> and <tt>stderr</tt>:
+<pre>
+   FILE _iob[OPEN_MAX] = {    /* stdin, stdout, stderr */
+       { 0, (char *) 0, (char *) 0, _READ, 0 },
+       { 0, (char *) 0, (char *) 0, _WRITE, 1 },
+       { 0, (char *) 0, (char *) 0, _WRITE, | _UNBUF, 2 }
+   };
+</pre>
+<span class="STYLE2">The initialization of the <tt>flag</tt> part of the structure shows that <tt>
+stdin</tt> is to be read, <tt>stdout</tt> is to be written, and
+<tt>stderr</tt> is to be written unbuffered.</span>
+<p>
+<strong>Exercise 8-2.</strong> Rewrite <tt>fopen</tt> and <tt>_fillbuf</tt>
+with fields instead of explicit bit operations. Compare code size and
+execution speed.
+<p>
+<strong>Exercise 8-3.</strong> Design and write <tt>_flushbuf</tt>,
+<tt>fflush</tt>, and <tt>fclose</tt>.
+<p>
+<strong>Exercise 8-4.</strong> The standard library function
+<pre>
+   int fseek(FILE *fp, long offset, int origin)
+</pre>
+is identical to <tt>lseek</tt> except that <tt>fp</tt> is a file pointer instead of
+a file descriptor and return value is an <tt>int</tt> status, not a position.
+Write <tt>fseek</tt>. Make sure that your <tt>fseek</tt> coordinates properly
+with the buffering done for the other functions of the library.
+
+<h2><a name="s8.6">8.6 Example - Listing Directories</a></h2>
+A different kind of file system interaction is sometimes called for -
+determining information <em>about</em> a file, not what it contains. A
+directory-listing program such as the UNIX command <tt>ls</tt> is an example -
+it prints the names of files in a directory, and, optionally, other
+information, such as sizes, permissions, and so on. The MS-DOS <tt>dir</tt>
+command is analogous.
+<p>
+Since a UNIX directory is just a file, <tt>ls</tt> need only read it to retrieve
+the filenames. But is is necessary to use a system call to access other
+information about a file, such as its size. On other systems, a system call
+may be needed even to access filenames; this is the case on MS-DOS for
+instance. What we want is provide access to the information in a relatively
+system-independent way, even though the implementation may be highly
+system-dependent.
+<p>
+We will illustrate some of this by writing a program called <tt>fsize</tt>.
+<tt>fsize</tt> is a special form of <tt>ls</tt> that prints the sizes of all files
+named in its commandline argument list. If one of the files is a directory,
+<tt>fsize</tt> applies itself recursively to that directory. If there are no
+arguments at all, it processes the current directory.
+<p>
+Let us begin with a short review of UNIX file system structure. A
+<em>directory</em> is a file that contains a list of filenames and some
+indication of where they are located. The ``location'' is an index into
+another table called the ``inode list.'' The <em>inode</em> for a file is
+where all information about the file except its name is kept. A directory
+entry generally consists of only two items, the filename and an inode number.
+<p>
+Regrettably, the format and precise contents of a directory are not the same
+on all versions of the system. So we will divide the task into two pieces to
+try to isolate the non-portable parts. The outer level defines a structure
+called a <tt>Dirent</tt> and three routines <tt>opendir</tt>,
+<tt>readdir</tt>, and <tt>closedir</tt> to provide system-independent access
+to the name and inode number in a directory entry. We will write
+<tt>fsize</tt> with this interface. Then we will show how to implement these
+on systems that use the same directory structure as Version 7 and System V
+UNIX; variants are left as exercises.
+<p>
+The <tt>Dirent</tt> structure contains the inode number and the name. The maximum
+length of a filename component is <tt>NAME_MAX</tt>, which is a system-dependent
+value. <tt>opendir</tt> returns a pointer to a structure called <tt>DIR</tt>,
+analogous to <tt>FILE</tt>, which is used by <tt>readdir</tt> and <tt>closedir</tt>.
+This information is collected into a file called <tt>dirent.h</tt>.
+<pre>
+   #define NAME_MAX   14  /* longest filename component; */
+                                  /* system-dependent */
+<br>   typedef struct {       /* portable directory entry */
+       long ino;                  /* inode number */
+       char name[NAME_MAX+1];     /* name + '\0' terminator */
+   } Dirent;<br>
+   typedef struct {       /* minimal DIR: no buffering, etc. */
+       int fd;               /* file descriptor for the directory */
+       Dirent d;             /* the directory entry */
+   } DIR;
+
+   DIR *opendir(char *dirname);
+   Dirent *readdir(DIR *dfd);
+   void closedir(DIR *dfd);
+</pre>
+The system call <tt>stat</tt> takes a filename and returns all of the
+information in the inode for that file, or <tt>-1</tt> if there is an error.
+That is,
+<pre>
+   char *name;
+   struct stat stbuf;
+   int stat(char *, struct stat *);
+
+   stat(name, &stbuf);
+</pre>
+fills the structure <tt>stbuf</tt> with the inode information for the file
+name. The structure describing the value returned by <tt>stat</tt> is in
+<tt>&lt;sys/stat.h&gt;</tt>, and typically looks like this:
+<pre>
+   struct stat   /* inode information returned by stat */
+   {
+       dev_t     st_dev;      /* device of inode */
+       ino_t     st_ino;      /* inode number */
+       short     st_mode;     /* mode bits */
+       short     st_nlink;    /* number of links to file */
+       short     st_uid;      /* owners user id */
+       short     st_gid;      /* owners group id */
+       dev_t     st_rdev;     /* for special files */
+       off_t     st_size;     /* file size in characters */
+       time_t    st_atime;    /* time last accessed */
+       time_t    st_mtime;    /* time last modified */
+       time_t    st_ctime;    /* time originally created */
+   };
+</pre>
+Most of these values are explained by the comment fields. The types like
+<tt>dev_t</tt> and <tt>ino_t</tt> are defined in <tt>&lt;sys/types.h&gt;</tt>, which
+must be included too.
+<p>
+The <tt>st_mode</tt> entry contains a set of flags describing the file. The
+flag definitions are also included in <tt>&lt;sys/types.h&gt;</tt>; we need only the
+part that deals with file type:
+<pre>
+   #define S_IFMT    0160000  /* type of file: */
+   #define S_IFDIR   0040000  /* directory */
+   #define S_IFCHR   0020000  /* character special */
+   #define S_IFBLK   0060000  /* block special */
+   #define S_IFREG   0010000  /* regular */
+   /* ... */
+</pre>
+Now we are ready to write the program <tt>fsize</tt>. If the mode obtained from
+<tt>stat</tt> indicates that a file is not a directory, then the size is at hand
+and can be printed directly. If the name is a directory, however, then we have
+to process that directory one file at a time; it may in turn contain
+sub-directories, so the process is recursive.
+<p>
+The main routine deals with command-line arguments; it hands each argument to
+the function <tt>fsize</tt>.
+<pre>
+   #include &lt;stdio.h&gt;
+   #include &lt;string.h&gt;
+   #include "syscalls.h"
+   #include &lt;fcntl.h&gt;      /* flags for read and write */
+   #include &lt;sys/types.h&gt;  /* typedefs */
+   #include &lt;sys/stat.h&gt;   /* structure returned by stat */
+   #include "dirent.h"
+
+   void fsize(char *);
+
+   /* print file name */
+   int main(int argc, char **argv)
+   {
+       if (argc == 1)  /* default: current directory */
+           fsize(".");
+       else
+           while (--argc &gt; 0)
+               fsize(*++argv);
+       return 0;
+   }
+</pre>
+The function <tt>fsize</tt> prints the size of the file. If the file is a
+directory, however, <tt>fsize</tt> first calls <tt>dirwalk</tt> to handle all
+the files in it. Note how the flag names <tt>S_IFMT</tt> and <tt>S_IFDIR</tt>
+are used to decide if the file is a directory. Parenthesization matters,
+because the precedence of <tt>&amp;</tt> is lower than that of <tt>==</tt>.
+<pre>
+   int stat(char *, struct stat *);
+   void dirwalk(char *, void (*fcn)(char *));<br>
+   /* fsize:  print the name of file "name" */
+   void fsize(char *name)
+   {
+       struct stat stbuf;
+
+       if (stat(name, &stbuf) == -1) {
+           fprintf(stderr, "fsize: can't access %s\n", name);
+           return;
+       }
+       if ((stbuf.st_mode & S_IFMT) == S_IFDIR)
+           dirwalk(name, fsize);
+       printf("%8ld %s\n", stbuf.st_size, name);
+   }
+</pre>
+The function <tt>dirwalk</tt> is a general routine that applies a function to
+each file in a directory. It opens the directory, loops through the files in
+it, calling the function on each, then closes the directory and returns.
+Since <tt>fsize</tt> calls <tt>dirwalk</tt> on each directory, the two functions
+call each other recursively.
+<pre>
+   #define MAX_PATH 1024
+<br>   /* dirwalk:  apply fcn to all files in dir */
+   void dirwalk(char *dir, void (*fcn)(char *))
+   {
+       char &nbsp;&nbsp;name[MAX_PATH];
+       Dirent *dp;
+       DIR &nbsp;&nbsp;&nbsp;*dfd;
+
+       if ((dfd = opendir(dir)) == NULL) {
+           fprintf(stderr, "dirwalk: can't open %s\n", dir);
+           return;
+       }
+       while ((dp = readdir(dfd)) != NULL) {
+           if (strcmp(dp-&gt;name, ".") == 0
+               || strcmp(dp-&gt;name, ".."))
+               continue;    /* skip self and parent */
+           if (strlen(dir) + strlen(dp-&gt;name) + 2 &gt; sizeof(name))
+               fprintf(stderr, "dirwalk: name %s %s too long\n",
+                   dir, dp-&gt;name);
+           else {
+               sprintf(name, "%s/%s", dir, dp-&gt;name);
+               (*fcn)(name);
+           }
+       }
+       closedir(dfd);
+   }
+</pre>
+Each call to <tt>readdir</tt> returns a pointer to information for the next file,
+or <tt>NULL</tt> when there are no files left. Each directory always contains
+entries for itself, called <tt>"."</tt>, and its parent, <tt>".."</tt>; these must
+be skipped, or the program will loop forever.
+<p>
+Down to this last level, the code is independent of how directories are
+formatted. The next step is to present minimal versions of <tt>opendir</tt>,
+<tt>readdir</tt>, and <tt>closedir</tt> for a specific system. The following routines
+are for Version 7 and System V UNIX systems; they use the directory information
+in the header <tt>&lt;sys/dir.h&gt;</tt>, which looks like this:
+<pre>
+   #ifndef DIRSIZ
+   #define DIRSIZ  14
+   #endif<br>
+   struct direct {   /* directory entry */
+       ino_t d_ino;           /* inode number */
+       char  d_name[DIRSIZ];  /* long name does not have '\0' */
+   };
+</pre>
+Some versions of the system permit much longer names and have a more
+complicated directory structure.
+<p>
+The type <tt>ino_t</tt> is a <tt>typedef</tt> that describes the index into the inode
+list. It happens to be <tt>unsigned short</tt> on the systems we use regularly,
+but this is not the sort of information to embed in a program; it might be
+different on a different system, so the <tt>typedef</tt> is better. A complete
+set of ``system'' types is found in <tt>&lt;sys/types.h&gt;</tt>.
+<p>
+<tt>opendir</tt> opens the directory, verifies that the file is a directory
+(this time by the system call <tt>fstat</tt>, which is like <tt>stat</tt> except
+that it applies to a file descriptor), allocates a directory structure, and
+records the information:
+<pre>
+   int fstat(int fd, struct stat *);
+<br>   /* opendir:  open a directory for readdir calls */
+   DIR *opendir(char *dirname)
+   {
+       int fd;
+       struct stat stbuf;
+       DIR *dp;
+
+       if ((fd = open(dirname, O_RDONLY, 0)) == -1
+        || fstat(fd, &stbuf) == -1
+        || (stbuf.st_mode & S_IFMT) != S_IFDIR
+        || (dp = (DIR *) malloc(sizeof(DIR))) == NULL)
+            return NULL;
+       dp-&gt;fd = fd;
+       return dp;
+   }
+</pre>
+<tt>closedir</tt> closes the directory file and frees the space:
+<pre>
+   /* closedir:  close directory opened by opendir */
+   void closedir(DIR *dp)
+   {
+       if (dp) {
+           close(dp-&gt;fd);
+           free(dp);
+       }
+   }
+</pre>
+Finally, <tt>readdir</tt> uses <tt>read</tt> to read each directory entry. If a
+directory slot is not currently in use (because a file has been removed), the
+inode number is zero, and this position is skipped. Otherwise, the inode
+number and name are placed in a <tt>static</tt> structure and a pointer to that
+is returned to the user. Each call overwrites the information from the
+previous one.
+<pre>
+   #include &lt;sys/dir.h&gt;   /* local directory structure */
+
+   /* readdir:  read directory entries in sequence */
+   Dirent *readdir(DIR *dp)
+   {
+       struct direct dirbuf;  /* local directory structure */<br>       <span class="STYLE2">/* Not thread-safety */</span>
+       <span class="STYLE2">static Dirent</span>  d;      /* return: portable structure */
+
+       while (read(dp-&gt;fd, (char *) &dirbuf, sizeof(dirbuf))
+                       == sizeof(dirbuf)) {
+           if (dirbuf.d_ino == 0) /* slot not in use */
+               continue;
+           d.ino = dirbuf.d_ino;
+           strncpy(d.name, dirbuf.d_name, DIRSIZ);
+           d.name[DIRSIZ] = '\0';  /* ensure termination */
+           return &d;
+       }
+       return NULL;
+   }
+</pre>
+Although the <tt>fsize</tt> program is rather specialized, it does illustrate a
+couple of important ideas. First, many programs are not ``system programs'';
+they merely use information that is maintained by the operating system. For
+such programs, it is crucial that the representation of the information
+appear only in standard headers, and that programs include those headers
+instead of embedding the declarations in themselves. The second observation
+is that with care it is possible to create an interface to system-dependent
+objects that is itself relatively system-independent. The functions of the
+standard library are good examples.
+<p>
+<strong>Exercise 8-5.</strong> Modify the <tt>fsize</tt> program to print the
+other information contained in the inode entry.
+<h2><a name="s8.7">8.7 Example - A Storage Allocator</a></h2>
+In <a href="chapter5.html">Chapter 5</a>, we presented a vary limited stack-oriented
+storage allocator. The version that we will now write is unrestricted. Calls
+to <tt>malloc</tt> and <tt>free</tt> may occur in any order; <tt>malloc</tt> calls
+upon the operating system to obtain more memory as necessary. These routines
+illustrate some of the considerations involved in writing machine-dependent
+code in a relatively machine-independent way, and also show a real-life
+application of structures, unions and <tt>typedef</tt>.
+<p>
+Rather than allocating from a compiled-in fixed-size array, <tt>malloc</tt> will
+request space from the operating system as needed. Since other activities in
+the program may also request space without calling this allocator, the space
+that <tt>malloc</tt> manages may not be contiguous. Thus its free storage is kept
+as a list of free blocks. Each block contains a size, a pointer to the next
+block, and the space itself. The blocks are kept in order of increasing storage
+address, and the last block (highest address) points to the first.
+<p align="center">
+<img src="pic81.gif">
+<p>
+When a request is made, the free list is scanned until a big-enough block is
+found. This algorithm is called ``<span class="STYLE2">first fit</span>,'' by contrast with ``<span class="STYLE2">best fit</span>,''
+which looks for the smallest block that will satisfy the request. If the block
+is exactly the size requested it is unlinked from the list and returned to the
+user. If the block is too big, it is split, and the proper amount is returned
+to the user while the residue remains on the free list. If no big-enough block
+is found, another large chunk is obtained by the operating system and linked
+into the free list.
+<p>
+Freeing also causes a search of the free list, to find the proper place to
+insert the block being freed. If the block being freed is adjacent to a free
+block on either side, it is coalesced with it into a single bigger block, so
+storage does not become too fragmented. Determining the adjacency is easy
+because the free list is maintained in order of decreasing address.
+<p>
+One problem, which we alluded to in <a href="chapter5.html">Chapter 5</a>, is to ensure
+that the storage returned by <tt>malloc</tt> is aligned properly for the objects
+that will be stored in it. Although machines vary, for each machine there is
+a most restrictive type: if the most restrictive type can be stored at a
+particular address, all other types may be also. On some machines, the most
+restrictive type is a <tt>double</tt>; on others, <tt>int</tt> or <tt>long</tt>
+suffices.
+<p>
+A free block contains a pointer to the next block in the chain, a record of
+the size of the block, and then the free space itself; the control information
+at the beginning is called the ``header.'' To simplify alignment, all blocks
+are multiples of the header size, and the header is aligned properly. This is
+achieved by a union that contains the desired header structure and an instance
+of the most restrictive alignment type, which we have arbitrarily made a
+<tt>long</tt>:
+<pre>
+   typedef long Align;    /* for alignment to long boundary */
+
+   union header {         /* block header */
+       struct {
+           union header *ptr; /* next block if on free list */
+           unsigned size;     /* size of this block */
+       } s;
+       Align x;           /* force alignment of blocks */
+   };
+
+   typedef union header Header;
+</pre>
+<span class="STYLE2">The <tt>Align</tt> field is never used; it just forces each header to be aligned
+on a worst-case boundary.</span>
+<p>
+In <tt>malloc</tt>, the requested size in characters is rounded up to the
+proper number of header-sized units; the block that will be allocated
+contains one more unit, for the header itself, and this is the value recorded
+in the <tt>size</tt> field of the header. The pointer returned by
+<tt>malloc</tt> points at the free space, not at the header itself. The user
+can do anything with the space requested, but if anything is written outside
+of the allocated space the list is likely to be scrambled.
+<p align="center">
+<img src="pic82.gif">
+<p>
+The size field is necessary because the blocks controlled by <tt>malloc</tt> need
+not be contiguous - it is not possible to compute sizes by pointer arithmetic.
+<p>
+The variable <tt>base</tt> is used to get started. If <tt>freep</tt> is
+<tt>NULL</tt>, as it is at the first call of <tt>malloc</tt>, then a
+degenerate free list is created; it contains one block of size zero, and
+points to itself. In any case, the free list is then searched. The search for
+a free block of adequate size begins at the point (<tt>freep</tt>) where the
+last block was found; this strategy helps keep the list homogeneous. If a
+too-big block is found, the tail end is returned to the user; in this way the
+header of the original needs only to have its size adjusted. In all cases,
+the pointer returned to the user points to the free space within the block,
+which begins one unit beyond the header.
+<pre>
+   static Header base;       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* empty list to get started */
+   static Header *freep = NULL;     /* start of free list */
+
+   /* malloc:  general-purpose storage allocator */
+   void *malloc(unsigned nbytes)
+   {
+       Header *p, *prevp;
+       <span class="STYLE2">Header *moreroce(unsigned);</span>
+       unsigned nunits;
+
+       /* 用户需要的 nbytes，加上内部实现需要的头 */   <br>       nunits = (nbytes + sizeof(Header) - 1) / sizeof(Header) + 1;
+       /* 第一次被调用时，空闲队列还不存在，用个占位符保持代码写法的一致 */<br>       if ((prevp = freep) == NULL) {   /* no free list yet */ 
+           base.s.ptr = freeptr = prevptr = &base;
+           base.s.size = 0;
+       }<br>       /* 遍历空闲队列 */
+       for (p = prevp-&gt;s.ptr; ;prevp = p, p = p-&gt;s.ptr) {
+           if (p-&gt;s.size &gt;= nunits) {  /* big enough */
+               if (p-&gt;s.size == nunits)  /* exactly */
+                   prevp-&gt;s.ptr = p-&gt;s.ptr;
+               else {              /* allocate tail end */
+                   p-&gt;s.size -= nunits;
+                   p += p-&gt;s.size;
+                   p-&gt;s.size = nunits; /* 将返回用调用者的内存块头信息：只需要记录大小，不需要ptr */
+               }
+               freep = prevp;          /* 空闲队列头，下次从这里开始找 */
+               return (void *)(p + 1); /* 跳过块头，返回给调用者 */
+           }<br>           /* 找了一圈还没有找到空闲块 */
+           if (p == freep)  /* wrapped around free list */
+               if ((p = morecore(nunits)) == NULL)
+                   return NULL;    /* none left */
+       }
+   }
+</pre>
+The function <span class="STYLE2"><tt>morecore</tt></span> obtains storage from the operating system. The
+details of how it does this vary from system to system. Since asking the
+system for memory is a comparatively expensive operation. we don't want to do
+that on every call to <tt>malloc</tt>, so <tt>morecore</tt> requests al least
+<tt>NALLOC</tt> units; this larger block will be chopped up as needed. After setting
+the size field, <tt>morecore</tt> inserts the additional memory into the <span class="STYLE2">arena(/ə`riːnə; ə`rinə/)</span> by
+calling <tt>free</tt>.
+<p>
+The UNIX system call <tt>sbrk(n)</tt> returns a pointer to <tt>n</tt> more
+bytes of storage. <tt>sbrk</tt> returns <tt>-1</tt> if there was no space,
+even though <tt>NULL</tt> could have been a better design. The <tt>-1</tt>
+must be cast to <tt>char *</tt> so it can be compared with the return value.
+Again, casts make the function relatively immune to the details of pointer
+representation on different machines. There is still one assumption, however,
+that pointers to different blocks returned by <tt>sbrk</tt> can be
+meaningfully compared. This is not guaranteed by the standard, which permits
+pointer comparisons only within an array. Thus this version of
+<tt>malloc</tt> is portable <span class="STYLE2">only among machines for which general pointer
+comparison is meaningful</span>.
+<pre>
+   #define NALLOC  1024   /* minimum #units to request */
+<br>   /* morecore:  ask system for more memory */
+   static Header *morecore(unsigned nu)
+   {
+       char *cp, *sbrk(int);
+       Header *up;
+
+       if (nu &lt; NALLOC)
+           nu = NALLOC;
+       cp = sbrk(nu * sizeof(Header));
+       if (cp == (char *) -1)   /* no space at all */
+           return NULL;
+       up = (Header *) cp;
+       up-&gt;s.size = nu;
+       free((void *)(up + 1));  /* 将申请得到的空闲块链到空闲列表 */
+       return freep;
+   }
+</pre>
+<tt>free</tt> itself is the last thing. It scans the free list, starting at
+<tt>freep</tt>, looking for the place to insert the free block. This is
+either between two existing blocks or at the end of the list. In any case, if
+the block being freed is adjacent to either neighbor, the adjacent blocks are
+combined. The only troubles are keeping the pointers pointing to the right
+things and the sizes correct.
+<pre>
+   /* free:  put block ap in free list */
+   void free(void *ap)
+   {
+       Header *bp, *p;<br>
+       bp = (Header *) ap - 1;    /* point to block header */<br><br>       /* 除非是在空闲队头或队尾，否则 bp 应该介于当前节点和后一节点的地址之间 */
+       for (p = freep; !(bp &gt; p && bp &lt; p-&gt;s.ptr); p = p-&gt;s.ptr)
+       {<br>            /* 前一个条件表示：p 是队尾节点 */<br>            /* 后一个条件表示：bp &gt; p 表示 bp 应该作为新的队尾；bp &lt; p-&gt;s.ptr 表示 bp 应该作为新的队头 */<br>            if (p &gt;= p-&gt;s.ptr && (bp &gt; p || bp &lt; p-&gt;s.ptr))
+                break;  /* freed block at start or end of arena */
+       }<br>
+       if (bp + bp-&gt;size == p-&gt;s.ptr) {    /* join to upper nbr */
+           bp-&gt;s.size += p-&gt;s.ptr-&gt;s.size;
+           bp-&gt;s.ptr = p-&gt;s.ptr-&gt;s.ptr;
+       } else
+           bp-&gt;s.ptr = p-&gt;s.ptr; /* 没有挨着，则需要链起来 */<br>
+       if (p + p-&gt;size == bp) {            /* join to lower nbr */
+           p-&gt;s.size += bp-&gt;s.size;
+           p-&gt;s.ptr = bp-&gt;s.ptr;
+       } else
+           p-&gt;s.ptr = bp;        /* 没有挨着，则需要链起来 */<br>
+       freep = p;
+   }
+</pre>
+Although storage allocation is intrinsically machine-dependent, the code above
+illustrates how the machine dependencies can be controlled and confined to a
+very small part of the program. The use of <tt>typedef</tt> and <tt>union</tt>
+handles alignment (given that <tt>sbrk</tt> supplies an appropriate pointer).
+Casts arrange that pointer conversions are made explicit, and even cope with a
+badly-designed system interface. Even though the details here are related to
+storage allocation, the general approach is applicable to other situations as
+well.
+<p>
+<strong>Exercise 8-6.</strong> The standard library function
+<tt>calloc(n,size)</tt> returns a pointer to <tt>n</tt> objects of size
+<tt>size</tt>, with the storage initialized to zero. Write <tt>calloc</tt>,
+by calling <tt>malloc</tt> or by modifying it.
+<p>
+<strong>Exercise 8-7.</strong> <tt>malloc</tt> accepts a size request without
+checking its plausibility; <tt>free</tt> believes that the block it is asked
+to free contains a valid size field. Improve these routines so they make more
+pains with error checking.
+<p>
+<strong>Exercise 8-8.</strong> Write a routine <tt>bfree(p,n)</tt> that will
+free any arbitrary block <tt>p</tt> of <tt>n</tt> characters into the free
+list maintained by <tt>malloc</tt> and <tt>free</tt>. By using
+<tt>bfree</tt>, a user can add a static or external array to the free list at
+any time.
+<hr>
+<p align="center">
+<a href="chapter7.html">Back to Chapter 7</a>&nbsp;--&nbsp;
+<a href="index.html">Index</a>&nbsp;--&nbsp;
+<a href="appa.html">Appendix A</a>
+<p>
+<hr>
+</body>
+</html>

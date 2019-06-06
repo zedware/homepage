@@ -1,0 +1,88 @@
+Windows
+ 
+D:\> ver
+ 
+Microsoft Windows [°æ±¾ 5.2.3790]
+
+D:\> cat -n foo.cc
+     1
+     2  // use standard header files, donot use iostream.h.
+     3  #include <iostream>
+     4
+     5  // namespace std.
+     6  using namespace std;
+     7
+     8  class MyClass
+     9  {
+    10  public:
+    11          MyClass(int x)
+    12          {
+    13                  cout << "MyClass(" << x << ")" << endl;
+    14                  _x = x;
+    15           }
+    16
+    17          int GetNum()
+    18          {
+    19                  return _x;
+    20          }
+    21
+    22  private:
+    23          int     _x;
+    24  }
+    25
+    26  main()
+    27  {
+    28          MyClass my(2);
+    29          cout << my.GetNum() << endl;
+    30          return 0;
+    31  }
+    32
+
+D:\> cl /GX /Tp foo.cc
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 12.00.8804 for 80x86
+Copyright (C) Microsoft Corp 1984-1998. All rights reserved.
+ 
+foo.cc
+Microsoft (R) Incremental Linker Version 6.00.8447
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+ 
+/out:foo.exe
+foo.obj
+ 
+D:\> foo
+MyClass(2)
+2
+MyClass(0)
+<crashed here, see attachment ...>
+
+ 
+Linux
+ 
+$ uname -a
+Linux redflag 2.4.21-9.30AXsmp #1 SMP Wed May 26 23:37:09 EDT 2004 i686 i686 i386 GNU/Linux
+ 
+$ gcc --version
+gcc (GCC) 3.2.3 20030502 (Asianux 1.0 3.2.3-36)
+Copyright (C) 2002 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ 
+$ gcc -Wall foo.cc
+foo.cc:26: ISO C++ forbids defining types within return type
+foo.cc:26: `main' must return `int'
+foo.cc:26: semicolon missing after declaration of `class MyClass'
+ 
+OK, GCC cannot compile it at all.
+ 
+Now, Let's try it on Windows using VC++ 2005.
+ 
+D:\> cl /EHsc foo.cc
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 14.00.50727.42 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+ 
+foo.cc
+foo.cc(27) : error C3874: return type of 'main' should be 'int' instead of 'MyClass'
+ 
+Same as GCC on Linux.
+
+http://blog.china-pub.com/more.asp?name=uniware&id=38173

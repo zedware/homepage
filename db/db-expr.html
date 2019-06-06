@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- DW6 -->
+<head>
+<title>Welcome!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+<!--
+.style1 {font-size: larger}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF"> 
+<p align="center" class="style1">表达式的求值顺序</p> 
+<hr /> 
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在C等高级语言中，对表达式求值时一般都有一套较为固定的规则。例如按照从左到右的顺序求值，如果算到某处可以得出结果就忽略后续的表达式（Short Circuit）。举个例子：</p>
+<p>x = 1;</p>
+<p>if (x != 0 &amp;&amp; foo())</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;先计算 x != 0，无法得出整个表达式的结果，此时还得计算 foo()，将两个结果&amp;&amp;起来才能得到最终结果。但是：</p>
+<p>x = 1;</p>
+<p>if (x != 0 || foo())</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在计算完 x != 0 之后，无需计算 foo()，就可以知道表达式的最终结果为 true 了。因此，foo()的求值完全可以被优化而省略掉。&nbsp;如果你的程序非要依赖 foo() 函数计算过程中对某个变量改变后的结果（Side Effect），那程序出错就只能怪自己了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 SQL 语言中，也存在类似的现象。不过SQL语言计算表达式时是没有从左到右或从右到左的规则的。例如：</p>
+<p>select * from foo where age &gt; 0 or blah / age &gt; 3</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统完全可能先算 age &gt; 0，也可能先算 blah / age &gt; 3。也可能两个都算了。而如果将上面的 or 换成 and：</p>
+<p>select * from foo where age &gt; 0 and blah / age &gt; 3</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果存在 age 为零的记录，并且 age &gt; 0 后算，则系统会报出“被零除”之类的错误。<br />
+  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/zedware/archive/2010/03/11/5371715.aspx</p>
+<div align="center"> 
+  <hr /> 
+  <div align="center"><a href="mailto:zedware@gmail.com">Copyright 2009-2010, zedware_at_gmail.com</a><br /> 
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Monday, 2010-03-29<!-- #EndDate --> 
+  </div> 
+</div> 
+</body>
+</html>

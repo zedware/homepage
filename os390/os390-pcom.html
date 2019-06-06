@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb_2312-80">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+<title>IBM个人通讯程序PCOM的使用</title>
+<style type="text/css">
+<!--
+.style1 {
+	font-size: larger;
+}
+-->
+</style>
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080"> 
+<P ALIGN="CENTER" class="style1"><font>IBM个人通讯程序PCOM的使用</font></P> 
+<hr> 
+<p><FONT > 　　PCOM是IBM提供的一个基于Windows平台的产品，用于微机和主机之间的通讯。PCOM支持多个会话Session，使用起来更为方便。主机用户经常使用TSO，同时也使用CICS，要是只有单个Session，就需要在TSO和CICS之间进行频繁的切换，多数人都会受不了吧。<br> 
+  <br> 
+  　　 PCOM也提供了在主机和微机之间传输文件的功能。下面给出一个传输文件的例子。<BR> 
+  <BR> 
+  　　 在主菜单：“传输-设置-定义传输类型”中可以定义多种传输类型，对文件传输的转换规则进行定义。例如类型text、binary、append都是系统缺省提供的。假设需要自己定义一种类型fix-text，满足以下条件：<BR> 
+  　　 发送文本文件到一个分区数据集中，按照该数据集的缺省方式存放记录。<BR> 
+  <BR> 
+  　　 参数可以定义如下：<BR> 
+  　　　 文件选项：ASCII、CRLF；<BR> 
+  　　　 纪录格式：缺省，就是按照目标数据集的定义进行，不可以填写成其他，除非是新建一个数据集。<BR> 
+  　 　 其他：不填写<br> 
+  <BR> 
+  　　 在主菜单“传输-把文件发送到主机/从主机接收文件”上的“模板”按钮下可以设置文件传输的模板，例如：<BR> 
+  　　　　　 PC文件　　 　主机文件　　传输类型<BR> 
+  　　　　 *=1.txt 　　 *(*=1)　　fix-text<BR> 
+  <BR> 
+  　 利用该模板传送一个文件到主机，假设是c:\test.txt，传送成uniware.fun.cobol(test)。</FONT> </p> 
+<hr> 
+<div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a> <br> 
+  Last modified on
+  <!-- #BeginDate format:fcIS1 -->Monday, 2004-09-06<!-- #EndDate --> 
+</div> 
+<P>&nbsp; </P> 
+<P align="center"></P> 
+</BODY>
+</HTML>

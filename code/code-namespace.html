@@ -1,0 +1,109 @@
+<html>
+<!-- DW6 -->
+<head>
+<title>Ambiguous call to overloaded function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+.style1 {font-size: larger}
+.style2 {color: #FF0000}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF"> 
+<p align="center" class="style1"> Ambiguous call to overloaded function </p> 
+<hr> 
+<p>先看看我们的测试程序：</p>
+<p>$ cat -n namespace.cpp<br>
+  &nbsp;1<br>
+  &nbsp;2 &nbsp;#include &lt;cassert&gt;<br>
+  &nbsp;3 &nbsp;#include &lt;cstdio&gt;<br>
+  &nbsp;4 &nbsp;#include &lt;cstdlib&gt;<br>
+  &nbsp;5<br>
+  &nbsp;6 &nbsp;/* Here is our namespace Foo */<br>
+  &nbsp;7 &nbsp;namespace Foo<br>
+  &nbsp;8 &nbsp;{<br>
+  &nbsp;9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void sub(void)<br>
+  10 &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+  11 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;Foo::sub()\n&quot;);<br>
+  12 &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+  13 &nbsp;}<br>
+  14<br>
+  15 &nbsp;/* sub() is in global namespace. */<br>
+  16&nbsp; void sub(void)<br>
+  17 &nbsp;{<br>
+  18 &nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;global sub()\n&quot;);<br>
+  19 &nbsp;}<br>
+  20<br>
+  21 &nbsp;int main(int argc, char *argv[])<br>
+  22 &nbsp;{<br>
+  23 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* calls sub() in global namespace. */<br>
+  24 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub();<br>
+  25 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* calls sub() in namespace Foo. */<br>
+  26 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foo::sub();<br>
+  27<br>
+  28 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* change search path to global and Foo. */<br>
+  29 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;using namespace Foo;<br>
+  30<br>
+  <span class="style2">31 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* compiler cannot determine which sub() to be called. */<br>
+  32 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// expect error<br>
+  33 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// sub();<br>
+  34 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//</span><br>
+  35<br>
+  36 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* tell the compiler which one to use. */<br>
+  37 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::sub();<br>
+  38 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foo::sub();<br>
+  39<br>
+  40 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+  41 &nbsp;}<br>
+  42</p>
+<p>D:\&gt; version<br>
+  Microsoft Windows Server 2003, Enterprise Edition Service Pack 1 (Build 3790)</p>
+<p>D:\&gt; cl /DWIN32 namespace.cpp<br>
+  Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 12.00.8804 for 80x86<br>
+  Copyright (C) Microsoft Corp 1984-1998. All rights reserved.</p>
+<p>namespace.cpp<br>
+  Microsoft (R) Incremental Linker Version 6.00.8447<br>
+  Copyright (C) Microsoft Corp 1992-1998. All rights reserved.</p>
+<p>/out:namespace.exe<br>
+  namespace.obj</p>
+<p>D:\&gt; namespace<br>
+  <span class="style2">global sub()<br>
+  Foo::sub()<br>
+  global sub()<br>
+  Foo::sub()</span></p>
+<p>$ uname -a<br>
+  CYGWIN_NT-5.2 uniware 1.5.5(0.94/3/2) 2003-09-20 16:31 i686 unknown unknown Cygwin</p>
+<p>$ gcc --version<br>
+  gcc (GCC) 3.3.1 (cygming special)<br>
+  Copyright (C) 2003 Free Software Foundation, Inc.<br>
+  This is free software; see the source for copying conditions. There is NO<br>
+  warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>$ gcc -Wall -o namespace namespace.cpp</p>
+<p>$ ./namespace<br>
+  <span class="style2">global sub()<br>
+  Foo::sub()<br>
+  global sub()<br>
+  Foo::sub()</span></p>
+<p>结果和VC++的一致。如果把第33行的注释去掉，则：</p>
+<p>D:\&gt; cl /DWIN32 namespace.cpp<br>
+  Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 12.00.8804 for 80x86<br>
+  Copyright (C) Microsoft Corp 1984-1998. All rights reserved.</p>
+<p>namespace.cpp<br>
+  <span class="style2">namespace.cpp(33) : error C2668: 'sub' : ambiguous call to overloaded function</span></p>
+<p>$ gcc -Wall namespace.cpp<br>
+  namespace.cpp: In function `int main(int, char**)':<br>
+  <span class="style2">namespace.cpp:33: error: call of overloaded `sub()' is ambiguous<br>
+  namespace.cpp:17: error: candidates are: void sub()<br>
+  namespace.cpp:10: error: void Foo::sub()</span></p>
+<p>GCC编译的结果和VC++的类似，不过GCC的提示信息更加准确，也有助于定位问题。</p>
+<p>人总是会犯错误的，微软的工程师也不例外，<a href="http://support.microsoft.com/kb/243298/en-us">这里</a>就是Visual C++ 6.0中的类似错误。</p>
+<div align="center"> 
+  <hr> 
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2007,zedware_at_gmail_dot_com</a><br> 
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Monday, 2006-07-10<!-- #EndDate --> 
+  </div> 
+</div> 
+</body>
+</html>

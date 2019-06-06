@@ -1,0 +1,48 @@
+ IDIOT CORPORATION                                                                 
+
+ OS/390 V2.4                                      ACF/VTAM VER 4 REL 4.0        
+
+                         33333333  9999999  0000000                             
+
+                               33  99   99  00   00                             
+
+                         33333333  9999999  00   00                             
+
+                         33333333  9999999  00   00                             
+
+                               33       99  00   00                             
+
+                         33333333  9999999  0000000                             
+
+                                                                                
+
+             SSSSSS  YYY  YYY  SSSSSS  TTTTTTT  EEEEEE  MMM  MMM                
+
+             SS       YY  YY   SS      TTTTTTT  EE      MMM  MMM                
+
+             SSSSSS    YYYY    SSSSSS    TTT    EEEE    MM MM MM                
+
+             SSSSSS     YY     SSSSSS    TTT    EEEE    MM    MM                
+
+                 SS     YY         SS    TTT    EE      MM    MM                
+
+             SSSSSS     YY     SSSSSS    TTT    EEEEEE  MM    MM                
+
+                                                                                
+
+                         PPPPPPP    AAAA      CCCCC                             
+
+                         PPP  PPP  AA  AA    CCC                                
+
+                         PPPPPPP  AAAAAAAA  CCC                                 
+
+                         PPP      AA    AA  CCC                                 
+
+                         PPP      AA    AA   CCC                                
+
+                         PPP      AA    AA    CCCCC                             
+
+                                                                                
+
+ REQUESTED APPLICATION NOT DEFINED =>                                           
+

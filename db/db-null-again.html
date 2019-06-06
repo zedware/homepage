@@ -1,0 +1,91 @@
+<html>
+<!-- DW6 -->
+<head>
+<title>此NULL非彼NULL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+.style1 {font-size: larger}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF"> 
+<p align="center" class="style1">此NULL非彼NULL</p> 
+<hr> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;先拿SQL Server 2000来做个实验。假设有如下的表foo： </p>
+<blockquote>
+  <p>CREATE TABLE foo (f1 INT, f2 INT); </p>
+  <p>INSERT INTO foo VALUES (1, 100); <br>
+    INSERT INTO foo VALUES (2, 200); <br>
+    INSERT INTO foo VALUES (3, NULL);</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;    要在foo表中选择出所有f2列不为NULL的记录，显然可以用： </p>
+<blockquote>
+  <p>SELECT f1, f2 <br>
+    FROM foo <br>
+    WHERE f2 IS NOT NULL; </p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp; 结果是： </p>
+<blockquote>
+  <p>f1 f2 <br>
+    ----------- ----------- <br>
+    1 100 <br>
+    2 200 </p>
+  <p>（所影响的行数为 2 行） </p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp; 而不是： </p>
+<blockquote>
+  <p>SELECT f1, f2 <br>
+    FROM foo <br>
+    WHERE f2 = NULL; </p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp; 它的结果是： </p>
+<blockquote>
+  <p>f1 f2 <br>
+    ----------- ----------- </p>
+  <p>（所影响的行数为 0 行） </p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp; 前者是标准的语法，也表明NULL是特殊值，不能用简单的=或&lt;&gt;判断。如果我们把问题的解决办法复杂化，似乎以下的语句也可以达到同样的目的： </p>
+<blockquote>
+  <p>SELECT f1, <br>
+    (SELECT f2 FROM foo WHERE foo.f1 = fa.f1 and foo.f2 = fa.f2) AS f2 <br>
+    FROM foo fa; </p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp; 然而它的结果是： </p>
+<blockquote>
+  <p>f1 f2 <br>
+    ----------- ----------- <br>
+    1 100 <br>
+    2 200 <br>
+    3 NULL </p>
+  <p>（所影响的行数为 3 行） </p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp; 这个查询结果和预期的不一致，是SQL Server做错了，还是SQL语句不对？ </p>
+<p>&nbsp;&nbsp;&nbsp; 实际情况应该是这样的： </p>
+<p>&nbsp;&nbsp;&nbsp; SQL语言允许位置SELECT的结果集列的位置上出现子查询。不过需要注意的是，该子查询返回的结果集必须为空或一条元组。一般而言，如果结果集满足这个条件，就可以转换为一个标量表达式，它也就能够放在标量表达式能放的地方。如果我们把上面的查询改成： </p>
+<blockquote>
+  <p>SELECT f1, <br>
+    (SELECT f2 FROM foo) AS f2 <br>
+    FROM foo fa; </p>
+</blockquote>
+<p>SQL Server将会报错： </p>
+<blockquote>
+  <p>服务器: 消息 512，级别 16，状态 1，行 1 <br>
+    子查询返回的值多于一个。当子查询跟随在 =、!=、&lt;、&lt;=、&gt;、&gt;= 之后，或子查询用作表达式时，这种情况是不允许的。 </p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp; 对于上述的查询，假设用X表示查询结果集中生成列f2的那个子查询，则对于表foo fa的每一条元组： </p>
+<blockquote>
+  <p>  对于元组(1, 100)，X的结果集是100，标量化为100。 <br>
+    对于元组(2, 200)，X的结果集是200，标量化为200。 <br>
+    对于元组(3, NULL)，X的结果集是空，标量化为NULL。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;     可见上述查询中X的结果集中出现的NULL，是空结果集标量化后的NULL，而不是表foo中f2列的取值NULL。 </p>
+<div align="center"> 
+  <hr> 
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2006,zedware_at_gmail_dot_com</a><br> 
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Thursday, 2006-05-18<!-- #EndDate --> 
+  </div> 
+</div> 
+</body>
+</html>

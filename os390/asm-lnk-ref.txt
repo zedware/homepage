@@ -1,0 +1,66 @@
+//SYSPRG5A JOB  ACCT,PROG,MSGLEVEL=1                                  
+
+//ALG      EXEC PROC=ASMACLG                                         
+
+XXSYSPRINT DD  SYSOUT=*                                               
+
+XXSYSLIN   DD  DSN=&&OBJ,SPACE=(3040,(40,40),,,ROUND),UNIT=VIO,       
+
+XX             DISP=(MOD,PASS),                                       
+
+XX             DCB=(BLKSIZE=3040,LRECL=80,RECFM=FBS,BUFNO=1)          
+
+//C.SYSIN  DD   DSNAME=SYSPRG5.IT@ABC.ASM(CONVERT)                    
+
+
+
+XXL        EXEC PGM=HEWL,PARM='MAP,LET,LIST',COND=(8,LT,C)            
+
+XXSYSLIN   DD  DSN=&&OBJ,DISP=(OLD,DELETE)                            
+
+XX         DD  DDNAME=SYSIN                                           
+
+XXSYSLMOD  DD  DISP=(,PASS),UNIT=SYSDA,SPACE=(CYL,(1,1,1)),           
+
+XX             DSN=&&GOSET(GO)                                        
+
+XXSYSUT1   DD  DSN=&&SYSUT1,SPACE=(1024,(120,120),,,ROUND),UNIT=VIO,  
+
+XX             DCB=BUFNO=1                                            
+
+XXSYSPRINT DD  SYSOUT=*                                               
+
+XXG        EXEC PGM=*.L.SYSLMOD,COND=((8,LT,C),(8,LT,L))              
+
+//*L.SYSIN  DD   DSNAME=SYSPRG5.IT@ABC.OBJ(CONVERT)                   
+
+//*G.DDNAME DD   DSNAME=SYSPRG5.JCL.LOAD(CONVERT)                     
+
+/*                                                                    
+
+
+
+XXASMACLG  PROC                                                      
+
+XX*                                                                  
+
+XX***   ASMACLG                                                      
+
+XX*                                                                  
+
+XX* THIS PROCEDURE RUNS THE HIGH LEVEL ASSEMBLER, LINK-EDITS THE     
+
+XX* NEWLY ASSEMBLED PROGRAM AND RUNS THE PROGRAM AFTER               
+
+XX* THE LINK-EDIT IS ACCOMPLISHED.                                   
+
+XX*                                                                  
+
+XXC        EXEC PGM=ASMA90                                           
+
+XXSYSLIB   DD  DSN=SYS1.MACLIB,DISP=SHR                              
+
+XXSYSUT1   DD  DSN=&&SYSUT1,SPACE=(4096,(120,120),,,ROUND),UNIT=VIO, 
+
+XX             DCB=BUFNO=1                                           
+

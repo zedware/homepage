@@ -1,0 +1,25 @@
+
+Solve the movie player problems on fc11.
+
+1. Google to find a way to install codecs for totem, the default movie player.
+
+rpm -ivh ...
+
+Now, when I play a movie in rmvb, no sound at all.
+
+2. Change the schedule mode for PulseAudio.
+
+# sudo vi /etc/pulse/default.pa 
+
+Change a line from: load-module module-hal-detect
+                to: load-module module-hal-detect tsched=0
+
+Restart the system, and I can here the sound. But the movie plays too fast.
+I cannot hear it clearly.
+
+3. 
+
+Othere commands tried but with no good luck.
+
+# modprobe snd_pcm_oss
+

@@ -1,0 +1,15 @@
+命令行的READY状态下，可以输入PDF或者ISPF直接进入ISPF环境；输入ISP则进入集成编辑环境。
+
+
+
+查看磁盘组：/D U,DASD,,,128
+
+
+
+CPAC.CMDPROC中有CLIST ISPPDF，用于启动ISPF
+
+
+
+SYS1,SAMPLIB	例子程序
+
+SYS1.MACLIB		汇编宏库

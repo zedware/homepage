@@ -1,0 +1,39 @@
+实验2  进程管理
+
+1.实验目的
+    ·加深对进程概念的理解，明确进程和程序的区别；
+    ·进一步认识并发执行的实质；
+
+2.实验预备知识
+    ·学习linux中有关进程创建、控制和通信的部分。
+    ·查阅有关Microsoft Windows环境中Win32 API中有关进程创建、控制和进程间通信的部分。
+    ·*学习Microsoft Visual C++ 6.0开发工具使用
+
+3.实验内容
+
+    （1）进程的创建
+    编写程序，创建两个子进程。当此程序运行时，系统中有一个父进程和两个子进程。父进程在屏幕上显示“Parent”，子进程分别在屏幕上显示“Child1”
+    和“Child2”。
+
+    （2）进程的管道通信
+    编制一段程序，实现进程的通信。
+    使用系统调用pipe()建立一条管道；两个子进程P1和P2分别向管道各写一句话：
+        Child 1 is sending a message!
+        Child 2 is sending a message!
+    而父进程则从管道中读出来自两个子进程的信息，显示在屏幕上。
+
+    
+    
+    （3）选作——信号处理(signal或sigaction)
+
+    ①编制一个程序，使其实现进程的软中断通信。
+    要求：使用系统调用fork()创建两个子进程，再用系统调用signal()让父进程捕捉键盘
+    上来的中断信号（即DEL键）；当捕捉到中断信号后，父进程用系统调用kill()向两个
+    进程发出信号，子进程捕捉到信号后分别输出下列信息后终止：
+        Child Process 1 is Killed by Parent!
+        Child Process 2 is Killed by Parent!
+父进程等待两个子进程终止后，输出如下信息后终止：
+        Parent Process is killed!
+
+    ②在上面的程序中增加语句signal(SIGINT, SIG_IGN)和signal(SIGQUIT, SIG_IGN)，观察执行结果，并分析原因。
+

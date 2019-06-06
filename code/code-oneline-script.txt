@@ -1,0 +1,24 @@
+在日常的开发、测试等过程中，我们会经常遇到一些批处理性质的事情。例如在开发过程中往配置管理的存储库中提交多个文件、项目发布时需要Build多个子项目并压缩打包、解开多个压缩包以进行测试准备、查找满足特定条件的文件并删除/Checkout/重命名等等。以解开压缩文件为例。在Windows上，解开一个或多个文件可以用GUI模式的WinZip/7-Zip迅速的完成，但是在DOS状态或Linux终端模式下就需要敲命令了。假设有多个tar.bz2文件需要解开，例如：
+
+$ ls *.bz2
+doc-1.0.0-beta.tar.bz2
+foo-1.0.0-beta.tar.bz2
+ReleaseNotes.tar.bz2
+ 
+可以用：
+
+$ tar -xjf doc-1.0.0-beta.tar.bz2
+$ tar -xjf foo-1.0.0-beta.tar.bz2
+$ tar -xjf ReleaseNotes.tar.bz2
+
+等命令逐一解开，也可以用：
+
+$  for x in `ls *.bz2`; do tar -xjf $x; done
+ 
+一句话搞定，以减少操作的次数和出错的几率。即使我们的日常开发环境是Windows，有时使用命令行也可以达到比GUI更快的效果。解开这些文件的DOS命令可以是：
+
+C:\> for /f "usebackq" %x in (`dir /b *.bz2`) do "C:\Program Files\7-Zip\7z.exe" x "%x"
+ 
+不过这里，7-Zip的x命令只能把bz2解开成为tar。
+
+http://blog.china-pub.com/more.asp?name=uniware&id=38690

@@ -1,0 +1,53 @@
+http://blog.china-pub.com/more.asp?name=uniware&id=20572
+
+Install pine on Red Flag Linux 4.1, and use its command line to send mails
+1. Install RPM packages and want not to use command line to send mails.
+
+Download the RPMs from http://www.washington.edu/pine/getpine/linux.html.
+
+$ su - root
+
+# rpm -ivh pine-4.63-1.i386.rpm
+
+or
+
+# rpmbuild --rebuild pine-4.63-1.i386.src.rpm
+
+2. Want to use command line to send mails?
+
+Download the source code RPM from from http://www.washington.edu/pine/getpine/linux.html.
+It is pine-4.63-1.i386.src.rpm.
+
+Extract source code from RPM.
+
+$ cd /tmp
+$ mkdir rpmfiles
+$ cd rpmfiles
+$ rpm2cpio $HOME/pine-4.63-1.src.rpm | cpio -iv --make-directories
+$ tar -xzf pine4.63.tar.gz
+
+Download the patch file from http://www.math.washington.edu/~chappa/pine/info/outgoing.html.
+It is outgoing.patch.gz.
+
+Extact patch files.
+$ pwd
+/tmp/rpmfiles
+
+$ gunzip outgoing.patch.gz
+
+Apply the patch.
+$ patch -p 0 < outgoing.patch
+
+Build and install.
+$ ./build slx
+
+Executables are in pine4.63/bin.
+
+Examples:
+$ cat > hello.txt
+hello
+^D
+
+$ ./pine4.63/bin/pine -I "^X,y" -subject "hello" guys@zedware.org < hello.txt
+ 
+The last but important step is start pine and change the settings of smtp, etc.

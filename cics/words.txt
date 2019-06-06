@@ -1,0 +1,8 @@
+EIB(EXEC Interface Block)
+
+    应用程序可以通过名字读取任何一个任务的EIB项，但是只能通过相应的CICS命令对其进行修改。
+
+EIBCALEN
+
+    上一个应用程序传递过来的通讯区长度
+

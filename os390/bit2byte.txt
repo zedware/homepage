@@ -1,0 +1,204 @@
+*-----------------------------------------------------------
+
+*ASM XOPTS(NOEPILOG)                                        
+
+         TITLE 'BITMAP : 16 BYTES ====> 128 BYTES'          
+
+*        AUTHOR uniware@zedware.org 
+
+*-----------------------------------------------------------
+
+         EJECT                                              
+
+*-----------------------------------------------------------
+
+*  ALIAS FOR ALL REGISTERS, MACRO IN SYS1.MACLIB            
+
+*-----------------------------------------------------------
+
+         YREGS                                              
+
+*-----------------------------------------------------------
+
+*  ALIAS FOR SOME USEFUL REGISTERS                          
+
+*-----------------------------------------------------------
+
+*               R0                                          
+
+*               R1   CICS                                   
+
+*               R2                                          
+
+*               R3   BASE REGISTER 1                        
+
+*               R4   BASE REGISTER 2                        
+
+BITPTR   EQU    R5                                          
+
+*               R6                                          
+
+BYTEPTR  EQU    R7                                          
+
+*               R8                                          
+
+TABPTR   EQU    R9                                          
+
+COMMREG  EQU    R10                                         
+
+INLOOP   EQU    R11                                         
+
+OUTLOOP  EQU    R12                                         
+
+*               R13  CICS                                   
+
+*               R14  CICS                                   
+
+*               R15  CICS                                   
+
+         SPACE  1                                           
+
+                                                            
+
+*-----------------------------------------------------------
+
+*        DYNAMIC STORAGE                                    
+
+*-----------------------------------------------------------
+
+        DFHEISTG                                            
+
+ONEBYTE  DS     CL1                                         
+
+         EJECT                                              
+
+                                                            
+
+*-----------------------------------------------------------
+
+*        COMMUNICATION PARAMETER                            
+
+*-----------------------------------------------------------
+
+COMMDAT  DSECT                                              
+
+         USING  *,COMMREG                                   
+
+COMMBGIN EQU    *                                           
+
+CALLBIT  DS     CL16                                        
+
+CALLBYTE DS     CL128                                       
+
+CALLRET  DS     CL01                                        
+
+CALLLEN  EQU    *-COMMBGIN                                  
+
+         SPACE  1                                           
+
+*-----------------------------------------------------------
+
+*  MAIN PROCEDURE                                           
+
+*-----------------------------------------------------------
+
+TRAN     DFHEIENT CODEREG=(3,4)                             
+
+         EXEC  CICS HANDLE ABEND LABEL(ABND)                
+
+         L     COMMREG,DFHEICAP                             
+
+P2BYTE   EQU   *                                            
+
+         LA    BITPTR,CALLBIT                               
+
+         LA    BYTEPTR,CALLBYTE                             
+
+*                                                           
+
+         MVC   CALLBYTE,=128C'0'                            
+
+         L     OUTLOOP,=F'16'                               
+
+P2BYTE2  EQU   *                                            
+
+         L     INLOOP,=F'08'                                
+
+         L     TABPTR,=A(PARMTAB)                           
+
+P2BYTE4  EQU   *                                            
+
+         MVC   ONEBYTE(1),0(BITPTR)                         
+
+         NC    ONEBYTE(1),0(TABPTR)                         
+
+         BZ    P2BYTE8                                      
+
+         MVC   0(1,BYTEPTR),=C'1'                           
+
+P2BYTE8  EQU   *                                            
+
+         LA    BYTEPTR,1(BYTEPTR)                           
+
+         LA    TABPTR,1(TABPTR)                             
+
+         BCT   INLOOP,P2BYTE4                               
+
+         LA    BITPTR,1(BITPTR)                             
+
+         BCT   OUTLOOP,P2BYTE2                              
+
+         B     RETURN0                                      
+
+ABND     EQU   *                                            
+
+         MVI   CALLRET,C'1'                                 
+
+RETURN0  EQU   *                                            
+
+         MVI   CALLRET,C'0'                                 
+
+         B     RETURN                                       
+
+RETURN   EQU   *                                            
+
+         EXEC  CICS RETURN                                  
+
+         EJECT                                              
+
+*                                                           
+
+         LTORG                                              
+
+                                                            
+
+*-----------------------------------------------------------
+
+*  CONSTANT                                                 
+
+*-----------------------------------------------------------
+
+         DS    0F                                           
+
+PARMTAB  EQU   *                                            
+
+         DC    X'80'                                        
+
+         DC    X'40'                                        
+
+         DC    X'20'                                        
+
+         DC    X'10'                                        
+
+         DC    X'08'                                        
+
+         DC    X'04'                                        
+
+         DC    X'02'                                        
+
+         DC    X'01'                                        
+
+*                                                           
+
+         END                                                
+

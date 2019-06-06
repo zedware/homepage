@@ -1,0 +1,46 @@
+[Event "Edited position"]
+[Site "CNENZHANGW8L1C"]
+[Date "2012.02.22"]
+[Round "-"]
+[White "-"]
+[Black "-"]
+[Result "*"]
+[FEN "1q6/2b2p1p/7k/8/1p1Q4/8/1K3B2/8 b - - 0 1"]
+[SetUp "1"]
+
+{--------------
+. q . . . . . .
+. . b . . p . p
+. . . . . . . k
+. . . . . . . .
+. p . Q . . . .
+. . . . . . . .
+. K . . . B . .
+. . . . . . . .
+black to play
+--------------}
+*
+
+[Event "Edited position"]
+[Site "CNENZHANGW8L1C"]
+[Date "2012.02.22"]
+[Round "-"]
+[White "-"]
+[Black "-"]
+[Result "*"]
+[FEN "1q6/2b2p1p/7k/8/1p1Q4/8/1K3B2/8 b - - 0 1"]
+[SetUp "1"]
+
+{--------------
+. q . . . . . .
+. . b . . p . p
+. . . . . . . k
+. . . . . . . .
+. p . Q . . . .
+. . . . . . . .
+. K . . . B . .
+. . . . . . . .
+black to play
+--------------}
+*
+
