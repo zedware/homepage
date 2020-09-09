@@ -10,10 +10,14 @@ Usage:
 
 $ export prog=1-21; make; make test;
 
+Or
+
+$ prog=1-21 make
+
 It is a good start to learn some basic techniques from this
 sample:
 
-1. Write basic makefiles.
+1. Write basic makefiles. Nowadays, CMake is a good choice.
 2. Write program to read from stdin and write to stdout.
    It can then support pipes: cat foo.c | a.out | ...
 3. Write shell scripts to test the cmd line programs.
