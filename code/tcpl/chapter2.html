@@ -1,6 +1,6 @@
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=gb2312">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <title>Chapter 2 - Types, Operators and Expressions</title>
 <style type="text/css">
 <!--
@@ -56,10 +56,10 @@ be concatenated at compile time. Enumerations have become part of the language,
 formalizing a feature of long standing. Objects may be declared <tt>const</tt>,
 which prevents them from being changed. The rules for automatic coercions
 among arithmetic types have been augmented to handle the richer set of types.
-<p><strong>Êı¾İÀàĞÍµÄ»ù±¾ÊôĞÔ£ºÀàĞÍÃû×Ö£¬ÖµÓò£¬¾«¶ÈºÍ±ê¶È£¬ÊäÈë¸ñÊ½£¬Êä³ö¸ñÊ½£¬ÔËËã¡£</strong>
-<p><strong>ĞÍºÍÖµµÄÇø±ğ£ºÊı¾İÀàĞÍºÍÖµµÄ¹ØÏµ£¬ÀàºÍ¶ÔÏóµÄ¹ØÏµ£¬±í¶¨ÒåºÍÊı¾İµÄ¹ØÏµ¡£</strong>
-<p><strong>²»Í¬±àÒëÆ÷ÖĞÊı¾İÀàĞÍµÄÇø±ğÒ»°ã²»Ì«´ó£¬²»Í¬DBMSÖĞÊı¾İÀàĞÍµÄÇø±ğ»á¸ü´óÒ»Ğ©¡£</strong>
-<p><strong>CµÈ¸ß¼¶ÓïÑÔµÄÊı¾İÀàĞÍÓëSQLÊı¾İÀàĞÍµÄÒìÍ¬µã£º¶¼¾ß±¸»ù±¾ÊôĞÔ£¬µ«ÊÇÕâĞ©ÊôĞÔµÄ¾ßÌåº¬Òå´æÔÚÏ¸Î¢µÄÄËÖÁÖØ´óµÄÇø±ğ¡£</strong>
+<p><strong>æ•°æ®ç±»å‹çš„åŸºæœ¬å±æ€§ï¼šç±»å‹åå­—ï¼Œå€¼åŸŸï¼Œç²¾åº¦å’Œæ ‡åº¦ï¼Œè¾“å…¥æ ¼å¼ï¼Œè¾“å‡ºæ ¼å¼ï¼Œè¿ç®—ã€‚</strong>
+<p><strong>å‹å’Œå€¼çš„åŒºåˆ«ï¼šæ•°æ®ç±»å‹å’Œå€¼çš„å…³ç³»ï¼Œç±»å’Œå¯¹è±¡çš„å…³ç³»ï¼Œè¡¨å®šä¹‰å’Œæ•°æ®çš„å…³ç³»ã€‚</strong>
+<p><strong>ä¸åŒç¼–è¯‘å™¨ä¸­æ•°æ®ç±»å‹çš„åŒºåˆ«ä¸€èˆ¬ä¸å¤ªå¤§ï¼Œä¸åŒDBMSä¸­æ•°æ®ç±»å‹çš„åŒºåˆ«ä¼šæ›´å¤§ä¸€äº›ã€‚</strong>
+<p><strong>Cç­‰é«˜çº§è¯­è¨€çš„æ•°æ®ç±»å‹ä¸SQLæ•°æ®ç±»å‹çš„å¼‚åŒç‚¹ï¼šéƒ½å…·å¤‡åŸºæœ¬å±æ€§ï¼Œä½†æ˜¯è¿™äº›å±æ€§çš„å…·ä½“å«ä¹‰å­˜åœ¨ç»†å¾®çš„ä¹ƒè‡³é‡å¤§çš„åŒºåˆ«ã€‚</strong>
 <table width="547" border="1">
   <tr>
     <td width="123" class="STYLE10"><div align="center"> &nbsp;&nbsp;</div></td>
@@ -67,7 +67,7 @@ among arithmetic types have been augmented to handle the richer set of types.
     <td width="160" class="STYLE12"><div align="center">SQL</div></td>
   </tr>
   <tr>
-    <td class="STYLE14"><div align="center">×Ö·û[´®]ĞÍ</div></td>
+    <td class="STYLE14"><div align="center">å­—ç¬¦[ä¸²]å‹</div></td>
     <td class="STYLE15"><div align="center">[signed|unsigned] char </div></td>
     <td class="STYLE16"><div align="center">
       <p>CHAR(n)<br>
@@ -76,7 +76,7 @@ among arithmetic types have been augmented to handle the richer set of types.
       </div></td>
   </tr>
   <tr>
-    <td class="STYLE18"><div align="center">ÕûĞÍ</div></td>
+    <td class="STYLE18"><div align="center">æ•´å‹</div></td>
     <td class="STYLE19"><div align="center">
       <p>[signed | unsigned] short<br>
         [signed | unsigned] int<br>
@@ -89,7 +89,7 @@ among arithmetic types have been augmented to handle the richer set of types.
       </div></td>
   </tr>
   <tr>
-    <td class="STYLE22"><div align="center">¸¡µãĞÍ</div></td>
+    <td class="STYLE22"><div align="center">æµ®ç‚¹å‹</div></td>
     <td class="STYLE23"><div align="center">
       <p>float<br>
         double<br>
@@ -130,7 +130,7 @@ It's wise to choose variable names that are related to the purpose of the
 variable, and that are unlikely to get mixed up typographically. We tend to
 use short names for local variables, especially loop indices, and longer names
 for external variables.
-<p><strong>¿¼ÂÇµ½×ÖÄ¸LµÄĞ¡Ğ´ĞÎÊ½£¨l£©ÓëÊı×ÖÒ»£¨1£©ºÜÈİÒ×·Ö²»Çå£¬´úÂëÖĞÓ¦¸Ã±ÜÃâ²ÉÓÃµ¥¸öµÄĞ¡Ğ´L×ö±äÁ¿Ãû¡£ÀàËÆµÄ£¬×ÖÄ¸OºÍÊı×Ö0Ò²±È½ÏÄÑÒÔÇø·Ö¡£ÔÚÎÒÃÇµÄÊµ¼Ê¹¤×÷ÖĞ£¬¾Í¶à´ÎÓöµ½ÁËĞ¡Ğ´×ÖÄ¸LºÍÊı×Ö1»ìÏıµÄÓï·¨´íÎó¡£</strong>
+<p><strong>è€ƒè™‘åˆ°å­—æ¯Lçš„å°å†™å½¢å¼ï¼ˆlï¼‰ä¸æ•°å­—ä¸€ï¼ˆ1ï¼‰å¾ˆå®¹æ˜“åˆ†ä¸æ¸…ï¼Œä»£ç ä¸­åº”è¯¥é¿å…é‡‡ç”¨å•ä¸ªçš„å°å†™Låšå˜é‡åã€‚ç±»ä¼¼çš„ï¼Œå­—æ¯Oå’Œæ•°å­—0ä¹Ÿæ¯”è¾ƒéš¾ä»¥åŒºåˆ†ã€‚åœ¨æˆ‘ä»¬çš„å®é™…å·¥ä½œä¸­ï¼Œå°±å¤šæ¬¡é‡åˆ°äº†å°å†™å­—æ¯Lå’Œæ•°å­—1æ··æ·†çš„è¯­æ³•é”™è¯¯ã€‚</strong>
 <h2><a name="s2.2">2.2 Data Types and Sizes</a></h2>
 <p>There are only a few basic data types in C:
   <br>

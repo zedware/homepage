@@ -1,8 +1,8 @@
 <html>
 <!-- DW6 -->
 <head>
-<title>ÔÚLinuxÏÂ²úÉú²¢µ÷ÊÔcoreÎÄ¼ş</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>åœ¨Linuxä¸‹äº§ç”Ÿå¹¶è°ƒè¯•coreæ–‡ä»¶</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -11,12 +11,12 @@
 </style>
 </head>
 <body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">ÔÚLinuxÏÂ²úÉú²¢µ÷ÊÔcoreÎÄ¼ş</p> 
+<p align="center" class="style1">åœ¨Linuxä¸‹äº§ç”Ÿå¹¶è°ƒè¯•coreæ–‡ä»¶</p> 
 <hr> 
-<p>ÏÈ¿´¿´ÎÒÓÃµÄÊÇ¸öÊ²Ã´»úÆ÷£º</p>
+<p>å…ˆçœ‹çœ‹æˆ‘ç”¨çš„æ˜¯ä¸ªä»€ä¹ˆæœºå™¨ï¼š</p>
 <p>  $ uname -a<br>
   Linux dev 2.4.21-9.30AXsmp #1 SMP Wed May 26 23:37:09 EDT 2004 i686 i686 i386 GNU/Linux</p>
-<p>ÔÙ¿´¿´Ä¬ÈÏµÄÒ»Ğ©²ÎÊı£¬×¢Òâcore file sizeÊÇ¸ö0£¬³ÌĞò³ö´íÊ±²»»á²úÉúcoreÎÄ¼şÁË¡£</p>
+<p>å†çœ‹çœ‹é»˜è®¤çš„ä¸€äº›å‚æ•°ï¼Œæ³¨æ„core file sizeæ˜¯ä¸ª0ï¼Œç¨‹åºå‡ºé”™æ—¶ä¸ä¼šäº§ç”Ÿcoreæ–‡ä»¶äº†ã€‚</p>
 <p>$ ulimit -a<br>
   <span class="style2">core file size (blocks, -c) 0</span><br>
   data seg size (kbytes, -d) unlimited<br>
@@ -29,7 +29,7 @@
   cpu time (seconds, -t) unlimited<br>
   max user processes (-u) 7168<br>
   virtual memory (kbytes, -v) unlimited</p>
-<p>Ğ´¸ö¼òµ¥µÄ³ÌĞò£¬¿´¿´coreÎÄ¼şÊÇ²»ÊÇ»á±»²úÉú¡£</p>
+<p>å†™ä¸ªç®€å•çš„ç¨‹åºï¼Œçœ‹çœ‹coreæ–‡ä»¶æ˜¯ä¸æ˜¯ä¼šè¢«äº§ç”Ÿã€‚</p>
 <p>$ more foo.c</p>
 <p>#include &lt;stdio.h&gt;</p>
 <p>static void sub(void);</p>
@@ -49,7 +49,7 @@
   <span class="style2">Segmentation fault</span></p>
 <p>$ ls -l core.*<br>
   <span class="style2">ls: core.*: No such file or directory</span></p>
-<p>Ã»ÓĞÕÒµ½coreÎÄ¼ş£¬ÎÒÃÇ¸Ä¸ÄulimitµÄÉèÖÃ£¬ÈÃËü²úÉú¡£1024ÊÇËæ±ãÈ¡µÄ£¬ÒªÊÇcoreÎÄ¼ş´óÓÚ1024¸ö¿é£¬¾Í²úÉú²»³öÀ´ÁË¡£</p>
+<p>æ²¡æœ‰æ‰¾åˆ°coreæ–‡ä»¶ï¼Œæˆ‘ä»¬æ”¹æ”¹ulimitçš„è®¾ç½®ï¼Œè®©å®ƒäº§ç”Ÿã€‚1024æ˜¯éšä¾¿å–çš„ï¼Œè¦æ˜¯coreæ–‡ä»¶å¤§äº1024ä¸ªå—ï¼Œå°±äº§ç”Ÿä¸å‡ºæ¥äº†ã€‚</p>
 <p>$ ulimit -c 1024</p>
 <p>$ ulimit -a<br>
   <span class="style2">core file size (blocks, -c) 1024</span><br>
@@ -67,7 +67,7 @@
   <span class="style2">Segmentation fault (core dumped)</span><br>
   $ ls -l core.*<br>
   <span class="style2">-rw------- 1 uniware uniware 53248 Jun 30 17:10 core.9128</span></p>
-<p>×¢Òâ¿´ÉÏÊöµÄÊä³öĞÅÏ¢£¬¶àÁË¸ö<span class="style2">(core dumped)</span>¡£È·Êµ²úÉúÁËÒ»¸öcoreÎÄ¼ş£¬9128ÊÇ¸Ã½ø³ÌµÄPID¡£ÎÒÃÇÓÃGDBÀ´¿´¿´Õâ¸öcore¡£</p>
+<p>æ³¨æ„çœ‹ä¸Šè¿°çš„è¾“å‡ºä¿¡æ¯ï¼Œå¤šäº†ä¸ª<span class="style2">(core dumped)</span>ã€‚ç¡®å®äº§ç”Ÿäº†ä¸€ä¸ªcoreæ–‡ä»¶ï¼Œ9128æ˜¯è¯¥è¿›ç¨‹çš„PIDã€‚æˆ‘ä»¬ç”¨GDBæ¥çœ‹çœ‹è¿™ä¸ªcoreã€‚</p>
 <p>$ <span class="style2">gdb --core=core.9128</span><br>
   GNU gdb Asianux (6.0post-0.20040223.17.1AX)<br>
   Copyright 2004 Free Software Foundation, Inc.<br>
@@ -86,7 +86,7 @@
   #3 0xb74cc6b3 in ?? ()<br>
   #4 0x00000000 in ?? ()<br>
   <br>
-´ËÊ±ÓÃbt¿´²»µ½<span class="style2">b</span>ack<span class="style2">t</span>race£¬Ò²¾ÍÊÇµ÷ÓÃ¶ÑÕ»£¬Ô­À´GDB»¹²»ÖªµÀ·ûºÅĞÅÏ¢ÔÚÄÄÀï¡£ÎÒÃÇ¸æËßËüÒ»ÏÂ£º</p>
+æ­¤æ—¶ç”¨btçœ‹ä¸åˆ°<span class="style2">b</span>ack<span class="style2">t</span>raceï¼Œä¹Ÿå°±æ˜¯è°ƒç”¨å †æ ˆï¼ŒåŸæ¥GDBè¿˜ä¸çŸ¥é“ç¬¦å·ä¿¡æ¯åœ¨å“ªé‡Œã€‚æˆ‘ä»¬å‘Šè¯‰å®ƒä¸€ä¸‹ï¼š</p>
 <p>  (gdb)<span class="style2"> file ./a.out</span><br>
   Reading symbols from ./a.out...done.<br>
   Using host libthread_db library &quot;/lib/tls/libthread_db.so.1&quot;.<br>
@@ -94,7 +94,7 @@
   <span class="style2">#0 0x08048373 in sub () at foo.c:17<br>
   #1 0x08048359 in main () at foo.c:8</span><br>
   <br>
-´ËÊ±backtrace³öÀ´ÁË¡£</p>
+æ­¤æ—¶backtraceå‡ºæ¥äº†ã€‚</p>
 <p>  (gdb) l<br>
   <span class="style2">8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sub();</span><br>
   9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>

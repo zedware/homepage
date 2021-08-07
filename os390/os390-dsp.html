@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb_2312-80">
-<TITLE>���ݼ��ռ䲻���ˣ���ô�죿</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<TITLE>数据集空间不够了，怎么办？</TITLE>
 <STYLE type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -9,16 +9,16 @@
 </STYLE>
 </HEAD>
 <BODY bgcolor="#FFFFFF" LINK="#0000ff" VLINK="#800080"> 
-<p align="center" class="style1"><FONT FACE="����" > ���ݼ��ռ䲻���ˣ���ô�죿 </FONT></p> 
+<p align="center" class="style1"><FONT FACE="宋体" > 数据集空间不够了，怎么办？ </FONT></p> 
 <hr> 
 <br> 
-���� ���ݼ��ռ䲻����ʱ�򣬼������ڱ༭һ���ļ����ͻᷢ�ֲ��ܱ����ˡ���PF3Ҳ�����˲�������ϵͳ�����һ����ʾ��Ϣ���ҿ�ISPF֧���������ڣ���ʱ���Խ�������һ�����ڽ��б�Ҫ�Ĵ�����������Ҫǿ���˳��նˣ�ɱ��΢���ϵ�ģ���ն˳����ص��նˣ������ǿ���˳����´ν�ȥ��P.2��PDF,Program Development Facility������AcrobatPDF��ʽ���ļ�����ʱ������Ƿ�ָ��ϴα༭���ļ�����ʱ��ò�Ҫ�������룬�ȸ����ݼ���������˵��<br> 
+　　 数据集空间不够的时候，假如正在编辑一个文件，就会发现不能保存了。用PF3也死活退不出来，系统会给出一行提示信息。幸亏ISPF支持两个窗口，这时可以进入另外一个窗口进行必要的处理，而不需要强制退出终端（杀掉微机上的模拟终端程序或关掉终端）。如果强行退出，下次进去到P.2（PDF,Program Development Facility，不是AcrobatPDF格式的文件）的时候会问是否恢复上次编辑的文件，这时最好不要立即进入，先给数据集扩扩容再说。<br> 
 <br> 
-���� �����ķ���������
-<P><FONT FACE="����" > ����1��һ�ַ����ǰ����ݼ��е�����ȫ������/�ƶ��������ŵ���һ�����ݼ��У�Ȼ��ɾ��ԭ�������ݼ�����Ȼ�ⲻ��һ���ð취��<BR> 
-  ���� 2��ʵ�ʹ����г��õķ����ǣ����뵽P.3.1��Library utility���������ݼ�����ѹ����һ������»ᷢ�ֿ��ÿռ�������ࡣԭ��ϵͳ��ÿ�β���������¼������������ʱ����ռ���˴洢�ռ䡣 </FONT></P> 
+　　 处理的方法包括：
+<P><FONT FACE="宋体" > 　　1、一种方法是把数据集中的内容全部拷贝/移动出来，放到另一个数据集中，然后删除原来的数据集。显然这不是一个好办法。<BR> 
+  　　 2、实际工作中常用的方法是，进入到P.3.1（Library utility），对数据集进行压缩，一般情况下会发现可用空间多了许多。原来系统把每次操作都给记录了下来，被临时数据占用了存储空间。 </FONT></P> 
 <hr>
-<div align="center"><a href="mailto:zedware_at_gmail_dot_com"><font face="Times New Roman, Times, serif" size="3">Copyright 2000-2005��zedware_at_gmail_dot_com</font></a><br>
+<div align="center"><a href="mailto:zedware_at_gmail_dot_com"><font face="Times New Roman, Times, serif" size="3">Copyright 2000-2005，zedware_at_gmail_dot_com</font></a><br>
   Last modified on
   <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-10-20<!-- #EndDate -->
   <br>

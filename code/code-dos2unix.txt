@@ -10,7 +10,7 @@ dos2unix: problems renaming '../src/demo/d2utmpbG1ipA' to '../src/demo/main.c'
           output file remains in '../src/demo/d2utmpbG1ipA'
 ...
 
-没办法，只好写个脚本回避它：
+娌″姙娉曪紝鍙ソ鍐欎釜鑴氭湰鍥為伩瀹冿細
 
 cd `dirname "$0"`; dos2unix `basename "$0"`; cd "$work_dir"
  

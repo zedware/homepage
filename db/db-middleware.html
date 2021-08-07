@@ -1,8 +1,8 @@
 <html>
 <!-- DW6 -->
 <head>
-<title>�м����������</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>中间件技术概述</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -10,193 +10,193 @@
 </style>
 </head>
 <body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">�м����������</p> 
+<p align="center" class="style1">中间件技术概述</p> 
 <hr>
 <ol>
-  <li> <strong>ʲô���м�� </strong></li>
+  <li> <strong>什么是中间件 </strong></li>
 </ol>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;�򵥵�˵���м���������κ�һ������ṹ�м�����һ�����ʵ�塣 </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;简单的说，中间件就是在任何一个两层结构中间加入的一层独立实体。 </p>
 <ol start="2">
-  <li> <strong>�м���ķ��� </strong></li>
+  <li> <strong>中间件的分类 </strong></li>
 </ol>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;�����м�����ӵ����á����õ�ʵ�ּ����Ĳ�ͬ�����Խ��仮��Ϊ���¼��֣� </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;根据中间件发挥的作用、采用的实现技术的不同，可以将其划分为以下几种： </p>
 <ol type="a">
-  <li> <strong>���ݿ��м�� </strong><strong></strong></li>
+  <li> <strong>数据库中间件 </strong><strong></strong></li>
 </ol>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;���ݿ��м���������м�������ձ顢������һ�֡����ݿ��м��֧��Ӧ�ó���ͱ��ػ���ص�ͬ�����칹����Դ����ͨ�š���ͨ���ṩһϵ�б�̽ӿڣ����β�ͬ����Э�顢����ϵͳ�����ݿ�ƽ̨�Ĳ��죬����Ӧ�ó���һ�µط�������Դ�� </p>
-<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;ODBC </strong><strong>�� </strong><strong>JDBC </strong>�������ݿ��м���ı�׼������ ODBC �ķ�����ͨ�����������ṩ�����ݿ�Ķ����ԣ������������������ݿ��йأ���һ������֧�� ODBC �������õ�ģ�� ( ͨ����һ�� DLL) ��Ӧ�ó���ͨ����������������֧�ֵĺ������������ݿ⣬����ʹӦ�ó��������ͬ���͵����ݿ⣬��Ҫ��̬�����ӵ���ͬ�����������ϡ� ODBC �������õ����ݿ�����ԣ������Ա���Ӧ�ó���Բ�ͬ�������ݿ�ʹ�ò�ͬ�� API ��ͨ�� ODBC ����ʹ�����ݿ�ĸ��ı�÷ǳ����ף���Ϊ��Ӧ�ó�����˵��ֻ��Ļ�һ���������� JDBC ������һ�� Java ������ CLI �� JDBC ʵ���Ͼ���һϵ�������ض����ݿ�� Java ��⣬��Դ�� ODBC ��ϵ�ṹ�� ODBC �Ľṹͼ���£��� </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;数据库中间件是所有中间件中最普遍、最成熟的一种。数据库中间件支持应用程序和本地或异地的同构或异构数据源进行通信。它通常提供一系列编程接口，屏蔽不同网络协议、操作系统和数据库平台的差异，允许应用程序一致地访问数据源。 </p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;ODBC </strong><strong>、 </strong><strong>JDBC </strong>都是数据库中间件的标准。采用 ODBC 的方法是通过驱动程序提供对数据库的独立性，驱动程序与具体的数据库有关，是一个用以支持 ODBC 函数调用的模块 ( 通常是一个 DLL) ，应用程序通过调用驱动程序所支持的函数来操作数据库，若想使应用程序操作不同类型的数据库，就要动态地链接到不同的驱动程序上。 ODBC 具有良好的数据库独立性，它可以避免应用程序对不同类型数据库使用不同的 API ，通过 ODBC 可以使得数据库的更改变得非常容易，因为对应用程序来说这只需改换一下驱动程序。 JDBC 定义了一个 Java 开发的 CLI 。 JDBC 实际上就是一系列用于特定数据库的 Java 类库，它源于 ODBC 体系结构。 ODBC 的结构图如下：　 </p>
 <p align="center"><img src="images/gif/odbc.gif" alt="odbc" width="290" height="138"><br>
   <br>
-ͼ 1 ODBC �ṹͼ </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;�ڻ������ݿ���м��ģ���У����ݿ���Ϊ��Ϣ�����Ĵ洢��Ԫ���м���������ݼ��ͬ�����㵽��ͨ�š����ַ�ʽ���ʺ��ڸ�����Ӧ�ô�������Ϊ����Ҫ����������ͨ�ţ�ͬʱ�������緢������ʱ��ϵͳ���������������� <strong></strong></p>
+图 1 ODBC 结构图 </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;在基于数据库的中间件模型中，数据库作为信息的中心存储单元，中间件负责数据间的同步及点到点通信。这种方式不适合于高性能应用处理，因为它需要大量的数据通信，同时，当网络发生故障时，系统将不能正常工作。 <strong></strong></p>
 <ol start="2" type="a">
-  <li> <strong>���� </strong><strong>RPC </strong><strong>���м�� </strong><strong></strong></li>
+  <li> <strong>基于 </strong><strong>RPC </strong><strong>的中间件 </strong><strong></strong></li>
 </ol>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;RPC �Ѿ����ںܳ�һ��ʱ���ˣ����������û���Ϥ�ı��ģʽ���ӳ���Ա�ĽǶȳ����� RPC ʮ���������⡪������������Զ�˹��̲���������ء���ʹ�� RPC ʱ��ֻ��Ҫ��д���ٵ����������룬�󲿷ִ����� IDL(Interface Define Language) ���ɡ� </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;RPC Ӧ�ò������Ե�����Զ���ڵ��ϵ��ӳ������������ڲ�ͬ����ϵͳ���������С���ʹ����Ա���ؿ��������ϸ�ڣ��Կɲ����Լ���Ϥ�� Call/Return �﷨�� </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;RPC һ����� Call/Return ģʽ��������Ӧ�ó���֮���ͨ�ţ����Ҳ���ͬ����ʽ�� RPC ����֮���ͬ��ͨ��һ����� Request-Wait-Reply ��ʽ�� ��ˣ���С�ͼ򵥵Ĳ���Ҫ�����첽ͨ�ŷ�ʽ��Ӧ�ñȽ��ʺϣ����Դ��͸��ӵ�Ӧ�ò�̫�ʺϣ���Ϊ����Ҫ����Ա���������ϵͳ�Ĺ��ϡ���������������ӡ�����ֲ�ԡ����弰�������ƺͽ���֮���ͬ���ȶ������⡣ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;RPC 已经存在很长一段时间了，它沿用了用户熟悉的编程模式，从程序员的角度出发， RPC 十分容易理解――程序代码调用远端过程并将结果返回。当使用 RPC 时，只需要编写很少的网络程序代码，大部分代码由 IDL(Interface Define Language) 生成。 </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;RPC 应用不仅可以调用在远方节点上的子程序，甚至可以在不同操作系统环境下运行。它使程序员不必考虑网络的细节，仍可采用自己熟悉的 Call/Return 语法。 </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;RPC 一般采用 Call/Return 模式，多用于应用程序之间的通信，而且采用同步方式。 RPC 程序之间的同步通信一般采用 Request-Wait-Reply 方式， 因此，对小型简单的不需要采用异步通信方式的应用比较适合，但对大型复杂的应用不太适合，因为它需要程序员考虑网络或系统的故障、处理多个网络连接、可移植性、缓冲及流量控制和进程之间的同步等多种问题。 </p>
 <ol start="3">
-  <li><strong>TP Monitor </strong><strong>�м�� </strong><strong></strong></li>
+  <li><strong>TP Monitor </strong><strong>中间件 </strong><strong></strong></li>
 </ol>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;TP Monitor ��һ�ָ��ӵ��м����Ʒ����ΪӦ�ô����ṩ��һ��ͨ�Ż��ƣ��������������� TP Monitor �����ж���������� TP Monitor λ�ڿͻ��������ݿ������֮�䣬�����������ģ�͡��ͻ�ͨ�� Transaction RPC(TRPC) ������ TP Monitor �е������� TP Monitor �����������������ݿ⣬��������������ظ��ͻ��ˡ� TP Monitor �ṩһϵ�з�����Ӧ�ù������������ƺ�Ӧ��֮����Ϣ���ݵȡ����������԰���ȫ������Э�����ֲ�ʽ���׶��ύ����Դ������֧�֡�Э�����ϻָ����߿����ԡ���ȫ�ԡ����縺��ƽ��ȡ� </p>
-<p>������ TP Monitor �У�������һ����ȷ����ֹ�㣬�������ʧ�ܣ� TP Monitor ���Իع����񣬲���ʹϵͳ���ڲ���������һ��״̬�� TP Monitor ͬʱ���Ը������ݿ�������Ϊÿ���ͻ��������񣬶�����ֱ�Ӻ����ݿ�������ӣ���� TP Monitor ����Э�����ݿ����󣬴�ͳ�� Connection-Per-Client ������ ( �ڿͻ��� / ������������ ) ����ȥ������ 100 ���ͻ�����ֻ��Ҫ 10 �����ݿ����ӡ����� TP Monitor ��������ͬһ�������ж�д�칹���ݿ��е���Ϣ���������칹���ݿ�������ԡ������� TP ��Ʒ�У� BEA �� Tuxedo �� IBM �� CICS �� NCR �� TopEnd �� Microsoft �� MTS �ȡ� </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;TP Monitor 是一种复杂的中间件产品，它为应用处理提供了一种通信机制，它允许开发者在 TP Monitor 环境中定义事务服务。 TP Monitor 位于客户机和数据库服务器之间，采用三层或多层模型。客户通过 Transaction RPC(TRPC) 机制在 TP Monitor 中调用事务， TP Monitor 运行事务来连接数据库，并将处理结果返回给客户端。 TP Monitor 提供一系列服务，如应用管理、管理控制和应用之间消息传递等。常见的属性包括全局事务协调、分布式两阶段提交、资源管理器支持、协调故障恢复、高可用性、安全性、网络负载平衡等。 </p>
+<p>　　在 TP Monitor 中，事务有一个明确的起止点，如果事务失败， TP Monitor 可以回滚事务，不会使系统处于不完整、不一致状态。 TP Monitor 同时可以复用数据库请求。因为每个客户调用事务，而不是直接和数据库进行连接，因此 TP Monitor 可以协调数据库请求，传统的 Connection-Per-Client 的限制 ( 在客户机 / 服务器环境中 ) 可以去掉，如 100 个客户可能只需要 10 个数据库连接。并且 TP Monitor 还可以在同一个事务中读写异构数据库中的信息，并保持异构数据库的完整性。常见的 TP 产品有： BEA 的 Tuxedo 、 IBM 的 CICS 、 NCR 的 TopEnd 、 Microsoft 的 MTS 等。 </p>
 <ol start="4" type="a">
-  <li><strong>���� </strong><strong>ORB(Object Request Broker) </strong><strong>���м�� </strong><strong></strong></li>
+  <li><strong>基于 </strong><strong>ORB(Object Request Broker) </strong><strong>的中间件 </strong><strong></strong></li>
 </ol>
-<p>�������� ORB ���м����Ҫ�ǲ����������ļ����� ORB ���Կ��������������޹ص��������� RPC Ӧ�á����ĳ�Ա�������Բ������� Object-function() ��ʽ����Զ�˵Ķ���Ŀǰ�� ORB ���������˴˾����ı�׼�� CORBA ORB �� DCOM ORB �� </p>
-<p>������ʹ�� ORB ʱ�� IDL(Interface Define Language) ���ڶ������֮��Ľӿڣ��������� RPC �е� IDL ������̵Ľӿڡ� ORB �ر������ڶ���ӿڱ仯��Ƶ�������ᵼ�´��뾭�������±��뼰���ӵ������ ORB ��������ͼ��ͼ 2 ��ʾ�� </p>
+<p>　　基于 ORB 的中间件主要是采用面向对象的技术， ORB 可以看作是与编程语言无关的面向对象的 RPC 应用。它的成员函数可以采用类似 Object-function() 方式调用远端的对象。目前， ORB 存在两个彼此竞争的标准： CORBA ORB 和 DCOM ORB 。 </p>
+<p>　　当使用 ORB 时， IDL(Interface Define Language) 用于定义对象之间的接口，它类似于 RPC 中的 IDL 定义过程的接口。 ORB 特别适用于对象接口变化不频繁，不会导致代码经常被重新编译及链接的情况。 ORB 的总体框架图如图 2 所示。 </p>
 <p align="center"><img width="236" height="142" src="images/gif/orb.gif"><br>
   <br>
-ͼ 2 ORB ��������ͼ </p>
-<p>���������Ҫ���ǣ�һ�� ORB Ӧ����ÿ������ ( �����������ر���Զ�̵Ķ������ͨ��ʱ ) ���µķֲ�͸���ԣ� </p>
-<p>����λ�ã��������������Ƿ���ͬһ��������У� </p>
-<p>��������·�������������󽻻���Ϣ������;���� </p>
-<p>�����ض�λ�����������һ̨�����������һ̨�� </p>
-<p>�������ݱ�ʾ������������Ӧ�����ݸ�ʽ�� </p>
-<p>����ͨ�Ż��ƣ�ʹ�ú��ֽ��̼��ͨ�Ż��ƺ͹�̣� </p>
-<p>�������û��ƣ���������ķ��������ִ�еġ����磺���̡��̺߳Ͷ�̬���ӿ�ȵ�ϸ�ڣ� </p>
-<p>�����洢���ƣ����������κο��Ի򲻿�ʹ�ô洢������� </p>
-<p>�����������ͣ��κλ����ͺ��ϵĲ�ͬ�� </p>
-<p>�����������ԣ������������Ժ�������ʵ�ֵģ� </p>
-<p>��������ϵͳ���κβ���ϵͳ�ϵĲ�ͬ�� </p>
-<p>������ȫ���ƣ����������������еķ��ʿ��ƻ��ơ� </p>
-<p>���������ϸ�������κα�������뽫����ض��������±��� ( ���������ӡ����¼��صȵ� ) ��������Ч���ǣ� ���κ�һ�������ʵ�ֶ�̬�ؽ��и��ģ���������Ӱ�쵽�����Ķ������������Ƿ����߻��������ߡ� </p>
+图 2 ORB 的总体框架图 </p>
+<p>　　理想的要求是，一个 ORB 应赋予每个对象 ( 与其它对象特别是远程的对象进行通信时 ) 以下的分布透明性： </p>
+<p>　　位置：无论其它对象是否处于同一个计算机中； </p>
+<p>　　访问路径：与其它对象交换消息经过的途径； </p>
+<p>　　重定位：其它对象从一台计算机移至另一台； </p>
+<p>　　数据表示：其它对象相应的数据格式； </p>
+<p>　　通信机制：使用何种进程间的通信机制和规程； </p>
+<p>　　调用机制：其它对象的方法是如何执行的。例如：进程、线程和动态链接库等的细节； </p>
+<p>　　存储机制：其它对象任何可以或不可使用存储的情况； </p>
+<p>　　机器类型：任何机器型号上的不同； </p>
+<p>　　程序语言：其它对象是以何种语言实现的； </p>
+<p>　　操作系统：任何操作系统上的不同； </p>
+<p>　　安全机制：其它对象本身所具有的访问控制机制。 </p>
+<p>　　对以上各方面的任何变更都无须将这个特定对象重新编译 ( 或重新链接、重新加载等等 ) ，其整体效果是， 对任何一个对象的实现动态地进行更改，都将不会影响到其它的对象，无论它们是服务者还是请求者。 </p>
 <ol start="5" type="a">
-  <li><strong>��Ϣ�м�� </strong><strong>MOM </strong></li>
+  <li><strong>消息中间件 </strong><strong>MOM </strong></li>
 </ol>
-<p>����������Ϣ���м�� MOM �ṩ��һ�������Ĵ������������������߼��û����Ӳ�ͬϵͳ֮������ݺʹ��룬�����һ�µĽ������Ӧ�ô����Ļ����� MOM �ṩ��һ���߲�Ӧ�ýӿڣ�Ϊ��ͬϵͳ�ṩ�������ġ� MOM ��Ʒ�Ĺ�����Ҫ��ͨ������Ϣ����Ϣ�ķ�ʽ�ڳ���䴫������ɡ� </p>
-<p>MOM һ����Է�Ϊ������ʽ����Ϣ���� (Message Passing) ����Ϣ���� (Message Queuing) �� </p>
-<p>������Ϣ�����ڽ������͵ķֲ�ʽӦ���бȽϳ���������Ҫ��ģʽ�ǹ㲥 / ���� (Publish-Subscribe) ��ʽ�����ø÷�ʽ��Ӧ�ó���ȿ��Զ�����Ҳ���Թ㲥����ͨ��ģ���ṩ��λ��͸���ԡ�����ֻ��Ҫ�򵥵ؽ���Ϣ�����ⷽʽ���ͳ�ȥ�����м����������Ϣ���ݸ����ж���������ĳ��� MOM ��Ҫͨ�� agents ������ʵ�� Publish-Subscribe ��ʽӦ�á�������㲥��Ϣʱ��������һ�������������ӣ�����Ϣ���ݸ���������������·����Ϣ����Ӧ�ĳ������ڴ�������ʵ����Ϣ�Ķ�̬·�ɹ��ܣ���ˣ��÷�ʽ�ܹ��ṩ�Ϻõ��ݴ����ܣ�����ȱ�� MOM ���첽���ԣ���̫�ʺϳ�ʱ������Ͽ�������� </p>
-<p>������Ϣ���з�ʽ������������ֱ�ӽ��������Ӽ��ɷ��ͺͽ�����Ϣ������ֻ��򵥵ؽ���Ϣ���͸���Ϣ���У�����Ϣ���и�����Ϣ�Ĵ��ݣ���Ӧ�ó�����ȫ͸������Ϣ���в����첽��ʽ��Ϊ��Ϣ�ṩ��һ����ȫ�Ĵ洢��ʽ���ر������ڲ���ֱ�����ӵ�Ӧ�ã����ƶ��û������ͷ�����շ����̿��ܴ��ڲ��״̬��Ӧ�á�����ȱ������ҪһЩ���ù��������ܲ��Ǻܸߣ�����������ж�ʧ������ϵͳ���ܵ�Ӱ�졣 </p>
-<p>MOM ���Կ˷����� RPC ���м�������ƣ��ṩ������Ϣ���첽ͨ�Ż��ƣ���� MOM API ���ò�������Ӧ�ó���ͬʱ MOM ����ռ�ô�����������������Ը�������ͨ��������洢�ڴ����ϣ����Իָ�ϵͳ��������ϡ������� MOM ��Ʒ�У� DEC �� MessageQ �� IBM �� MQSeries �� Microsoft �� MSMQ �� </p>
+<p>　　基于消息的中间件 MOM 提供了一个完整的处理环境，允许开发者及用户连接不同系统之间的数据和代码，或采用一致的界面进行应用处理的互连。 MOM 提供了一个高层应用接口，为不同系统提供操作核心。 MOM 产品的工作主要是通过将信息以消息的方式在程序间传递来完成。 </p>
+<p>MOM 一般可以分为两种形式：消息传递 (Message Passing) 和消息队列 (Message Queuing) 。 </p>
+<p>　　消息传递在建立大型的分布式应用中比较常见。其主要的模式是广播 / 订购 (Publish-Subscribe) 方式。采用该方式，应用程序既可以订购，也可以广播。该通信模型提供了位置透明性。程序只需要简单地将消息以主题方式发送出去，由中间件来负责将消息传递给所有订购该主题的程序。 MOM 主要通过 agents 技术来实现 Publish-Subscribe 方式应用。当程序广播消息时，首先与一个代理进行连接，将消息传递给代理。代理负责路由消息给相应的程序。由于代理可以实现消息的动态路由功能，因此，该方式能够提供较好的容错性能，但它缺乏 MOM 的异步特性，不太适合长时间网络断开的情况。 </p>
+<p>　　消息队列方式允许程序无需直接建立起连接即可发送和接收消息。程序只须简单地将消息发送给消息队列，由消息队列负责消息的传递，对应用程序完全透明。消息队列采用异步方式，为信息提供了一个安全的存储方式，特别适用于不是直接连接的应用，如移动用户、发送方或接收方进程可能处于不活动状态的应用。它的缺点是需要一些配置工作，性能不是很高，而且如果队列丢失，整个系统将受到影响。 </p>
+<p>MOM 可以克服基于 RPC 的中间件的限制，提供基于消息的异步通信机制，因此 MOM API 调用不会阻塞应用程序，同时 MOM 不会占用大量的网络带宽，可以跟踪事务，通过将事务存储在磁盘上，可以恢复系统及网络故障。常见的 MOM 产品有： DEC 的 MessageQ 、 IBM 的 MQSeries 、 Microsoft 的 MSMQ 。 </p>
 <ol start="3">
-  <li> �������ı�׼�ͼ��� </li>
+  <li> 事务处理的标准和技术 </li>
 </ol>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;X/Open Distributed Transaction Processing Model�������ĸ����֣� </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;X/Open Distributed Transaction Processing Model，包括四个部分： </p>
 <ul>
-  <li> Application Program ��ʵ����������� </li>
+  <li> Application Program ，实现事务操作； </li>
   <li> Resource Managers </li>
   <li> Transaction Managers </li>
-  <li> Communication Resource Managers ��ʵ�ֲ�ͬ����������������������Ļ������ԡ� </li>
+  <li> Communication Resource Managers ，实现不同事务处理环境下事务管理器的互操作性。 </li>
 </ul>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;��ģ�ͻ����������µĽӿڣ� </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;该模型还定义了如下的接口： </p>
 <ul>
-  <li> TX �ӿڣ������� Application Program �� Transaction Manager ֮��Ľӿڡ��ṩ�����񻮷ַ��񣬴Ӷ�����Ӧ�ó������������޶���ȫ������֮�С��ýӿڰ������µĺ����� </li>
+  <li> TX 接口，这是在 Application Program 和 Transaction Manager 之间的接口。提供了事务划分服务，从而允许应用程序把事务操作限定在全局事务之中。该接口包括如下的函数： </li>
 </ul>
-<p align="center">X/Open DTP ģ�͵� TX �ӿڣ� 9 �������� </p>
+<p align="center">X/Open DTP 模型的 TX 接口（ 9 个函数） </p>
 <table align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="168" valign="top"><p>���� </p></td>
-    <td width="288" valign="top"><p>���� </p></td>
+    <td width="168" valign="top"><p>函数 </p></td>
+    <td width="288" valign="top"><p>功能 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>tx_open </p></td>
-    <td width="288" valign="top"><p>���������������ص���Դ���������� </p></td>
+    <td width="288" valign="top"><p>打开事务管理器和相关的资源管理器集合 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>tx_close </p></td>
-    <td width="288" valign="top"><p>�ر��������������ص���Դ���������� </p></td>
+    <td width="288" valign="top"><p>关闭事务管理器和相关的资源管理器集合 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>tx_begin </p></td>
-    <td width="288" valign="top"><p>��ʼһ���µ����� </p></td>
+    <td width="288" valign="top"><p>开始一个新的事务 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>tx_rollback </p></td>
-    <td width="288" valign="top"><p>�ع����� </p></td>
+    <td width="288" valign="top"><p>回滚事务 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>tx_commit </p></td>
-    <td width="288" valign="top"><p>�ύ���� </p></td>
+    <td width="288" valign="top"><p>提交事务 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>tx_set_commit_return </p></td>
-    <td width="288" valign="top"><p>�ύ���� </p></td>
+    <td width="288" valign="top"><p>提交事务 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>tx_set_transaction_control </p></td>
-    <td width="288" valign="top"><p>����ʽ�ͷ���ʽģʽ֮���л� </p></td>
+    <td width="288" valign="top"><p>在链式和非链式模式之间切换 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>tx_set_transaction_timeout </p></td>
-    <td width="288" valign="top"><p>��������ʱ��ʱ�� </p></td>
+    <td width="288" valign="top"><p>设置事务超时的时间 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>tx_info </p></td>
-    <td width="288" valign="top"><p>��������״̬���������� ID ������״̬�� </p></td>
+    <td width="288" valign="top"><p>返回事务状态，例如事务 ID 、事务状态等 </p></td>
   </tr>
 </table>
 <div align="center"></div>
 <div align="center"></div>
 <ul>
-  <li> XA �ӿڣ�������Դ�����������������֮���һ��˫��ӿڡ������������ϵĺ����� xa_*() ������Դ������ʵ�ֵģ��ṩ�����������ʹ�õģ� ax_*() �����������������ʵ�֣��ṩ����Դ������ʹ�õġ� </li>
+  <li> XA 接口，是在资源管理器和事务管理器之间的一个双向接口。包括两个集合的函数， xa_*() 是由资源管理器实现的，提供给事务管理器使用的； ax_*() 函数是由事务管理器实现，提供给资源管理器使用的。 </li>
 </ul>
-<p align="center">X/Open DTP ģ����������������� XA �ӿڣ� 6 �������� </p>
+<p align="center">X/Open DTP 模型用于事务管理器的 XA 接口（ 6 个函数） </p>
 <table align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="168" valign="top"><p>���� </p></td>
-    <td width="288" valign="top"><p>���� </p></td>
+    <td width="168" valign="top"><p>函数 </p></td>
+    <td width="288" valign="top"><p>功能 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>xa_start </p></td>
-    <td width="288" valign="top"><p>ָʾ��Դ�������������Ӧ�ó�������������ָ����ʶ��ȷ�������� </p></td>
+    <td width="288" valign="top"><p>指示资源管理器把随后由应用程序提出的请求给指定标识符确定的事务 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>xa_end </p></td>
-    <td width="288" valign="top"><p>������Դ������������Ĺ��� </p></td>
+    <td width="288" valign="top"><p>结束资源管理器和事务的关联 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>xa_prepare </p></td>
-    <td width="288" valign="top"><p>��Դ������׼�������ύ������������������� 2PC �ĵ�һ�׶���� </p></td>
+    <td width="288" valign="top"><p>资源管理器准备进行提交操作，由事务管理器在 2PC 的第一阶段提出 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>xa_commit </p></td>
-    <td width="288" valign="top"><p>�ύ�����Բ������������������ 2PC �ĵڶ��׶���� </p></td>
+    <td width="288" valign="top"><p>提交事务性操作，由事务管理器在 2PC 的第二阶段提出 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>xa_recover </p></td>
-    <td width="288" valign="top"><p>���� prepared ������ʽ�ύ�Ļ�ع��������б� </p></td>
+    <td width="288" valign="top"><p>检索 prepared 、启发式提交的或回滚的事务列表 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>xa_forget </p></td>
-    <td width="288" valign="top"><p>ȡ�� (Forget) ��ָ���������ʶ������������ʽ���� </p></td>
+    <td width="288" valign="top"><p>取消 (Forget) 与指定的事务标识符关联的启发式事务 </p></td>
   </tr>
 </table>
-<p align="center">X/Open DTP ģ����������������� AX �ӿڣ� 2 �������� </p>
+<p align="center">X/Open DTP 模型用于事务管理器的 AX 接口（ 2 个函数） </p>
 <table align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="168" valign="top"><p>���� </p></td>
-    <td width="288" valign="top"><p>���� </p></td>
+    <td width="168" valign="top"><p>函数 </p></td>
+    <td width="288" valign="top"><p>功能 </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>ax_reg </p></td>
-    <td width="288" valign="top"><p>���������������̬�� enlist </p></td>
+    <td width="288" valign="top"><p>采用事务管理器动态的 enlist </p></td>
   </tr>
   <tr>
     <td width="168" valign="top"><p>ax_unreg </p></td>
-    <td width="288" valign="top"><p>���������������̬�� delist </p></td>
+    <td width="288" valign="top"><p>采用事务管理器动态的 delist </p></td>
   </tr>
 </table>
 <ul>
-  <li> XA+ �ӿڣ�ͨ��ͨ����Դ������ʵ�ֲ�ͬ����������ϵ�ȫ������ </li>
-  <li> TXRPC �ӿڣ�֧��ȫ�������ڲ�Ӧ�ó���֮��ͨ�ŵĿ���ֲ�ԡ� </li>
-  <li> CRM-OSI TP ��ͨ����Դ�������� OSI ����������֮��Ľӿڡ� </li>
+  <li> XA+ 接口，通过通信资源管理器实现不同事务管理域上的全局事务。 </li>
+  <li> TXRPC 接口，支持全局事务内部应用程序之间通信的可移植性。 </li>
+  <li> CRM-OSI TP ，通信资源管理器和 OSI 事务处理服务之间的接口。 </li>
 </ul>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;X/Open DTP ģ����ҵ��õ��˹㷺��֧�֣� Tranarc �� TXSeries/Encina �� BEA Systems �� TUXEDO �� TopEnd �� AT&amp;T GIS ��֧�� TX �ӿڡ�΢���� Transaction Server ��Ȼ��֧�� TX �ӿڣ������������� XA ���ݵ����ݿ⣬���� Oracle �����������Ƶģ��������ݿ��Ʒ ( �� Oracle �� Sybase �� Informix �� Microsoft SQL Server) �ͻ�����Ϣ���ݵ��м����Ʒ ( �� IBM �� MQSeries ��΢���� MSMQ Server) ��ʵ���� XA �ӿڡ� </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;X/Open DTP 模型在业界得到了广泛的支持， Tranarc 的 TXSeries/Encina 、 BEA Systems 的 TUXEDO 和 TopEnd 、 AT&amp;T GIS 都支持 TX 接口。微软的 Transaction Server 虽然不支持 TX 接口，但是它可以与 XA 兼容的数据库，例如 Oracle 互操作。类似的，多数数据库产品 ( 如 Oracle 、 Sybase 、 Informix 和 Microsoft SQL Server) 和基于消息传递的中间件产品 ( 如 IBM 的 MQSeries 和微软的 MSMQ Server) 都实现了 XA 接口。 </p>
 <ol start="4">
   <li> TUXEDO </li>
 </ol>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;TUXEDO ����� AT&amp;T �� 1984 ����Ե���Ӧ�ö������ġ� BEA ϵͳ��˾ֱ�����۸ò�Ʒ�� 1996 �� BEA �� Novell ��˾������ TUXEDO ����Ȩ�� TUXEDO ������ǻ��� IMS �ģ������Ŀ��������������Ų��ŵ� IMS ϵͳ�� 1997 ��İ汾�� TUXEDO 6.1 ������һ��������ֲ��ϵͳ�������еĲ���ϵͳ���� 15 ������������ UNIX �ı��ֺ� NT �� TUXEDO �� X/Open DTP ��׼�Ļ��������� DTP ģ�ͱ����� XA �� TX �� XATMI �� </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;TUXEDO 最初是 AT&amp;T 于 1984 年针对电信应用而发布的。 BEA 系统公司直接销售该产品。 1996 年 BEA 从 Novell 公司购买了 TUXEDO 的授权。 TUXEDO 的设计是基于 IMS 的，最初的目标是替代美国电信部门的 IMS 系统。 1997 年的版本是 TUXEDO 6.1 。它是一个可以移植的系统，可运行的操作系统多于 15 个，包括各种 UNIX 的变种和 NT 。 TUXEDO 是 X/Open DTP 标准的基础，包括 DTP 模型本身、 XA 、 TX 和 XATMI 。 </p>
 <ol start="1" type="a">
-  <li> ��ϵ�ṹ </li>
+  <li> 体系结构 </li>
 </ol>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;TUXEDO��API��ΪApplication to Transcation Manager Interface(ATMI)����һЩ������C����COBOLֱ�ӵ��õ����з���ļ��ϡ�����֧��ͨ�š��ֲ������ϵͳ��������15��ǰ��Ƶ�CICS API�ӿڲ�ͬ��ATMI���������ھ���Ĳ���ϵͳ�����ݿ�ϵͳ�� </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;TUXEDO的API称为Application to Transcation Manager Interface(ATMI)，是一些可以由C或者COBOL直接调用的运行服务的集合。他们支持通信、分布事务和系统管理。与15年前设计的CICS API接口不同，ATMI更加依赖于具体的操作系统和数据库系统。 </p>
 <ol start="2" type="a">
-  <li> �Ǻǣ� ��ʧ������ԭ�塣 </li>
+  <li> 呵呵， 丢失了文章原稿。 </li>
 </ol>
-<p><strong>�ο�����</strong>��</p>
+<p><strong>参考文献</strong>：</p>
 <ol>
-  <li>�м������������ͻ���/������ģ���е�Ӧ�ã������Ӧ�� </li>
+  <li>中间件及其在三层客户机/服务器模型中的应用，计算机应用 </li>
 </ol>
 <div align="center"> 
   <hr> 

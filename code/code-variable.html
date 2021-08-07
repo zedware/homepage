@@ -2,9 +2,9 @@
 <head>
 <meta http-equiv="Content-Type"
 
-content="text/html; charset=gb2312">
-<meta name="zedware" content="һ��ի,���ݿ����ϵͳ,���,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
-<title>����������</title>
+content="text/html; charset=utf-8">
+<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+<title>变量的命名</title>
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -12,21 +12,21 @@ content="text/html; charset=gb2312">
 </style>
 </head>
 <body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">����������</p> 
+<p align="center" class="style1">变量的命名</p> 
 <hr> 
-<p>�������������������кܶ��֣����紫ͳ��UNIX�����������������������ȡ�����������������������Ը���ʵ�ʿ�������Ҫ���������˵�ϲ�þ���������ʽ����Ŀ�����繫˾�еĿ���������Ӧ����һ����ȷ�Ĺ涨��ģ�棬���������������</p> 
-<p>���������������ľ���涨���������������ﲻ��׸�������۲�����һ�����������ؼ����ڷ���ͳһ��������û������ǿ�Ƶ�����£�һ��ĳ���Ա�����γɹ̶��ķ�񣬻�����ȫ��ѭ��Ŀ�еĹ涨����ĳЩ����Ա���ԣ����ܲ�̫ϰ�����������������������ӵĴ�Сд��Ϸ�ʽ������һЩ����Ա������ܲ�̫ϰ����Сд���»��ߵ���ʽ���������Ҹ��˵�һЩϰ�ߣ�Ҳ���������ã�Ҳ�����������Щ������</p> 
+<p>　　变量的命名规则有很多种，例如传统的UNIX命名方法、匈牙利命名法等。具体采用哪种命名方法可以根据实际开发的需要、甚至个人的喜好决定。做正式的项目，比如公司中的开发，我想应该有一个明确的规定和模版，决不可能随便来。</p> 
+<p>　　各种命名法的具体规定，乃至其优劣这里不再赘述。无论采用哪一种命名法，关键在于风格的统一，或许在没有外力强制的情况下，一般的程序员很难形成固定的风格，或者完全遵循项目中的规定。对某些程序员而言，可能不太习惯匈牙利命名法和其他复杂的大小写混合方式，对另一些程序员，则可能不太习惯于小写加下划线的形式。以下是我个人的一些习惯，也许对你有用，也许对你而言是些垃圾。</p> 
 <p>
-����1��ȫ�ֱ�������ǰ����Ϲ̶���ǰ׺�����磺MY_xxx<br> 
-����2��ȫ�ֱ��������ִ�Сд��ϣ����磺MY_SerialReadBuffer<br> 
-����3���ֲ����������ִ�Сд��ϣ�������ָ���������ⲻ���������ͱ�־�����磺pName, Length<br> 
-����4������������ȫ�����ô�д�����й̶���ǰ׺�����磺MY_MAXFILENAME������ǰ׺��Ϊ�˱���Ϳ���ƽ̨�ж���ĳ�ͻ��Ҳ���Ը��õ�����������Դ��<br> 
-����5���������Ҳȫ�����ô�д�����й̶���ǰ׺�����磺myADDSTRING��<br> 
-����6�����������ֲ��ô�Сд��ϣ����й̶���ǰ׺�����磺MY_CheckState��<br> 
-����7���ṹ���һ�ɲ���typedef���壬�����ֲ��ô�Сд��Ϸ�ʽ�����й̶���ǰ׺�ͺ�׺�����磺MY_FileHandleT��</p> 
+　　1、全局变量名字前面加上固定的前缀，例如：MY_xxx<br> 
+　　2、全局变量的名字大小写混合，例如：MY_SerialReadBuffer<br> 
+　　3、局部变量的名字大小写混合，但除了指针类型以外不加数据类型标志，例如：pName, Length<br> 
+　　4、常量的名字全部采用大写，并有固定的前缀，例如：MY_MAXFILENAME，加上前缀是为了避免和开发平台中定义的冲突，也可以更好地理解它的来源。<br> 
+　　5、宏的名字也全部采用大写，并有固定的前缀，例如：myADDSTRING。<br> 
+　　6、函数的名字采用大小写混合，并有固定的前缀，例如：MY_CheckState。<br> 
+　　7、结构体等一律采用typedef定义，在名字采用大小写混合方式，并有固定的前缀和后缀，例如：MY_FileHandleT。</p> 
 <dl> 
   <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005��zedware_at_gmail_dot_com</font></a></div> 
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005，zedware_at_gmail_dot_com</font></a></div> 
   <dt> 
     <div align="center">Last modified on
       <!-- #BeginDate format:fcIS1 -->Monday, 2004-09-06<!-- #EndDate --> 

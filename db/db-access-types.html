@@ -2,9 +2,9 @@
 <!-- DW6 -->
 <head>
 <meta http-equiv="Content-Type"
-content="text/html; charset=gb2312">
-<meta name="zedware" content="“ªµ√’´, ˝æ›ø‚π‹¿ÌœµÕ≥,¥Ûª˙,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
-<title>Access µƒ ˝æ›¿‡–Õ</title>
+content="text/html; charset=utf-8">
+<meta name="zedware" content="‰∏ÄÂæóÊñã,Êï∞ÊçÆÂ∫ìÁÆ°ÁêÜÁ≥ªÁªü,Â§ßÊú∫,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+<title>Access ÁöÑÊï∞ÊçÆÁ±ªÂûã</title>
 <style type="text/css">
 <!--
 .style_times {font-family: "Times New Roman", Times, serif}
@@ -14,10 +14,10 @@ content="text/html; charset=gb2312">
 </style>
 </head>
 <body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">Access µƒ ˝æ›¿‡–Õ</p> 
+<p align="center" class="style1">Access ÁöÑÊï∞ÊçÆÁ±ªÂûã</p> 
 <hr> 
 <dl> 
-  <dt><strong>Õ®π˝ ODBC API ªÒµ√µƒ ACCESS 2000  ˝æ›¿‡–Õ</strong> 
+  <dt><strong>ÈÄöËøá ODBC API Ëé∑ÂæóÁöÑ ACCESS 2000 Êï∞ÊçÆÁ±ªÂûã</strong> 
 </dl> 
 <table border="1" cellspacing="0"> 
   <tr> 
@@ -378,10 +378,10 @@ content="text/html; charset=gb2312">
     <td align="left">&lt;null&gt; </td> 
   </tr> 
 </table> 
-<p><strong>2°¢OLE DB Provider for Microsoft Jet £®Data Type Support£©</strong></p> 
-<p><span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">°°</span><span class="style3">(See http://msdn.microsoft.com for details)</span> <br> 
-  °° <span class="style_times">Textual columns in Jet are now UNICODE instead of ANSI/DBCS. Compression is used to keep text from taking twice as much space. All IISAMs that store text columns in DBCS have implicit conversions done when read through Jet 4.0. When running against the Jet 3.5 OLE DB provider, all API calls had implicit coercions done already and it was possible to read ANSI data as UNICODE through the regular coercion process. Now, in a similar fashion, applications that need compatibility can use the coercion service in the OLE DB layer to convert back to ANSI if necessary. Not all ANSI/UNICODE conversions are lossless°™converting from one to the other and back again can yield different results.</span></p> 
-<P class="style_times"><span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">°° </span>New data types have been added to Microsoft Jet 4.0. Specifically, Jet now has a numeric type for arbitrary precision data and a large, non-BLOB binary type. These are named Decimal and BigBinary, respectively. Information about these types is published in the PROVIDER_TYPES schema. These types do not work on previous .mdb file formats. The following table maps Jet data types to OLE DB data types.</P> 
+<p><strong>2„ÄÅOLE DB Provider for Microsoft Jet ÔºàData Type SupportÔºâ</strong></p> 
+<p><span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">„ÄÄ</span><span class="style3">(See http://msdn.microsoft.com for details)</span> <br> 
+  „ÄÄ <span class="style_times">Textual columns in Jet are now UNICODE instead of ANSI/DBCS. Compression is used to keep text from taking twice as much space. All IISAMs that store text columns in DBCS have implicit conversions done when read through Jet 4.0. When running against the Jet 3.5 OLE DB provider, all API calls had implicit coercions done already and it was possible to read ANSI data as UNICODE through the regular coercion process. Now, in a similar fashion, applications that need compatibility can use the coercion service in the OLE DB layer to convert back to ANSI if necessary. Not all ANSI/UNICODE conversions are lossless‚Äïconverting from one to the other and back again can yield different results.</span></p> 
+<P class="style_times"><span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">„ÄÄ </span>New data types have been added to Microsoft Jet 4.0. Specifically, Jet now has a numeric type for arbitrary precision data and a large, non-BLOB binary type. These are named Decimal and BigBinary, respectively. Information about these types is published in the PROVIDER_TYPES schema. These types do not work on previous .mdb file formats. The following table maps Jet data types to OLE DB data types.</P> 
 <DIV class="tablediv style_times"> 
   <TABLE border="1" cellSpacing="0" > 
     <TR vAlign="top"> 
@@ -482,10 +482,10 @@ content="text/html; charset=gb2312">
     </TR> 
   </TABLE> 
 </DIV> 
-<P class="style_times"><span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">°° </span>To provide a more consistent data type naming scheme for Microsoft providers, Jet has modified the Text data type slightly. While the underlying storage has remained the same, the implications of the name <I>text</I> as used in SQL commands have changed. While Text in Jet referred to a short type, <I>text</I> in SQL Server is a BLOB field (akin to the Jet LongText/Memo type). When using commands, Text with no size now implies a LongText, while Text with a size (<I>text(255)</I>) still means the shorter, non-BLOB text field. The SQL data type <I>varchar</I> retains the original meaning of Text in Jet, so the OLE DB provider for Jet now exposes Jet's short text field as <I>varchar</I> instead of Text, because this behavior cannot be described in a generic fashion through OLE DB mechanisms. Applications that assume they can pass the provider type name as Text will break because the definition of Text is now ambiguous. As such, it doesn't resolve to anything in the version 4.0 provider.</P> 
-<P class="style_times"> <span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">°° </span>To better comply with the OLE DB spec, the version 4.0 provider has also changed the name of the Binary column. The semantic meaning of Binary is unchanged, however, and it is still recognized in the version 4.0 provider as the short binary type. This change should be transparent to existing clients. New clients should use VarBinary in their applications.</P> 
+<P class="style_times"><span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">„ÄÄ </span>To provide a more consistent data type naming scheme for Microsoft providers, Jet has modified the Text data type slightly. While the underlying storage has remained the same, the implications of the name <I>text</I> as used in SQL commands have changed. While Text in Jet referred to a short type, <I>text</I> in SQL Server is a BLOB field (akin to the Jet LongText/Memo type). When using commands, Text with no size now implies a LongText, while Text with a size (<I>text(255)</I>) still means the shorter, non-BLOB text field. The SQL data type <I>varchar</I> retains the original meaning of Text in Jet, so the OLE DB provider for Jet now exposes Jet's short text field as <I>varchar</I> instead of Text, because this behavior cannot be described in a generic fashion through OLE DB mechanisms. Applications that assume they can pass the provider type name as Text will break because the definition of Text is now ambiguous. As such, it doesn't resolve to anything in the version 4.0 provider.</P> 
+<P class="style_times"> <span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">„ÄÄ </span>To better comply with the OLE DB spec, the version 4.0 provider has also changed the name of the Binary column. The semantic meaning of Binary is unchanged, however, and it is still recognized in the version 4.0 provider as the short binary type. This change should be transparent to existing clients. New clients should use VarBinary in their applications.</P> 
 <hr> 
-<div align="center"><a href="mailto:zedware_at_gmail_dot_com"><font size="3" face="Times New Roman, Times, serif">Copyright @2000-2003£¨zedware_at_gmail_dot_com</font></a> </div> 
+<div align="center"><a href="mailto:zedware_at_gmail_dot_com"><font size="3" face="Times New Roman, Times, serif">Copyright @2000-2003Ôºåzedware_at_gmail_dot_com</font></a> </div> 
 <div align="center"> 
   <div align="center"><font face="Times New Roman, Times, serif">Last modified on
     <!-- #BeginDate format:fcIS1 -->Wednesday, 2005-02-16<!-- #EndDate --> 

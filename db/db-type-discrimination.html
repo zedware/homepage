@@ -2,10 +2,10 @@
 <head>
 <meta http-equiv="Content-Type"
 
-content="text/html; charset=gb2312">
+content="text/html; charset=utf-8">
 <meta name="uniware" content="zedware_at_gmail_dot_com">
-<meta name="zedware" content="һ��ի,���ݿ����ϵͳ,���,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
-<title>SQL �������ͱ���</title>
+<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+<title>SQL 数据类型辨析</title>
 <style type="text/css">
 <!--
 .style1 {
@@ -15,25 +15,25 @@ content="text/html; charset=gb2312">
 </style>
 </head>
 <body> 
-<p align="center" class="style1">SQL �������ͱ���</p> 
+<p align="center" class="style1">SQL 数据类型辨析</p> 
 <hr> 
-<p align="left"> <b>����</b>���ż����ķ�չ��SQL ��׼�ж������������Խ��Խ�ࡣSQL 1999 ���������ͷ�Ϊ�����ࣺԤ�������ͣ�predefined�����������ͣ�constructed�����û��Զ������ͣ�user-defined����Ӧ������õĻ���Ԥ�������͡���ЩԤ������������֮�������ϸ΢�Ĳ������ʹ�˻����������г�һЩ���������⣬����ѧ�߲ο���</p> 
+<p align="left"> <b>　　</b>随着技术的发展，SQL 标准中定义的数据类型越来越多。SQL 1999 将数据类型分为三大类：预定义类型（predefined）、构造类型（constructed）和用户自定义类型（user-defined）。应用中最常用的还是预定义类型。有些预定义数据类型之间仅存在细微的差别，容易使人混淆。这里列出一些常见的问题，供初学者参考。</p> 
 <ol>
-  <li><b align="left"> CHAR �� VARCHAR</b></li>
+  <li><b align="left"> CHAR 和 VARCHAR</b></li>
 </ol>
-<p align="left"><b>  </b><b>����</b>CHAR ���͵�ȫ���� CHARACTER������ʱ����ָ���侫�ȡ���������ֵ���ַ����ȶ���ľ���ҪС����ϵͳ���Զ�������ÿո��롣<br> 
-  <b>����</b>VARCHAR ���͵�ȫ���� CHARACTER VARYING������ʱҲ����ָ���侫�ȡ��� CHAR ���Ͳ�ͬ���ǣ���������ֵ���ַ����ȶ���ľ���ҪС��ϵͳ������������ÿո��롣<br> 
-  ���������͵ľ��ȶ��涨�˸����͵��ֶ��п��Դ�ŵ�����ַ�����</p>
+<p align="left"><b>  </b><b>　　</b>CHAR 类型的全称是 CHARACTER，定义时可以指定其精度。如果插入的值的字符数比定义的精度要小，则系统会自动在最后用空格补齐。<br> 
+  <b>　　</b>VARCHAR 类型的全称是 CHARACTER VARYING，定义时也可以指定其精度。和 CHAR 类型不同的是，如果插入的值的字符数比定义的精度要小，系统并不会在最后用空格补齐。<br> 
+  这两种类型的精度都规定了该类型的字段中可以存放的最大字符数。</p>
 <table width="614" border="1" align="center"> 
   <tr> 
-    <th width="74" scope="col">��������</th> 
-    <th width="64" scope="col">����</th> 
-    <th width="66" scope="col">��󾫶�</th> 
-    <th width="70" scope="col">�����</th> 
-    <th width="65" scope="col">��С����</th> 
-    <th width="65" scope="col">��С���</th> 
-    <th width="73" scope="col">ȱʡ����</th> 
-    <th width="85" scope="col">ȱʡ���</th> 
+    <th width="74" scope="col">数据类型</th> 
+    <th width="64" scope="col">别名</th> 
+    <th width="66" scope="col">最大精度</th> 
+    <th width="70" scope="col">最大标度</th> 
+    <th width="65" scope="col">最小精度</th> 
+    <th width="65" scope="col">最小标度</th> 
+    <th width="73" scope="col">缺省精度</th> 
+    <th width="85" scope="col">缺省标度</th> 
   </tr> 
   <tr> 
     <td>CHARACTER</td> 
@@ -58,29 +58,29 @@ content="text/html; charset=gb2312">
   </tr> 
 </table> 
 <blockquote>
-  <p> <strong>ע��</strong>
+  <p> <strong>注：</strong>
   </p>
   <ol type="a">
-    <li>IM ��ʾ Implementation Defined, N/A ��ʾ Not Available����ͬ��</li>
-    <li> ������ DBMS �У�CHAR �� VARCHAR ����󾫶�һ����ڵ��� 254��</li>
+    <li>IM 表示 Implementation Defined, N/A 表示 Not Available。下同。</li>
+    <li> 常见的 DBMS 中，CHAR 和 VARCHAR 的最大精度一般大于等于 254。</li>
   </ol>
 </blockquote>
 <ol start="2" type="1">
-  <li><strong>NUMERIC �� DECIMAL</strong></li>
+  <li><strong>NUMERIC 和 DECIMAL</strong></li>
 </ol>
-<p>  <b>����</b>���������Ͷ�������ʾ��ȷ�����������о��Ⱥͱ�ȡ�DECIMAL �����Լ�дΪ DEC������ NUMERIC ֮��ֻ��һ��ϸ΢������
+<p>  <b>　　</b>这两种类型都用来表示精确数，都可以有精度和标度。DECIMAL 还可以简写为 DEC，它和 NUMERIC 之间只有一个细微的区别，
 
-�����ݿ�ϵͳ�ڲ��ڴ��� DECIMAL ʱ�����õľ��Ⱥͱ�ȿ��Ա�ʵ�ʶ���Ĵ���Щʵ�ʵ�ϵͳ�������� NUMERIC �� DECIMAL�������� DECIMAL ��Ϊ NUMERIC ͬ���ʵ�֡�����Ӧ�ó�����˵��ֻ���� NUMERIC �Ϳ����ˡ� 
+即数据库系统内部在处理 DECIMAL 时，采用的精度和标度可以比实际定义的大。有些实际的系统并不区分 NUMERIC 和 DECIMAL，甚至把 DECIMAL 作为 NUMERIC 同义词实现。对于应用程序来说，只采用 NUMERIC 就可以了。 
 <table width="614" border="1" align="center"> 
   <tr> 
-    <th width="74" scope="col">��������</th> 
-    <th width="64" scope="col">����</th> 
-    <th width="66" scope="col">��󾫶�</th> 
-    <th width="70" scope="col">�����</th> 
-    <th width="65" scope="col">��С����</th> 
-    <th width="65" scope="col">��С���</th> 
-    <th width="73" scope="col">ȱʡ����</th> 
-    <th width="85" scope="col">ȱʡ���</th> 
+    <th width="74" scope="col">数据类型</th> 
+    <th width="64" scope="col">别名</th> 
+    <th width="66" scope="col">最大精度</th> 
+    <th width="70" scope="col">最大标度</th> 
+    <th width="65" scope="col">最小精度</th> 
+    <th width="65" scope="col">最小标度</th> 
+    <th width="73" scope="col">缺省精度</th> 
+    <th width="85" scope="col">缺省标度</th> 
   </tr> 
   <tr> 
     <td>NUMERIC</td> 
@@ -104,33 +104,33 @@ content="text/html; charset=gb2312">
   </tr> 
 </table> 
 <blockquote>
-  <p><strong>ע��</strong></p>
+  <p><strong>注：</strong></p>
   <ol type="a">
-    <li>    ������ DBMS �У�NUMERIC �� DECIMAL ����󾫶�һ����ڵ��� 38��</li>
+    <li>    常见的 DBMS 中，NUMERIC 和 DECIMAL 的最大精度一般大于等于 38。</li>
   </ol>
 </blockquote>
 <ol start="3">
-  <li><strong>REAL��FLOAT��DOUBLE PRECISION</strong></li>
+  <li><strong>REAL、FLOAT、DOUBLE PRECISION</strong></li>
 </ol>
-<p><b>����</b>���������Ͷ�������ʾ���������Ǿ�ȷ���������Ƕ����Խ����Կ�ѧ��������ʾ�ĸ��������������ľ��ȶ����˹�񻯺�Ŀ�ѧ��������ʾ�ĸ�������β������Чλ�������־��ȱ���Ϊ�����ƾ��ȡ�SQL ��׼Ҫ�� REAL ����󾫶�С�ڵ��� DOUBLE PRECISION ����󾫶ȡ���Ȼ���ǿ�����C/C++�е� float �� double��������� REAL �� DOUBLE PRECISION�������ǵı�ʾ��Χ����һ����ͬ��FLOAT ���ͱȽ����⣬����ʱ�������Ը���ָ�����ȡ���ʵ��Ӧ���� FLOAT Ӧ�þ�������ʹ�á�Ҫ����������⸡���������Բο� IEEE 754 ��������׼��</p>
+<p><b>　　</b>这三种类型都用来表示浮点数（非精确数），它们都可以接收以科学记数法表示的浮点数。浮点数的精度定义了规格化后的科学记数法表示的浮点数中尾数的有效位数，这种精度被称为二进制精度。SQL 标准要求 REAL 的最大精度小于等于 DOUBLE PRECISION 的最大精度。虽然我们可以用C/C++中的 float 和 double类型来类比 REAL 和 DOUBLE PRECISION，但它们的表示范围并不一定相同。FLOAT 类型比较特殊，定义时甚至可以给它指定精度。在实际应用中 FLOAT 应该尽量避免使用。要更清楚地理解浮点数，可以参考 IEEE 754 浮点数标准。</p>
 <blockquote>
-  <p><strong>ע��</strong>
+  <p><strong>注：</strong>
   </p>
 </blockquote>
 <ol type="a">
   <ol type="a">
-    <li>������ DBMS �У�REAL �Ķ����ƾ���Ϊ 24��ָ��Ϊ -38 �� +38��</li>
-    <li> ������ DBMS �У�FLOAT �ڸ������� &lt;= 24 ʱ���൱�� REAL������ &gt; 24 ʱ���൱�� DOUBLE PRECISION������������ʱͨ��ȱʡΪ FLOAT(53) �� DOUBLE PRECISION�� </li>
-    <li>������ DBMS �У�DOUBLE PRECISION �Ķ����ƾ���Ϊ 53��ָ��Ϊ -308 �� =308</li>
+    <li>常见的 DBMS 中，REAL 的二进制精度为 24，指数为 -38 到 +38。</li>
+    <li> 常见的 DBMS 中，FLOAT 在给出精度 &lt;= 24 时，相当于 REAL；精度 &gt; 24 时，相当于 DOUBLE PRECISION。不给出精度时通常缺省为 FLOAT(53) 或 DOUBLE PRECISION。 </li>
+    <li>常见的 DBMS 中，DOUBLE PRECISION 的二进制精度为 53，指数为 -308 到 =308</li>
   </ol>
 </ol>
-<p><b>�ο����ף�</b></p>
+<p><b>参考文献：</b></p>
 <ol type="1">
   <li>ANSI/ISO,  ANSI/ISO/IEC International Standard, Database Language SQL, 1999 </li>
-  <li> Peter Gulutzan, Trudy Pelzer�����洴���� �룬SQL-3 �ο���ȫ����е��ҵ������, 2000 </li>
+  <li> Peter Gulutzan, Trudy Pelzer，齐舒创作室 译，SQL-3 参考大全，机械工业出版社, 2000 </li>
   <li>Microsoft, <a href="http://msdn.microsoft.com">http://msdn.microsoft.com</a></li>
   <li>Oracle, <a href="http://otn.oracle.com">http://otn.oracle.com</a></li>
-  <li>IBM��<a href="http://www.ibm.com">http://www.ibm.com</a> </li>
+  <li>IBM，<a href="http://www.ibm.com">http://www.ibm.com</a> </li>
 </ol>
 <div align="center">
   <hr> 

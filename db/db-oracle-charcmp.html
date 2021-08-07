@@ -1,8 +1,8 @@
 <html>
 <!-- DW6 -->
 <head>
-<title>²âÊÔ Oracle ÖĞ¶Ô char ºÍ varchar2 Á½ÖÖÀàĞÍµÄµÈÖµ±È½Ï</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>æµ‹è¯• Oracle ä¸­å¯¹ char å’Œ varchar2 ä¸¤ç§ç±»å‹çš„ç­‰å€¼æ¯”è¾ƒ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -11,9 +11,9 @@
 </style>
 </head>
 <body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">²âÊÔ Oracle ÖĞ¶Ô char ºÍ varchar2 Á½ÖÖÀàĞÍµÄµÈÖµ±È½Ï</p> 
+<p align="center" class="style1">æµ‹è¯• Oracle ä¸­å¯¹ char å’Œ varchar2 ä¸¤ç§ç±»å‹çš„ç­‰å€¼æ¯”è¾ƒ</p> 
 <hr> 
-<p>  ÎÒÃÇÓÃ Oracle µÄ SQL*Plus Ö´ĞĞ SQL Óï¾ä¡£Ê×ÏÈ¿´¿´ Oracle µÄ°æ±¾ºÅ£º<br>
+<p>  æˆ‘ä»¬ç”¨ Oracle çš„ SQL*Plus æ‰§è¡Œ SQL è¯­å¥ã€‚é¦–å…ˆçœ‹çœ‹ Oracle çš„ç‰ˆæœ¬å·ï¼š<br>
   <br>
 SQL&gt; <span class="style2">select * from v$version;</span></p>
 <p>BANNER<br>
@@ -23,7 +23,7 @@ SQL&gt; <span class="style2">select * from v$version;</span></p>
   CORE 10.1.0.2.0 Production<br>
   TNS for 32-bit Windows: Version 10.1.0.2.0 - Production<br>
   NLSRTL Version 10.1.0.2.0 - Production</p>
-<p>Æä´Î´ò¿ª·şÎñÆ÷¶ËµÄÊä³öĞÅÏ¢£º</p>
+<p>å…¶æ¬¡æ‰“å¼€æœåŠ¡å™¨ç«¯çš„è¾“å‡ºä¿¡æ¯ï¼š</p>
 <p class="style2">set serveroutput on;</p>
 <p>--<br>
   -- column type is char, but parameter type is varchar.<br>
@@ -40,11 +40,11 @@ SQL&gt; <span class="style2">select * from v$version;</span></p>
 <p> FNO FNAME<br>
   ---------- --------------------<br>
   1 smith</p>
-<p>×¢Òâ£¬varchar2 ÕÒ²»³ö½á¹û£º<br>
+<p>æ³¨æ„ï¼Œvarchar2 æ‰¾ä¸å‡ºç»“æœï¼š<br>
     <br>
     SQL&gt; <span class="style2">select * from foo where fname = cast('smith' as varchar2(20));</span></p>
 <p class="style2">no rows selected</p>
-<p>ÏÖÔÚ£¬ÎÒÃÇ»»³É´æ´¢¹ı³ÌÊÔÊÔ¡£</p>
+<p>ç°åœ¨ï¼Œæˆ‘ä»¬æ¢æˆå­˜å‚¨è¿‡ç¨‹è¯•è¯•ã€‚</p>
 <p>create or replace procedure foop(bname varchar2)<br>
   as<br>
   &nbsp;&nbsp;&nbsp;&nbsp;v_fno number(4);<br>
@@ -65,7 +65,7 @@ SQL&gt; <span class="style2">select * from v$version;</span></p>
   end;<br>
   /</p>
 <p>call foop('smith');</p>
-<p>ÓÃ varchar2 ×ö´æ´¢¹ı³ÌµÄ²ÎÊıÒ²ÊÇÕÒ²»³ö½á¹û¡£</p>
+<p>ç”¨ varchar2 åšå­˜å‚¨è¿‡ç¨‹çš„å‚æ•°ä¹Ÿæ˜¯æ‰¾ä¸å‡ºç»“æœã€‚</p>
 <p class="style2">Expected result:<br>
   &lt;result&gt;<br>
    in procedure<br>
@@ -92,7 +92,7 @@ SQL&gt; <span class="style2">select * from v$version;</span></p>
   end;<br>
   /</p>
 <p>call foop2('smith');</p>
-<p>ÓÃ char ×÷Îª´æ´¢¹ı³ÌµÄ²ÎÊı£¬»¹ÊÇÄÜ¹»ÕÒ³ö½á¹ûµÄ¡£</p>
+<p>ç”¨ char ä½œä¸ºå­˜å‚¨è¿‡ç¨‹çš„å‚æ•°ï¼Œè¿˜æ˜¯èƒ½å¤Ÿæ‰¾å‡ºç»“æœçš„ã€‚</p>
 <p class="style2">Expected results:<br>
   &lt;result&gt;<br>
    in procedure<br>
@@ -100,7 +100,7 @@ SQL&gt; <span class="style2">select * from v$version;</span></p>
   <br>
    Call completed.<br>
   &lt;/result&gt;</p>
-<p>ÏÂÃæÎÒÃÇ²âÊÔÒ»ÏÂÁĞµÄÀàĞÍÊÇ varchar2 µÄÇé¿ö¡£</p>
+<p>ä¸‹é¢æˆ‘ä»¬æµ‹è¯•ä¸€ä¸‹åˆ—çš„ç±»å‹æ˜¯ varchar2 çš„æƒ…å†µã€‚</p>
 <p>--<br>
   -- column type is varchar, but parameter type is char.<br>
   --<br>
@@ -116,7 +116,7 @@ SQL&gt; <span class="style2">select * from v$version;</span></p>
 <p> FNO FNAME<br>
   ---------- --------------------<br>
   1 smith</p>
-<p>×¢Òâ£¬ÓÃ char ÊÇÕÒ²»³ö½á¹ûµÄ£º</p>
+<p>æ³¨æ„ï¼Œç”¨ char æ˜¯æ‰¾ä¸å‡ºç»“æœçš„ï¼š</p>
 <p>SQL&gt; <span class="style2">select * from foo where fname = cast('smith' as char(20));</span></p>
 <p><span class="style2">no rows selected</span><br>
     <br>
@@ -140,7 +140,7 @@ SQL&gt; <span class="style2">select * from v$version;</span></p>
   end;<br>
   /</p>
 <p>call foop('smith');</p>
-<p>´æ´¢¹ı³ÌµÄ²ÎÊıÎª char Ê±£¬¾ÓÈ»Ò²¿ÉÒÔÕÒ³ö¸Ã¼ÇÂ¼¡£</p>
+<p>å­˜å‚¨è¿‡ç¨‹çš„å‚æ•°ä¸º char æ—¶ï¼Œå±…ç„¶ä¹Ÿå¯ä»¥æ‰¾å‡ºè¯¥è®°å½•ã€‚</p>
 <p class="style2">Expected result:<br>
   &lt;result&gt;<br>
    in procedure<br>
@@ -167,7 +167,7 @@ SQL&gt; <span class="style2">select * from v$version;</span></p>
   end;<br>
   /</p>
 <p>call foop2('smith');</p>
-<p>´æ´¢¹ı³Ì²ÎÊıÎª varchar2 Ê±µ±È»¸üÓ¦¸ÃÄÜÕÒ³ö¸Ã¼ÇÂ¼ÁË¡£</p>
+<p>å­˜å‚¨è¿‡ç¨‹å‚æ•°ä¸º varchar2 æ—¶å½“ç„¶æ›´åº”è¯¥èƒ½æ‰¾å‡ºè¯¥è®°å½•äº†ã€‚</p>
 <p><span class="style2">Expected results:<br>
   &lt;result&gt;<br>
    in procedure<br>

@@ -1,8 +1,8 @@
 <html>
 <!-- DW6 -->
 <head>
-<title>����޸�Windows���������ļ��Ĺ���</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>如何修复Windows中批处理文件的关联</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -10,15 +10,15 @@
 </style>
 </head>
 <body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">����޸�Windows���������ļ��Ĺ���</p> 
+<p align="center" class="style1">如何修复Windows中批处理文件的关联</p> 
 <hr> 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;ĳ�����գ���װ��һ����ѵı༭��������.BAT�ļ��������˸ó��򡣴Ӷ�����˫��.BAT�ļ�ʱ�����Զ�ִ�У����Ǵ������б༭�����QuickLaunch���������ļ��Ŀ�ݷ�ʽʱ��Ҳ�ǳ���ͬ����Ч����ֻ���ڸñ༭�������ý�����ȡ����.BAT�ļ��Ĺ�����Ȼ��˫��.BAT�ļ��������ݷ�ʽ���������ʾ�Ի��򡰸��ļ�û�г�����֮������ִ�иò��������ڿ��������ļ���ѡ���д�����������</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;�򵥵�Googleһ�£�û���ҵ��𰸡��²��޸��İ취���޸�ע���KEY_CLASSES_ROOT\batfile������һ̨�������Ļ������ο���ע������޸��ˣ�</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;某年月日，安装了一个免费的编辑器，并将.BAT文件关联到了该程序。从而导致双击.BAT文件时不再自动执行，而是打开它进行编辑。点击QuickLaunch中批处理文件的快捷方式时，也是出现同样的效果。只好在该编辑器的配置界面中取消对.BAT文件的关联。然而双击.BAT文件或点击其快捷方式都会出现提示对话框“该文件没有程序与之关联来执行该操作，请在控制面板的文件夹选项中创建关联”。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;简单地Google一下，没有找到答案。猜测修复的办法是修改注册表KEY_CLASSES_ROOT\batfile。找了一台还正常的机器，参考其注册表，修改了：</p>
 <blockquote>
   <p>  [HKEY_CLASSES_ROOT\batfile\shell\open\command]<br>
   @=&quot;\&quot;%1\&quot; %*&quot;</p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;�������ˡ�
+<p>&nbsp;&nbsp;&nbsp;&nbsp;问题解决了。
   <br>
 </p>
 <div align="center"> 

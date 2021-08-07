@@ -1,7 +1,7 @@
 # Contact info submission
 url: zedware.org
-site_owner: William ZHANG
-address1: Haidian, Beijing
+site_owner: Wenliang ZHANG
+address1: Beijing
 city: Beijing
 country: CHINA
 display_email: zedware@gmail.com
