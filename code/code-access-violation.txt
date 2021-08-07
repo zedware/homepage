@@ -2,7 +2,7 @@ Windows
  
 D:\> ver
  
-Microsoft Windows [�汾 5.2.3790]
+Microsoft Windows [版本 5.2.3790]
 
 D:\> cat -n foo.cc
      1

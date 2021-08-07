@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>`base` tag and IE 7.0</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -11,9 +11,9 @@
 <body bgcolor="#FFFFFF"> 
 <p align="center" class="style1">`base` tag and IE 7.0</p> 
 <hr> 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;�ڰ�IE��6.0������7.0֮����ͻȻ������Outlook express���޷�������ʼ��е�һЩ�������ӵ�ַ�ˡ����ʼ�����ΪHTML�ļ����ŵ�IE 7.0��ȥ�����ȷʵҲ������Щ����ָ��Ĳ��ԣ�����Ӧ����http://...ʲô�ģ�ȴ����file:///...��������Firefox 2.0����Ȼ�ܹ���ȷ������������Outlook express�е������Щ���������Ǻ����ɷ�������飬���ڵ����ˣ���Ҫ���ʼ�����ΪHTML�ļ�������Firefox�򿪡���ȷʵ���˺����ջ�
-<p>&nbsp;&nbsp;&nbsp;&nbsp;����һЩ�����Աȣ���������Щ�ʼ����õ���һ������׼�����ԣ���&lt;base&gt;�ŵ���&lt;body&gt;&lt;/body&gt;�У������ǰ���HTML��׼��Ҫ��ŵ�&lt;head&gt;&lt;/head&gt;�С�IE 7.0�Ľ����Ա�׼�ķ��ϳ̶�Ӧ���Ǽ������飬������ȷʵ���Ҵ����˲�С���鷳������Ҫ���������⣬ֻ��������IE 7.0������ȥ�ҿ�����������Ҫ�õ������ˡ�
-<p>&nbsp;&nbsp;&nbsp;&nbsp;ʵ���ϣ�΢���Ŀ�����Ա����2005�����Blog��˵��IEҪ���ƶԱ�׼����ѭ�̶��ˣ���̸����&lt;base&gt;�����⣬ֻ���������ⷽ��ȽϹ�ª���Ű��ˣ�<A href="http://blogs.msdn.com/ie/archive/2005/08/29/457667.aspx" target=_blank>All your &lt;base&gt; are belong to us</A>&nbsp;���������������ӣ�
+<p>&nbsp;&nbsp;&nbsp;&nbsp;在把IE从6.0升级到7.0之后，我突然发现在Outlook express中无法点击打开邮件中的一些超级链接地址了。将邮件保存为HTML文件，放到IE 7.0中去浏览，确实也发现那些链接指向的不对，本来应该是http://...什么的，却成了file:///...。不过在Firefox 2.0中仍然能够正确处理。本来在Outlook express中点击打开这些超级链接是很轻松方便的事情，现在倒好了，需要把邮件另存为HTML文件，再用Firefox打开。这确实让人很是恼火。
+<p>&nbsp;&nbsp;&nbsp;&nbsp;经过一些分析对比，发现是这些邮件中用到了一个不标准的特性，把&lt;base&gt;放到了&lt;body&gt;&lt;/body&gt;中，而不是按照HTML标准的要求放到&lt;head&gt;&lt;/head&gt;中。IE 7.0改进它对标准的符合程度应该是件好事情，可是这确实给我带来了不小的麻烦。看来要解决这个问题，只能是舍弃IE 7.0或者是去找开发商升级我要用的软件了。
+<p>&nbsp;&nbsp;&nbsp;&nbsp;实际上，微软的开发人员早在2005年就在Blog中说了IE要改善对标准的遵循程度了，并谈到了&lt;base&gt;的问题，只不过我在这方面比较孤陋寡闻罢了：<A href="http://blogs.msdn.com/ie/archive/2005/08/29/457667.aspx" target=_blank>All your &lt;base&gt; are belong to us</A>&nbsp;。下面是两个例子：
 <br>
 <br>$ cat good.html
 <br>	&lt;html&gt;
@@ -33,7 +33,7 @@
 <br>	&lt;base href=http://192.168.0.1:80/&gt;
 <br>	&lt;a href="/index.html"&gt;samples&lt;/a&gt;
 <br>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;���Ҹ������̵ļ���֧�ַ�ȥ���ʼ��󣬺ܿ���յ��˻��ţ�����������ȷ���޸�������ԭ������Mailʱ�õ���һ��HTML��ģ���ļ���ֻ��Ҫ�޸����ļ��Ϳ��Խ�������ˡ�
+<p>&nbsp;&nbsp;&nbsp;&nbsp;在我给开发商的技术支持发去了邮件后，很快就收到了回信，告诉了我正确的修复方法。原来发送Mail时用到了一个HTML的模板文件，只需要修复该文件就可以解决问题了。
 <div align="center"> 
   <hr> 
   <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2007-2008, zedware_at_gmail_dot_com</a><br> 

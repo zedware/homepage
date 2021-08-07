@@ -42,11 +42,11 @@ is zero? Is strtod() buggy? Let's try it on Windows with VC++.
 
 C:\> ver
 
-Microsoft Windows [°æ±¾ 5.2.3790]
+Microsoft Windows [ç‰ˆæœ¬ 5.2.3790]
 
 C:\> cl strtod.c
-ÓÃÓÚ 80x86 µÄ Microsoft (R) 32 Î» C/C++ ÓÅ»¯±àÒëÆ÷ 14.00.50727.762 °æ
-°æÈ¨ËùÓÐ(C) Microsoft Corporation¡£±£ÁôËùÓÐÈ¨Àû¡£
+ç”¨äºŽ 80x86 çš„ Microsoft (R) 32 ä½ C/C++ ä¼˜åŒ–ç¼–è¯‘å™¨ 14.00.50727.762 ç‰ˆ
+ç‰ˆæƒæ‰€æœ‰(C) Microsoft Corporationã€‚ä¿ç•™æ‰€æœ‰æƒåˆ©ã€‚
 
 strtod.c
 Microsoft (R) Incremental Linker Version 8.00.50727.762
@@ -54,8 +54,8 @@ Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /out:strtod.exe
 strtod.obj
-LIBCMT.lib(crt0init.obj) : warning LNK4254: ½Ú¡°.CRT¡±(40000040)ºÏ²¢µ½¾ßÓÐ²»Í¬Êô
-ÐÔµÄ¡°.data¡±(C0000040)
+LIBCMT.lib(crt0init.obj) : warning LNK4254: èŠ‚â€œ.CRTâ€(40000040)åˆå¹¶åˆ°å…·æœ‰ä¸åŒå±ž
+æ€§çš„â€œ.dataâ€(C0000040)
 
 C:\> strtod
 d = 0.000000, endptr = , errno = 34

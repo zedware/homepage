@@ -1,8 +1,8 @@
 <html>
 <!-- DW6 -->
 <head>
-<title>GNU gprof ��ʹ���Լ���������</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>GNU gprof 的使用以及常见问题</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -11,9 +11,9 @@
 </style>
 </head>
 <body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">GNU gprof ��ʹ���Լ���������</p> 
+<p align="center" class="style1">GNU gprof 的使用以及常见问题</p> 
 <hr> 
-<p> &nbsp;&nbsp;&nbsp;&nbsp;gprof ���� profiling �ǳ����ã�������ѧ�߿��ܻ�����һЩ�ϰ����������Ǵ���򵥵����ӿ�ʼ��һ�������룬ϣ���ܹ���������һ���ˡ�</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;gprof 对于 profiling 非常有用，不过初学者可能会遇到一些障碍。下面我们从最简单的例子开始，一步步深入，希望能够容易明白一点了。</p>
 <p>$ uname -a<br>
   Linux dev 2.4.21-9.30AXsmp #1 SMP Wed May 26 23:37:09 EDT 2004 i686 i686 i386 GNU/Linux</p>
 <p>$ gprof --version<br>
@@ -32,8 +32,8 @@
   hello world</p>
 <p>  $ gprof<br>
   <span class="style2">gprof: gmon.out file is missing call-graph data</span></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;�������е�Ī������ѵ�����򵥵�һ�����Ӷ������ˣ���ʵ���� gprof ��һ����feature����Ҳ����ר�������Ի��ѧ�ߵġ�������ԭ��μ���<a href="http://gcc.gnu.org/ml/gcc-help/2006-06/msg00037.html">http://gcc.gnu.org/ml/gcc-help/2006-06/msg00037.html</a>�������ǵĺ������ڼ򵥣�����û��ʲô�������õ��µġ�</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;�����ǻ�������һ������ӿ�����</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这个结果有点莫名其妙。难道这个简单的一个例子都过不了？其实这是 gprof 的一个“feature”，也许是专门用来迷惑初学者的。出错的原因参见：<a href="http://gcc.gnu.org/ml/gcc-help/2006-06/msg00037.html">http://gcc.gnu.org/ml/gcc-help/2006-06/msg00037.html</a>，是我们的函数过于简单，其中没有什么函数调用导致的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;让我们换个复杂一点的例子看看。</p>
 <p>$ cat bar.c</p>
 <p>static int sub(void);</p>
 <p>int main(void)<br>
@@ -51,7 +51,7 @@
 <p>$ gcc -g -pg bar.c<br>
   $ ./a.out<br>
   hello world</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;ע������������Ϣ�����ˣ������Ե��е����¡��������ǽ����á�gprof -b����֮�����gprof����ʵ���ǡ�gprof a.out gmon.out����</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;注意这次输出的信息正常了，不过显得有点罗嗦。后面我们将采用“gprof -b”简化之。命令“gprof”其实就是“gprof a.out gmon.out”。</p>
 <p>  $ gprof<br>
   Flat profile:</p>
 <p>Each sample counts as 0.01 seconds.<br>
@@ -172,7 +172,7 @@
 </p>
 <p>Index by function name</p>
 <p> [1] sub (bar.c)</p>
-<p>&nbsp;&nbsp;&nbsp;gprof ��������Ժ������ó�ѧ���Ի󣬿���һ�����Ͱ��������ˡ�������д������һ�������ӣ�Ӧ�ø����׿��� gprof ���ô��ˡ�</p>
+<p>&nbsp;&nbsp;&nbsp;gprof 的这个特性很容易让初学者迷惑，可能一上来就把人吓跑了。我们再写个复杂一点点的例子，应该更容易看出 gprof 的用处了。</p>
 <p>$ cat bar.c</p>
 <p>static int sub(void);<br>
   static int sub2(void);</p>
@@ -226,9 +226,9 @@
 </p>
 <p>Index by function name</p>
 <p> [3] sub (bar.c) [2] sub2 (bar.c)</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;��Ȼ�ˣ���������ĳ��򶼷ǳ��򵥣���ȫ���ܷ�ӳʵ�ʿ��������е�Ҫ��ʵ�ʵĳ������Ƕ��̻߳����̵ģ����Ҵ���һ�㶼�Ƚϸ��ӡ���������� gprof ������һ������̵ĳ��򣬺ܿ��ܻᷢ��һ�����̵�����ļ� gmon.out ����������һ�����̵�����ļ����������ֻ�ܿ�������һ������϶�����������Ҫ�Ľ����Google ����������һЩ����취��������������취����ˡ���ִ�г���֮ǰ�����У�<br>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;当然了，上面给出的程序都非常简单，完全不能反映实际开发工作中的要求。实际的程序大多是多线程或多进程的，而且代码一般都比较复杂。如果我们用 gprof 来分析一个多进程的程序，很可能会发现一个进程的输出文件 gmon.out 覆盖了另外一个进程的输出文件，导致最后只能看到最后的一个。这肯定不是我们想要的结果。Google 告诉我们有一些解决办法，其中下面这个办法最简单了。在执行程序之前，进行：<br>
 <br>&nbsp;&nbsp;&nbsp;&nbsp;$ export GMON_OUT_PREFIX=x.out<br><br>
-�Ӵ��Ժ����ɵ��ļ����������� x.out.<���̵�pid> �ˣ����ǲ��ٻ��า���ˡ�Google Ҳ�����������������İ취����������� grof ������һ�����̵߳ĳ�����ܿ��ܻᷢ�� gprof �����������̡߳������ԣ���Ҳ�������������Ľ��������������⣬<a href="http://sam.zoy.org/writings/programming/gprof.html">http://sam.zoy.org/writings/programming/gprof.html</a>������һ�������Ľ���취��
+从此以后，生成的文件名将类似于 x.out.<进程的pid> 了，它们不再互相覆盖了。Google 也许会告诉你更多其它的办法。如果我们用 grof 来分析一个多线程的程序，则很可能会发现 gprof 处理不了子线程。很明显，这也不是我们期望的结果。对于这个问题，<a href="http://sam.zoy.org/writings/programming/gprof.html">http://sam.zoy.org/writings/programming/gprof.html</a>给出了一个不错的解决办法。
 </p>
 <div align="center"> 
   <hr> 

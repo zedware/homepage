@@ -1,8 +1,8 @@
 <html>
 <!-- DW6 -->
 <head>
-<title>MySQL 5.0 Windows�汾��Դ�����غͱ���</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>MySQL 5.0 Windows版本的源码下载和编译</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -10,53 +10,53 @@
 </style>
 </head>
 <body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">MySQL 5.0 Windows�汾��Դ�����غͱ���</p> 
+<p align="center" class="style1">MySQL 5.0 Windows版本的源码下载和编译</p> 
 <hr> 
-<p>1���������� </p>
-<p>  &nbsp;&nbsp;&nbsp;&nbsp;�������ǵĹ���������Windows��VC++ 6.0��Ϊ�˱��ڴ�����Ķ������鰲װSourceInsight�� </p>
-<p>2������Դ�� </p>
-<p>&nbsp;&nbsp;&nbsp;  ����Դ����ҳ�棨 <a href="http://dev.mysql.com/downloads/mysql/5.0.html">http://dev.mysql.com/downloads/mysql/5.0.html</a>�������¶�����MySQL 5.0��Դ���롣 MySQL�ṩ�˶����ͬ��Դ����������е���Ҫ����Ӧ��û��̫��������Ҫ�ǲ�ͬƽ̨�µ���Ŀ�ļ����ű��ļ������������������ء�Windows Source (zip) 5.0.15 18.2M������汾�Ϳ����ˡ����غ���ļ��ǡ�mysql-5.0.15-win-src.zip�������轫���ѹ��D:\mysql-5.0.15�� ��SourceInsight����һ����Ŀ��mysql-5.0.15�����������е��ļ��ӵ���Ŀ�С��ܹ���Լ��4760���ļ��� </p>
-<p>3��Դ��Ŀ¼</p>
-<p>&nbsp;&nbsp;&nbsp;  ��DOS�������£�ת��Ŀ¼D:\mysql-5.0.15��ִ�У�tree����ɵõ��ı���ʽ��Ŀ¼�����Ȳ�Ҫ������Ӵ��Ŀ¼�����ţ������Ǿ���һ������֯���ɵģ����������������� </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;MySQL��ϵͳ�ṹ��Щ�ر����ĵײ㣨�洢��������������ȣ����ϲ㣨SQL��������ѯ�Ż��ȣ�֮�����бȽ���ȷ�Ľ��޵ġ���֧�ֺܶ� �ִ洢���ƣ�����Innobase��Berkeley DB��MyISAM�ȶ������Ĵ洢ϵͳ����Innobase��Berkeley DB����Ҳ�Ƿǳ������Ŀ�Դ��Ŀ����ҵӦ�û���Ҫ��ϸ������Щ��Ŀ�Ĳ�ͬLicense���������²���Ҫ���鷳�����ҵ���MySQL��ǿ�������� Oracle�����Innobase���չ�( <a href="http://www.oracle.com/corporate/press/2005_oct/inno.html">http://www.oracle.com/corporate/press/2005_oct/inno.html</a>)�ˣ���֪��Oracle��Ҫ��ʲô��Berkeley DB������һ���ǳ���ɫ��Ƕ��ʽ���ݿ�ϵͳ���ںܶೡ���зǳ��õ�Ӧ�á� </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;Դ�����еĵ�һ��Ŀ¼��bdb������Berkeley DB�Ĵ����ˡ�Ŀ¼��innobase��֮�¾���Innobase�Ĵ��롣Ŀ¼��myisam*���е�Ȼ����MyISAM�Ĵ����ˡ�Ŀ¼��ndb����һ�� �ڴ�ľ۴أ�clustered���洢���档Ŀ¼��mysql*����Ҫ�����ϲ�Ĵ��롣��regex���͡�zlib������һЩ��Դ�ĺ����⣬�ֱ�֧���� �����ʽ������ѹ����Ŀ¼��share����Ҫ�ǹ��ʻ�֧�ֵ�һЩ�ļ��� </p>
-<p> Berkeley DB��<a href="http://www.sleepycat.com/">http://www.sleepycat.com/ </a><br>
-  Innobase/InnoDB��<a href="http://www.innodb.com/index.php">www.innodb.com/index.php </a><br>
-  NDB��<a href="http://dev.mysql.com/doc/refman/5.0/en/mysql-cluster-overview.html">http://dev.mysql.com/doc/refman/5.0/en/mysql-cluster-overview.html </a></p>
-<p>4����ô��ʼ���룿 </p>
-<p>&nbsp;&nbsp;&nbsp;  ���Ե�һ�������Ǿ��ܹ�֪��MySQL��Ҫ����C++��д�ģ���ȻҲ����һЩ�ű����Եȡ�����һ����Դ����������Ҫ���ľ������Ŀ¼���������ȿ�������Щʲô��D:\mysql-5.0.15�� </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;��һ��Ҫ���ľ���README.txt�����������ܴ����˽�MySQL��Dual��Ȩ����ʲô����ÿ�ʲô����������û�и�������ô������ ��Ҫ���ҾͲ���������ϻ��ˣ���ԭ��Docs���滹��һ��CHM�ֲᣬ����Ӧ�ó�ʱ�����һ�飬��Ȼ������ͷ�Ĵ��룿���п����˽�MySQL�Ĺ�ȥ�����ں�δ����Ҳ����ѧ��һЩ����֪ʶ�� </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;��һ��Ҫ���ľ���README.build-files����ϧ�����ǽ�������ô����Դ��ģ�ֻ��˵������VC++�������ļ����������� �ˡ��ٿ�INSTALL-SOURCE��INSTALL-WIN-SOURCE��ԭ�����ǲ��Ǹ���������ô����ġ�ǰ�߽�����һЩ��UNIXϵͳ�ϱ��밲 װ��������Ȼ�������ص���Windows�汾��ҲӦ�������Ķ�һ�顣MySQL�������ܶ࿪Դ����һ����Ҳ������GNU tool-chains������˵��Ҫ��Visual Studio 2003 compiler system (VC++ 7.0)����������Ŀ¼����mysql.dsw������VC++ 6.0Ҳ���ԡ� </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;���������ǾͿ��Կ�ʼ���ű���汾�ˡ��������ǽ����㻨һ��ʱ�佫ʣ�µ��ļ����꣺ </p>
+<p>1、工作环境 </p>
+<p>  &nbsp;&nbsp;&nbsp;&nbsp;假设我们的工作环境是Windows、VC++ 6.0。为了便于代码的阅读，建议安装SourceInsight。 </p>
+<p>2、下载源码 </p>
+<p>&nbsp;&nbsp;&nbsp;  你可以从这个页面（ <a href="http://dev.mysql.com/downloads/mysql/5.0.html">http://dev.mysql.com/downloads/mysql/5.0.html</a>）的最下端下载MySQL 5.0的源代码。 MySQL提供了多个不同的源代码包，其中的主要内容应该没有太大区别，主要是不同平台下的项目文件、脚本文件等有所区别。我们下载“Windows Source (zip) 5.0.15 18.2M”这个版本就可以了。下载后的文件是“mysql-5.0.15-win-src.zip”。假设将其解压到D:\mysql-5.0.15， 用SourceInsight创建一个项目“mysql-5.0.15”，并将所有的文件加到项目中。总共大约是4760个文件。 </p>
+<p>3、源码目录</p>
+<p>&nbsp;&nbsp;&nbsp;  在DOS命令行下，转到目录D:\mysql-5.0.15。执行：tree命令即可得到文本形式的目录树。先不要被这个庞大的目录给吓着，它还是具有一定的组织规律的，让我们慢慢看来。 </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;MySQL的系统结构有些特别，它的底层（存储管理、缓冲管理等）和上层（SQL处理、查询优化等）之间是有比较明确的界限的。它支持很多 种存储机制，例如Innobase、Berkeley DB、MyISAM等都是它的存储系统。而Innobase、Berkeley DB本身也是非常著名的开源项目。商业应用还需要仔细区分这些项目的不同License，以免招致不必要的麻烦。不幸的是MySQL的强大竞争对手 Oracle最近把Innobase给收购( <a href="http://www.oracle.com/corporate/press/2005_oct/inno.html">http://www.oracle.com/corporate/press/2005_oct/inno.html</a>)了，不知道Oracle想要干什么。Berkeley DB本身是一个非常出色的嵌入式数据库系统，在很多场合有非常好的应用。 </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;源代码中的第一个目录“bdb”就是Berkeley DB的代码了。目录“innobase”之下就是Innobase的代码。目录“myisam*”中当然就是MyISAM的代码了。目录“ndb”是一个 内存的聚簇（clustered）存储引擎。目录“mysql*”主要就是上层的代码。像“regex”和“zlib”等是一些开源的函数库，分别支持正 则表达式和数据压缩。目录“share”主要是国际化支持的一些文件。 </p>
+<p> Berkeley DB：<a href="http://www.sleepycat.com/">http://www.sleepycat.com/ </a><br>
+  Innobase/InnoDB：<a href="http://www.innodb.com/index.php">www.innodb.com/index.php </a><br>
+  NDB：<a href="http://dev.mysql.com/doc/refman/5.0/en/mysql-cluster-overview.html">http://dev.mysql.com/doc/refman/5.0/en/mysql-cluster-overview.html </a></p>
+<p>4、怎么开始编译？ </p>
+<p>&nbsp;&nbsp;&nbsp;  粗略的一看，我们就能够知道MySQL主要是用C++编写的，当然也用了一些脚本语言等。分析一个开源软件，首先要看的就是其根目录。让我们先看看都有些什么：D:\mysql-5.0.15。 </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;第一个要看的就是README.txt，读完它就能大致了解MySQL的Dual版权，干什么事情该看什么。不过它并没有告诉你怎么看代码 （要不我就不用在这里废话了）。原来Docs下面还有一个CHM手册，我们应该抽时间浏览一遍，不然还读个头的代码？从中可以了解MySQL的过去、现在和未来，也可以学到一些调试知识。 </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;下一个要看的就是README.build-files。可惜它不是教我们怎么编译源码的，只是说明了用VC++编译后的文件都放在哪里 了。再看INSTALL-SOURCE、INSTALL-WIN-SOURCE，原来它们才是告诉我们怎么编译的。前者介绍了一些在UNIX系统上编译安 装的需求，虽然我们下载的是Windows版本，也应该认真阅读一遍。MySQL和其他很多开源软件一样，也依赖于GNU tool-chains。后者说需要“Visual Studio 2003 compiler system (VC++ 7.0)”，不过根目录下有mysql.dsw，可能VC++ 6.0也可以。 </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;到这里我们就可以开始试着编译版本了。不过还是建议你花一点时间将剩下的文件看完： </p>
 <ul>
-  <li>    ��prepare���Ǹ�Shell�ű����ȷ���һ�ߡ� </li>
-  <li>    ��COPYING����GNUͨ������֤��û�µ�ʱ�򣬽����㽫��úö�����Ҳ���Է���һ�� <a href="http://www.fsf.org">http://www.fsf.org</a>������Richard Stallman���������������������ᣨFSF��������һ�������������飺<a href="http://www.china-pub.com/computers/common/info.asp?id=1175">����Դ�����ļ���</a>�� </li>
-  <li>    ��Changelog���ǰ汾�ı����ʷ�������ǴӰ汾����ϵͳBitKeeper�е����ġ� </li>
+  <li>    “prepare”是个Shell脚本。先放在一边。 </li>
+  <li>    “COPYING”是GNU通用许可证。没事的时候，建议你将其好好读读。也可以访问一下 <a href="http://www.fsf.org">http://www.fsf.org</a>，看看Richard Stallman和他发起的自由软件基金会（FSF）。还有一本不错的中文书：<a href="http://www.china-pub.com/computers/common/info.asp?id=1175">《开源软件文集》</a>。 </li>
+  <li>    “Changelog”是版本的变更历史，可能是从版本管理系统BitKeeper中导出的。 </li>
 </ul>
-<p>5������ </p>
-<p>&nbsp;&nbsp;&nbsp;  �ҵĻ����ȽϾ��ˣ�Ҳû����ʱ�������װVC++ 7.0��ֻ����VC++ 6.0�����ˡ�OK������VC++ 6.0������Ŀ�ļ�mysql.dsw���ô��һ��������������44����Ŀ���Ȱ��Ǹ�������mysqld������Ŀ����Ϊ��ǰ��Ŀ�������ѡ�������Ҽ���ѡ��Set as Active Project�����á�Build��������ѡ����졣����Ȼ���ڡ�Build����������ѡ���Ǹ���Win32 Debug�������¡�F7������ʼBuild�����ĵصȴ�һ���ӣ��������ͻ�����ˣ���Ȼ��һ������ </p>
+<p>5、编译 </p>
+<p>&nbsp;&nbsp;&nbsp;  我的机器比较旧了，也没有与时俱进，安装VC++ 7.0，只好用VC++ 6.0试试了。OK，启动VC++ 6.0，打开项目文件mysql.dsw。好大的一个工作区！整整44个项目。先把那个叫做“mysqld”的项目设置为当前项目（用鼠标选中它，右键，选择“Set as Active Project”。用“Build”工具栏选择更快。）。然后在“Build”工具栏上选择那个“Win32 Debug”。按下“F7”，开始Build！耐心地等待一阵子，编译结果就会出来了，居然有一个错误： </p>
 <p>fatal error C1083: Cannot open source file: 'D:\mysql-5.0.15\sql\examples\ha_archive.cpp': No such file or directory </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;�������ļ��Ӵ��ˡ��ڡ�mysqld����Ŀ�У������޸�Ϊ���á�sql\ha_archive.cpp���ļ����ٴ�Build�����д���ԭ������Ҫ�����ļ���sql\sql_cursor.cpp��������Build����ˡ����ɵĿ�ִ���ļ����ڡ�client_debug��Ŀ¼�£� </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;看来是文件加错了。在“mysqld”项目中，将其修改为引用“sql\ha_archive.cpp”文件。再次Build，还有错误。原来还需要加上文件“sql\sql_cursor.cpp”。终于Build完毕了。生成的可执行文件都在“client_debug”目录下： </p>
 <blockquote>
-  <p> mysql.exe �ͻ��� <br>
-    mysqladmin.exe �������� <br>
-    mysqld-debug.exe Debug�汾��MySQL������ <br>
-    mysqldump.exe ���ݵ������� <br>
-    mysqlimport.exe ���ݵ��빤�� <br>
-    mysqlshow.exe Show���� <br>
-    replace.exe һ���ı��滻���� </p>
+  <p> mysql.exe 客户端 <br>
+    mysqladmin.exe 管理工具 <br>
+    mysqld-debug.exe Debug版本的MySQL服务器 <br>
+    mysqldump.exe 数据导出工具 <br>
+    mysqlimport.exe 数据导入工具 <br>
+    mysqlshow.exe Show工具 <br>
+    replace.exe 一个文本替换工具 </p>
 </blockquote>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;���������ᵽ����һ���������Build������û���κ���������������Ҳû�м�������Ҳ��һ������˵��MySQL�Ĵ������������� </p>
-<p> �����������ԡ� <br>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;除了上面提到的这一点错误，整个Build过程中没有任何其他错误，连警告也没有几个。这也从一个侧面说明MySQL的代码质量不错。 </p>
+<p> 让我们来试试。 <br>
     <br>
-  1�������������� <br>
+  1）启动服务器： <br>
   &nbsp;&nbsp;&nbsp;mysqld-debug <br>
   <br>
-  2�������ͻ��ˣ� <br>
+  2）启动客户端： <br>
   &nbsp;&nbsp;&nbsp;mysql -u root <br>
   &nbsp;&nbsp;&nbsp;mysql&gt; <br>
   <br>
-  3�����ڿ���ִ��SQL����ˣ� <br>
+  3）现在可以执行SQL语句了： <br>
   &nbsp;&nbsp;&nbsp;mysql&gt; connect mysql; <br>
   &nbsp;&nbsp;&nbsp;mysql&gt; select table_name from information_schema.tables; <br>
   &nbsp;&nbsp;&nbsp;mysql&gt; select * from db; </p>

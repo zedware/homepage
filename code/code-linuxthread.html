@@ -2,7 +2,7 @@
 <!-- DW6 -->
 <head>
 <title>Linux thread programming</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -13,8 +13,8 @@
 <body bgcolor="#FFFFFF"> 
 <p align="center" class="style1">Linux thread programming</p> 
 <hr> 
-<p>  &nbsp;&nbsp;&nbsp;&nbsp;Linux µÄ¶àÏß³Ì±à³ÌÏà¶Ô Windows ¶øÑÔ£¬È·Êµ±È½ÏÂé·³£¬ÓĞĞ©¶«Î÷»¹ÍùÍùÈÃ³õÑ§ÕßÈ´²½¡£²»¹ı hackers È´ºÜÉÙ½«´ó¼ÒµÄÔã¸âÌåÑéµ±×÷Ò»»ØÊÂ£¬ÓĞÊ±ÉõÖÁ»áÂñÔ¹ÓÃ»§Ë®Æ½Ì«²î¡£ÈÃÎÒÃÇÏÈ¿´Ò»¸ö¼òµ¥µÄÊ¾Àı³ÌĞò¡£</p>
-<p>  &nbsp;&nbsp;&nbsp;&nbsp;È·ÈÏÒ»ÏÂÎÒËùÊ¹ÓÃµÄ Linux ÄÚºË°æ±¾£º</p>
+<p>  &nbsp;&nbsp;&nbsp;&nbsp;Linux çš„å¤šçº¿ç¨‹ç¼–ç¨‹ç›¸å¯¹ Windows è€Œè¨€ï¼Œç¡®å®æ¯”è¾ƒéº»çƒ¦ï¼Œæœ‰äº›ä¸œè¥¿è¿˜å¾€å¾€è®©åˆå­¦è€…å´æ­¥ã€‚ä¸è¿‡ hackers å´å¾ˆå°‘å°†å¤§å®¶çš„ç³Ÿç³•ä½“éªŒå½“ä½œä¸€å›äº‹ï¼Œæœ‰æ—¶ç”šè‡³ä¼šåŸ‹æ€¨ç”¨æˆ·æ°´å¹³å¤ªå·®ã€‚è®©æˆ‘ä»¬å…ˆçœ‹ä¸€ä¸ªç®€å•çš„ç¤ºä¾‹ç¨‹åºã€‚</p>
+<p>  &nbsp;&nbsp;&nbsp;&nbsp;ç¡®è®¤ä¸€ä¸‹æˆ‘æ‰€ä½¿ç”¨çš„ Linux å†…æ ¸ç‰ˆæœ¬ï¼š</p>
 <p>$ uname -a<br>
 Linux dev <span class="style2">2.4.21</span>-9.30AXsmp #1 SMP Wed May 26 23:37:09 EDT 2004 i686 i686 i386 GNU/Linux</p>
 <p>  $ cat -n pthread.c<br>
@@ -30,19 +30,19 @@ Linux dev <span class="style2">2.4.21</span>-9.30AXsmp #1 SMP Wed May 26 23:37:0
 &nbsp;&nbsp;&nbsp;10 &nbsp;&nbsp;&nbsp;return 0;<br>
 &nbsp;&nbsp;&nbsp;11 }<br>
 &nbsp;&nbsp;&nbsp;12</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;ÎÒÃÇÏë¼òµ¥µÄ²âÊÔÒ»ÏÂ kill(), pthread_kill()£¬kill Ò»¸ö²»´æÔÚµÄ½ø³Ì»òÏß³Ì£¬¿´¿´ÏµÍ³ÊÇÔõÃ´·´Ó¦µÄ¡£ºÜ²»ĞÒ£¬Ò»³öÊÖ¾ÍÓöµ½ÁËÎÊÌâ£º</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;æˆ‘ä»¬æƒ³ç®€å•çš„æµ‹è¯•ä¸€ä¸‹ kill(), pthread_kill()ï¼Œkill ä¸€ä¸ªä¸å­˜åœ¨çš„è¿›ç¨‹æˆ–çº¿ç¨‹ï¼Œçœ‹çœ‹ç³»ç»Ÿæ˜¯æ€ä¹ˆååº”çš„ã€‚å¾ˆä¸å¹¸ï¼Œä¸€å‡ºæ‰‹å°±é‡åˆ°äº†é—®é¢˜ï¼š</p>
 <p>$ gcc -Wall <span class="style2">-pthread</span> pthread.c<br>
   $ .a.out<br>
 Segmentation fault</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;°Ñ man ÊÖ²á´ò¿ª¿´¿´£¬ÕâÖÖÓÃ·¨Ã÷Ã÷ÊÇÕıÈ·µÄ°¡¡£ÉÏÃæÕâ¸öĞ¡³ÌĞòÖĞ kill() µÄÖ´ĞĞÊÇÕıÈ·µÄ£¬ÎÊÌâ³öÔÚ pthread_kill()¡£Google Ò»·¬£¬ÕÒµ½ÁËÒÔÏÂµÄÒ»Ğ©Á´½Ó£º</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;æŠŠ man æ‰‹å†Œæ‰“å¼€çœ‹çœ‹ï¼Œè¿™ç§ç”¨æ³•æ˜æ˜æ˜¯æ­£ç¡®çš„å•Šã€‚ä¸Šé¢è¿™ä¸ªå°ç¨‹åºä¸­ kill() çš„æ‰§è¡Œæ˜¯æ­£ç¡®çš„ï¼Œé—®é¢˜å‡ºåœ¨ pthread_kill()ã€‚Google ä¸€ç•ªï¼Œæ‰¾åˆ°äº†ä»¥ä¸‹çš„ä¸€äº›é“¾æ¥ï¼š</p>
 <a href="http://groups.google.co.za/group/comp.unix.programmer/browse_thread/thread/2f9d01b6c189a450/31e07ad65bb44485?lnk=st&q=pthread_kill+segmentation+fault+&rnum=2#31e07ad65bb44485">What is wrong with pthread_kill on Redhat Linux ???</a><br>
 <br>
-<a href="http://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=169995">Crash running pthread_kill on dead thread</a><p>  <a href="http://people.redhat.com/drepper/assumekernel.html">Explaining LD_ASSUME_KERNEL</a>£¬Ulrich Drepper, 2004-5-12</p>
-<p><a href="http://www.puschitz.com/InstallingOracle9i.shtml">  Installing Oracle9i 32-bit on Red Hat Enterprise Linux Advanced Server 4, 3, 2.1, and on Red Hat 9, 8.0, 7.3, 7.2, 7.1 (x86)</a>£¬by Werner Puschitz</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Ô­À´ Linux ÏÂÓĞ¼¸ÖÖ²»Í¬µÄÏß³ÌÊµÏÖ£¬Ulrich Drepper ÔÚ <a href="http://people.redhat.com/drepper/assumekernel.html">Explaining LD_ASSUME_KERNEL</a> ÖĞËµµÃºÜÇå³ş¡£ÎÒÃÇĞèÒª×ö£º</p>
+<a href="http://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=169995">Crash running pthread_kill on dead thread</a><p>  <a href="http://people.redhat.com/drepper/assumekernel.html">Explaining LD_ASSUME_KERNEL</a>ï¼ŒUlrich Drepper, 2004-5-12</p>
+<p><a href="http://www.puschitz.com/InstallingOracle9i.shtml">  Installing Oracle9i 32-bit on Red Hat Enterprise Linux Advanced Server 4, 3, 2.1, and on Red Hat 9, 8.0, 7.3, 7.2, 7.1 (x86)</a>ï¼Œby Werner Puschitz</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;åŸæ¥ Linux ä¸‹æœ‰å‡ ç§ä¸åŒçš„çº¿ç¨‹å®ç°ï¼ŒUlrich Drepper åœ¨ <a href="http://people.redhat.com/drepper/assumekernel.html">Explaining LD_ASSUME_KERNEL</a> ä¸­è¯´å¾—å¾ˆæ¸…æ¥šã€‚æˆ‘ä»¬éœ€è¦åšï¼š</p>
 <p>$ export LD_ASSUME_KERNEL=2.4.1<br>
   $ ./a.out (OK)</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;ÏÖÔÚ£¬ÎÒÃÇÀ´¿´¿´ÏÂÒ»¸öÎÊÌâ¡£Ò»°ãµÄ£¬ÎÒÃÇÒªÒıÓÃÄ³¸öº¯Êı¿â libfoo.a £¬¶¼ÊÇ¼Ó¸ö±àÒë²ÎÊı -lfoo £¬ÔõÃ´¶Ô¶àÏß³Ì¾Í³ÉÁËÉÏÃæµÄ -pthread ÁËÄØ£¿Ô­À´ -pthread ºÍ -lpthread Ö®¼äµÄ²î±ğ»¹ÊÇºÜÖØÒªµÄ¡£ÎÒÃÇÊÔÊÔ£º</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;ç°åœ¨ï¼Œæˆ‘ä»¬æ¥çœ‹çœ‹ä¸‹ä¸€ä¸ªé—®é¢˜ã€‚ä¸€èˆ¬çš„ï¼Œæˆ‘ä»¬è¦å¼•ç”¨æŸä¸ªå‡½æ•°åº“ libfoo.a ï¼Œéƒ½æ˜¯åŠ ä¸ªç¼–è¯‘å‚æ•° -lfoo ï¼Œæ€ä¹ˆå¯¹å¤šçº¿ç¨‹å°±æˆäº†ä¸Šé¢çš„ -pthread äº†å‘¢ï¼ŸåŸæ¥ -pthread å’Œ -lpthread ä¹‹é—´çš„å·®åˆ«è¿˜æ˜¯å¾ˆé‡è¦çš„ã€‚æˆ‘ä»¬è¯•è¯•ï¼š</p>
 <p>$ gcc -Wall --verbose <span class="style2">-pthread</span> pthread.c<br>
   Reading specs from /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/specs<br>
   Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/u<br>
@@ -109,7 +109,7 @@ cc-lib/i386-asianux-linux/3.2.3/crtbegin.o -L/usr/lib/gcc-lib/i386-asianux-linux
 /3.2.3 -L/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../.. <span class="style2">-lpthread</span> /tmp/ccizA<br>
 2YS.o -lgcc -lgcc_eh -lc -lgcc -lgcc_eh /usr/lib/gcc-lib/i386-asianux-linux/3.2.<br>
 3/crtend.o /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../../crtn.o</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Ô­À´Ç°Õß×Ô¶¯¼ÓÁË¸ö <span class="style2">-D_REENTRANT</span>£¬ÖÁÓÚÕâ¸ö¶«Î÷ÓĞÊ²Ã´ÌØÊâÖ®´¦£¬»¹ÊÇ¿´¿´ 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;åŸæ¥å‰è€…è‡ªåŠ¨åŠ äº†ä¸ª <span class="style2">-D_REENTRANT</span>ï¼Œè‡³äºè¿™ä¸ªä¸œè¥¿æœ‰ä»€ä¹ˆç‰¹æ®Šä¹‹å¤„ï¼Œè¿˜æ˜¯çœ‹çœ‹ 
 
  
 
@@ -117,7 +117,7 @@ cc-lib/i386-asianux-linux/3.2.3/crtbegin.o -L/usr/lib/gcc-lib/i386-asianux-linux
 
  
 
-Dave Butenhof µÈµÄ»Ø´ğ°É£º<a href="http://groups.google.com/group/comp.programming.threads/browse_thread/thread/3421291b410e0826/47ede1ee7b41beb6?lnk=st&q=%22-lpthread%22+%22-pthread%22+difference&rnum=1#47ede1ee7b41beb6">-pthread and -lpthread</a>¡£ </p>
+Dave Butenhof ç­‰çš„å›ç­”å§ï¼š<a href="http://groups.google.com/group/comp.programming.threads/browse_thread/thread/3421291b410e0826/47ede1ee7b41beb6?lnk=st&q=%22-lpthread%22+%22-pthread%22+difference&rnum=1#47ede1ee7b41beb6">-pthread and -lpthread</a>ã€‚ </p>
 <div align="center"> 
   <hr> 
   <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2007,zedware_at_gmail_dot_com</a><br> 

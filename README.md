@@ -1,2 +1,2 @@
 # zedware.org
-Archive of the acient Web site.
+Archive of the ancient Web site.

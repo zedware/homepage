@@ -64,7 +64,7 @@ $ ./a.exe
 Win32:
 
 C:\> ver
-Microsoft Windows [�汾 5.2.3790]
+Microsoft Windows [版本 5.2.3790]
 
 C:\> cl /D WIN32 double.c
 Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 12.00.8804 for 80x86
@@ -112,9 +112,9 @@ $ ./a.out
 1.234568e+09
 1.234568E+09
 
-    ���Կ���MinGW/gcc�µ����н����Windows/MSVC++�µĽ����һ�µģ���Linux/gcc��
-�Ľ�����в�ͬ��ǰ���߶�ָ�����ֵĴ������Ǵ�ӡΪ��λ��������λ��ǰ�油0������
-���Ǵ�ӡΪ��λ��������λ��ǰ�油0����Ȼ�ˣ������������Ҳ���Կ���%g, %f, %e, %E
-��һЩ���
+    可以看出MinGW/gcc下的运行结果和Windows/MSVC++下的结果是一致的，而Linux/gcc下
+的结果略有不同。前二者对指数部分的处理都是打印为三位，不足三位的前面补0。后者
+则是打印为两位，不足两位的前面补0。当然了，从这个例子中也可以看到%g, %f, %e, %E
+的一些差别。
 
 

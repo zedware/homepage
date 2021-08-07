@@ -2,7 +2,7 @@
 <!-- DW6 -->
 <head>
 <title>Ambiguous call to overloaded function</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -13,7 +13,7 @@
 <body bgcolor="#FFFFFF"> 
 <p align="center" class="style1"> Ambiguous call to overloaded function </p> 
 <hr> 
-<p>ÏÈ¿´¿´ÎÒÃÇµÄ²âÊÔ³ÌĞò£º</p>
+<p>å…ˆçœ‹çœ‹æˆ‘ä»¬çš„æµ‹è¯•ç¨‹åºï¼š</p>
 <p>$ cat -n namespace.cpp<br>
   &nbsp;1<br>
   &nbsp;2 &nbsp;#include &lt;cassert&gt;<br>
@@ -85,7 +85,7 @@
   Foo::sub()<br>
   global sub()<br>
   Foo::sub()</span></p>
-<p>½á¹ûºÍVC++µÄÒ»ÖÂ¡£Èç¹û°ÑµÚ33ĞĞµÄ×¢ÊÍÈ¥µô£¬Ôò£º</p>
+<p>ç»“æœå’ŒVC++çš„ä¸€è‡´ã€‚å¦‚æœæŠŠç¬¬33è¡Œçš„æ³¨é‡Šå»æ‰ï¼Œåˆ™ï¼š</p>
 <p>D:\&gt; cl /DWIN32 namespace.cpp<br>
   Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 12.00.8804 for 80x86<br>
   Copyright (C) Microsoft Corp 1984-1998. All rights reserved.</p>
@@ -96,8 +96,8 @@
   <span class="style2">namespace.cpp:33: error: call of overloaded `sub()' is ambiguous<br>
   namespace.cpp:17: error: candidates are: void sub()<br>
   namespace.cpp:10: error: void Foo::sub()</span></p>
-<p>GCC±àÒëµÄ½á¹ûºÍVC++µÄÀàËÆ£¬²»¹ıGCCµÄÌáÊ¾ĞÅÏ¢¸ü¼Ó×¼È·£¬Ò²ÓĞÖúÓÚ¶¨Î»ÎÊÌâ¡£</p>
-<p>ÈË×ÜÊÇ»á·¸´íÎóµÄ£¬Î¢ÈíµÄ¹¤³ÌÊ¦Ò²²»ÀıÍâ£¬<a href="http://support.microsoft.com/kb/243298/en-us">ÕâÀï</a>¾ÍÊÇVisual C++ 6.0ÖĞµÄÀàËÆ´íÎó¡£</p>
+<p>GCCç¼–è¯‘çš„ç»“æœå’ŒVC++çš„ç±»ä¼¼ï¼Œä¸è¿‡GCCçš„æç¤ºä¿¡æ¯æ›´åŠ å‡†ç¡®ï¼Œä¹Ÿæœ‰åŠ©äºå®šä½é—®é¢˜ã€‚</p>
+<p>äººæ€»æ˜¯ä¼šçŠ¯é”™è¯¯çš„ï¼Œå¾®è½¯çš„å·¥ç¨‹å¸ˆä¹Ÿä¸ä¾‹å¤–ï¼Œ<a href="http://support.microsoft.com/kb/243298/en-us">è¿™é‡Œ</a>å°±æ˜¯Visual C++ 6.0ä¸­çš„ç±»ä¼¼é”™è¯¯ã€‚</p>
 <div align="center"> 
   <hr> 
   <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2007,zedware_at_gmail_dot_com</a><br> 

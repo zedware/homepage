@@ -1,8 +1,8 @@
 <HTML>
 <HEAD>
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb_2312-80">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
 <META NAME="Generator" CONTENT="Microsoft Word 97">
-<TITLE>�����ͨѶ�Ͽ�ʱ���µ�¼</TITLE>
+<TITLE>如何在通讯断开时重新登录</TITLE>
 <META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
 <style type="text/css">
 <!--
@@ -11,16 +11,16 @@
 </style>
 </HEAD>
 <BODY LINK="#0000ff" VLINK="#800080"> 
-<P ALIGN="CENTER" class="style1"><font>�����ͨѶ�Ͽ�ʱ���µ�¼</font></P> 
+<P ALIGN="CENTER" class="style1"><font>如何在通讯断开时重新登录</font></P> 
 <hr> 
-<P><FONT >������ͨѶ״̬��̫�û������ӵ��������û�����ʱ�������׳����ն˵������������쳣�Ͽ����������ʱTSO�û�ͨ���ᱻ��ס������û���ͼ���µ�¼��ϵͳ����ʾ˵���û��Ѿ�����ϵͳ����ѡ��LOGOFF���߻�һ���û���¼������������ķ����У�</font> </P> 
+<P><FONT >　　在通讯状态不太好或者连接到主机的用户过多时，都容易出现终端到主机的连接异常断开的情况。此时TSO用户通常会被挂住，如果用户试图重新登录，系统会提示说该用户已经登入系统，请选择LOGOFF或者换一个用户登录。解决这个问题的方法有：</font> </P> 
 <OL> 
-  <LI><font>���ĵصȴ�ϵͳ��ʱ�����û��߳�ϵͳ�����ַ���û�м���ʱ������ν����������˭�����ĵ��㡣�����ؼ�ʱ�̻������ˣ�</font> 
+  <LI><font>耐心地等待系统超时，将用户踢出系统。这种方法没有急事时倒无所谓，出了事情谁有闲心等你。看来关键时刻还得求人；</font> 
     <P>  
   </LI> 
-  <LI><FONT >����ϵͳ����ԱCANCEL�����û���������������̨����TSO���������봦���롰C U=UNIWARE�������ַ�����Ҫ����ϵͳ����Ա�Ĵ�ݻ�������Ȩ��TSO��ִ�п���̨�����ߡ��������˱Ͼ������󼺣�<br> 
+  <LI><FONT >请求系统管理员CANCEL掉该用户，例如在主控制台或者TSO命令行输入处输入“C U=UNIWARE”。这种方法需要惊动系统管理员的大驾或请求有权在TSO中执行控制台命令者。但是求人毕竟不如求己；<br> 
     </font> </LI> 
-  <LI><FONT >��ͬһ���ն��ϵ�¼������TSO������Reconnectѡ��ǰ����S�����µ�¼����Ȼ�����Լ������ȽϷ��㡣 </font></LI> 
+  <LI><FONT >在同一个终端上登录，并在TSO画面中Reconnect选项前加上S，重新登录。显然还是自己处理比较方便。 </font></LI> 
 </OL> 
 <hr> 
 <div align="center"> 

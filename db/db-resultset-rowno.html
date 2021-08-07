@@ -1,8 +1,8 @@
 <html>
 <!-- DW6 -->
 <head>
-<title>�Ӹ���ѯ����������к�˵��</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>从给查询结果集增加行号说起</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 <!--
 .style1 {font-size: larger}
@@ -10,9 +10,9 @@
 </style>
 </head>
 <body bgcolor="#FFFFFF"> 
-<p align="center" class="style1"> �Ӹ���ѯ����������к�˵��</p> 
+<p align="center" class="style1"> 从给查询结果集增加行号说起</p> 
 <hr> 
-<p> &nbsp;&nbsp;&nbsp;&nbsp;��Linux�£����ǿ�����cat -n foo.c����ļ�foo.c�е����ݣ�����ÿ�м����кš����磺 </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;在Linux下，我们可以用cat -n foo.c输出文件foo.c中的内容，并给每行加上行号。例如： </p>
 <blockquote>
   <p>$ cat -n foo.c <br>
     1 <br>
@@ -26,7 +26,7 @@
     9 } <br>
     10</p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;    ���Ƶģ�����Ҳ���Բ���nl -b a foo.c�õ�ͬ���Ľ�������磺 </p>
+<p>&nbsp;&nbsp;&nbsp;    类似的，我们也可以采用nl -b a foo.c得到同样的结果。例如： </p>
 <blockquote>
   <p>$ nl -b a foo.c <br>
     1 <br>
@@ -40,15 +40,15 @@
     9 } <br>
     10</p>
 </blockquote>
-<p>    &nbsp;&nbsp;&nbsp;&nbsp;Shell����cat��nl��ѡ���Լ����ܻ�����Щ����ģ�����Ĳ����Բ鿴man pages�������ݿ�Ӧ���У���ʱҲ��Ҫ���ƵĹ��ܣ����磺��������е�ÿ��Ԫ�����α�š�SQL��׼��û�жԴ������涨����ͬ��DBMS��Ʒ��ʵ�ָù� �ܵķ�ʽҲ�ʹ��ྶͥ�ˡ� </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;����������Ҫ�õı�����Ԫ��Ϊ��</p>
+<p>    &nbsp;&nbsp;&nbsp;&nbsp;Shell命令cat和nl的选项以及功能还是有些区别的，具体的差别可以查看man pages。在数据库应用中，有时也需要类似的功能，例如：给结果集中的每条元组依次编号。SQL标准并没有对此做出规定，不同的DBMS产品中实现该功 能的方式也就大相径庭了。 </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;假设我们所要用的表及其元组为：</p>
 <blockquote>
   <p>    CREATE TABLE Student (SNO INT, SName CHAR(8), PRIMARY KEY(SNO)); <br>
     INSERT INTO Student VALUES (1, 'Mary'); <br>
     INSERT INTO Student VALUES (2, 'Bill'); <br>
     INSERT INTO Student VALUES (3, 'Johnson'); </p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;�������õ�DBMS�汾Ϊ������Windows�汾����</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;我们所用的DBMS版本为（都是Windows版本）：</p>
 <blockquote>
   <p>  MySQL 5.0.19 <br>
     PostgreSQL 8.1.0 <br>
@@ -93,8 +93,8 @@
     3 3 Johnson </p>
 </blockquote>
 <p>MSSQL: </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;û���ر��ֱ�۵��淨��MSSQL2000�еĸ��ֻ������Բο��� <a href="http://www.databasejournal.com/features/mssql/article.php/10894_2244821_1">http://www.databasejournal.com/features/mssql/article.php/10894_2244821_1</a>��MSSQL2005�е��������Բο��� <a href="http://aspnet.4guysfromrolla.com/articles/031506-1.aspx#postadlink">http://aspnet.4guysfromrolla.com/articles/031506-1.aspx#postadlink</a>�� </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;���ݿ�Ӧ���и��������Ҫȡ���������ĳ���кŷ�Χ�ڵ�Ԫ�飬�Լ��ٲ���Ҫ�����д��ۡ�����͵�Ӧ������ν��TOP N��ѯ�����ҳ�ǰN������Ҫ���Ԫ�飬�����Ƿ����������������Щ������ȻҲ������ROWNUM����ɡ�����DBMSһ�㻹�ṩ�������İ취�����磺���� ֻ��Ҫ����������дӵڶ���Ԫ�鿪ʼ��2��Ԫ�顣 </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;没有特别简单直观的玩法，MSSQL2000中的各种花样可以参考： <a href="http://www.databasejournal.com/features/mssql/article.php/10894_2244821_1">http://www.databasejournal.com/features/mssql/article.php/10894_2244821_1</a>。MSSQL2005中的做法可以参考： <a href="http://aspnet.4guysfromrolla.com/articles/031506-1.aspx#postadlink">http://aspnet.4guysfromrolla.com/articles/031506-1.aspx#postadlink</a>。 </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;数据库应用中更多的是需要取出结果集中某个行号范围内的元组，以减少不必要的运行代价。最典型的应该是所谓的TOP N查询，即找出前N个符合要求的元组，而不是返回整个结果集。这些功能显然也可以用ROWNUM来完成。不过DBMS一般还提供了其他的办法。例如：我们 只需要上述结果集中从第二条元组开始的2条元组。 </p>
 <p>MySQL: <br>
     <br>
     <a href="http://dev.mysql.com/doc/refman/5.0/en/select.html">http://dev.mysql.com/doc/refman/5.0/en/select.html </a></p>
@@ -131,14 +131,14 @@
     1 Mary <br>
     2 Bill </p>
 </blockquote>
-<p>���ǣ�</p>
+<p>但是：</p>
 <blockquote>
   <p>SQL&gt; SELECT * FROM <br>
     2 (SELECT SNO, SName FROM Student ORDER BY SNO) <br>
     3 WHERE ROWNUM &gt; 1 AND ROWNUM &lt; 3; </p>
   <p>no rows selected </p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;���ิ�ӵ��淨�μ���</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;更多复杂的玩法参见：</p>
 <blockquote>
   <p>  <a href="http://www.orafaq.com/faqsql.htm">http://www.orafaq.com/faqsql.htm </a><br>
     <a href="http://www.psoug.org/reference/pseudocols.html">http://www.psoug.org/reference/pseudocols.html </a><br>
@@ -152,9 +152,9 @@
     ----------- -------- <br>
     1 Mary <br>
     2 Bill </p>
-  <p>����Ӱ�������Ϊ 2 �У�</p>
+  <p>（所影响的行数为 2 行）</p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://troels.arvin.dk/db/rdbms">Comparison of different SQL implementations </a>��һ���ǳ��õĲο����ף����ṩ�˲�ͬDBMS֮��ܶ����ԵıȽϡ� </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://troels.arvin.dk/db/rdbms">Comparison of different SQL implementations </a>是一个非常好的参考文献，它提供了不同DBMS之间很多特性的比较。 </p>
 <div align="center"> 
   <hr> 
   <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2006,zedware_at_gmail_dot_com</a><br> 
