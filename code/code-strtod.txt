@@ -1,3 +1,4 @@
+
 $ uname -a
 Linux dev 2.6.9-11.19AX #1 Fri Aug 5 05:12:07 EDT 2005 i686 i686 i386 GNU/Linux
 
@@ -120,3 +121,4 @@ s = 4.9406564584124654e-320, d =    0.00000000000000000000e+000, endptr = , errn
 Finally, we get the correct outputs. 
 
 http://blog.china-pub.com/more.asp?name=uniware&id=40378
+
