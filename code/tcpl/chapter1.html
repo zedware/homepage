@@ -92,7 +92,7 @@ it will print
 On other systems, the rules will be different; check with a local expert. 
 On Windows, assume we use Microsoft Visual C++.
 <pre><strong>
-   C:\> cl hello.c
+   C:\> cl.exe hello.c
 </strong></pre>
 <pre><strong>   C:\> hello
 </strong></pre>
@@ -112,8 +112,14 @@ that every program must have a <tt>main</tt> somewhere.
     int main(int argc, char *argv[]);<br>
     See also: </strong><a href=http://cpp.ga-la.com/html/3/3/0510/5.htm>void main()?</a> <strong>(是不是有点像：回字有四种写法？)</strong></pre>
 <p>
+
+<p>
+main()的返回值也就是程序的返回值。习惯上main()函数返回0表示成功，非零表示失败。实际上非零一般大家返回的就是1。
+这个Stack Overflow的<a href="https://stackoverflow.com/questions/204476/what-should-main-return-in-c-and-c">回答</a>里头的“Standard C — Hosted Environment”给出了非常详细的说明。程序的返回值在工程实践中很有用，例如脚本、Makefile等程序中需要根据程序是否执行成功，走不同的逻辑分支。
+</p>
+
 <strong>
-The return code of main() and the return code of a process. Under Linux:</strong>
+Under Linux:</strong>
 <p><strong> &nbsp;&nbsp;&nbsp; $ ./a.out
   
 </strong>
@@ -126,19 +132,14 @@ The return code of main() and the return code of a process. Under Linux:</strong
   
 </strong>
 <p><strong>&nbsp;&nbsp;&nbsp;&nbsp;C:\&gt; a.exe
-  
-    <br>
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;C:\&gt; echo %errorlevel%</strong>
-<p><strong> The return code of main is useful. Here is an example:</strong>
-<p><strong>&nbsp;&nbsp;&nbsp; $ cat Makefile</strong>
-<p><strong>&nbsp;&nbsp;&nbsp;&nbsp; all: test
-  
+<p><strong>The return code of main is useful. Here is an example:</strong>
+<p><strong>&nbsp;&nbsp;&nbsp; $ gcc -Wall -g foo.c && ./a.out</strong>
 </strong>
-<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test:
-  ./a.out </strong>
 <p>
-<strong>
-If a.out returns zero, then ``make test'' will run quietly without no errors at all. If a.out returns a value other than zero, ``make test'' will output error messages.</strong>
+如果上面的程序编译成功，就会执行它。否则就会在编译报错之后停下来。
+</p>
 <p>
 <tt>main</tt> will usually call other functions to help perform its job, some
 that you wrote, and others from libraries that are provided for you. The
@@ -1360,6 +1361,7 @@ Finally, we need a main program to control <tt>getline</tt> and <tt>copy</tt>.
 Here is the result.
 <pre>
    #include &lt;stdio.h&gt;
+   
    #define MAXLINE 1000   /* maximum input line length */
 
    int getline(char line[], int maxline);
