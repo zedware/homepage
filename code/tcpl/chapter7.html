@@ -1,120 +1,134 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Chapter 7 - Input and Output</title>
-<style type="text/css">
-<!--
-.STYLE1 {color: #FF0000}
--->
-</style>
-</head>
-<body>
-<hr>
-<p align="center">
-<a href="chapter6.html">Back to Chapter 6</a>&nbsp;--&nbsp;
-<a href="index.html">Index</a>&nbsp;--&nbsp;
-<a href="chapter8.html">Chapter 8</a>
-<p>
-<hr>
 
-<h1>Chapter 7 - Input and Output</h1>
-<span class="STYLE1">Input and output are not part of the C language itself, so we have not
-emphasized them in our presentation thus far.</span> Nonetheless, programs interact
-with their environment in much more complicated ways than those we have shown
-before. In this chapter we will describe the standard library, a set of
-functions that provide <span class="STYLE1">input and output, string handling, storage management,
-mathematical routines, and a variety of other services</span> for C programs. We
-will concentrate on input and output
-<p>
-The <span class="STYLE1">ANSI</span>(美国国家标准委员会，很多标准都是先有ANSI版本，再有ISO版本的) standard defines these library functions precisely, so that they can
-exist in compatible form on any system where C exists. Programs that confine
-their system interactions to facilities provided by the standard library can
-be moved from one system to another without change.
-<p>
-The properties of library functions are specified in more than <span class="STYLE1">a dozen
-headers</span>; we have already seen several of these, including
-<tt>&lt;stdio.h&gt;</tt>, <tt>&lt;string.h&gt;</tt>, and
-<tt>&lt;ctype.h&gt;</tt>. We will not present the entire library here, since
-we are more interested in writing C programs that use it. The library is
-described in detail in <a href="appb.html">Appendix B</a>.
-<h2><a name="s7.1">7.1 Standard Input and Output</a></h2>
-As we said in <a href="chapter1.html">Chapter 1</a>, the library implements a simple model
-of text input and output. A text stream consists of a sequence of lines; each
-line ends with a <span class="STYLE1">newline character</span>. If the system doesn't operate that way,
-the library does whatever necessary to make it appear as if it does. For
-instance, the library might convert carriage return and linefeed to newline
-on input and back again on output.
-<p>
-The simplest input mechanism is to read one character at a time from the
-<em>standard input</em>, normally the keyboard, with <tt>getchar</tt>:
-<pre>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <title>Chapter 7 - Input and Output</title>
+   <style type="text/css">
+      <!--
+      .STYLE1 {
+         color: #FF0000
+      }
+      -->
+   </style>
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-2QMPH4XTZX');
+   </script>
+</head>
+
+<body>
+   <hr>
+   <p align="center">
+      <a href="chapter6.html">Back to Chapter 6</a>&nbsp;--&nbsp;
+      <a href="index.html">Index</a>&nbsp;--&nbsp;
+      <a href="chapter8.html">Chapter 8</a>
+   <p>
+      <hr>
+
+   <h1>Chapter 7 - Input and Output</h1>
+   <span class="STYLE1">Input and output are not part of the C language itself, so we have not
+      emphasized them in our presentation thus far.</span> Nonetheless, programs interact
+   with their environment in much more complicated ways than those we have shown
+   before. In this chapter we will describe the standard library, a set of
+   functions that provide <span class="STYLE1">input and output, string handling, storage management,
+      mathematical routines, and a variety of other services</span> for C programs. We
+   will concentrate on input and output
+   <p>
+      The <span class="STYLE1">ANSI</span>(美国国家标准委员会，很多标准都是先有ANSI版本，再有ISO版本的) standard defines these library functions
+      precisely, so that they can
+      exist in compatible form on any system where C exists. Programs that confine
+      their system interactions to facilities provided by the standard library can
+      be moved from one system to another without change.
+   <p>
+      The properties of library functions are specified in more than <span class="STYLE1">a dozen
+         headers</span>; we have already seen several of these, including
+      <tt>&lt;stdio.h&gt;</tt>, <tt>&lt;string.h&gt;</tt>, and
+      <tt>&lt;ctype.h&gt;</tt>. We will not present the entire library here, since
+      we are more interested in writing C programs that use it. The library is
+      described in detail in <a href="appb.html">Appendix B</a>.
+   <h2><a name="s7.1">7.1 Standard Input and Output</a></h2>
+   As we said in <a href="chapter1.html">Chapter 1</a>, the library implements a simple model
+   of text input and output. A text stream consists of a sequence of lines; each
+   line ends with a <span class="STYLE1">newline character</span>. If the system doesn't operate that way,
+   the library does whatever necessary to make it appear as if it does. For
+   instance, the library might convert carriage return and linefeed to newline
+   on input and back again on output.
+   <p>
+      The simplest input mechanism is to read one character at a time from the
+      <em>standard input</em>, normally the keyboard, with <tt>getchar</tt>:
+   <pre>
    int getchar(void)
 </pre>
-<tt>getchar</tt> returns the next input character each time it is called,
-or <tt>EOF</tt> when it encounters end of file. <span class="STYLE1">The symbolic constant
-<tt>EOF</tt> is defined in <tt>&lt;stdio.h&gt;</tt>. The value is typically
--1, bus tests should be written in terms of <tt>EOF</tt> so as to be
-independent of the specific value.</span>
-<p>
-In many environments, a file may be substituted for the keyboard by using the
-  <span class="STYLE1">&lt;(输入重定向)</span> convention for input redirection: if a program <tt>prog</tt> uses
-<tt>getchar</tt>, then the command line
-<pre>
+   <tt>getchar</tt> returns the next input character each time it is called,
+   or <tt>EOF</tt> when it encounters end of file. <span class="STYLE1">The symbolic constant
+      <tt>EOF</tt> is defined in <tt>&lt;stdio.h&gt;</tt>. The value is typically
+      -1, bus tests should be written in terms of <tt>EOF</tt> so as to be
+      independent of the specific value.</span>
+   <p>
+      In many environments, a file may be substituted for the keyboard by using the
+      <span class="STYLE1">&lt;(输入重定向)</span> convention for input redirection: if a program <tt>prog</tt> uses
+      <tt>getchar</tt>, then the command line
+   <pre>
    prog &lt;infile
 </pre>
-causes <tt>prog</tt> to read characters from <tt>infile</tt> instead. The
-switching of the input is done in such a way that <tt>prog</tt> itself is
-oblivious to the change; in particular, the string ``<tt>&lt;infile</tt>'' is
-not included in the command-line arguments in <tt>argv</tt>. Input switching
-is also invisible if the input comes from another program via a <span class="STYLE1">pipe(管道)</span>
-mechanism: on some systems, the command line
-<pre>
+   causes <tt>prog</tt> to read characters from <tt>infile</tt> instead. The
+   switching of the input is done in such a way that <tt>prog</tt> itself is
+   oblivious to the change; in particular, the string ``<tt>&lt;infile</tt>'' is
+   not included in the command-line arguments in <tt>argv</tt>. Input switching
+   is also invisible if the input comes from another program via a <span class="STYLE1">pipe(管道)</span>
+   mechanism: on some systems, the command line
+   <pre>
    otherprog | prog
 </pre>
-runs the two programs <tt>otherprog</tt> and <tt>prog</tt>, and pipes the
-standard output of <tt>otherprog</tt> into the standard input for <tt>prog</tt>.
-<p>
-The function
-<pre>
+   runs the two programs <tt>otherprog</tt> and <tt>prog</tt>, and pipes the
+   standard output of <tt>otherprog</tt> into the standard input for <tt>prog</tt>.
+   <p>
+      The function
+   <pre>
    int putchar(int)
 </pre>
-is used for output: <tt>putchar(c)</tt> puts the character <tt>c</tt> on the
-<tt>standard output</tt>, which is by default the screen. <tt>putchar</tt>
-returns the character written, or <tt>EOF</tt> is an error occurs. Again,
-output can usually be directed to a file with <span class="STYLE1">&gt;(输出重定向)</span><em>filename</em>: if
-<tt>prog</tt> uses <tt>putchar</tt>,
-<pre>
+   is used for output: <tt>putchar(c)</tt> puts the character <tt>c</tt> on the
+   <tt>standard output</tt>, which is by default the screen. <tt>putchar</tt>
+   returns the character written, or <tt>EOF</tt> is an error occurs. Again,
+   output can usually be directed to a file with <span class="STYLE1">&gt;(输出重定向)</span><em>filename</em>: if
+   <tt>prog</tt> uses <tt>putchar</tt>,
+   <pre>
    prog &gt;outfile
 </pre>
-will write the standard output to <tt>outfile</tt> instead. If pipes are
-supported,
-<pre>
+   will write the standard output to <tt>outfile</tt> instead. If pipes are
+   supported,
+   <pre>
    prog | anotherprog
 </pre>
-puts the standard output of <tt>prog</tt> into the standard input of
-<tt>anotherprog</tt>.
-<p>
-Output produced by <tt>printf</tt> also finds its way to the standard output.
-Calls to <tt>putchar</tt> and <tt>printf</tt> may be interleaved - output
-happens in the order in which the calls are made.
-<p>
-Each source file that refers to an input/output library function must contain
-the line
-<pre>
+   puts the standard output of <tt>prog</tt> into the standard input of
+   <tt>anotherprog</tt>.
+   <p>
+      Output produced by <tt>printf</tt> also finds its way to the standard output.
+      Calls to <tt>putchar</tt> and <tt>printf</tt> may be interleaved - output
+      happens in the order in which the calls are made.
+   <p>
+      Each source file that refers to an input/output library function must contain
+      the line
+   <pre>
    #include &lt;stdio.h&gt;
 </pre>
-before the first reference. <span class="STYLE1">When the name is bracketed by &lt; and &gt; a
-search is made for the header in a standard set of places (for example, on
-UNIX systems, typically in the directory <tt>/usr/include</tt>).</span>
-这也是&lt;&gt;和&quot;&quot;表示的include头文件的区别。至于编译器到底是从哪里搜索这些文件的，可以采用其开关来打印出来详细的搜索信息。参看：gcc --help、man gcc。
-<p>
-Many programs read only one input stream and write only one output stream;
-for such programs, input and output with <tt>getchar</tt>, <tt>putchar</tt>,
-and <tt>printf</tt> may be entirely adequate, and is certainly enough to get
-started. This is particularly true if redirection is used to connect the
-output of one program to the input of the next. For example, consider the
-program <tt>lower</tt>, which converts its input to lower case:
-<pre>
+   before the first reference. <span class="STYLE1">When the name is bracketed by &lt; and &gt; a
+      search is made for the header in a standard set of places (for example, on
+      UNIX systems, typically in the directory <tt>/usr/include</tt>).</span>
+   这也是&lt;&gt;和&quot;&quot;表示的include头文件的区别。至于编译器到底是从哪里搜索这些文件的，可以采用其开关来打印出来详细的搜索信息。参看：gcc --help、man gcc。
+   <p>
+      Many programs read only one input stream and write only one output stream;
+      for such programs, input and output with <tt>getchar</tt>, <tt>putchar</tt>,
+      and <tt>printf</tt> may be entirely adequate, and is certainly enough to get
+      started. This is particularly true if redirection is used to connect the
+      output of one program to the input of the next. For example, consider the
+      program <tt>lower</tt>, which converts its input to lower case:
+   <pre>
    #include &lt;stdio.h&gt;
    #include &lt;ctype.h&gt;
 
@@ -127,112 +141,127 @@ program <tt>lower</tt>, which converts its input to lower case:
        return 0;
    }
 </pre>
-The function <tt>tolower</tt> is defined in <tt>&lt;ctype.h&gt;</tt>; it
-converts an upper case letter to lower case, and returns other characters
-untouched. As we mentioned earlier, ``functions'' like <tt>getchar</tt> and
-<tt>putchar</tt> in <tt>&lt;stdio.h&gt;</tt> and <tt>tolower</tt> in
-<tt>&lt;ctype.h&gt;</tt> are often <span class="STYLE1">macros</span>, thus avoiding the overhead of a
-function call per character. We will show how this is done in
-<a href="chapter8.html#s8.5">Section 8.5</a>. Regardless of how the
-<tt>&lt;ctype.h&gt;</tt> functions are implemented on a given machine,
-programs that use them are shielded from knowledge of the character set.
-<p>
-<strong>Exercise 7-1.</strong> Write a program that converts upper case to
-lower or lower case to upper, depending on the name it is invoked with, as
-found in <tt>argv[0]</tt>.
-<h2><a name="s7.2">7.2 Formatted Output - printf</a></h2>
-The output function <tt>printf</tt> translates internal values to characters.
-We have used <tt>printf</tt> informally in previous chapters. The description
-here covers most typical uses but is not complete; for the full story, see
-<a href="appb.html">Appendix B</a>.
-<pre>
+   The function <tt>tolower</tt> is defined in <tt>&lt;ctype.h&gt;</tt>; it
+   converts an upper case letter to lower case, and returns other characters
+   untouched. As we mentioned earlier, ``functions'' like <tt>getchar</tt> and
+   <tt>putchar</tt> in <tt>&lt;stdio.h&gt;</tt> and <tt>tolower</tt> in
+   <tt>&lt;ctype.h&gt;</tt> are often <span class="STYLE1">macros</span>, thus avoiding the overhead of a
+   function call per character. We will show how this is done in
+   <a href="chapter8.html#s8.5">Section 8.5</a>. Regardless of how the
+   <tt>&lt;ctype.h&gt;</tt> functions are implemented on a given machine,
+   programs that use them are shielded from knowledge of the character set.
+   <p>
+      <strong>Exercise 7-1.</strong> Write a program that converts upper case to
+      lower or lower case to upper, depending on the name it is invoked with, as
+      found in <tt>argv[0]</tt>.
+   <h2><a name="s7.2">7.2 Formatted Output - printf</a></h2>
+   The output function <tt>printf</tt> translates internal values to characters.
+   We have used <tt>printf</tt> informally in previous chapters. The description
+   here covers most typical uses but is not complete; for the full story, see
+   <a href="appb.html">Appendix B</a>.
+   <pre>
    int printf(char *format, arg1, arg2, ...);
 </pre>
-<tt>printf</tt> converts, formats, and prints its arguments on the standard
-output under control of the <tt>format</tt>. It returns the number of
-characters printed.
-函数原型中的...表示这是一个参数个数可变的函数。
-参看：<A href="#s7.3">7.3 Variable-length Argument Lists</A>。
-<p>
-The format string contains two types of objects: ordinary characters, which
-are copied to the output stream, and conversion specifications, each of which
-causes conversion and printing of the next successive argument to <tt>printf</tt>.
-Each conversion specification begins with a % and ends with a conversion
-character. Between the % and the conversion character there may be, in order:
-<ul>
-<li>A minus sign, which specifies left adjustment of the converted argument.
-<li>A number that specifies the minimum field width. The converted argument
-    will be printed in a field at least this wide. If necessary it will be
-    padded on the left (or right, if left adjustment is called for) to make
-    up the field width.
-<li>A period, which separates the field width from the precision.
-<li>A number, the precision, that specifies the maximum number of characters
-    to be printed from a string, or the number of digits after the decimal
-    point of a floating-point value, or the minimum number of digits for an
-    integer.
-<li>An <tt>h</tt> if the integer is to be printed as a <tt>short</tt>, or
-    <tt>l</tt> (letter ell) if as a <tt>long</tt>.
-</ul>
-Conversion characters are shown in Table 7.1. <span class="STYLE1">If the character
-after the % is not a conversion specification, the behavior is undefined.
-</span>
-<p align="center">
-<em><strong>Table 7.1</strong> Basic Printf Conversions</em>
-<table align="center" border=1>
-<th align="center">Character<th align="center">Argument type; Printed As
-<tr>
-<td><tt>d,i</tt></td><td><tt>int</tt>; decimal number</td>
-<tr>
-<td><tt>o</tt>  </td><td><tt>int</tt>; unsigned octal number (without a
-                         leading zero)</td>
-<tr>
-<td><tt>x,X</tt></td><td><tt>int</tt>; unsigned hexadecimal number (without a
-                         leading <tt>0x</tt> or <tt>0X</tt>), using
-                         <tt>abcdef</tt> or <tt>ABCDEF</tt> for 10, ...,15.</td>
-<tr>
-<td><tt>u</tt>  </td><td><tt>int</tt>; unsigned decimal number</td>
-<tr>
-<td><tt>c</tt>  </td><td><tt>int</tt>; single character</td>
-<tr>
-<td><tt>s</tt></td><td><tt>char *</tt>; print characters from the string
-                       until a <tt>'\0'</tt> or the number of characters
-                       given by the precision.</td>
-<tr>
-<td><tt>f</tt></td><td><tt>double</tt>; <tt>[-]</tt><em>m.dddddd</em>, where
-                       the number of <em>d</em>'s is given by the precision
-                       (default 6).</td>
-<tr>
-<td><tt>e,E</tt></td><td><tt>double</tt>;
-                         <tt>[-]</tt><em>m.dddddd</em><tt>e+/-</tt><em>xx</em>
-                         or
-                         <tt>[-]</tt><em>m.dddddd</em><tt>E+/-</tt><em>xx</em>,
-                         where the number of <em>d</em>'s is given by the
-                         precision (default 6).</td>
-<tr>
-<td><tt>g,G</tt></td><td><tt>double</tt>; use <tt>%e</tt> or <tt>%E</tt> if
-                         the exponent is less than -4 or greater than or
-                         equal to the precision; otherwise use <tt>%f</tt>.
-                         Trailing zeros and a trailing decimal point are not
-                         printed.</td>
-<tr>
-<td><tt>p</tt>  </td><td><tt>void *</tt>; pointer (implementation-dependent
-                         representation).</td>
-<tr>
-<td><tt>%</tt> </td><td>no argument is converted; print a %</td>
-</table>
-<p>
-<span class="STYLE1">A width or precision may be specified as *,</span> in which case the value is
-computed by converting the next argument (which must be an <tt>int</tt>). For
-example, to print at most <tt>max</tt> characters from a string <tt>s</tt>,
-这在无法预先确定打印的长度值，而要依靠变量确定要打印的长度时非常有用。<pre>
+   <tt>printf</tt> converts, formats, and prints its arguments on the standard
+   output under control of the <tt>format</tt>. It returns the number of
+   characters printed.
+   函数原型中的...表示这是一个参数个数可变的函数。
+   参看：<A href="#s7.3">7.3 Variable-length Argument Lists</A>。
+   <p>
+      The format string contains two types of objects: ordinary characters, which
+      are copied to the output stream, and conversion specifications, each of which
+      causes conversion and printing of the next successive argument to <tt>printf</tt>.
+      Each conversion specification begins with a % and ends with a conversion
+      character. Between the % and the conversion character there may be, in order:
+   <ul>
+      <li>A minus sign, which specifies left adjustment of the converted argument.
+      <li>A number that specifies the minimum field width. The converted argument
+         will be printed in a field at least this wide. If necessary it will be
+         padded on the left (or right, if left adjustment is called for) to make
+         up the field width.
+      <li>A period, which separates the field width from the precision.
+      <li>A number, the precision, that specifies the maximum number of characters
+         to be printed from a string, or the number of digits after the decimal
+         point of a floating-point value, or the minimum number of digits for an
+         integer.
+      <li>An <tt>h</tt> if the integer is to be printed as a <tt>short</tt>, or
+         <tt>l</tt> (letter ell) if as a <tt>long</tt>.
+   </ul>
+   Conversion characters are shown in Table 7.1. <span class="STYLE1">If the character
+      after the % is not a conversion specification, the behavior is undefined.
+   </span>
+   <p align="center">
+      <em><strong>Table 7.1</strong> Basic Printf Conversions</em>
+   <table align="center" border=1>
+      <th align="center">Character
+      <th align="center">Argument type; Printed As
+         <tr>
+            <td><tt>d,i</tt></td>
+            <td><tt>int</tt>; decimal number</td>
+         <tr>
+            <td><tt>o</tt> </td>
+            <td><tt>int</tt>; unsigned octal number (without a
+               leading zero)</td>
+         <tr>
+            <td><tt>x,X</tt></td>
+            <td><tt>int</tt>; unsigned hexadecimal number (without a
+               leading <tt>0x</tt> or <tt>0X</tt>), using
+               <tt>abcdef</tt> or <tt>ABCDEF</tt> for 10, ...,15.
+            </td>
+         <tr>
+            <td><tt>u</tt> </td>
+            <td><tt>int</tt>; unsigned decimal number</td>
+         <tr>
+            <td><tt>c</tt> </td>
+            <td><tt>int</tt>; single character</td>
+         <tr>
+            <td><tt>s</tt></td>
+            <td><tt>char *</tt>; print characters from the string
+               until a <tt>'\0'</tt> or the number of characters
+               given by the precision.</td>
+         <tr>
+            <td><tt>f</tt></td>
+            <td><tt>double</tt>; <tt>[-]</tt><em>m.dddddd</em>, where
+               the number of <em>d</em>'s is given by the precision
+               (default 6).</td>
+         <tr>
+            <td><tt>e,E</tt></td>
+            <td><tt>double</tt>;
+               <tt>[-]</tt><em>m.dddddd</em><tt>e+/-</tt><em>xx</em>
+               or
+               <tt>[-]</tt><em>m.dddddd</em><tt>E+/-</tt><em>xx</em>,
+               where the number of <em>d</em>'s is given by the
+               precision (default 6).
+            </td>
+         <tr>
+            <td><tt>g,G</tt></td>
+            <td><tt>double</tt>; use <tt>%e</tt> or <tt>%E</tt> if
+               the exponent is less than -4 or greater than or
+               equal to the precision; otherwise use <tt>%f</tt>.
+               Trailing zeros and a trailing decimal point are not
+               printed.</td>
+         <tr>
+            <td><tt>p</tt> </td>
+            <td><tt>void *</tt>; pointer (implementation-dependent
+               representation).</td>
+         <tr>
+            <td><tt>%</tt> </td>
+            <td>no argument is converted; print a %</td>
+   </table>
+   <p>
+      <span class="STYLE1">A width or precision may be specified as *,</span> in which case the value is
+      computed by converting the next argument (which must be an <tt>int</tt>). For
+      example, to print at most <tt>max</tt> characters from a string <tt>s</tt>,
+      这在无法预先确定打印的长度值，而要依靠变量确定要打印的长度时非常有用。
+   <pre>
    printf("%.*s", max, s);
 </pre>
-Most of the format conversions have been illustrated in earlier chapters. One
-exception is the precision as it relates to strings. The following table
-shows the effect of a variety of specifications in printing ``hello, world''
-(12 characters). We have put colons around each field so you can see it
-extent.
-<pre>
+   Most of the format conversions have been illustrated in earlier chapters. One
+   exception is the precision as it relates to strings. The following table
+   shows the effect of a variety of specifications in printing ``hello, world''
+   (12 characters). We have put colons around each field so you can see it
+   extent.
+   <pre>
    :%s:          :hello, world:
    :%10s:        :hello, world:
    :%.10s:       :hello, wor:
@@ -242,68 +271,68 @@ extent.
    :%15.10s:     :     hello, wor:
    :%-15.10s:    :hello, wor     :
 </pre>
-A warning: <tt>printf</tt> uses its first argument to decide how many
-arguments follow and what their type is. It will get confused, and you will
-get wrong answers, if there are not enough arguments of if they are the wrong
-type. You should also be aware of the difference between these two calls:
-<pre class="STYLE1">
+   A warning: <tt>printf</tt> uses its first argument to decide how many
+   arguments follow and what their type is. It will get confused, and you will
+   get wrong answers, if there are not enough arguments of if they are the wrong
+   type. You should also be aware of the difference between these two calls:
+   <pre class="STYLE1">
    printf(s);         /* FAILS if s contains % */
    printf("%s", s);   /* SAFE */
 </pre>
-The function <tt>sprintf</tt> does the same conversions as <tt>printf</tt>
-does, but stores the output in a string:
-<pre>
+   The function <tt>sprintf</tt> does the same conversions as <tt>printf</tt>
+   does, but stores the output in a string:
+   <pre>
    int sprintf(char *string, char *format, arg1, arg2, ...);
 </pre>
-<tt>sprintf</tt> formats the arguments in <tt>arg1</tt>, <tt>arg2</tt>, etc.,
-according to <tt>format</tt> as before, but places the result in
-<tt>string</tt> instead of the standard output; <tt>string</tt> must be big
-enough to receive the result.
-<p>
-<strong>Exercise 7-2.</strong> Write a program that will print arbitrary
-input in a sensible way. As a minimum, it should print non-graphic characters
-in octal or hexadecimal according to local custom, and break long text lines.
-<h2><a name="s7.3">7.3 Variable-length Argument Lists</a></h2>
-This section contains an implementation of a minimal version of
-<tt>printf</tt>, to show how to write a function that processes <span class="STYLE1">a
-variable-length argument list</span> in a portable way. Since we are mainly
-interested in the argument processing, <tt>minprintf</tt> will process the
-format string and arguments but will call the real <tt>printf</tt> to do the
-format conversions.
-<p>
-The proper declaration for <tt>printf</tt> is
-<pre>
+   <tt>sprintf</tt> formats the arguments in <tt>arg1</tt>, <tt>arg2</tt>, etc.,
+   according to <tt>format</tt> as before, but places the result in
+   <tt>string</tt> instead of the standard output; <tt>string</tt> must be big
+   enough to receive the result.
+   <p>
+      <strong>Exercise 7-2.</strong> Write a program that will print arbitrary
+      input in a sensible way. As a minimum, it should print non-graphic characters
+      in octal or hexadecimal according to local custom, and break long text lines.
+   <h2><a name="s7.3">7.3 Variable-length Argument Lists</a></h2>
+   This section contains an implementation of a minimal version of
+   <tt>printf</tt>, to show how to write a function that processes <span class="STYLE1">a
+      variable-length argument list</span> in a portable way. Since we are mainly
+   interested in the argument processing, <tt>minprintf</tt> will process the
+   format string and arguments but will call the real <tt>printf</tt> to do the
+   format conversions.
+   <p>
+      The proper declaration for <tt>printf</tt> is
+   <pre>
    int printf(char *fmt, ...)
 </pre>
-where the declaration <tt>...</tt> means that the number and types of these
-arguments may vary. <span class="STYLE1">The declaration <tt>...</tt> can only appear at the end
-of an argument list.</span> Our <tt>minprintf</tt> is declared as
-<pre>
+   where the declaration <tt>...</tt> means that the number and types of these
+   arguments may vary. <span class="STYLE1">The declaration <tt>...</tt> can only appear at the end
+      of an argument list.</span> Our <tt>minprintf</tt> is declared as
+   <pre>
    void minprintf(char *fmt, ...)
 </pre>
-since we will not return the character count that <tt>printf</tt> does.
-<p>
-The tricky bit is how <tt>minprintf</tt> walks along the argument list when
-the list doesn't even have a name. The standard header
-<tt>&lt;stdarg.h&gt;</tt> contains a set of macro definitions that define how
-to step through an argument list. The implementation of this header will vary
-from machine to machine, but the interface it presents is uniform.
-<p>
-The type <tt>va_list</tt> is used to declare a variable that will refer to
-each argument in turn; in <tt>minprintf</tt>, this variable is called
-<tt>ap</tt>, for ``<span class="STYLE1">argument pointer</span>.'' The macro <tt>va_start</tt>
-initializes <tt>ap</tt> to point to the first unnamed argument. It must be
-called once before <tt>ap</tt> is used. There must be at least one named
-argument; the final named argument is used by <tt>va_start</tt> to get
-started.
-<p>
-Each call of <tt>va_arg</tt> returns one argument and steps <tt>ap</tt> to
-the next; <tt>va_arg</tt> uses a type name to determine what type to return
-and how big a step to take. Finally, <tt>va_end</tt> does whatever cleanup is
-necessary. It must be called before the program returns.
-<p>
-These properties form the basis of our simplified <tt>printf</tt>:
-<pre>
+   since we will not return the character count that <tt>printf</tt> does.
+   <p>
+      The tricky bit is how <tt>minprintf</tt> walks along the argument list when
+      the list doesn't even have a name. The standard header
+      <tt>&lt;stdarg.h&gt;</tt> contains a set of macro definitions that define how
+      to step through an argument list. The implementation of this header will vary
+      from machine to machine, but the interface it presents is uniform.
+   <p>
+      The type <tt>va_list</tt> is used to declare a variable that will refer to
+      each argument in turn; in <tt>minprintf</tt>, this variable is called
+      <tt>ap</tt>, for ``<span class="STYLE1">argument pointer</span>.'' The macro <tt>va_start</tt>
+      initializes <tt>ap</tt> to point to the first unnamed argument. It must be
+      called once before <tt>ap</tt> is used. There must be at least one named
+      argument; the final named argument is used by <tt>va_start</tt> to get
+      started.
+   <p>
+      Each call of <tt>va_arg</tt> returns one argument and steps <tt>ap</tt> to
+      the next; <tt>va_arg</tt> uses a type name to determine what type to return
+      and how big a step to take. Finally, <tt>va_end</tt> does whatever cleanup is
+      necessary. It must be called before the program returns.
+   <p>
+      These properties form the basis of our simplified <tt>printf</tt>:
+   <pre>
    #include &lt;stdarg.h&gt;
 
    /* minprintf: minimal printf with variable argument list */
@@ -341,109 +370,122 @@ These properties form the basis of our simplified <tt>printf</tt>:
        va_end(ap); /* clean up when done */
    }
 </pre>
-<strong>Exercise 7-3.</strong> Revise <tt>minprintf</tt> to handle more of
-the other facilities of <tt>printf</tt>.
+   <strong>Exercise 7-3.</strong> Revise <tt>minprintf</tt> to handle more of
+   the other facilities of <tt>printf</tt>.
 
-<h2><a name="s7.4">7.4 Formatted Input - Scanf</a></h2>
-The function <tt>scanf</tt> is the input analog of <tt>printf</tt>, providing many
-of the same conversion facilities in the opposite direction.
-<pre>
+   <h2><a name="s7.4">7.4 Formatted Input - Scanf</a></h2>
+   The function <tt>scanf</tt> is the input analog of <tt>printf</tt>, providing many
+   of the same conversion facilities in the opposite direction.
+   <pre>
    int scanf(char *format, ...)
 </pre>
-<tt>scanf</tt> reads characters from the standard input, interprets them
-according to the specification in <tt>format</tt>, and stores the results
-through the remaining arguments. The format argument is described below; the
-other arguments, <span class="STYLE1"><em>each of which must be a pointer</em>,</span> indicate where the
-corresponding converted input should be stored. As with <tt>printf</tt>, this
-section is a summary of the most useful features, not an exhaustive list.
-<p>
-<tt>scanf</tt> stops when it exhausts its format string, or when some input
-fails to match the control specification. It returns as its value the number
-of successfully matched and assigned input items. This can be used to decide
-how many items were found. On the end of file, <tt>EOF</tt> is returned; note
-that this is different from 0, which means that the next input character does
-not match the first specification in the format string. The next call to
-<tt>scanf</tt> resumes searching immediately after the last character already
-converted.
-<p>
-There is also a function <tt>sscanf</tt> that reads from a string instead of
-the standard input:
-<pre>
+   <tt>scanf</tt> reads characters from the standard input, interprets them
+   according to the specification in <tt>format</tt>, and stores the results
+   through the remaining arguments. The format argument is described below; the
+   other arguments, <span class="STYLE1"><em>each of which must be a pointer</em>,</span> indicate where the
+   corresponding converted input should be stored. As with <tt>printf</tt>, this
+   section is a summary of the most useful features, not an exhaustive list.
+   <p>
+      <tt>scanf</tt> stops when it exhausts its format string, or when some input
+      fails to match the control specification. It returns as its value the number
+      of successfully matched and assigned input items. This can be used to decide
+      how many items were found. On the end of file, <tt>EOF</tt> is returned; note
+      that this is different from 0, which means that the next input character does
+      not match the first specification in the format string. The next call to
+      <tt>scanf</tt> resumes searching immediately after the last character already
+      converted.
+   <p>
+      There is also a function <tt>sscanf</tt> that reads from a string instead of
+      the standard input:
+   <pre>
    int sscanf(char *string, char *format, arg1, arg2, ...)
 </pre>
-It scans the <tt>string</tt> according to the format in <tt>format</tt> and
-stores the resulting values through <tt>arg1</tt>, <tt>arg2</tt>, etc. These
-arguments must be pointers.
-<p>
-The format string usually contains conversion specifications, which are used
-to control conversion of input. The format string may contain:
-<ul>
-<li>Blanks or tabs, which are not ignored.
-<li>Ordinary characters (not %), which are expected to match the next
-    non-white space character of the input stream.
-<li>Conversion specifications, consisting of the character <tt>%</tt>,<span class="STYLE1"> an
-    optional assignment suppression character <tt>*</tt></span>, an optional number
-    specifying a maximum field width, an optional <tt>h</tt>, <tt>l</tt> or
-    <tt>L</tt> indicating the width of the target, and a conversion character.
-</ul>
-A conversion specification directs the conversion of the next input field.
-Normally the result is places in the variable pointed to by the corresponding
-argument. If assignment suppression is indicated by the * character, however,
-the input field is skipped; no assignment is made. An input field is defined
-as a string of non-white space characters; it extends either to the next
-white space character or until the field width, is specified, is exhausted.
-This implies that <tt>scanf</tt> will read across boundaries to find its
-input, since newlines are white space. (White space characters are blank,
-tab, newline, carriage return, vertical tab, and formfeed.)
-<p>
-The conversion character indicates the interpretation of the input field. The
-corresponding argument must be a pointer, as required by the call-by-value
-semantics of C. Conversion characters are shown in Table 7.2.
-<p align="center">
-<em><strong>Table 7.2:</strong> Basic Scanf Conversions</em>
-<table align="center" border=1>
-<th align="center">Character<th align="center">Input Data; Argument type
-<tr>
-<td><tt>d</tt></td><td>decimal integer; <tt>int *</tt></td>
-<tr>
-<td><tt>i</tt></td><td>integer; <tt>int *</tt>. The integer may be in octal
-                       (leading <tt>0</tt>) or hexadecimal (leading
-                       <tt>0x</tt> or <tt>0X</tt>).</td>
-<tr>
-<td><tt>o</tt></td><td>octal integer (with or without leading zero); <tt>int *</tt></td>
-<tr>
-<td><tt>u</tt></td><td>unsigned decimal integer; <tt>unsigned int *</tt></td>
-<tr>
-<td><tt>x</tt></td><td>hexadecimal integer (with or without leading
-                       <tt>0x</tt> or <tt>0X</tt>); <tt>int *</tt></td>
-<tr>
-<td><tt>c</tt></td><td>characters; <tt>char *</tt>. The next input characters
-                       (default 1) are placed at the indicated spot. The
-                       normal skip-over white space is suppressed; to read
-                       the next non-white space character, <span class="STYLE1">use
-                       <tt>%1s</tt></span></td>
-<tr>
-<td><tt>s</tt></td><td>character string (not quoted); <tt>char *</tt>,
-                       pointing to an array of characters long enough for the
-                       string and a terminating <tt>'\0'</tt> that will be
-                       added.</td>
-<tr>
-<td><tt>e,f,g</tt></td><td>floating-point number with optional sign, optional
-                           decimal point and optional exponent;
-                           <tt>float *</tt></td>
-<tr>
-<td><tt>%</tt></td><td>literal %; no assignment is made.</td>
-</table>
-<p>
-The conversion characters <tt>d</tt>, <tt>i</tt>, <tt>o</tt>, <tt>u</tt>, and
-<tt>x</tt> may be preceded by <tt>h</tt> to indicate that a pointer to
-<tt>short</tt> rather than <tt>int</tt> appears in the argument list, or by
-<tt>l</tt> (letter ell) to indicate that a pointer to <tt>long</tt> appears
-in the argument list.
-<p>
-As a first example, the rudimentary calculator of <a href="chapter4.html">Chapter 4</a>
-can be written with <tt>scanf</tt> to do the input conversion:
-<pre>
+   It scans the <tt>string</tt> according to the format in <tt>format</tt> and
+   stores the resulting values through <tt>arg1</tt>, <tt>arg2</tt>, etc. These
+   arguments must be pointers.
+   <p>
+      The format string usually contains conversion specifications, which are used
+      to control conversion of input. The format string may contain:
+   <ul>
+      <li>Blanks or tabs, which are not ignored.
+      <li>Ordinary characters (not %), which are expected to match the next
+         non-white space character of the input stream.
+      <li>Conversion specifications, consisting of the character <tt>%</tt>,<span class="STYLE1"> an
+            optional assignment suppression character <tt>*</tt></span>, an optional number
+         specifying a maximum field width, an optional <tt>h</tt>, <tt>l</tt> or
+         <tt>L</tt> indicating the width of the target, and a conversion character.
+   </ul>
+   A conversion specification directs the conversion of the next input field.
+   Normally the result is places in the variable pointed to by the corresponding
+   argument. If assignment suppression is indicated by the * character, however,
+   the input field is skipped; no assignment is made. An input field is defined
+   as a string of non-white space characters; it extends either to the next
+   white space character or until the field width, is specified, is exhausted.
+   This implies that <tt>scanf</tt> will read across boundaries to find its
+   input, since newlines are white space. (White space characters are blank,
+   tab, newline, carriage return, vertical tab, and formfeed.)
+   <p>
+      The conversion character indicates the interpretation of the input field. The
+      corresponding argument must be a pointer, as required by the call-by-value
+      semantics of C. Conversion characters are shown in Table 7.2.
+   <p align="center">
+      <em><strong>Table 7.2:</strong> Basic Scanf Conversions</em>
+   <table align="center" border=1>
+      <th align="center">Character
+      <th align="center">Input Data; Argument type
+         <tr>
+            <td><tt>d</tt></td>
+            <td>decimal integer; <tt>int *</tt></td>
+         <tr>
+            <td><tt>i</tt></td>
+            <td>integer; <tt>int *</tt>. The integer may be in octal
+               (leading <tt>0</tt>) or hexadecimal (leading
+               <tt>0x</tt> or <tt>0X</tt>).
+            </td>
+         <tr>
+            <td><tt>o</tt></td>
+            <td>octal integer (with or without leading zero); <tt>int *</tt></td>
+         <tr>
+            <td><tt>u</tt></td>
+            <td>unsigned decimal integer; <tt>unsigned int *</tt></td>
+         <tr>
+            <td><tt>x</tt></td>
+            <td>hexadecimal integer (with or without leading
+               <tt>0x</tt> or <tt>0X</tt>); <tt>int *</tt>
+            </td>
+         <tr>
+            <td><tt>c</tt></td>
+            <td>characters; <tt>char *</tt>. The next input characters
+               (default 1) are placed at the indicated spot. The
+               normal skip-over white space is suppressed; to read
+               the next non-white space character, <span class="STYLE1">use
+                  <tt>%1s</tt></span></td>
+         <tr>
+            <td><tt>s</tt></td>
+            <td>character string (not quoted); <tt>char *</tt>,
+               pointing to an array of characters long enough for the
+               string and a terminating <tt>'\0'</tt> that will be
+               added.</td>
+         <tr>
+            <td><tt>e,f,g</tt></td>
+            <td>floating-point number with optional sign, optional
+               decimal point and optional exponent;
+               <tt>float *</tt>
+            </td>
+         <tr>
+            <td><tt>%</tt></td>
+            <td>literal %; no assignment is made.</td>
+   </table>
+   <p>
+      The conversion characters <tt>d</tt>, <tt>i</tt>, <tt>o</tt>, <tt>u</tt>, and
+      <tt>x</tt> may be preceded by <tt>h</tt> to indicate that a pointer to
+      <tt>short</tt> rather than <tt>int</tt> appears in the argument list, or by
+      <tt>l</tt> (letter ell) to indicate that a pointer to <tt>long</tt> appears
+      in the argument list.
+   <p>
+      As a first example, the rudimentary calculator of <a href="chapter4.html">Chapter 4</a>
+      can be written with <tt>scanf</tt> to do the input conversion:
+   <pre>
    #include &lt;stdio.h&gt;
 
    int main(void)  /* rudimentary calculator */
@@ -456,34 +498,34 @@ can be written with <tt>scanf</tt> to do the input conversion:
        return 0;
    }
 </pre>
-Suppose we want to read input lines that contain dates of the form
-<pre>
+   Suppose we want to read input lines that contain dates of the form
+   <pre>
    25 Dec 1988
 </pre>
-The <tt>scanf</tt> statement is
-<pre>
+   The <tt>scanf</tt> statement is
+   <pre>
    int day, year;
    char monthname[20];
 
    scanf("%d %s %d", &day, monthname, &year);
 </pre>
-No <tt>&amp;</tt> is used with <tt>monthname</tt>, since an array name is a pointer.
-<p>
-Literal characters can appear in the <tt>scanf</tt> format string; they must
-match the same characters in the input. So we could read dates of the form
-<tt>mm/dd/yy</tt> with the <tt>scanf</tt> statement:
-<pre>
+   No <tt>&amp;</tt> is used with <tt>monthname</tt>, since an array name is a pointer.
+   <p>
+      Literal characters can appear in the <tt>scanf</tt> format string; they must
+      match the same characters in the input. So we could read dates of the form
+      <tt>mm/dd/yy</tt> with the <tt>scanf</tt> statement:
+   <pre>
    int day, month, year;
 
    scanf("%d/%d/%d", &month, &day, &year);
 </pre>
-<tt>scanf</tt> ignores blanks and tabs in its format string. Furthermore, it
-skips over white space (blanks, tabs, newlines, etc.) as it looks for input
-values. To read input whose format is not fixed, it is often best to read a
-line at a time, then pick it apart with <tt>scanf</tt>. For example, suppose
-we want to read lines that might contain a date in either of the forms above.
-Then we could write
-<pre>
+   <tt>scanf</tt> ignores blanks and tabs in its format string. Furthermore, it
+   skips over white space (blanks, tabs, newlines, etc.) as it looks for input
+   values. To read input whose format is not fixed, it is often best to read a
+   line at a time, then pick it apart with <tt>scanf</tt>. For example, suppose
+   we want to read lines that might contain a date in either of the forms above.
+   Then we could write
+   <pre>
    while (getline(line, sizeof(line)) &gt; 0) {
        if (sscanf(line, "%d %s %d", &day, monthname, &year) == 3)
            printf("valid: %s\n", line); /* 25 Dec 1988 form */
@@ -493,158 +535,170 @@ Then we could write
            printf("invalid: %s\n", line); /* invalid form */
    }
 </pre>
-Calls to <tt>scanf</tt> can be mixed with calls to other input functions. The
-next call to any input function will begin by reading the first character not
-read by <tt>scanf</tt>.
-<p>
-A final warning: the arguments to <tt>scanf</tt> and <tt>sscanf</tt>
-<em>must</em> be pointers. By far the most common error is writing
-<pre>
+   Calls to <tt>scanf</tt> can be mixed with calls to other input functions. The
+   next call to any input function will begin by reading the first character not
+   read by <tt>scanf</tt>.
+   <p>
+      A final warning: the arguments to <tt>scanf</tt> and <tt>sscanf</tt>
+      <em>must</em> be pointers. By far the most common error is writing
+   <pre>
    scanf("%d", n);
 </pre>
-instead of
-<pre>
+   instead of
+   <pre>
    scanf("%d", &n);
 </pre>
-<p>This error is not generally detected at compile time.</p>
-<p>scanf系列的函数还部分支持正则表达式。下面是从``man scanf''帮助页面中摘录的说明：</p>
-<p> [      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matches  a non-empty sequence of characters from the specified set of accepted characters; the next<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;pointer must be a pointer to char, and there must be enough room for  all  the  characters  in  the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;string,  plus  a  terminating null byte.  The usual skip of leading white space is suppressed.  The<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;string is to be made up of characters in (or not in) a particular set; the set is  defined  by  the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;characters  between the open bracket [ character and a close bracket ] character.  The set excludes<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;those characters if the first character after the open bracket is a circumflex (^).  To  include  a<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;close bracket in the set, make it the first character after the open bracket or the circumflex; any<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;other position will end the set.  The hyphen character - is also special; when placed  between  two<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;other  characters, it adds all intervening characters to the set.  To include a hyphen, make it the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;last character before the final close bracket.  For instance, <span class="STYLE1">[^]0-9-] </span>means  the  set  &quot;everything<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;except  close  bracket,  zero  through nine, and hyphen&quot;.  The string ends with the appearance of a<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;character not in the (or, with a circumflex, in) set or when the field width runs out.<br>
-<br>
-它可以用在需要对文本行做一些简单的解析，但是又没有必要去专门写lexer/parser的场合。例如：解析一个简单的INI配置文件。</p>
-<p>
-<strong>Exercise 7-4.</strong> Write a private version of <tt>scanf</tt>
-analogous to <tt>minprintf</tt> from the previous section.
-<p>
-<strong>Exercise 5-5.</strong> Rewrite the postfix calculator of
-<a href="chapter4.html">Chapter 4</a> to use <tt>scanf</tt> and/or
-<tt>sscanf</tt> to do the input and number conversion.
-<h2><a name="s7.5">7.5 File Access</a></h2>
-The examples so far have  all read the standard input and written the
-standard output, which are automatically defined for a program by the local
-operating system.
-<p>
-The next step is to write a program that accesses a file that is <em>not</em>
-already connected to the program. One program that illustrates the need for
-such operations is <tt>cat</tt>, which concatenates a set of named files into
-the standard output. <tt>cat</tt> is used for printing files on the screen,
-and as a general-purpose input collector for programs that do not have the
-capability of accessing files by name. For example, the command
-<pre>
+   <p>This error is not generally detected at compile time.</p>
+   <p>scanf系列的函数还部分支持正则表达式。下面是从``man scanf''帮助页面中摘录的说明：</p>
+   <p> [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matches a non-empty sequence of characters from the specified
+      set of accepted characters; the next<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;pointer must be a pointer to char, and there must be enough
+      room for all the characters in the<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;string, plus a terminating null byte. The usual skip of
+      leading white space is suppressed. The<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;string is to be made up of characters in (or not in) a
+      particular set; the set is defined by the<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;characters between the open bracket [ character and a close
+      bracket ] character. The set excludes<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;those characters if the first character after the open
+      bracket is a circumflex (^). To include a<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;close bracket in the set, make it the first character after
+      the open bracket or the circumflex; any<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;other position will end the set. The hyphen character - is
+      also special; when placed between two<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;other characters, it adds all intervening characters to the
+      set. To include a hyphen, make it the<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;last character before the final close bracket. For
+      instance, <span class="STYLE1">[^]0-9-] </span>means the set &quot;everything<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;except close bracket, zero through nine, and hyphen&quot;.
+      The string ends with the appearance of a<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;character not in the (or, with a circumflex, in) set or
+      when the field width runs out.<br>
+      <br>
+      它可以用在需要对文本行做一些简单的解析，但是又没有必要去专门写lexer/parser的场合。例如：解析一个简单的INI配置文件。
+   </p>
+   <p>
+      <strong>Exercise 7-4.</strong> Write a private version of <tt>scanf</tt>
+      analogous to <tt>minprintf</tt> from the previous section.
+   <p>
+      <strong>Exercise 5-5.</strong> Rewrite the postfix calculator of
+      <a href="chapter4.html">Chapter 4</a> to use <tt>scanf</tt> and/or
+      <tt>sscanf</tt> to do the input and number conversion.
+   <h2><a name="s7.5">7.5 File Access</a></h2>
+   The examples so far have all read the standard input and written the
+   standard output, which are automatically defined for a program by the local
+   operating system.
+   <p>
+      The next step is to write a program that accesses a file that is <em>not</em>
+      already connected to the program. One program that illustrates the need for
+      such operations is <tt>cat</tt>, which concatenates a set of named files into
+      the standard output. <tt>cat</tt> is used for printing files on the screen,
+      and as a general-purpose input collector for programs that do not have the
+      capability of accessing files by name. For example, the command
+   <pre>
    cat x.c y.c
 </pre>
-prints the contents of the files <tt>x.c</tt> and <tt>y.c</tt> (and nothing
-else) on the standard output.
-<p>
-The question is how to arrange for the named files to be read - that is, how
-to connect the external names that a user thinks of to the statements that
-read the data.
-<p>
-The rules are simple. Before it can be read or written, a file has to be
-<em>opened</em> by the library function <tt>fopen</tt>. <tt>fopen</tt> takes
-an external name like <tt>x.c</tt> or <tt>y.c</tt>, does some housekeeping
-and negotiation with the operating system (details of which needn't concern
-us), and returns a pointer to be used in subsequent reads or writes of the
-file.
-<p>
-This pointer, called the <em>file pointer</em>, points to a structure that
-contains information about the file, such as the location of a buffer, the
-current character position in the buffer, whether the file is being read or
-written,  and whether errors or end of file have occurred. Users don't need
-to know the details, because the definitions obtained from
-<tt>&lt;stdio.h&gt;</tt> include a structure declaration called
-<tt>FILE</tt>. The only declaration needed for a file pointer is exemplified
-by
-<pre>
+   prints the contents of the files <tt>x.c</tt> and <tt>y.c</tt> (and nothing
+   else) on the standard output.
+   <p>
+      The question is how to arrange for the named files to be read - that is, how
+      to connect the external names that a user thinks of to the statements that
+      read the data.
+   <p>
+      The rules are simple. Before it can be read or written, a file has to be
+      <em>opened</em> by the library function <tt>fopen</tt>. <tt>fopen</tt> takes
+      an external name like <tt>x.c</tt> or <tt>y.c</tt>, does some housekeeping
+      and negotiation with the operating system (details of which needn't concern
+      us), and returns a pointer to be used in subsequent reads or writes of the
+      file.
+   <p>
+      This pointer, called the <em>file pointer</em>, points to a structure that
+      contains information about the file, such as the location of a buffer, the
+      current character position in the buffer, whether the file is being read or
+      written, and whether errors or end of file have occurred. Users don't need
+      to know the details, because the definitions obtained from
+      <tt>&lt;stdio.h&gt;</tt> include a structure declaration called
+      <tt>FILE</tt>. The only declaration needed for a file pointer is exemplified
+      by
+   <pre>
    FILE *fp;
    FILE *fopen(char *name, char *mode);
 </pre>
-This says that <tt>fp</tt> is a pointer to a <tt>FILE</tt>, and
-<tt>fopen</tt> returns a pointer to a <tt>FILE</tt>. Notice that
-<tt>FILE</tt> is a type name, like <tt>int</tt>, not a structure tag; it is
-defined with a <tt>typedef</tt>. (Details of how <tt>fopen</tt> can be
-implemented on the UNIX system are given in <a
-href="chapter8.html#s8.5">Section 8.5</a>.)
-<p>
-The call to <tt>fopen</tt> in a program is
-<pre>
+   This says that <tt>fp</tt> is a pointer to a <tt>FILE</tt>, and
+   <tt>fopen</tt> returns a pointer to a <tt>FILE</tt>. Notice that
+   <tt>FILE</tt> is a type name, like <tt>int</tt>, not a structure tag; it is
+   defined with a <tt>typedef</tt>. (Details of how <tt>fopen</tt> can be
+   implemented on the UNIX system are given in <a href="chapter8.html#s8.5">Section 8.5</a>.)
+   <p>
+      The call to <tt>fopen</tt> in a program is
+   <pre>
    fp = fopen(name, mode);
 </pre>
-The first argument of <tt>fopen</tt> is a character string containing the
-name of the file. The second argument is the <em>mode</em>, also a character
-string, which indicates how one intends to use the file. Allowable modes
-include read (<tt>"r"</tt>), write (<tt>"w"</tt>), and append (<tt>"a"</tt>).
-Some systems distinguish between text and binary files; for the latter, a
-<tt>"b"</tt> must be appended to the mode string.
-<p>
-If a file that does not exist is opened for writing or appending, it is
-created if possible. Opening an existing file for writing causes the old
-contents to be discarded, while opening for appending preserves them. Trying
-to read a file that does not exist is an error, and there may be other causes
-of error as well, like trying to read a file when you don't have permission.
-If there is any error, <tt>fopen</tt> will return <tt>NULL</tt>. (The error
-can be identified more precisely; see the discussion of error-handling
-functions at the end of <a href="appb.html#sb.1">Section 1 in Appendix B</a>.)
-<p>
-The next thing needed is a way to read or write the file once it is open.
-<tt>getc</tt> returns the next character from a  file; it needs the file
-pointer to tell it which file.
-<pre>
+   The first argument of <tt>fopen</tt> is a character string containing the
+   name of the file. The second argument is the <em>mode</em>, also a character
+   string, which indicates how one intends to use the file. Allowable modes
+   include read (<tt>"r"</tt>), write (<tt>"w"</tt>), and append (<tt>"a"</tt>).
+   Some systems distinguish between text and binary files; for the latter, a
+   <tt>"b"</tt> must be appended to the mode string.
+   <p>
+      If a file that does not exist is opened for writing or appending, it is
+      created if possible. Opening an existing file for writing causes the old
+      contents to be discarded, while opening for appending preserves them. Trying
+      to read a file that does not exist is an error, and there may be other causes
+      of error as well, like trying to read a file when you don't have permission.
+      If there is any error, <tt>fopen</tt> will return <tt>NULL</tt>. (The error
+      can be identified more precisely; see the discussion of error-handling
+      functions at the end of <a href="appb.html#sb.1">Section 1 in Appendix B</a>.)
+   <p>
+      The next thing needed is a way to read or write the file once it is open.
+      <tt>getc</tt> returns the next character from a file; it needs the file
+      pointer to tell it which file.
+   <pre>
    int getc(FILE *fp)
 </pre>
-<tt>getc</tt> returns the next character from the stream referred to by
-<tt>fp</tt>; it returns <tt>EOF</tt> for end of file or error.
-<p>
-<tt>putc</tt> is an output function:
-<pre>
+   <tt>getc</tt> returns the next character from the stream referred to by
+   <tt>fp</tt>; it returns <tt>EOF</tt> for end of file or error.
+   <p>
+      <tt>putc</tt> is an output function:
+   <pre>
    int putc(int c, FILE *fp)
 </pre>
-<tt>putc</tt> writes the character <tt>c</tt> to the file <tt>fp</tt>
-and returns the character written, or EOF if an error occurs. Like
-<tt>getchar</tt> and <tt>putchar</tt>, <tt>getc</tt> and <tt>putc</tt>
-may be macros instead of functions.
-<p>
-When a C program is started,<span class="STYLE1"> the operating system environment is responsible
-for opening three files and providing pointers for them. </span>These files are the
-standard input, the standard output, and the standard error; the
-corresponding file pointers are called <tt>stdin</tt>, <tt>stdout</tt>, and
-<tt>stderr</tt>, and are declared in <tt>&lt;stdio.h&gt;</tt>. Normally
-<tt>stdin</tt> is connected to the keyboard and <tt>stdout</tt> and
-<tt>stderr</tt> are connected to the screen, but <tt>stdin</tt> and
-<tt>stdout</tt> may be redirected to files or pipes as described in
-<a href="chapter7.html#s7.1">Section 7.1</a>.
-<p>
-<tt>getchar</tt> and <tt>putchar</tt> can be defined in terms of <tt>getc</tt>,
-<tt>putc</tt>, <tt>stdin</tt>, and <tt>stdout</tt> as follows:
-<pre>
+   <tt>putc</tt> writes the character <tt>c</tt> to the file <tt>fp</tt>
+   and returns the character written, or EOF if an error occurs. Like
+   <tt>getchar</tt> and <tt>putchar</tt>, <tt>getc</tt> and <tt>putc</tt>
+   may be macros instead of functions.
+   <p>
+      When a C program is started,<span class="STYLE1"> the operating system environment is responsible
+         for opening three files and providing pointers for them. </span>These files are the
+      standard input, the standard output, and the standard error; the
+      corresponding file pointers are called <tt>stdin</tt>, <tt>stdout</tt>, and
+      <tt>stderr</tt>, and are declared in <tt>&lt;stdio.h&gt;</tt>. Normally
+      <tt>stdin</tt> is connected to the keyboard and <tt>stdout</tt> and
+      <tt>stderr</tt> are connected to the screen, but <tt>stdin</tt> and
+      <tt>stdout</tt> may be redirected to files or pipes as described in
+      <a href="chapter7.html#s7.1">Section 7.1</a>.
+   <p>
+      <tt>getchar</tt> and <tt>putchar</tt> can be defined in terms of <tt>getc</tt>,
+      <tt>putc</tt>, <tt>stdin</tt>, and <tt>stdout</tt> as follows:
+   <pre>
    #define getchar()    getc(stdin)
    #define putchar(c)   putc((c), stdout)
 </pre>
-For formatted input or output of files, the functions <tt>fscanf</tt> and
-<tt>fprintf</tt> may be used. These are identical to <tt>scanf</tt> and
-<tt>printf</tt>, except that the first argument is a file pointer that
-specifies the file to be read or written; the format string is the second
-argument.
-<pre>
+   For formatted input or output of files, the functions <tt>fscanf</tt> and
+   <tt>fprintf</tt> may be used. These are identical to <tt>scanf</tt> and
+   <tt>printf</tt>, except that the first argument is a file pointer that
+   specifies the file to be read or written; the format string is the second
+   argument.
+   <pre>
    int fscanf(FILE *fp, char *format, ...)
    int fprintf(FILE *fp, char *format, ...)
 </pre>
-With these preliminaries out of the way, we are now in a position to write
-the program <tt>cat</tt> to concatenate files. The design is one that has
-been found convenient for many programs. If there are command-line arguments,
-they are interpreted as filenames, and processed in order. If there are no
-arguments, the standard input is processed.
-<pre>
+   With these preliminaries out of the way, we are now in a position to write
+   the program <tt>cat</tt> to concatenate files. The design is one that has
+   been found convenient for many programs. If there are command-line arguments,
+   they are interpreted as filenames, and processed in order. If there are no
+   arguments, the standard input is processed.
+   <pre>
    #include &lt;stdio.h&gt;
 
    /* cat:  concatenate files, version 1 */
@@ -676,40 +730,40 @@ arguments, the standard input is processed.
             putc(c, ofp);
     }
 </pre>
-<span class="STYLE1">The file pointers <tt>stdin</tt> and <tt>stdout</tt> are objects of type
-<tt>FILE *</tt>. They are constants, however, <em>not</em> variables, so it
-is not possible to assign to them.</span>
-<p>
-The function
-<pre>
+   <span class="STYLE1">The file pointers <tt>stdin</tt> and <tt>stdout</tt> are objects of type
+      <tt>FILE *</tt>. They are constants, however, <em>not</em> variables, so it
+      is not possible to assign to them.</span>
+   <p>
+      The function
+   <pre>
    int fclose(FILE *fp)
 </pre>
-is the inverse of <tt>fopen</tt>, it breaks the connection between the file
-pointer and the external name that was established by <tt>fopen</tt>, freeing
-the file pointer for another file. Since most operating systems have some
-limit on the number of files that a program may have open simultaneously,
-it's a good idea to free the file pointers when they are no longer needed, as
-we did in <tt>cat</tt>. There is also another reason for <tt>fclose</tt> on
-an output file - it flushes the buffer in which <tt>putc</tt> is collecting
-output. <span class="STYLE1"><tt>fclose</tt> is called automatically for each open file when a
-program terminates normally. </span>(You can close <tt>stdin</tt> and <tt>stdout</tt>
-if they are not needed. They can also be reassigned by the library function
-<tt>freopen</tt>.)
+   is the inverse of <tt>fopen</tt>, it breaks the connection between the file
+   pointer and the external name that was established by <tt>fopen</tt>, freeing
+   the file pointer for another file. Since most operating systems have some
+   limit on the number of files that a program may have open simultaneously,
+   it's a good idea to free the file pointers when they are no longer needed, as
+   we did in <tt>cat</tt>. There is also another reason for <tt>fclose</tt> on
+   an output file - it flushes the buffer in which <tt>putc</tt> is collecting
+   output. <span class="STYLE1"><tt>fclose</tt> is called automatically for each open file when a
+      program terminates normally. </span>(You can close <tt>stdin</tt> and <tt>stdout</tt>
+   if they are not needed. They can also be reassigned by the library function
+   <tt>freopen</tt>.)
 
-<h2><a name="s7.6">7.6 Error Handling - Stderr and Exit</a></h2>
-The treatment of errors in <tt>cat</tt> is not ideal. The trouble is that if
-one of the files can't be accessed for some reason, the diagnostic is printed
-at the end of the concatenated output. That might be acceptable if the output
-is going to a screen, but not if it's going into a file or into another
-program via a pipeline.
-<p>
-To handle this situation better, a second output stream, called
-<tt>stderr</tt>, is assigned to a program in the same way that <tt>stdin</tt>
-and <tt>stdout</tt> are. Output written on <tt>stderr</tt> normally appears
-on the screen even if the standard output is redirected.
-<p>
-Let us revise <tt>cat</tt> to write its error messages on the standard error.
-<pre>
+   <h2><a name="s7.6">7.6 Error Handling - Stderr and Exit</a></h2>
+   The treatment of errors in <tt>cat</tt> is not ideal. The trouble is that if
+   one of the files can't be accessed for some reason, the diagnostic is printed
+   at the end of the concatenated output. That might be acceptable if the output
+   is going to a screen, but not if it's going into a file or into another
+   program via a pipeline.
+   <p>
+      To handle this situation better, a second output stream, called
+      <tt>stderr</tt>, is assigned to a program in the same way that <tt>stdin</tt>
+      and <tt>stdout</tt> are. Output written on <tt>stderr</tt> normally appears
+      on the screen even if the standard output is redirected.
+   <p>
+      Let us revise <tt>cat</tt> to write its error messages on the standard error.
+   <pre>
    #include &lt;stdio.h&gt;
 
    /* cat:  concatenate files, version 2 */
@@ -738,73 +792,73 @@ Let us revise <tt>cat</tt> to write its error messages on the standard error.
        exit(0);
    }
 </pre>
-The program signals errors in two ways. First, the diagnostic output produced
-by <tt>fprintf</tt> goes to <tt>stderr</tt>, so it finds its way to the screen
-instead of disappearing down a pipeline or into an output file. We included
-the program name, from <tt>argv[0]</tt>, in the message, so if this program
-is used with others, the source of an error is identified.
-<p>
-Second, the program uses the standard library function <tt>exit</tt>, which
-terminates program execution when it is called. The argument of <tt>exit</tt>
-is available to whatever process called this one, so the success or failure
-of the program can be tested by another program that uses this one as a
-sub-process. <span class="STYLE1">Conventionally, a return value of 0 signals that all is well;
-non-zero values usually signal abnormal situations. <tt>exit</tt> calls
-<tt>fclose</tt> for each open output file, to flush out any buffered output.
-</span>
-<p>
-<span class="STYLE1">Within <tt>main</tt>, <tt>return</tt> <em>expr</em> is equivalent to
-<tt>exit</tt>(<em>expr</em>). </span><tt>exit</tt> has the advantage that it
-can be called from other functions, and that calls to it can be found with a
-pattern-searching program like those in <a href="chapter5.html">Chapter 5</a>.
-<p>
-The function <tt>ferror</tt> returns non-zero if an error occurred on the
-stream <tt>fp</tt>.
-<pre>
+   The program signals errors in two ways. First, the diagnostic output produced
+   by <tt>fprintf</tt> goes to <tt>stderr</tt>, so it finds its way to the screen
+   instead of disappearing down a pipeline or into an output file. We included
+   the program name, from <tt>argv[0]</tt>, in the message, so if this program
+   is used with others, the source of an error is identified.
+   <p>
+      Second, the program uses the standard library function <tt>exit</tt>, which
+      terminates program execution when it is called. The argument of <tt>exit</tt>
+      is available to whatever process called this one, so the success or failure
+      of the program can be tested by another program that uses this one as a
+      sub-process. <span class="STYLE1">Conventionally, a return value of 0 signals that all is well;
+         non-zero values usually signal abnormal situations. <tt>exit</tt> calls
+         <tt>fclose</tt> for each open output file, to flush out any buffered output.
+      </span>
+   <p>
+      <span class="STYLE1">Within <tt>main</tt>, <tt>return</tt> <em>expr</em> is equivalent to
+         <tt>exit</tt>(<em>expr</em>). </span><tt>exit</tt> has the advantage that it
+      can be called from other functions, and that calls to it can be found with a
+      pattern-searching program like those in <a href="chapter5.html">Chapter 5</a>.
+   <p>
+      The function <tt>ferror</tt> returns non-zero if an error occurred on the
+      stream <tt>fp</tt>.
+   <pre>
    int ferror(FILE *fp)
 </pre>
-<span class="STYLE1">Although output errors are rare, they do occur (for example, if a disk fills
-up), so a production program should check this as well.</span>
-<p>
-The function <tt>feof(FILE *)</tt> is analogous to <tt>ferror</tt>; it returns
-non-zero if end of file has occurred on the specified file.
-<pre>
+   <span class="STYLE1">Although output errors are rare, they do occur (for example, if a disk fills
+      up), so a production program should check this as well.</span>
+   <p>
+      The function <tt>feof(FILE *)</tt> is analogous to <tt>ferror</tt>; it returns
+      non-zero if end of file has occurred on the specified file.
+   <pre>
    int feof(FILE *fp)
 </pre>
-We have generally not worried about exit status in our small illustrative
-programs, but any serious program should take care to return sensible,
-useful status values.
+   We have generally not worried about exit status in our small illustrative
+   programs, but any serious program should take care to return sensible,
+   useful status values.
 
-<h2><a name="s7.7">7.7 Line Input and Output</a></h2>
-The standard library provides an input and output routine <tt>fgets</tt> that
-is similar to the <tt>getline</tt> function that we have used in earlier
-chapters:
-<pre>
+   <h2><a name="s7.7">7.7 Line Input and Output</a></h2>
+   The standard library provides an input and output routine <tt>fgets</tt> that
+   is similar to the <tt>getline</tt> function that we have used in earlier
+   chapters:
+   <pre>
    char *fgets(char *line, int maxline, FILE *fp)
 </pre>
-<tt>fgets</tt> reads the next input line (including the newline) from file
-<tt>fp</tt> into the character array <tt>line</tt>; at most
-<tt>maxline-1</tt> characters will be read. The resulting line is terminated
-with <tt>'\0'</tt>. Normally <tt>fgets</tt> returns <tt>line</tt>; on end of
-file or error it returns <tt>NULL</tt>. (Our <tt>getline</tt> returns the
-line length, which is a more useful value; zero means end of file.)
-<p>
-For output, the function <tt>fputs</tt> writes a string (which need not
-contain a newline) to a file:
-<pre>
+   <tt>fgets</tt> reads the next input line (including the newline) from file
+   <tt>fp</tt> into the character array <tt>line</tt>; at most
+   <tt>maxline-1</tt> characters will be read. The resulting line is terminated
+   with <tt>'\0'</tt>. Normally <tt>fgets</tt> returns <tt>line</tt>; on end of
+   file or error it returns <tt>NULL</tt>. (Our <tt>getline</tt> returns the
+   line length, which is a more useful value; zero means end of file.)
+   <p>
+      For output, the function <tt>fputs</tt> writes a string (which need not
+      contain a newline) to a file:
+   <pre>
    int fputs(char *line, FILE *fp)
 </pre>
-It returns <tt>EOF</tt> if an error occurs, and non-negative otherwise.
-<p>
-The library functions <tt>gets</tt> and <tt>puts</tt> are similar to
-<tt>fgets</tt> and <tt>fputs</tt>, but operate on <tt>stdin</tt> and
-<tt>stdout</tt>. <span class="STYLE1">Confusingly, <tt>gets</tt> deletes the terminating
-<tt>'\n'</tt>, and <tt>puts</tt> adds it.
-</span>
-<p>
-To show that there is nothing special about functions like <tt>fgets</tt> and
-<tt>fputs</tt>, here they are, copied from the standard library on our system:
-<pre>
+   It returns <tt>EOF</tt> if an error occurs, and non-negative otherwise.
+   <p>
+      The library functions <tt>gets</tt> and <tt>puts</tt> are similar to
+      <tt>fgets</tt> and <tt>fputs</tt>, but operate on <tt>stdin</tt> and
+      <tt>stdout</tt>. <span class="STYLE1">Confusingly, <tt>gets</tt> deletes the terminating
+         <tt>'\n'</tt>, and <tt>puts</tt> adds it.
+      </span>
+   <p>
+      To show that there is nothing special about functions like <tt>fgets</tt> and
+      <tt>fputs</tt>, here they are, copied from the standard library on our system:
+   <pre>
    /* fgets:  get at most n chars from iop */
    char *fgets(char *s, int n, FILE *iop)
    {
@@ -828,11 +882,11 @@ To show that there is nothing special about functions like <tt>fgets</tt> and
        return ferror(iop) ? EOF : 0;
    }
 </pre>
-For no obvious reason, the standard specifies different return values for
-<tt>ferror</tt> and <tt>fputs</tt>.
-<p>
-It is easy to implement our <tt>getline</tt> from <tt>fgets</tt>:
-<pre>
+   For no obvious reason, the standard specifies different return values for
+   <tt>ferror</tt> and <tt>fputs</tt>.
+   <p>
+      It is easy to implement our <tt>getline</tt> from <tt>fgets</tt>:
+   <pre>
    /* getline:  read a line, return length */
    int getline(char *line, int max)
    {
@@ -842,188 +896,216 @@ It is easy to implement our <tt>getline</tt> from <tt>fgets</tt>:
            return strlen(line);
    }
 </pre>
-<strong>Exercise 7-6.</strong> Write a program to compare two files, printing
-the first line where they differ.
-<p>
-<strong>Exercise 7-7.</strong> Modify the pattern finding program of
-<a href="chapter5.html">Chapter 5</a> to take its input from a set of named
-files or, if no files are named as arguments, from the standard input. Should
-the file name be printed when a matching line is found?
-<p>
-<strong>Exercise 7-8.</strong> Write a program to print a set of files,
-starting each new one on a new page, with a title and a running page count
-for each file.
-<h2><a name="s7.8">7.8 Miscellaneous Functions</a></h2>
-The standard library provides a wide variety of functions. This section is a
-brief synopsis of the most useful. More details and many other functions can
-be found in <a href="appb.html">Appendix B</a>.
+   <strong>Exercise 7-6.</strong> Write a program to compare two files, printing
+   the first line where they differ.
+   <p>
+      <strong>Exercise 7-7.</strong> Modify the pattern finding program of
+      <a href="chapter5.html">Chapter 5</a> to take its input from a set of named
+      files or, if no files are named as arguments, from the standard input. Should
+      the file name be printed when a matching line is found?
+   <p>
+      <strong>Exercise 7-8.</strong> Write a program to print a set of files,
+      starting each new one on a new page, with a title and a running page count
+      for each file.
+   <h2><a name="s7.8">7.8 Miscellaneous Functions</a></h2>
+   The standard library provides a wide variety of functions. This section is a
+   brief synopsis of the most useful. More details and many other functions can
+   be found in <a href="appb.html">Appendix B</a>.
 
-<h3><a name="s7.8.1">7.8.1 String Operations</a></h3>
-We have already mentioned the string functions <tt>strlen</tt>,
-<tt>strcpy</tt>, <tt>strcat</tt>, and <tt>strcmp</tt>, found in
-<tt>&lt;string.h&gt;</tt>. In the following, <tt>s</tt> and <tt>t</tt> are
-<tt>char *</tt>'s, and <tt>c</tt> and <tt>n</tt> are <tt>int</tt>s.
-<table align="center">
-<td><tt>strcat(s,t)</tt>   </td><td>concatenate <tt>t</tt> to end of <tt>s</tt></td>
-<tr>
-<td><tt>strncat(s,t,n)</tt></td><td>concatenate <tt>n</tt> characters of <tt>t</tt> to end of <tt>s</tt></td>
-<tr>
-<td><tt>strcmp(s,t)</tt>   </td><td>return negative, zero, or positive for
-                                    <tt>s &lt; t</tt>, <tt>s == t</tt>, <tt>s &gt; t</tt></td>
-<tr>
-<td><tt>strncmp(s,t,n)</tt></td><td>same as <tt>strcmp</tt> but only in first <tt>n</tt> characters</td>
-<tr>
-<td><tt>strcpy(s,t)</tt>   </td><td>copy <tt>t</tt> to <tt>s</tt></td>
-<tr>
-<td><tt>strncpy(s,t,n)</tt></td><td>copy at most <tt>n</tt> characters of <tt>t</tt> to <tt>s</tt></td>
-<tr>
-<td><tt>strlen(s)</tt>     </td><td>return length of <tt>s</tt></td>
-<tr>
-<td><tt>strchr(s,c)</tt>   </td><td>return pointer to first <tt>c</tt> in <tt>s</tt>, or <tt>NULL</tt> if not present</td>
-<tr>
-<td><tt>strrchr(s,c)</tt>  </td><td>return pointer to last <tt>c</tt> in <tt>s</tt>, or <tt>NULL</tt> if not present</td>
-</table>
+   <h3><a name="s7.8.1">7.8.1 String Operations</a></h3>
+   We have already mentioned the string functions <tt>strlen</tt>,
+   <tt>strcpy</tt>, <tt>strcat</tt>, and <tt>strcmp</tt>, found in
+   <tt>&lt;string.h&gt;</tt>. In the following, <tt>s</tt> and <tt>t</tt> are
+   <tt>char *</tt>'s, and <tt>c</tt> and <tt>n</tt> are <tt>int</tt>s.
+   <table align="center">
+      <td><tt>strcat(s,t)</tt> </td>
+      <td>concatenate <tt>t</tt> to end of <tt>s</tt></td>
+      <tr>
+         <td><tt>strncat(s,t,n)</tt></td>
+         <td>concatenate <tt>n</tt> characters of <tt>t</tt> to end of <tt>s</tt></td>
+      <tr>
+         <td><tt>strcmp(s,t)</tt> </td>
+         <td>return negative, zero, or positive for
+            <tt>s &lt; t</tt>, <tt>s == t</tt>, <tt>s &gt; t</tt>
+         </td>
+      <tr>
+         <td><tt>strncmp(s,t,n)</tt></td>
+         <td>same as <tt>strcmp</tt> but only in first <tt>n</tt> characters</td>
+      <tr>
+         <td><tt>strcpy(s,t)</tt> </td>
+         <td>copy <tt>t</tt> to <tt>s</tt></td>
+      <tr>
+         <td><tt>strncpy(s,t,n)</tt></td>
+         <td>copy at most <tt>n</tt> characters of <tt>t</tt> to <tt>s</tt></td>
+      <tr>
+         <td><tt>strlen(s)</tt> </td>
+         <td>return length of <tt>s</tt></td>
+      <tr>
+         <td><tt>strchr(s,c)</tt> </td>
+         <td>return pointer to first <tt>c</tt> in <tt>s</tt>, or <tt>NULL</tt> if not present</td>
+      <tr>
+         <td><tt>strrchr(s,c)</tt> </td>
+         <td>return pointer to last <tt>c</tt> in <tt>s</tt>, or <tt>NULL</tt> if not present</td>
+   </table>
 
-<h3><a name="s7.8.2">7.8.2 Character Class Testing and Conversion</a></h3>
-Several functions from <tt>&lt;ctype.h&gt;</tt> perform character tests and
-conversions. In the following, <tt>c</tt> is an <tt>int</tt> that can be
-represented as an <tt>unsigned char</tt> or <tt>EOF</tt>. The function
-returns <tt>int</tt>.
-<table align="center">
-<td><tt>isalpha(c)</tt></td><td>non-zero if <tt>c</tt> is alphabetic, 0 if not</td>
-<tr>
-<td><tt>isupper(c)</tt></td><td>non-zero if <tt>c</tt> is upper case, 0 if not</td>
-<tr>
-<td><tt>islower(c)</tt></td><td>non-zero if <tt>c</tt> is lower case, 0 if not</td>
-<tr>
-<td><tt>isdigit(c)</tt></td><td>non-zero if <tt>c</tt> is digit, 0 if not</td>
-<tr>
-<td><tt>isalnum(c)</tt></td><td>non-zero if <tt>isalpha(c)</tt> or <tt>isdigit(c)</tt>, 0 if not</td>
-<tr>
-<td><tt>isspace(c)</tt></td><td>non-zero if <tt>c</tt> is blank, tab, newline, return, formfeed, vertical tab</td>
-<tr>
-<td><tt>toupper(c)</tt></td><td>return <tt>c</tt> converted to upper case</td>
-<tr>
-<td><tt>tolower(c)</tt></td><td>return <tt>c</tt> converted to lower case</td>
-</table>
+   <h3><a name="s7.8.2">7.8.2 Character Class Testing and Conversion</a></h3>
+   Several functions from <tt>&lt;ctype.h&gt;</tt> perform character tests and
+   conversions. In the following, <tt>c</tt> is an <tt>int</tt> that can be
+   represented as an <tt>unsigned char</tt> or <tt>EOF</tt>. The function
+   returns <tt>int</tt>.
+   <table align="center">
+      <td><tt>isalpha(c)</tt></td>
+      <td>non-zero if <tt>c</tt> is alphabetic, 0 if not</td>
+      <tr>
+         <td><tt>isupper(c)</tt></td>
+         <td>non-zero if <tt>c</tt> is upper case, 0 if not</td>
+      <tr>
+         <td><tt>islower(c)</tt></td>
+         <td>non-zero if <tt>c</tt> is lower case, 0 if not</td>
+      <tr>
+         <td><tt>isdigit(c)</tt></td>
+         <td>non-zero if <tt>c</tt> is digit, 0 if not</td>
+      <tr>
+         <td><tt>isalnum(c)</tt></td>
+         <td>non-zero if <tt>isalpha(c)</tt> or <tt>isdigit(c)</tt>, 0 if not</td>
+      <tr>
+         <td><tt>isspace(c)</tt></td>
+         <td>non-zero if <tt>c</tt> is blank, tab, newline, return, formfeed, vertical tab</td>
+      <tr>
+         <td><tt>toupper(c)</tt></td>
+         <td>return <tt>c</tt> converted to upper case</td>
+      <tr>
+         <td><tt>tolower(c)</tt></td>
+         <td>return <tt>c</tt> converted to lower case</td>
+   </table>
 
-<h3><a name="s7.8.3">7.8.3 Ungetc</a></h3>
-The standard library provides a rather restricted version of the function
-<tt>ungetch</tt> that we wrote in <a href="chapter4.html">Chapter 4</a>; it
-is called <tt>ungetc</tt>.
-<pre>
+   <h3><a name="s7.8.3">7.8.3 Ungetc</a></h3>
+   The standard library provides a rather restricted version of the function
+   <tt>ungetch</tt> that we wrote in <a href="chapter4.html">Chapter 4</a>; it
+   is called <tt>ungetc</tt>.
+   <pre>
    int ungetc(int c, FILE *fp)
 </pre>
-pushes the character <tt>c</tt> back onto file <tt>fp</tt>, and returns
-either <tt>c</tt>, or <tt>EOF</tt> for an error. Only one character of
-pushback is guaranteed per file. <tt>ungetc</tt> may be used with any of the
-input functions like <tt>scanf</tt>, <tt>getc</tt>, or <tt>getchar</tt>.
+   pushes the character <tt>c</tt> back onto file <tt>fp</tt>, and returns
+   either <tt>c</tt>, or <tt>EOF</tt> for an error. Only one character of
+   pushback is guaranteed per file. <tt>ungetc</tt> may be used with any of the
+   input functions like <tt>scanf</tt>, <tt>getc</tt>, or <tt>getchar</tt>.
 
-<h3><a name="s7.8.4">7.8.4 Command Execution</a></h3>
-The function <tt>system(char *s)</tt> executes the command contained in the
-character string <tt>s</tt>, then resumes execution of the current program.
-The contents of <tt>s</tt> depend strongly on the local operating system. As
-a trivial example, on UNIX systems, the statement
-<pre>
+   <h3><a name="s7.8.4">7.8.4 Command Execution</a></h3>
+   The function <tt>system(char *s)</tt> executes the command contained in the
+   character string <tt>s</tt>, then resumes execution of the current program.
+   The contents of <tt>s</tt> depend strongly on the local operating system. As
+   a trivial example, on UNIX systems, the statement
+   <pre>
    system("date");
 </pre>
-causes the program <tt>date</tt> to be run; it prints the date and time of
-day on the standard output. <tt>system</tt> returns a system-dependent
-integer status from the command executed. <span class="STYLE1">In the UNIX system, the status
-return is the value returned by <tt>exit</tt>.</span>
-<h3><a name="s7.8.5">7.8.5 Storage Management</a></h3>
-The functions <tt>malloc</tt> and <tt>calloc</tt> obtain blocks of memory
-dynamically.
-<pre>
+   causes the program <tt>date</tt> to be run; it prints the date and time of
+   day on the standard output. <tt>system</tt> returns a system-dependent
+   integer status from the command executed. <span class="STYLE1">In the UNIX system, the status
+      return is the value returned by <tt>exit</tt>.</span>
+   <h3><a name="s7.8.5">7.8.5 Storage Management</a></h3>
+   The functions <tt>malloc</tt> and <tt>calloc</tt> obtain blocks of memory
+   dynamically.
+   <pre>
    void *malloc(size_t n)
 </pre>
-returns a pointer to <tt>n</tt> bytes of uninitialized storage, or
-<tt>NULL</tt> if the request cannot be satisfied.
-<pre>
+   returns a pointer to <tt>n</tt> bytes of uninitialized storage, or
+   <tt>NULL</tt> if the request cannot be satisfied.
+   <pre>
    void *calloc(size_t n, size_t size)
 </pre>
-returns a pointer to enough free space for an array of <tt>n</tt> objects of
-the specified size, or <tt>NULL</tt> if the request cannot be satisfied. <span class="STYLE1">The
-storage is initialized to zero.</span>
-<p>
-The pointer returned by <tt>malloc</tt> or <tt>calloc</tt> has the proper
-alignment for the object in question, but it must be cast into the
-appropriate type, as in
-<pre>
+   returns a pointer to enough free space for an array of <tt>n</tt> objects of
+   the specified size, or <tt>NULL</tt> if the request cannot be satisfied. <span class="STYLE1">The
+      storage is initialized to zero.</span>
+   <p>
+      The pointer returned by <tt>malloc</tt> or <tt>calloc</tt> has the proper
+      alignment for the object in question, but it must be cast into the
+      appropriate type, as in
+   <pre>
    int *ip;
 
    ip = (int *) calloc(n, sizeof(int));
 </pre>
-<tt>free(p)</tt> frees the space pointed to by <tt>p</tt>, where <tt>p</tt>
-was originally obtained by a call to <tt>malloc</tt> or <tt>calloc</tt>.
-There are no restrictions on the order in which space is freed, but it is a
-ghastly error to free something not obtained by calling <tt>malloc</tt> or
-<tt>calloc</tt>.
-<p>
-It is also an error to use something after it has been freed. A typical but
-incorrect piece of code is this loop that frees items from a list:
-<pre>
+   <tt>free(p)</tt> frees the space pointed to by <tt>p</tt>, where <tt>p</tt>
+   was originally obtained by a call to <tt>malloc</tt> or <tt>calloc</tt>.
+   There are no restrictions on the order in which space is freed, but it is a
+   ghastly error to free something not obtained by calling <tt>malloc</tt> or
+   <tt>calloc</tt>.
+   <p>
+      It is also an error to use something after it has been freed. A typical but
+      incorrect piece of code is this loop that frees items from a list:
+   <pre>
    for (p = head; p != NULL; p = p->next) /* WRONG */
        free(p);
 </pre>
-The right way is to save whatever is needed before freeing:
-<pre>
+   The right way is to save whatever is needed before freeing:
+   <pre>
    for (p = head; p != NULL; p = q) {
        q = p->next;
        free(p);
    }
 </pre>
-<a href="chapter8.html#s8.7">Section 8.7</a> shows the implementation of a
-storage allocator like <tt>malloc</tt>, in which allocated blocks may be
-freed in any order.
+   <a href="chapter8.html#s8.7">Section 8.7</a> shows the implementation of a
+   storage allocator like <tt>malloc</tt>, in which allocated blocks may be
+   freed in any order.
 
-<h3><a name="s7.8.6">7.8.6 Mathematical Functions</a></h3>
-There are more than twenty mathematical functions declared in
-<tt>&lt;math.h&gt;</tt>; here are some of the more frequently used. Each
-takes one or two <tt>double</tt> arguments and returns a <tt>double</tt>.
-<table align="center">
-<td><tt>sin(x)</tt>    </td><td>sine of <em>x</em>, <em>x</em> in radians</td>
-<tr>
-<td><tt>cos(x)</tt>    </td><td>cosine of <em>x</em>, <em>x</em> in radians</td>
-<tr>
-<td><tt>atan2(y,x)</tt></td><td>arctangent of <em>y/x</em>, in radians</td>
-<tr>
-<td><tt>exp(x)</tt>    </td><td>exponential function <em>e<sup>x</sup></em></td>
-<tr>
-<td><tt>log(x)</tt>    </td><td>natural (base <em>e</em>) logarithm of <em>x (x&gt;0)</em></td>
-<tr>
-<td><tt>log10(x)</tt>  </td><td>common (base 10) logarithm of <em>x (x&gt;0)</em></td>
-<tr>
-<td><tt>pow(x,y)</tt>  </td><td><em>x<sup>y<sup></em></td>
-<tr>
-<td><tt>sqrt(x)</tt>   </td><td>square root of <em>x (x&gt;0)</em></td>
-<tr>
-<td><tt>fabs(x)</tt>   </td><td>absolute value of <em>x</em></td>
-</table>
+   <h3><a name="s7.8.6">7.8.6 Mathematical Functions</a></h3>
+   There are more than twenty mathematical functions declared in
+   <tt>&lt;math.h&gt;</tt>; here are some of the more frequently used. Each
+   takes one or two <tt>double</tt> arguments and returns a <tt>double</tt>.
+   <table align="center">
+      <td><tt>sin(x)</tt> </td>
+      <td>sine of <em>x</em>, <em>x</em> in radians</td>
+      <tr>
+         <td><tt>cos(x)</tt> </td>
+         <td>cosine of <em>x</em>, <em>x</em> in radians</td>
+      <tr>
+         <td><tt>atan2(y,x)</tt></td>
+         <td>arctangent of <em>y/x</em>, in radians</td>
+      <tr>
+         <td><tt>exp(x)</tt> </td>
+         <td>exponential function <em>e<sup>x</sup></em></td>
+      <tr>
+         <td><tt>log(x)</tt> </td>
+         <td>natural (base <em>e</em>) logarithm of <em>x (x&gt;0)</em></td>
+      <tr>
+         <td><tt>log10(x)</tt> </td>
+         <td>common (base 10) logarithm of <em>x (x&gt;0)</em></td>
+      <tr>
+         <td><tt>pow(x,y)</tt> </td>
+         <td><em>x<sup>y<sup></em></td>
+      <tr>
+         <td><tt>sqrt(x)</tt> </td>
+         <td>square root of <em>x (x&gt;0)</em></td>
+      <tr>
+         <td><tt>fabs(x)</tt> </td>
+         <td>absolute value of <em>x</em></td>
+   </table>
 
-<h3><a name="s7.8.7">7.8.7 Random Number generation</a></h3>
-The function <tt>rand()</tt> computes a sequence of pseudo-random integers in
-the range zero to <tt>RAND_MAX</tt>, which is defined in
-<tt>&lt;stdlib.h&gt;</tt>. One way to produce random floating-point numbers
-greater than or equal to zero but less than one is
-<pre>
+   <h3><a name="s7.8.7">7.8.7 Random Number generation</a></h3>
+   The function <tt>rand()</tt> computes a sequence of pseudo-random integers in
+   the range zero to <tt>RAND_MAX</tt>, which is defined in
+   <tt>&lt;stdlib.h&gt;</tt>. One way to produce random floating-point numbers
+   greater than or equal to zero but less than one is
+   <pre>
    #define frand() ((double) rand() / (RAND_MAX + 1.0))
 </pre>
-(If your library already provides a function for floating-point random
-numbers, it is likely to have better statistical properties than this one.)
-<p>
-The function <tt>srand(unsigned)</tt> sets the seed for <tt>rand</tt>. The
-portable implementation of <tt>rand</tt> and <tt>srand</tt> suggested by the
-standard appears in <a href="chapter2.html#s2.7">Section 2.7</a>.
-<p>
-<strong>Exercise 7-9.</strong> Functions like <tt>isupper</tt> can be
-implemented to save space or to save time. Explore both possibilities.
-<hr>
-<p align="center">
-<a href="chapter6.html">Back to Chapter 6</a>&nbsp;--&nbsp;
-<a href="index.html">Index</a>&nbsp;--&nbsp;
-<a href="chapter8.html">Chapter 8</a>
-<p>
-<hr>
+   (If your library already provides a function for floating-point random
+   numbers, it is likely to have better statistical properties than this one.)
+   <p>
+      The function <tt>srand(unsigned)</tt> sets the seed for <tt>rand</tt>. The
+      portable implementation of <tt>rand</tt> and <tt>srand</tt> suggested by the
+      standard appears in <a href="chapter2.html#s2.7">Section 2.7</a>.
+   <p>
+      <strong>Exercise 7-9.</strong> Functions like <tt>isupper</tt> can be
+      implemented to save space or to save time. Explore both possibilities.
+      <hr>
+   <p align="center">
+      <a href="chapter6.html">Back to Chapter 6</a>&nbsp;--&nbsp;
+      <a href="index.html">Index</a>&nbsp;--&nbsp;
+      <a href="chapter8.html">Chapter 8</a>
+   <p>
+      <hr>
 </body>
+
 </html>

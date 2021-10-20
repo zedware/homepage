@@ -1,119 +1,138 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<title>各种语言写就的“hello world”程序</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
-.style2 {color: #FF0000}
--->
-</style>
+  <title>各种语言写就的“hello world”程序</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+
+    .style2 {
+      color: #FF0000
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">各种语言写就的“hello world”程序</p> 
-<hr> 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;“hello world”程序可能是大家经常遇到的入门程序范例，本文中按照从高级语言到低级语言的顺序组织这些例子。我们先看看 SQL 语言的版本：</p>
-<blockquote>
-  <p>SELECT 'hello world';</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;不过，要注意的是，在 Oracle 中需要这样：</p>
-<blockquote>
-  <p>SELECT 'hello world' FROM dual;</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;再看看脚本类的：</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">Shell script: hello.sh</span></p>
-<blockquote>
-  <p>#!/bin/sh</p>
-  <p>#<br>
-    # sh hello.sh<br>
-    # or:<br>
-    # chmod u+x hello.sh<br>
-    # ./hello.sh<br>
-    #</p>
-  <p>echo &quot;hello world&quot;</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">awk: hello.awk</span></p>
-<blockquote>
-  <p>#<br>
-    # echo &quot;&quot; | awk -f hello.awk<br>
-    #</p>
-  <p>{print &quot;hello world&quot;}</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">Perl: hello.pl</span></p>
-<blockquote>
-  <p>#!/bin/perl</p>
-  <p>#<br>
-    # perl hello.pl<br>
-    #</p>
-  <p>print &quot;hello world\n&quot;</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">DOS batch file: hello.bat</span></p>
-<blockquote>
-  <p>@echo off</p>
-  <p>rem<br>
-    rem hello.bat<br>
-    rem</p>
-  <p>echo hello world</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">VBScript: hello.vbs</span></p>
-<blockquote>
-  <p>'<br>
-    ' hello.vbs<br>
-    '</p>
-  <p>MsgBox &quot;hello world&quot;</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;再看看高级语言类的：</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">C: hello.c</span></p>
-<blockquote>
-  <p>/*<br>
-    * gcc -o hello hello.c<br>
-    * ./hello<br>
-    */</p>
-  <p>#include &lt;stdio.h&gt;</p>
-  <p>int main(void)<br>
-    {<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;hello world\n&quot;);<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
-    }</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">C++: hello.cc</span></p>
-<blockquote>
-  <p>//<br>
-    // gcc -o hello hello.cc<br>
-    // ./hello<br>
-    //</p>
-  <p>#include &lt;iostream&gt;</p>
-  <p>using namespace std;</p>
-  <p>int main(void)<br>
-    {<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; &quot;hello world&quot; &lt;&lt; endl;<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
-    }</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">Java: hello.java</span></p>
-<blockquote>
-  <p>//<br>
-    // javac hello.java<br>
-    // java hello.class<br>
-    //</p>
-  <p>import java.io.*;</p>
-  <p>class hello<br>
-    {<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;static public void main(String args[])<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;{<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(&quot;hello world&quot;);<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
-  }</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;我这里仅仅是举了几种语言的简单例子而已。<a href="http://www2.latech.edu/%7Eacm/HelloWorld.shtml">ACM <strong>"Hello World" </strong> project</a> 收集了更多的用五花八门的语言写就的例子，这也让我们看到了计算机语言家族的兴旺发达。<br>
-</p>
-<div align="center"> 
-  <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2007,zedware_at_gmail_dot_com</a><br> 
-    Last modified on
-    <!-- #BeginDate format:fcIS1 -->Monday, 2006-07-17<!-- #EndDate --> 
-  </div> 
-</div> 
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1">各种语言写就的“hello world”程序</p>
+  <hr>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;“hello world”程序可能是大家经常遇到的入门程序范例，本文中按照从高级语言到低级语言的顺序组织这些例子。我们先看看 SQL 语言的版本：</p>
+  <blockquote>
+    <p>SELECT 'hello world';</p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;不过，要注意的是，在 Oracle 中需要这样：</p>
+  <blockquote>
+    <p>SELECT 'hello world' FROM dual;</p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;再看看脚本类的：</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">Shell script: hello.sh</span></p>
+  <blockquote>
+    <p>#!/bin/sh</p>
+    <p>#<br>
+      # sh hello.sh<br>
+      # or:<br>
+      # chmod u+x hello.sh<br>
+      # ./hello.sh<br>
+      #</p>
+    <p>echo &quot;hello world&quot;</p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">awk: hello.awk</span></p>
+  <blockquote>
+    <p>#<br>
+      # echo &quot;&quot; | awk -f hello.awk<br>
+      #</p>
+    <p>{print &quot;hello world&quot;}</p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">Perl: hello.pl</span></p>
+  <blockquote>
+    <p>#!/bin/perl</p>
+    <p>#<br>
+      # perl hello.pl<br>
+      #</p>
+    <p>print &quot;hello world\n&quot;</p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">DOS batch file: hello.bat</span></p>
+  <blockquote>
+    <p>@echo off</p>
+    <p>rem<br>
+      rem hello.bat<br>
+      rem</p>
+    <p>echo hello world</p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">VBScript: hello.vbs</span></p>
+  <blockquote>
+    <p>'<br>
+      ' hello.vbs<br>
+      '</p>
+    <p>MsgBox &quot;hello world&quot;</p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;再看看高级语言类的：</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">C: hello.c</span></p>
+  <blockquote>
+    <p>/*<br>
+      * gcc -o hello hello.c<br>
+      * ./hello<br>
+      */</p>
+    <p>#include &lt;stdio.h&gt;</p>
+    <p>int main(void)<br>
+      {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;hello world\n&quot;);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+      }</p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">C++: hello.cc</span></p>
+  <blockquote>
+    <p>//<br>
+      // gcc -o hello hello.cc<br>
+      // ./hello<br>
+      //</p>
+    <p>#include &lt;iostream&gt;</p>
+    <p>using namespace std;</p>
+    <p>int main(void)<br>
+      {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; &quot;hello world&quot; &lt;&lt; endl;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+      }</p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style2">Java: hello.java</span></p>
+  <blockquote>
+    <p>//<br>
+      // javac hello.java<br>
+      // java hello.class<br>
+      //</p>
+    <p>import java.io.*;</p>
+    <p>class hello<br>
+      {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;static public void main(String args[])<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(&quot;hello world&quot;);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+      }</p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;我这里仅仅是举了几种语言的简单例子而已。<a href="http://www2.latech.edu/%7Eacm/HelloWorld.shtml">ACM
+      <strong>"Hello World" </strong> project</a> 收集了更多的用五花八门的语言写就的例子，这也让我们看到了计算机语言家族的兴旺发达。<br>
+  </p>
+  <div align="center">
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2007,zedware_at_gmail_dot_com</a><br>
+      Last modified on
+      <!-- #BeginDate format:fcIS1 -->Monday, 2006-07-17
+      <!-- #EndDate -->
+    </div>
+  </div>
 </body>
+
 </html>

@@ -1,162 +1,174 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Appendix C - Summary of Changes</title>
-</head>
-<body>
-<hr>
-<p align="center">
-<a href="appb.html">Back to Appendix B</a>&nbsp;--&nbsp;
-<a href="index.html">Index</a>
-<p>
-<hr>
 
-<h1>Appendix C - Summary of Changes</h1>
-Since the publication of the first edition of this book, the definition of the
-C language has undergone changes. Almost all were extensions of the original
-language, and were carefully designed to remain compatible with existing
-practice; some repaired ambiguities in the original description; and some
-represent modifications that change existing practice. Many of the new
-facilities were announced in the documents accompanying compilers available
-from AT&amp;T, and have subsequently been adopted by other suppliers of C
-compilers. More recently, the ANSI committee standardizing the language
-incorporated most of the changes, and also introduced other significant
-modifications. Their report was in part participated by some commercial
-compilers even before issuance of the formal C standard.
-<p>
-This Appendix summarizes the differences between the language defined by the
-first edition of this book, and that expected to be defined by the final
-standard. It treats only the language itself, not its environment and
-library; although these are an important part of the standard, there is
-little to compare with, because the first edition did not attempt to
-prescribe an environment or library.
-<ul>
-<li>Preprocessing is more carefully defined in the Standard than in the
-    first edition, and is extended: it is explicitly token based; there are
-    new operators for concatenation of tokens (<tt>##</tt>), and creation of
-    strings (<tt>#</tt>); there are new control lines like <tt>#elif</tt> and
-    <tt>#pragma</tt>; redeclaration of macros by the same token sequence is
-    explicitly permitted; parameters inside strings are no longer replaced.
-    Splicing of lines by \ is permitted everywhere, not just in
-    strings and macro definitions. See <a href="appa.html#sa.12">Par.A.12</a>.
-<li>The minimum significance of all internal identifiers increased to 31
-    characters; the smallest mandated significance of identifiers with
-    external linkage remains 6 monocase letters. (Many implementations
-    provide more.)
-<li>Trigraph sequences introduced by <tt>??</tt> allow representation of
-    characters lacking in some character sets. Escapes for <tt>#\^[]{}|~</tt>
-    are defined, see <a href="appa.html#sa.12.1">Par.A.12.1</a>. Observe that the introduction of trigraphs
-    may change the meaning of strings containing the sequence <tt>??</tt>.
-<li>New keywords (<tt>void, const, volatile, signed, enum</tt>) are introduced.
-    The stillborn <tt>entry</tt> keyword is withdrawn.
-<li>New escape sequences, for use within character constants and string
-    literals, are defined. The effect of following \ by a character not part
-    of an approved escape sequence is undefined. See
-    <a href="appa.html#sa.2.5.2">Par.A.2.5.2</a>.
-<li>Everyone's favorite trivial change: <tt>8</tt> and <tt>9</tt> are not
-    octal digits.
-<li>The standard introduces a larger set of suffixes to make the type of
-    constants explicit: <tt>U</tt> or <tt>L</tt> for integers, <tt>F</tt> or
-    <tt>L</tt> for floating. It also refines the rules for the type of
-    unsiffixed constants (<a href="appa.html#sa.2.5">Par.A.2.5</a>).
-<li>Adjacent string literals are concatenated.
-<li>There is a notation for wide-character string literals and character
-    constants; see <a href="appa.html#sa.2.6">Par.A.2.6</a>.
-<li>Characters as well as other types, may be explicitly declared to carry,
-    or not to carry, a sign by using the keywords <tt>signed</tt> or
-    <tt>unsigned</tt>. The locution <tt>long float</tt> as a synonym for <tt>double</tt> is
-    withdrawn, but <tt>long double</tt> may be used to declare an
-    extra-precision floating quantity.
-<li>For some time, type <tt>unsigned char</tt> has been available. The standard
-    introduces the <tt>signed</tt> keyword to make signedness explicit for
-    <tt>char</tt> and other integral objects.
-<li>The <tt>void</tt> type has been available in most implementations for some
-    years. The Standard introduces the use of the <tt>void *</tt> type as a
-    generic pointer type; previously <tt>char *</tt> played this role. At the
-    same time, explicit rules are enacted against mixing pointers and
-    integers, and pointers of different type, without the use of casts.
-<li>The Standard places explicit minima on the ranges of the arithmetic
-    types, and mandates headers (<tt>&lt;limits.h&gt;</tt> and
-    <tt>&lt;float.h&gt;</tt>) giving the characteristics of each particular
-    implementation.
-<li>Enumerations are new since the first edition of this book.
-<li>The Standard adopts from C++ the notion of type qualifier, for example
-    <tt>const</tt> (<a href="appa.html#sa.8.2">Par.A.8.2</a>).
-<li>Strings are no longer modifiable, and so may be placed in read-only
-    memory.
-<li>The ``usual arithmetic conversions'' are changed, essentially from
-    ``for integers, <tt>unsigned</tt> always wins; for floating point, always
-    use <tt>double</tt>'' to ``promote to the smallest capacious-enough type.''
-    See <a href="appa.html#sa.6.5">Par.A.6.5</a>.
-<li>The old assignment operators like <tt>=+</tt> are truly gone. Also,
-    assignment operators are now single tokens; in the first edition, they
-    were pairs, and could be separated by white space.
-<li>A compiler's license to treat mathematically associative operators as
-    computationally associative is revoked.
-<li>A unary <tt>+</tt> operator is introduced for symmetry with unary <tt>-</tt>.
-<li>A pointer to a function may be used as a function designator without an
-    explicit <tt>*</tt> operator. See <a href="appa.html#sa.7.3.2">Par.A.7.3.2</a>.
-<li>Structures may be assigned, passed to functions, and returned by
-    functions.
-<li>Applying the address-of operator to arrays is permitted, and the result
-    is a pointer to the array.
-<li>The <tt>sizeof</tt> operator, in the first edition, yielded type <tt>int</tt>;
-    subsequently, many implementations made it <tt>unsigned</tt>. The Standard
-    makes its type explicitly implementation-dependent, but requires the
-    type, <tt>size_t</tt>, to be defined in a standard header
-    (<tt>&lt;stddef.h&gt;</tt>). A similar change occurs in the type
-    (<tt>ptrdiff_t</tt>) of the difference between pointers. See
-    <a href="appa.html#sa.7.4.8">Par.A.7.4.8</a> and
-    <a href="appa.html#sa.7.7">Par.A.7.7</a>.
-<li>The address-of operator <tt>&amp;</tt> may not be applied to an object
-    declared <tt>register</tt>, even if the implementation chooses not to
-    keep the object in a register.
-<li>The type of a shift expression is that of the left operand; the right
-    operand can't promote the result. See <a href="appa.html#sa.7.8">Par.A.7.8</a>.
-<li>The Standard legalizes the creation of a pointer just beyond the end of
-    an array, and allows arithmetic and relations on it; see
-    <a href="appa.html#sa.7.7">Par.A.7.7</a>.
-<li>The Standard introduces (borrowing from C++) the notion of a function
-    prototype declaration that incorporates the types of the parameters, and
-    includes an explicit recognition of variadic functions together with an
-    approved way of dealing with them. See Pars.
-    <a href="appa.html#sa.7.3.2">A.7.3.2</a>,
-    <a href="appa.html#sa.8.6.3">A.8.6.3</a>, <a href="appb.html#sb.7">B.7</a>.
-    The older style is still accepted, with restrictions.
-<li>Empty declarations, which have no declarators and don't declare at least
-    a structure, union, or enumeration, are forbidden by the Standard. On the
-    other hand, a declaration with just a structure or union tag redeclares
-    that tag even if it was declared in an outer scope.
-<li>External data declarations without any specifiers or qualifiers (just a naked
-    declarator) are forbidden.
-<li>Some implementations, when presented with an <tt>extern</tt> declaration in
-    an inner block, would export the declaration to the rest of the file. The
-    Standard makes it clear that the scope of such a declaration is just the
-    block.
-<li>The scope of parameters is injected into a function's compound statement,
-    so that variable declarations at the top level of the function cannot
-    hide the parameters.
-<li>The name spaces of identifiers are somewhat different. The Standard puts
-    all tags in a single name space, and also introduces a separate name
-    space for labels; see <a href="appa.html#sa.11.1">Par.A.11.1</a>. Also,
-    member names are associated with the structure or union of which they are
-    a part. (This has been common practice from some time.)
-<li>Unions may be initialized; the initializer refers to the first member.
-<li>Automatic structures, unions, and arrays may be initialized, albeit in a
-    restricted way.
-<li>Character arrays with an explicit size may be initialized by a string
-    literal with exactly that many characters (the <tt>\0</tt> is quietly
-    squeezed out).
-<li>The controlling expression, and the case labels, of a switch may have
-    any integral type.
-</ul>
-<p>
-<hr>
-<p align="center">
-<a href="appb.html">Back to Appendix B</a>&nbsp;--&nbsp;
-<a href="index.html">Index</a>
-<p>
-<hr>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Appendix C - Summary of Changes</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2QMPH4XTZX');
+    </script>
+</head>
+
+<body>
+    <hr>
+    <p align="center">
+        <a href="appb.html">Back to Appendix B</a>&nbsp;--&nbsp;
+        <a href="index.html">Index</a>
+    <p>
+        <hr>
+
+    <h1>Appendix C - Summary of Changes</h1>
+    Since the publication of the first edition of this book, the definition of the
+    C language has undergone changes. Almost all were extensions of the original
+    language, and were carefully designed to remain compatible with existing
+    practice; some repaired ambiguities in the original description; and some
+    represent modifications that change existing practice. Many of the new
+    facilities were announced in the documents accompanying compilers available
+    from AT&amp;T, and have subsequently been adopted by other suppliers of C
+    compilers. More recently, the ANSI committee standardizing the language
+    incorporated most of the changes, and also introduced other significant
+    modifications. Their report was in part participated by some commercial
+    compilers even before issuance of the formal C standard.
+    <p>
+        This Appendix summarizes the differences between the language defined by the
+        first edition of this book, and that expected to be defined by the final
+        standard. It treats only the language itself, not its environment and
+        library; although these are an important part of the standard, there is
+        little to compare with, because the first edition did not attempt to
+        prescribe an environment or library.
+    <ul>
+        <li>Preprocessing is more carefully defined in the Standard than in the
+            first edition, and is extended: it is explicitly token based; there are
+            new operators for concatenation of tokens (<tt>##</tt>), and creation of
+            strings (<tt>#</tt>); there are new control lines like <tt>#elif</tt> and
+            <tt>#pragma</tt>; redeclaration of macros by the same token sequence is
+            explicitly permitted; parameters inside strings are no longer replaced.
+            Splicing of lines by \ is permitted everywhere, not just in
+            strings and macro definitions. See <a href="appa.html#sa.12">Par.A.12</a>.
+        <li>The minimum significance of all internal identifiers increased to 31
+            characters; the smallest mandated significance of identifiers with
+            external linkage remains 6 monocase letters. (Many implementations
+            provide more.)
+        <li>Trigraph sequences introduced by <tt>??</tt> allow representation of
+            characters lacking in some character sets. Escapes for <tt>#\^[]{}|~</tt>
+            are defined, see <a href="appa.html#sa.12.1">Par.A.12.1</a>. Observe that the introduction of trigraphs
+            may change the meaning of strings containing the sequence <tt>??</tt>.
+        <li>New keywords (<tt>void, const, volatile, signed, enum</tt>) are introduced.
+            The stillborn <tt>entry</tt> keyword is withdrawn.
+        <li>New escape sequences, for use within character constants and string
+            literals, are defined. The effect of following \ by a character not part
+            of an approved escape sequence is undefined. See
+            <a href="appa.html#sa.2.5.2">Par.A.2.5.2</a>.
+        <li>Everyone's favorite trivial change: <tt>8</tt> and <tt>9</tt> are not
+            octal digits.
+        <li>The standard introduces a larger set of suffixes to make the type of
+            constants explicit: <tt>U</tt> or <tt>L</tt> for integers, <tt>F</tt> or
+            <tt>L</tt> for floating. It also refines the rules for the type of
+            unsiffixed constants (<a href="appa.html#sa.2.5">Par.A.2.5</a>).
+        <li>Adjacent string literals are concatenated.
+        <li>There is a notation for wide-character string literals and character
+            constants; see <a href="appa.html#sa.2.6">Par.A.2.6</a>.
+        <li>Characters as well as other types, may be explicitly declared to carry,
+            or not to carry, a sign by using the keywords <tt>signed</tt> or
+            <tt>unsigned</tt>. The locution <tt>long float</tt> as a synonym for <tt>double</tt> is
+            withdrawn, but <tt>long double</tt> may be used to declare an
+            extra-precision floating quantity.
+        <li>For some time, type <tt>unsigned char</tt> has been available. The standard
+            introduces the <tt>signed</tt> keyword to make signedness explicit for
+            <tt>char</tt> and other integral objects.
+        <li>The <tt>void</tt> type has been available in most implementations for some
+            years. The Standard introduces the use of the <tt>void *</tt> type as a
+            generic pointer type; previously <tt>char *</tt> played this role. At the
+            same time, explicit rules are enacted against mixing pointers and
+            integers, and pointers of different type, without the use of casts.
+        <li>The Standard places explicit minima on the ranges of the arithmetic
+            types, and mandates headers (<tt>&lt;limits.h&gt;</tt> and
+            <tt>&lt;float.h&gt;</tt>) giving the characteristics of each particular
+            implementation.
+        <li>Enumerations are new since the first edition of this book.
+        <li>The Standard adopts from C++ the notion of type qualifier, for example
+            <tt>const</tt> (<a href="appa.html#sa.8.2">Par.A.8.2</a>).
+        <li>Strings are no longer modifiable, and so may be placed in read-only
+            memory.
+        <li>The ``usual arithmetic conversions'' are changed, essentially from
+            ``for integers, <tt>unsigned</tt> always wins; for floating point, always
+            use <tt>double</tt>'' to ``promote to the smallest capacious-enough type.''
+            See <a href="appa.html#sa.6.5">Par.A.6.5</a>.
+        <li>The old assignment operators like <tt>=+</tt> are truly gone. Also,
+            assignment operators are now single tokens; in the first edition, they
+            were pairs, and could be separated by white space.
+        <li>A compiler's license to treat mathematically associative operators as
+            computationally associative is revoked.
+        <li>A unary <tt>+</tt> operator is introduced for symmetry with unary <tt>-</tt>.
+        <li>A pointer to a function may be used as a function designator without an
+            explicit <tt>*</tt> operator. See <a href="appa.html#sa.7.3.2">Par.A.7.3.2</a>.
+        <li>Structures may be assigned, passed to functions, and returned by
+            functions.
+        <li>Applying the address-of operator to arrays is permitted, and the result
+            is a pointer to the array.
+        <li>The <tt>sizeof</tt> operator, in the first edition, yielded type <tt>int</tt>;
+            subsequently, many implementations made it <tt>unsigned</tt>. The Standard
+            makes its type explicitly implementation-dependent, but requires the
+            type, <tt>size_t</tt>, to be defined in a standard header
+            (<tt>&lt;stddef.h&gt;</tt>). A similar change occurs in the type
+            (<tt>ptrdiff_t</tt>) of the difference between pointers. See
+            <a href="appa.html#sa.7.4.8">Par.A.7.4.8</a> and
+            <a href="appa.html#sa.7.7">Par.A.7.7</a>.
+        <li>The address-of operator <tt>&amp;</tt> may not be applied to an object
+            declared <tt>register</tt>, even if the implementation chooses not to
+            keep the object in a register.
+        <li>The type of a shift expression is that of the left operand; the right
+            operand can't promote the result. See <a href="appa.html#sa.7.8">Par.A.7.8</a>.
+        <li>The Standard legalizes the creation of a pointer just beyond the end of
+            an array, and allows arithmetic and relations on it; see
+            <a href="appa.html#sa.7.7">Par.A.7.7</a>.
+        <li>The Standard introduces (borrowing from C++) the notion of a function
+            prototype declaration that incorporates the types of the parameters, and
+            includes an explicit recognition of variadic functions together with an
+            approved way of dealing with them. See Pars.
+            <a href="appa.html#sa.7.3.2">A.7.3.2</a>,
+            <a href="appa.html#sa.8.6.3">A.8.6.3</a>, <a href="appb.html#sb.7">B.7</a>.
+            The older style is still accepted, with restrictions.
+        <li>Empty declarations, which have no declarators and don't declare at least
+            a structure, union, or enumeration, are forbidden by the Standard. On the
+            other hand, a declaration with just a structure or union tag redeclares
+            that tag even if it was declared in an outer scope.
+        <li>External data declarations without any specifiers or qualifiers (just a naked
+            declarator) are forbidden.
+        <li>Some implementations, when presented with an <tt>extern</tt> declaration in
+            an inner block, would export the declaration to the rest of the file. The
+            Standard makes it clear that the scope of such a declaration is just the
+            block.
+        <li>The scope of parameters is injected into a function's compound statement,
+            so that variable declarations at the top level of the function cannot
+            hide the parameters.
+        <li>The name spaces of identifiers are somewhat different. The Standard puts
+            all tags in a single name space, and also introduces a separate name
+            space for labels; see <a href="appa.html#sa.11.1">Par.A.11.1</a>. Also,
+            member names are associated with the structure or union of which they are
+            a part. (This has been common practice from some time.)
+        <li>Unions may be initialized; the initializer refers to the first member.
+        <li>Automatic structures, unions, and arrays may be initialized, albeit in a
+            restricted way.
+        <li>Character arrays with an explicit size may be initialized by a string
+            literal with exactly that many characters (the <tt>\0</tt> is quietly
+            squeezed out).
+        <li>The controlling expression, and the case labels, of a switch may have
+            any integral type.
+    </ul>
+    <p>
+        <hr>
+    <p align="center">
+        <a href="appb.html">Back to Appendix B</a>&nbsp;--&nbsp;
+        <a href="index.html">Index</a>
+    <p>
+        <hr>
 
 </body>
+
 </html>

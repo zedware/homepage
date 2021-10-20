@@ -1,188 +1,214 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<title>测试 Oracle 中对 char 和 varchar2 两种类型的等值比较</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
-.style2 {color: #FF0000}
--->
-</style>
+  <title>测试 Oracle 中对 char 和 varchar2 两种类型的等值比较</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+
+    .style2 {
+      color: #FF0000
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">测试 Oracle 中对 char 和 varchar2 两种类型的等值比较</p> 
-<hr> 
-<p>  我们用 Oracle 的 SQL*Plus 执行 SQL 语句。首先看看 Oracle 的版本号：<br>
-  <br>
-SQL&gt; <span class="style2">select * from v$version;</span></p>
-<p>BANNER<br>
-  ----------------------------------------------------------------<br>
-  Oracle Database 10g Enterprise Edition Release 10.1.0.2.0 - Prod<br>
-  PL/SQL Release 10.1.0.2.0 - Production<br>
-  CORE 10.1.0.2.0 Production<br>
-  TNS for 32-bit Windows: Version 10.1.0.2.0 - Production<br>
-  NLSRTL Version 10.1.0.2.0 - Production</p>
-<p>其次打开服务器端的输出信息：</p>
-<p class="style2">set serveroutput on;</p>
-<p>--<br>
-  -- column type is char, but parameter type is varchar.<br>
-  --<br>
-  drop table foo;<br>
-  create table foo(fno number(4), fname char(20));<br>
-  insert into foo values(1, 'smith');<br>
-  insert into foo values(2, 'john');</p>
-<p>SQL&gt; select * from foo where fname = 'smith';</p>
-<p> FNO FNAME<br>
-  ---------- --------------------<br>
-  1 smith</p>
-<p>SQL&gt; select * from foo where fname = cast('smith' as char(20));</p>
-<p> FNO FNAME<br>
-  ---------- --------------------<br>
-  1 smith</p>
-<p>注意，varchar2 找不出结果：<br>
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1">测试 Oracle 中对 char 和 varchar2 两种类型的等值比较</p>
+  <hr>
+  <p> 我们用 Oracle 的 SQL*Plus 执行 SQL 语句。首先看看 Oracle 的版本号：<br>
     <br>
-    SQL&gt; <span class="style2">select * from foo where fname = cast('smith' as varchar2(20));</span></p>
-<p class="style2">no rows selected</p>
-<p>现在，我们换成存储过程试试。</p>
-<p>create or replace procedure foop(bname varchar2)<br>
-  as<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;v_fno number(4);<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;v_fname char(20);<br>
-  begin<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('in procedure');<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;select fno, fname into v_fno, v_fname from foo where fname = bname;<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('results: ' || v_fno || ',' || v_fname );<br>
-  <br>
-  exception<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;when no_data_found then<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('employee ' || bname || ' not found');<br>
-  when others then<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlerrm:');<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlerrm);<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlcode:');<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlcode); <br>
-  end;<br>
-  /</p>
-<p>call foop('smith');</p>
-<p>用 varchar2 做存储过程的参数也是找不出结果。</p>
-<p class="style2">Expected result:<br>
-  &lt;result&gt;<br>
-   in procedure<br>
-   employee smith not found<br>
-  <br>
-   Call completed.<br>
-  &lt;/result&gt;</p>
-<p>create or replace procedure foop2(bname char)<br>
-  as<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;v_fno number(4);<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;v_fname char(20);<br>
-  begin<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('in procedure');<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;select fno, fname into v_fno, v_fname from foo where fname = bname;<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('results: ' || v_fno || ',' || v_fname );<br>
-  exception<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;when no_data_found then<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('employee ' || bname || ' not found');<br>
-  when others then<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlerrm:');<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlerrm);<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlcode:');<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlcode); <br>
-  end;<br>
-  /</p>
-<p>call foop2('smith');</p>
-<p>用 char 作为存储过程的参数，还是能够找出结果的。</p>
-<p class="style2">Expected results:<br>
-  &lt;result&gt;<br>
-   in procedure<br>
-   results: 1,smith<br>
-  <br>
-   Call completed.<br>
-  &lt;/result&gt;</p>
-<p>下面我们测试一下列的类型是 varchar2 的情况。</p>
-<p>--<br>
-  -- column type is varchar, but parameter type is char.<br>
-  --<br>
-  drop table foo;<br>
-  create table foo(fno number(4), fname varchar2(20));<br>
-  insert into foo values(1, 'smith');<br>
-  insert into foo values(2, 'john');</p>
-<p>SQL&gt; select * from foo where fname = 'smith';</p>
-<p> FNO FNAME<br>
-  ---------- --------------------<br>
-  1 smith</p>
-<p>SQL&gt; select * from foo where fname = cast('smith' as varchar2(20));</p>
-<p> FNO FNAME<br>
-  ---------- --------------------<br>
-  1 smith</p>
-<p>注意，用 char 是找不出结果的：</p>
-<p>SQL&gt; <span class="style2">select * from foo where fname = cast('smith' as char(20));</span></p>
-<p><span class="style2">no rows selected</span><br>
+    SQL&gt; <span class="style2">select * from v$version;</span>
+  </p>
+  <p>BANNER<br>
+    ----------------------------------------------------------------<br>
+    Oracle Database 10g Enterprise Edition Release 10.1.0.2.0 - Prod<br>
+    PL/SQL Release 10.1.0.2.0 - Production<br>
+    CORE 10.1.0.2.0 Production<br>
+    TNS for 32-bit Windows: Version 10.1.0.2.0 - Production<br>
+    NLSRTL Version 10.1.0.2.0 - Production</p>
+  <p>其次打开服务器端的输出信息：</p>
+  <p class="style2">set serveroutput on;</p>
+  <p>--<br>
+    -- column type is char, but parameter type is varchar.<br>
+    --<br>
+    drop table foo;<br>
+    create table foo(fno number(4), fname char(20));<br>
+    insert into foo values(1, 'smith');<br>
+    insert into foo values(2, 'john');</p>
+  <p>SQL&gt; select * from foo where fname = 'smith';</p>
+  <p> FNO FNAME<br>
+    ---------- --------------------<br>
+    1 smith</p>
+  <p>SQL&gt; select * from foo where fname = cast('smith' as char(20));</p>
+  <p> FNO FNAME<br>
+    ---------- --------------------<br>
+    1 smith</p>
+  <p>注意，varchar2 找不出结果：<br>
+    <br>
+    SQL&gt; <span class="style2">select * from foo where fname = cast('smith' as varchar2(20));</span>
+  </p>
+  <p class="style2">no rows selected</p>
+  <p>现在，我们换成存储过程试试。</p>
+  <p>create or replace procedure foop(bname varchar2)<br>
+    as<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;v_fno number(4);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;v_fname char(20);<br>
+    begin<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('in procedure');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;select fno, fname into v_fno, v_fname from foo where fname = bname;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('results: ' || v_fno || ',' || v_fname );<br>
+    <br>
+    exception<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;when no_data_found then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('employee ' || bname || ' not found');<br>
+    when others then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlerrm:');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlerrm);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlcode:');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlcode); <br>
+    end;<br>
+    /
+  </p>
+  <p>call foop('smith');</p>
+  <p>用 varchar2 做存储过程的参数也是找不出结果。</p>
+  <p class="style2">Expected result:<br>
+    &lt;result&gt;<br>
+    in procedure<br>
+    employee smith not found<br>
+    <br>
+    Call completed.<br>
+    &lt;/result&gt;
+  </p>
+  <p>create or replace procedure foop2(bname char)<br>
+    as<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;v_fno number(4);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;v_fname char(20);<br>
+    begin<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('in procedure');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;select fno, fname into v_fno, v_fname from foo where fname = bname;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('results: ' || v_fno || ',' || v_fname );<br>
+    exception<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;when no_data_found then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('employee ' || bname || ' not found');<br>
+    when others then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlerrm:');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlerrm);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlcode:');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlcode); <br>
+    end;<br>
+    /</p>
+  <p>call foop2('smith');</p>
+  <p>用 char 作为存储过程的参数，还是能够找出结果的。</p>
+  <p class="style2">Expected results:<br>
+    &lt;result&gt;<br>
+    in procedure<br>
+    results: 1,smith<br>
+    <br>
+    Call completed.<br>
+    &lt;/result&gt;
+  </p>
+  <p>下面我们测试一下列的类型是 varchar2 的情况。</p>
+  <p>--<br>
+    -- column type is varchar, but parameter type is char.<br>
+    --<br>
+    drop table foo;<br>
+    create table foo(fno number(4), fname varchar2(20));<br>
+    insert into foo values(1, 'smith');<br>
+    insert into foo values(2, 'john');</p>
+  <p>SQL&gt; select * from foo where fname = 'smith';</p>
+  <p> FNO FNAME<br>
+    ---------- --------------------<br>
+    1 smith</p>
+  <p>SQL&gt; select * from foo where fname = cast('smith' as varchar2(20));</p>
+  <p> FNO FNAME<br>
+    ---------- --------------------<br>
+    1 smith</p>
+  <p>注意，用 char 是找不出结果的：</p>
+  <p>SQL&gt; <span class="style2">select * from foo where fname = cast('smith' as char(20));</span></p>
+  <p><span class="style2">no rows selected</span><br>
     <br>
     create or replace procedure foop(bname char)<br>
     as<br>
-  v_fno number(4);<br>
-  v_fname varchar2(20);<br>
-  begin<br>
-  dbms_output.put_line('in procedure');<br>
-  select fno, fname into v_fno, v_fname from foo where fname = bname;<br>
-  dbms_output.put_line('results: ' || v_fno || ',' || v_fname );<br>
-  <br>
-  exception<br>
-  when no_data_found then<br>
-  dbms_output.put_line('employee ' || bname || ' not found');<br>
-  when others then<br>
-  dbms_output.put_line('the following is sqlerrm:');<br>
-  dbms_output.put_line(sqlerrm);<br>
-  dbms_output.put_line('the following is sqlcode:');<br>
-  dbms_output.put_line(sqlcode); <br>
-  end;<br>
-  /</p>
-<p>call foop('smith');</p>
-<p>存储过程的参数为 char 时，居然也可以找出该记录。</p>
-<p class="style2">Expected result:<br>
-  &lt;result&gt;<br>
-   in procedure<br>
-   results: 1,smith<br>
-  <br>
-   Call completed.<br>
-  &lt;/result&gt;</p>
-<p>create or replace procedure foop2(bname varchar2)<br>
-  as<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;v_fno number(4);<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;v_fname varchar2(20);<br>
-  begin<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('in procedure');<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;select fno, fname into v_fno, v_fname from foo where fname = bname;<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('results: ' || v_fno || ',' || v_fname );<br>
-  exception<br>
-  when no_data_found then<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('employee ' || bname || ' not found');<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;when others then<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlerrm:');<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlerrm);<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlcode:');<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlcode); <br>
-  end;<br>
-  /</p>
-<p>call foop2('smith');</p>
-<p>存储过程参数为 varchar2 时当然更应该能找出该记录了。</p>
-<p><span class="style2">Expected results:<br>
-  &lt;result&gt;<br>
-   in procedure<br>
-   results: 1,smith<br>
-  <br>
-   Call completed.<br>
-  &lt;/result&gt;</span><br>
-</p>
-<p>1. <a href="http://www.psoug.org/reference/dbms_output.html">http://www.psoug.org/reference/dbms_output.html</a> </p>
-<div align="center"> 
-  <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2007,zedware_at_gmail_dot_com</a><br> 
-    Last modified on
-    <!-- #BeginDate format:fcIS1 -->Friday, 2006-07-14<!-- #EndDate --> 
-  </div> 
-</div> 
+    v_fno number(4);<br>
+    v_fname varchar2(20);<br>
+    begin<br>
+    dbms_output.put_line('in procedure');<br>
+    select fno, fname into v_fno, v_fname from foo where fname = bname;<br>
+    dbms_output.put_line('results: ' || v_fno || ',' || v_fname );<br>
+    <br>
+    exception<br>
+    when no_data_found then<br>
+    dbms_output.put_line('employee ' || bname || ' not found');<br>
+    when others then<br>
+    dbms_output.put_line('the following is sqlerrm:');<br>
+    dbms_output.put_line(sqlerrm);<br>
+    dbms_output.put_line('the following is sqlcode:');<br>
+    dbms_output.put_line(sqlcode); <br>
+    end;<br>
+    /
+  </p>
+  <p>call foop('smith');</p>
+  <p>存储过程的参数为 char 时，居然也可以找出该记录。</p>
+  <p class="style2">Expected result:<br>
+    &lt;result&gt;<br>
+    in procedure<br>
+    results: 1,smith<br>
+    <br>
+    Call completed.<br>
+    &lt;/result&gt;
+  </p>
+  <p>create or replace procedure foop2(bname varchar2)<br>
+    as<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;v_fno number(4);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;v_fname varchar2(20);<br>
+    begin<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('in procedure');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;select fno, fname into v_fno, v_fname from foo where fname = bname;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('results: ' || v_fno || ',' || v_fname );<br>
+    exception<br>
+    when no_data_found then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('employee ' || bname || ' not found');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;when others then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlerrm:');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlerrm);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('the following is sqlcode:');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line(sqlcode); <br>
+    end;<br>
+    /</p>
+  <p>call foop2('smith');</p>
+  <p>存储过程参数为 varchar2 时当然更应该能找出该记录了。</p>
+  <p><span class="style2">Expected results:<br>
+      &lt;result&gt;<br>
+      in procedure<br>
+      results: 1,smith<br>
+      <br>
+      Call completed.<br>
+      &lt;/result&gt;</span><br>
+  </p>
+  <p>1. <a href="http://www.psoug.org/reference/dbms_output.html">http://www.psoug.org/reference/dbms_output.html</a>
+  </p>
+  <div align="center">
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2007,zedware_at_gmail_dot_com</a><br>
+      Last modified on
+      <!-- #BeginDate format:fcIS1 -->Friday, 2006-07-14
+      <!-- #EndDate -->
+    </div>
+  </div>
 </body>
+
 </html>

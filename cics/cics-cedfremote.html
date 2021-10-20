@@ -1,13 +1,32 @@
 <HTML>
+
 <HEAD>
-<title>1.6.5"CICS-Supplied Transactions"via IBM BookManager BookServer</title>
+    <title>1.6.5"CICS-Supplied Transactions"via IBM BookManager BookServer</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2QMPH4XTZX');
+    </script>
 </head>
-<body> 
-<banner> 
-<H4> 1.6.5 Monitoring remote transactions</H4> 
-</banner> 
-<p>In a multiregion operation (MRO) or an intersystem communication (ISC) environment (APPC only), you can use CEDF (in single screen mode only) for transactions that are defined in the terminal owning region (TOR) as remote. CICS automatically notifies the application owning region (AOR) that the transaction is to be run in EDF mode.</p> 
-<p> When the remote application ends, if your reply is YES, the terminal remains in EDF mode as usual. However, CICS deletes all the associated temporary storage queues, and none of the previous EDF screens or options is saved: you must type these again for the next transaction. Responding NO at the termination screen ends the EDF session in all participating regions. </p> 
-<B>Note:</B> CICS supports EDF for remote transactions only when all the communicating regions are using CICS Transaction Server for VSE/ESA Release 1 or later.
+
+<body>
+    <banner>
+        <H4> 1.6.5 Monitoring remote transactions</H4>
+    </banner>
+    <p>In a multiregion operation (MRO) or an intersystem communication (ISC) environment (APPC only), you can use CEDF
+        (in single screen mode only) for transactions that are defined in the terminal owning region (TOR) as remote.
+        CICS automatically notifies the application owning region (AOR) that the transaction is to be run in EDF mode.
+    </p>
+    <p> When the remote application ends, if your reply is YES, the terminal remains in EDF mode as usual. However, CICS
+        deletes all the associated temporary storage queues, and none of the previous EDF screens or options is saved:
+        you must type these again for the next transaction. Responding NO at the termination screen ends the EDF session
+        in all participating regions. </p>
+    <B>Note:</B> CICS supports EDF for remote transactions only when all the communicating regions are using CICS
+    Transaction Server for VSE/ESA Release 1 or later.
 </BODY>
+
 </HTML>

@@ -1,1183 +1,1528 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Appendix B - Standard Library</title>
-</head>
-<body>
-<hr>
-<p align="center">
-<a href="appa.html">Back to Appendix A</a>&nbsp;--&nbsp;
-<a href="index.html">Index</a>&nbsp;--&nbsp;
-<a href="appc.html">Appendix C</a>
-<p>
-<hr>
 
-<h1>Appendix B - Standard Library</h1>
-This appendix is a summary of the library defined by the ANSI standard. The
-standard library is not part of the C language proper, but an environment
-that supports standard C will provide the function declarations and type and
-macro definitions of this library. We have omitted a few functions that are
-of limited utility or easily synthesized from others; we have omitted
-multi-byte characters; and we have omitted discussion of locale issues; that
-is, properties that depend on local language, nationality, or culture.
-<p>
-The functions, types and macros of the standard library are declared in
-standard <em>headers</em>:
-<pre>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Appendix B - Standard Library</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2QMPH4XTZX');
+    </script>
+</head>
+
+<body>
+    <hr>
+    <p align="center">
+        <a href="appa.html">Back to Appendix A</a>&nbsp;--&nbsp;
+        <a href="index.html">Index</a>&nbsp;--&nbsp;
+        <a href="appc.html">Appendix C</a>
+    <p>
+        <hr>
+
+    <h1>Appendix B - Standard Library</h1>
+    This appendix is a summary of the library defined by the ANSI standard. The
+    standard library is not part of the C language proper, but an environment
+    that supports standard C will provide the function declarations and type and
+    macro definitions of this library. We have omitted a few functions that are
+    of limited utility or easily synthesized from others; we have omitted
+    multi-byte characters; and we have omitted discussion of locale issues; that
+    is, properties that depend on local language, nationality, or culture.
+    <p>
+        The functions, types and macros of the standard library are declared in
+        standard <em>headers</em>:
+    <pre>
    &lt;assert.h&gt;  &lt;float.h&gt;   &lt;math.h&gt;    &lt;stdarg.h&gt;  &lt;stdlib.h&gt;
    &lt;ctype.h&gt;   &lt;limits.h&gt;  &lt;setjmp.h&gt;  &lt;stddef.h&gt;  &lt;string.h&gt;
    &lt;errno.h&gt;   &lt;locale.h&gt;  &lt;signal.h&gt;  &lt;stdio.h&gt;   &lt;time.h&gt;
 </pre>
-A header can be accessed by
-<p>
-&nbsp;&nbsp;<tt>#include</tt> &lt;<em>header</em>&gt;
-<p>
-Headers may be included in any order and any number of times. A header must
-be included outside of any external declaration or definition and before any
-use of anything it declares. A header need not be a source file.
-<p>
-External identifiers that begin with an underscore are reserved for use by
-the library, as are all other identifiers that begin with an underscore and
-an upper-case letter or another underscore.
+    A header can be accessed by
+    <p>
+        &nbsp;&nbsp;<tt>#include</tt> &lt;<em>header</em>&gt;
+    <p>
+        Headers may be included in any order and any number of times. A header must
+        be included outside of any external declaration or definition and before any
+        use of anything it declares. A header need not be a source file.
+    <p>
+        External identifiers that begin with an underscore are reserved for use by
+        the library, as are all other identifiers that begin with an underscore and
+        an upper-case letter or another underscore.
 
-<h2><a name="sb.1">B.1 Input and Output: &lt;stdio.h&gt;</a></h2>
-The input and output functions, types, and macros defined in
-<tt>&lt;stdio.h&gt;</tt> represent nearly one third of the library.
-<p>
-A <em>stream</em> is a source or destination of data that may be associated
-with a disk or other peripheral. The library supports text streams and binary
-streams, although on some systems, notably UNIX, these are identical. A text
-stream is a sequence of lines; each line has zero or more characters and is
-terminated by <tt>'\n'</tt>. An environment may need to convert a text stream
-to or from some other representation (such as mapping <tt>'\n'</tt> to
-carriage return and linefeed). A binary stream is a sequence of unprocessed
-bytes that record internal data, with the property that if it is written,
-then read back on the same system, it will compare equal.
-<p>
-A stream is connected to a file or device by <em>opening</em> it; the
-connection is broken by <em>closing</em> the stream. Opening a file returns
-a pointer to an object of type <tt>FILE</tt>, which records whatever
-information is necessary to control the stream. We will use ``file pointer''
-and ``stream'' interchangeably when there is no ambiguity.
-<p>
-When a program begins execution, the three streams <tt>stdin</tt>,
-<tt>stdout</tt>, and <tt>stderr</tt> are already open.
+    <h2><a name="sb.1">B.1 Input and Output: &lt;stdio.h&gt;</a></h2>
+    The input and output functions, types, and macros defined in
+    <tt>&lt;stdio.h&gt;</tt> represent nearly one third of the library.
+    <p>
+        A <em>stream</em> is a source or destination of data that may be associated
+        with a disk or other peripheral. The library supports text streams and binary
+        streams, although on some systems, notably UNIX, these are identical. A text
+        stream is a sequence of lines; each line has zero or more characters and is
+        terminated by <tt>'\n'</tt>. An environment may need to convert a text stream
+        to or from some other representation (such as mapping <tt>'\n'</tt> to
+        carriage return and linefeed). A binary stream is a sequence of unprocessed
+        bytes that record internal data, with the property that if it is written,
+        then read back on the same system, it will compare equal.
+    <p>
+        A stream is connected to a file or device by <em>opening</em> it; the
+        connection is broken by <em>closing</em> the stream. Opening a file returns
+        a pointer to an object of type <tt>FILE</tt>, which records whatever
+        information is necessary to control the stream. We will use ``file pointer''
+        and ``stream'' interchangeably when there is no ambiguity.
+    <p>
+        When a program begins execution, the three streams <tt>stdin</tt>,
+        <tt>stdout</tt>, and <tt>stderr</tt> are already open.
 
-<h3><a name="sb.1.1">B.1.1 File Operations</a></h3>
-The following functions deal with operations on files. The type
-<tt>size_t</tt> is the unsigned integral type produced by the <tt>sizeof</tt>
-operator.
-<p>
-<dl>
-<p><dt><tt>FILE *fopen(const char *filename, const char *mode)</tt>
-<dd><tt>fopen</tt> opens the named file, and returns a stream, or
-    <tt>NULL</tt> if the attempt fails. Legal values for <tt>mode</tt>
-    include:
-<p>
-<table align="center">
-<td><tt>"r"</tt></td><td>open text file for reading</td>
-<tr>
-<td><tt>"w"</tt></td><td>create text file for writing; discard previous contents if any</td>
-<tr>
-<td><tt>"a"</tt></td><td>append; open or create text file for writing at end of file</td>
-<tr>
-<td><tt>"r+"</tt></td><td>open text file for update (i.e., reading and writing)</td>
-<tr>
-<td><tt>"w+"</tt></td><td>create text file for update, discard previous contents if any</td>
-<tr>
-<td><tt>"a+"</tt></td><td>append; open or create text file for update, writing at end </td>
-</table>
-<p>
-<dd>Update mode permits reading and writing the same file; <tt>fflush</tt> or
-    a file-positioning function must be called between a read and a write or
-    vice versa. If the mode includes <tt>b</tt> after the initial letter, as
-    in <tt>"rb"</tt> or <tt>"w+b"</tt>, that indicates a binary file.
-    Filenames are limited to <tt>FILENAME_MAX</tt> characters. At most
-    <tt>FOPEN_MAX</tt> files may be open at once.
-<p><dt>
-<tt>FILE *freopen(const char *filename, const char *mode, FILE *stream)</tt>
-<dd><tt>freopen</tt> opens the file with the specified mode and associates
-    the stream with it. It returns <tt>stream</tt>, or <tt>NULL</tt> if an
-    error occurs. <tt>freopen</tt> is normally used to change the files
-    associated with <tt>stdin</tt>, <tt>stdout</tt>, or <tt>stderr</tt>.
-<p><dt>
-<tt>int fflush(FILE *stream)</tt>
-<dd>On an output stream, <tt>fflush</tt> causes any buffered but unwritten
-    data to be written; on an input stream, the effect is undefined. It
-    returns <tt>EOF</tt> for a write error, and zero otherwise.
-    <tt>fflush(NULL)</tt> flushes all output streams.
-<p><dt>
-<tt>int fclose(FILE *stream)</tt>
-<dd><tt>fclose</tt> flushes any unwritten data for <tt>stream</tt>, discards
-    any unread buffered input, frees any automatically allocated buffer, then
-    closes the stream. It returns <tt>EOF</tt> if any errors occurred, and
-    zero otherwise.
-<p><dt>
-<tt>int remove(const char *filename)</tt>
-<dd><tt>remove</tt> removes the named file, so that a subsequent attempt to
-    open it will fail. It returns non-zero if the attempt fails.
-<p><dt>
-<tt>int rename(const char *oldname, const char *newname)</tt>
-<dd><tt>rename</tt> changes the name of a file; it returns non-zero if the
-    attempt fails.
-<p><dt>
-<tt>FILE *tmpfile(void)</tt>
-<dd><tt>tmpfile</tt> creates a temporary file of mode <tt>"wb+"</tt> that will be
-    automatically removed when closed or when the program terminates normally.
-    <tt>tmpfile</tt> returns a stream, or <tt>NULL</tt> if it could not create the file.
-<p><dt>
-<tt>char *tmpnam(char s[L_tmpnam])</tt>
-<dd><tt>tmpnam(NULL)</tt> creates a string that is not the name of an
-    existing file, and returns a pointer to an internal static array.
-    <tt>tmpnam(s)</tt> stores the string in <tt>s</tt> as well as returning
-    it as the function value; <tt>s</tt> must have room for at least
-    <tt>L_tmpnam</tt> characters. <tt>tmpnam</tt> generates a different name
-    each time it is called; at most <tt>TMP_MAX</tt> different names are
-    guaranteed during execution of the program. Note that <tt>tmpnam</tt>
-    creates a name, not a file.
-<p><dt>
-<tt>int setvbuf(FILE *stream, char *buf, int mode, size_t size)</tt>
-<dd><tt>setvbuf</tt> controls buffering for the stream; it must be called
-    before reading, writing or any other operation. A <tt>mode</tt> of <tt>_IOFBF</tt>
-    causes full buffering, <tt>_IOLBF</tt> line buffering of text files, and
-    <tt>_IONBF</tt> no buffering. If <tt>buf</tt> is not <tt>NULL</tt>, it
-    will be used as the buffer, otherwise a buffer will be allocated.
-    <tt>size</tt> determines the buffer size. <tt>setvbuf</tt> returns
-    non-zero for any error.
-<p><dt>
-<tt>void setbuf(FILE *stream, char *buf)</tt>
-<dd>If <tt>buf</tt> is <tt>NULL</tt>, buffering is turned off for the stream.
-    Otherwise, <tt>setbuf</tt> is equivalent to
-    <tt>(void) setvbuf(stream, buf, _IOFBF, BUFSIZ)</tt>.
-</dl>
+    <h3><a name="sb.1.1">B.1.1 File Operations</a></h3>
+    The following functions deal with operations on files. The type
+    <tt>size_t</tt> is the unsigned integral type produced by the <tt>sizeof</tt>
+    operator.
+    <p>
+    <dl>
+        <p>
+            <dt><tt>FILE *fopen(const char *filename, const char *mode)</tt>
+            <dd><tt>fopen</tt> opens the named file, and returns a stream, or
+                <tt>NULL</tt> if the attempt fails. Legal values for <tt>mode</tt>
+                include:
+                <p>
+                <table align="center">
+                    <td><tt>"r"</tt></td>
+                    <td>open text file for reading</td>
+                    <tr>
+                        <td><tt>"w"</tt></td>
+                        <td>create text file for writing; discard previous contents if any</td>
+                    <tr>
+                        <td><tt>"a"</tt></td>
+                        <td>append; open or create text file for writing at end of file</td>
+                    <tr>
+                        <td><tt>"r+"</tt></td>
+                        <td>open text file for update (i.e., reading and writing)</td>
+                    <tr>
+                        <td><tt>"w+"</tt></td>
+                        <td>create text file for update, discard previous contents if any</td>
+                    <tr>
+                        <td><tt>"a+"</tt></td>
+                        <td>append; open or create text file for update, writing at end </td>
+                </table>
+                <p>
+            <dd>Update mode permits reading and writing the same file; <tt>fflush</tt> or
+                a file-positioning function must be called between a read and a write or
+                vice versa. If the mode includes <tt>b</tt> after the initial letter, as
+                in <tt>"rb"</tt> or <tt>"w+b"</tt>, that indicates a binary file.
+                Filenames are limited to <tt>FILENAME_MAX</tt> characters. At most
+                <tt>FOPEN_MAX</tt> files may be open at once.
+                <p>
+            <dt>
+                <tt>FILE *freopen(const char *filename, const char *mode, FILE *stream)</tt>
+            <dd><tt>freopen</tt> opens the file with the specified mode and associates
+                the stream with it. It returns <tt>stream</tt>, or <tt>NULL</tt> if an
+                error occurs. <tt>freopen</tt> is normally used to change the files
+                associated with <tt>stdin</tt>, <tt>stdout</tt>, or <tt>stderr</tt>.
+                <p>
+            <dt>
+                <tt>int fflush(FILE *stream)</tt>
+            <dd>On an output stream, <tt>fflush</tt> causes any buffered but unwritten
+                data to be written; on an input stream, the effect is undefined. It
+                returns <tt>EOF</tt> for a write error, and zero otherwise.
+                <tt>fflush(NULL)</tt> flushes all output streams.
+                <p>
+            <dt>
+                <tt>int fclose(FILE *stream)</tt>
+            <dd><tt>fclose</tt> flushes any unwritten data for <tt>stream</tt>, discards
+                any unread buffered input, frees any automatically allocated buffer, then
+                closes the stream. It returns <tt>EOF</tt> if any errors occurred, and
+                zero otherwise.
+                <p>
+            <dt>
+                <tt>int remove(const char *filename)</tt>
+            <dd><tt>remove</tt> removes the named file, so that a subsequent attempt to
+                open it will fail. It returns non-zero if the attempt fails.
+                <p>
+            <dt>
+                <tt>int rename(const char *oldname, const char *newname)</tt>
+            <dd><tt>rename</tt> changes the name of a file; it returns non-zero if the
+                attempt fails.
+                <p>
+            <dt>
+                <tt>FILE *tmpfile(void)</tt>
+            <dd><tt>tmpfile</tt> creates a temporary file of mode <tt>"wb+"</tt> that will be
+                automatically removed when closed or when the program terminates normally.
+                <tt>tmpfile</tt> returns a stream, or <tt>NULL</tt> if it could not create the file.
+                <p>
+            <dt>
+                <tt>char *tmpnam(char s[L_tmpnam])</tt>
+            <dd><tt>tmpnam(NULL)</tt> creates a string that is not the name of an
+                existing file, and returns a pointer to an internal static array.
+                <tt>tmpnam(s)</tt> stores the string in <tt>s</tt> as well as returning
+                it as the function value; <tt>s</tt> must have room for at least
+                <tt>L_tmpnam</tt> characters. <tt>tmpnam</tt> generates a different name
+                each time it is called; at most <tt>TMP_MAX</tt> different names are
+                guaranteed during execution of the program. Note that <tt>tmpnam</tt>
+                creates a name, not a file.
+                <p>
+            <dt>
+                <tt>int setvbuf(FILE *stream, char *buf, int mode, size_t size)</tt>
+            <dd><tt>setvbuf</tt> controls buffering for the stream; it must be called
+                before reading, writing or any other operation. A <tt>mode</tt> of <tt>_IOFBF</tt>
+                causes full buffering, <tt>_IOLBF</tt> line buffering of text files, and
+                <tt>_IONBF</tt> no buffering. If <tt>buf</tt> is not <tt>NULL</tt>, it
+                will be used as the buffer, otherwise a buffer will be allocated.
+                <tt>size</tt> determines the buffer size. <tt>setvbuf</tt> returns
+                non-zero for any error.
+                <p>
+            <dt>
+                <tt>void setbuf(FILE *stream, char *buf)</tt>
+            <dd>If <tt>buf</tt> is <tt>NULL</tt>, buffering is turned off for the stream.
+                Otherwise, <tt>setbuf</tt> is equivalent to
+                <tt>(void) setvbuf(stream, buf, _IOFBF, BUFSIZ)</tt>.
+    </dl>
 
-<h3><a name="sb.1.2">B.1.2 Formatted Output</a></h3>
-The <tt>printf</tt> functions provide formatted output conversion.
-<pre>
+    <h3><a name="sb.1.2">B.1.2 Formatted Output</a></h3>
+    The <tt>printf</tt> functions provide formatted output conversion.
+    <pre>
    int fprintf(FILE *stream, const char *format, ...)
 </pre>
-<tt>fprintf</tt> converts and writes output to <tt>stream</tt> under the
-control of <tt>format</tt>. The return value is the number of characters
-written, or negative if an error occurred.
-<p>
-The format string contains two types of objects: ordinary characters, which
-are copied to the output stream, and conversion specifications, each of which
-causes conversion and printing of the next successive argument to
-<tt>fprintf</tt>. Each conversion specification begins with the character
-<tt>%</tt> and ends with a conversion character. Between the <tt>%</tt> and
-the conversion character there may be, in order:
-<p>
-<ul>
-<li>Flags (in any order), which modify the specification:
-      <ul>
-      <li><tt>-</tt>, which specifies left adjustment of the converted
-          argument in its field.
-      <li><tt>+</tt>, which specifies that the number will always be printed
-          with a sign.
-      <li><em>space</em>: if the first character is not a sign, a space will
-          be prefixed.
-      <li><tt>0</tt>: for numeric conversions, specifies padding to the field
-          width with leading zeros.
-      <li><tt>#</tt>, which specifies an alternate output form. For <tt>o</tt>,
-          the first digit will become zero. For <tt>x</tt> or <tt>X</tt>,
-          <tt>0x</tt> or <tt>0X</tt> will be prefixed to a non-zero result.
-          For <tt>e</tt>, <tt>E</tt>, <tt>f</tt>, <tt>g</tt>, and <tt>G</tt>,
-          the output will always have a decimal point; for <tt>g</tt> and
-          <tt>G</tt>, trailing zeros will not be removed.
-      </ul>
-<li>A number specifying a minimum field width. The converted argument will
-    be printed in a field at least this wide, and wider if necessary. If the
-    converted argument has fewer characters than the field width it will be
-    padded on the left (or right, if left adjustment has been requested) to
-    make up the field width. The padding character is normally space, but is
-    <tt>0</tt> if the zero padding flag is present.
-<li>A period, which separates the field width from the precision.
-<li>A number, the precision, that specifies the maximum number of characters
-    to be printed from a string, or the number of digits to be printed after
-    the decimal point for <tt>e</tt>, <tt>E</tt>, or <tt>f</tt> conversions,
-    or the number of significant digits for <tt>g</tt> or <tt>G</tt>
-    conversion, or the number of digits to be printed for an integer (leading
-    <tt>0</tt>s will be added to make up the necessary width).
-<li>A length modifier <tt>h</tt>, <tt>l</tt> (letter ell), or <tt>L</tt>.
-    ``<tt>h</tt>'' indicates that the corresponding argument is to be printed
-    as a <tt> short</tt> or <tt>unsigned short</tt>; ``<tt>l</tt>'' indicates
-    that the argument is a <tt>long</tt> or <tt>unsigned long</tt>,
-    ``<tt>L</tt>'' indicates that the argument is a <tt>long double</tt>.
-</ul>
-<p>
-Width or precision or both may be specified as <tt>*</tt>, in which case the value
-is computed by converting the next argument(s), which must be <tt>int</tt>.
-<p>
-The conversion characters and their meanings are shown in Table B.1.
-If the character after the <tt>%</tt> is not a conversion
-character, the behavior is undefined.
-<p align="center">
-<em><strong>Table B.1</strong> Printf Conversions</em>
-<p align="center">
-<table border=1>
-<th align="center">Character<th align="center">Argument type; Printed As
-<tr>
-<td><tt>d,i</tt></td><td><tt>int</tt>; signed decimal notation.</td>
-<tr>
-<td><tt>o</tt></td><td><tt>int</tt>; unsigned octal notation (without a leading zero).</td>
-<tr>
-<td><tt>x,X</tt></td><td><tt>unsigned int</tt>; unsigned hexadecimal notation
-                 (without a leading <tt>0x</tt> or <tt>0X</tt>), using
-		 <tt>abcdef</tt> for <tt>0x</tt> or <tt>ABCDEF</tt>
-		 for <tt>0X</tt>.</td>
-<tr>
-<td><tt>u</tt></td><td><tt>int</tt>; unsigned decimal notation.</td>
-<tr>
-<td><tt>c</tt></td><td><tt>int</tt>; single character, after conversion to
-	       <tt>unsigned char</tt></td>
-<tr>
-<td><tt>s</tt></td><td><tt>char *</tt>; characters from the string are
-	       printed until a <tt>'\0'</tt> is reached or until the
-	       number of characters indicated by the precision have
-	       been printed.</td>
-<tr>
-<td><tt>f</tt></td><td><tt>double</tt>; decimal notation of the form
-	       <tt>[-]</tt><em>mmm.ddd</em>, where the number of
-	       <em>d</em>'s is given by the precision. The default
-	       precision is 6; a precision of 0 suppresses the
-	       decimal point.</td>
-<tr>
-<td><tt>e,E</tt></td><td><tt>double</tt>; decimal notation of the form
-		 <tt>[-]</tt><em>m.dddddd</em><tt>e+/-</tt><em>xx</em> or
-		 <tt>[-]</tt><em>m.dddddd</em><tt>E+/-</tt><em>xx</em>,
-		 where the number of <em>d</em>'s is specified by the
-		 precision. The default precision is 6; a precision
-		 of 0 suppresses the decimal point.</td>
-<tr>
-<td><tt>g,G</tt></td><td><tt>double</tt>; <tt>%e</tt> or <tt>%E</tt> is used
-		 if the exponent is less than -4 or greater than or
-		 equal to the precision; otherwise <tt>%f</tt> is
-		 used. Trailing zeros and a trailing decimal point
-		 are not printed.</td>
-<tr>
-<td><tt>p</tt></td><td><tt>void *</tt>; print as a pointer
-  (implementation-dependent representation).</td>
-<tr>
-<td><tt>n</tt></td><td><tt>int *</tt>; the number of characters written so
-	       far by this call to <tt>printf</tt> is <em>written
-	       into</em> the argument. No argument is converted.</td>
-<tr>
-<td><tt>%</tt></td><td>no argument is converted; print a %</td>
-</table>
-<p>
-<dl>
-<p><dt>
-<tt>int printf(const char *format, ...)</tt>
-<dd><tt>printf(...)</tt> is equivalent to <tt>fprintf(stdout, ...)</tt>.
-<p><dt>
-<tt>int sprintf(char *s, const char *format, ...)</tt>
-<dd>
-<tt>sprintf</tt> is the same as <tt>printf</tt> except that the output is written
-into the string <tt>s</tt>, terminated with <tt>'\0'</tt>. <tt>s</tt> must be
-big enough to hold the result. The return count does not include the
-<tt>'\0'</tt>.
-<p><dt>
-<tt>int vprintf(const char *format, va_list arg)</tt><br>
-<tt>int vfprintf(FILE *stream, const char *format, va_list arg)</tt><br>
-<tt>int vsprintf(char *s, const char *format, va_list arg)</tt>
-<dd>The functions <tt>vprintf</tt>, <tt>vfprintf</tt>, and <tt>vsprintf</tt>
-are equivalent to the corresponding <tt>printf</tt> functions, except
-that the variable argument list is replaced by <tt>arg</tt>, which has
-been initialized by the <tt>va_start</tt> macro and perhaps
-<tt>va_arg</tt> calls. See the discussion of <tt>&lt;stdarg.h&gt;</tt> in
-<a href="appb.html#sb.7">Section B.7</a>.
-</dl>
+    <tt>fprintf</tt> converts and writes output to <tt>stream</tt> under the
+    control of <tt>format</tt>. The return value is the number of characters
+    written, or negative if an error occurred.
+    <p>
+        The format string contains two types of objects: ordinary characters, which
+        are copied to the output stream, and conversion specifications, each of which
+        causes conversion and printing of the next successive argument to
+        <tt>fprintf</tt>. Each conversion specification begins with the character
+        <tt>%</tt> and ends with a conversion character. Between the <tt>%</tt> and
+        the conversion character there may be, in order:
+    <p>
+    <ul>
+        <li>Flags (in any order), which modify the specification:
+            <ul>
+                <li><tt>-</tt>, which specifies left adjustment of the converted
+                    argument in its field.
+                <li><tt>+</tt>, which specifies that the number will always be printed
+                    with a sign.
+                <li><em>space</em>: if the first character is not a sign, a space will
+                    be prefixed.
+                <li><tt>0</tt>: for numeric conversions, specifies padding to the field
+                    width with leading zeros.
+                <li><tt>#</tt>, which specifies an alternate output form. For <tt>o</tt>,
+                    the first digit will become zero. For <tt>x</tt> or <tt>X</tt>,
+                    <tt>0x</tt> or <tt>0X</tt> will be prefixed to a non-zero result.
+                    For <tt>e</tt>, <tt>E</tt>, <tt>f</tt>, <tt>g</tt>, and <tt>G</tt>,
+                    the output will always have a decimal point; for <tt>g</tt> and
+                    <tt>G</tt>, trailing zeros will not be removed.
+            </ul>
+        <li>A number specifying a minimum field width. The converted argument will
+            be printed in a field at least this wide, and wider if necessary. If the
+            converted argument has fewer characters than the field width it will be
+            padded on the left (or right, if left adjustment has been requested) to
+            make up the field width. The padding character is normally space, but is
+            <tt>0</tt> if the zero padding flag is present.
+        <li>A period, which separates the field width from the precision.
+        <li>A number, the precision, that specifies the maximum number of characters
+            to be printed from a string, or the number of digits to be printed after
+            the decimal point for <tt>e</tt>, <tt>E</tt>, or <tt>f</tt> conversions,
+            or the number of significant digits for <tt>g</tt> or <tt>G</tt>
+            conversion, or the number of digits to be printed for an integer (leading
+            <tt>0</tt>s will be added to make up the necessary width).
+        <li>A length modifier <tt>h</tt>, <tt>l</tt> (letter ell), or <tt>L</tt>.
+            ``<tt>h</tt>'' indicates that the corresponding argument is to be printed
+            as a <tt> short</tt> or <tt>unsigned short</tt>; ``<tt>l</tt>'' indicates
+            that the argument is a <tt>long</tt> or <tt>unsigned long</tt>,
+            ``<tt>L</tt>'' indicates that the argument is a <tt>long double</tt>.
+    </ul>
+    <p>
+        Width or precision or both may be specified as <tt>*</tt>, in which case the value
+        is computed by converting the next argument(s), which must be <tt>int</tt>.
+    <p>
+        The conversion characters and their meanings are shown in Table B.1.
+        If the character after the <tt>%</tt> is not a conversion
+        character, the behavior is undefined.
+    <p align="center">
+        <em><strong>Table B.1</strong> Printf Conversions</em>
+    <p align="center">
+    <table border=1>
+        <th align="center">Character
+        <th align="center">Argument type; Printed As
+            <tr>
+                <td><tt>d,i</tt></td>
+                <td><tt>int</tt>; signed decimal notation.</td>
+            <tr>
+                <td><tt>o</tt></td>
+                <td><tt>int</tt>; unsigned octal notation (without a leading zero).</td>
+            <tr>
+                <td><tt>x,X</tt></td>
+                <td><tt>unsigned int</tt>; unsigned hexadecimal notation
+                    (without a leading <tt>0x</tt> or <tt>0X</tt>), using
+                    <tt>abcdef</tt> for <tt>0x</tt> or <tt>ABCDEF</tt>
+                    for <tt>0X</tt>.
+                </td>
+            <tr>
+                <td><tt>u</tt></td>
+                <td><tt>int</tt>; unsigned decimal notation.</td>
+            <tr>
+                <td><tt>c</tt></td>
+                <td><tt>int</tt>; single character, after conversion to
+                    <tt>unsigned char</tt>
+                </td>
+            <tr>
+                <td><tt>s</tt></td>
+                <td><tt>char *</tt>; characters from the string are
+                    printed until a <tt>'\0'</tt> is reached or until the
+                    number of characters indicated by the precision have
+                    been printed.</td>
+            <tr>
+                <td><tt>f</tt></td>
+                <td><tt>double</tt>; decimal notation of the form
+                    <tt>[-]</tt><em>mmm.ddd</em>, where the number of
+                    <em>d</em>'s is given by the precision. The default
+                    precision is 6; a precision of 0 suppresses the
+                    decimal point.
+                </td>
+            <tr>
+                <td><tt>e,E</tt></td>
+                <td><tt>double</tt>; decimal notation of the form
+                    <tt>[-]</tt><em>m.dddddd</em><tt>e+/-</tt><em>xx</em> or
+                    <tt>[-]</tt><em>m.dddddd</em><tt>E+/-</tt><em>xx</em>,
+                    where the number of <em>d</em>'s is specified by the
+                    precision. The default precision is 6; a precision
+                    of 0 suppresses the decimal point.
+                </td>
+            <tr>
+                <td><tt>g,G</tt></td>
+                <td><tt>double</tt>; <tt>%e</tt> or <tt>%E</tt> is used
+                    if the exponent is less than -4 or greater than or
+                    equal to the precision; otherwise <tt>%f</tt> is
+                    used. Trailing zeros and a trailing decimal point
+                    are not printed.</td>
+            <tr>
+                <td><tt>p</tt></td>
+                <td><tt>void *</tt>; print as a pointer
+                    (implementation-dependent representation).</td>
+            <tr>
+                <td><tt>n</tt></td>
+                <td><tt>int *</tt>; the number of characters written so
+                    far by this call to <tt>printf</tt> is <em>written
+                        into</em> the argument. No argument is converted.</td>
+            <tr>
+                <td><tt>%</tt></td>
+                <td>no argument is converted; print a %</td>
+    </table>
+    <p>
+    <dl>
+        <p>
+            <dt>
+                <tt>int printf(const char *format, ...)</tt>
+            <dd><tt>printf(...)</tt> is equivalent to <tt>fprintf(stdout, ...)</tt>.
+                <p>
+            <dt>
+                <tt>int sprintf(char *s, const char *format, ...)</tt>
+            <dd>
+                <tt>sprintf</tt> is the same as <tt>printf</tt> except that the output is written
+                into the string <tt>s</tt>, terminated with <tt>'\0'</tt>. <tt>s</tt> must be
+                big enough to hold the result. The return count does not include the
+                <tt>'\0'</tt>.
+                <p>
+            <dt>
+                <tt>int vprintf(const char *format, va_list arg)</tt><br>
+                <tt>int vfprintf(FILE *stream, const char *format, va_list arg)</tt><br>
+                <tt>int vsprintf(char *s, const char *format, va_list arg)</tt>
+            <dd>The functions <tt>vprintf</tt>, <tt>vfprintf</tt>, and <tt>vsprintf</tt>
+                are equivalent to the corresponding <tt>printf</tt> functions, except
+                that the variable argument list is replaced by <tt>arg</tt>, which has
+                been initialized by the <tt>va_start</tt> macro and perhaps
+                <tt>va_arg</tt> calls. See the discussion of <tt>&lt;stdarg.h&gt;</tt> in
+                <a href="appb.html#sb.7">Section B.7</a>.
+    </dl>
 
-<h3><a name="sb.1.3">B.1.3 Formatted Input</a></h3>
-The <tt>scanf</tt> function deals with formatted input conversion.
-<pre>
+    <h3><a name="sb.1.3">B.1.3 Formatted Input</a></h3>
+    The <tt>scanf</tt> function deals with formatted input conversion.
+    <pre>
 int fscanf(FILE *stream, const char *format, ...)
 </pre>
-<tt>fscanf</tt> reads from <tt>stream</tt> under control of <tt>format</tt>,
-and assigns converted values through subsequent arguments, <em>each of which
-must be a pointer</em>. It returns when <tt>format</tt> is exhausted.
-<tt>fscanf</tt> returns <tt>EOF</tt> if end of file or an error occurs before
-any conversion; otherwise it returns the number of input items converted and
-assigned.
-<p>
-The format string usually contains conversion specifications, which are used
-to direct interpretation of input. The format string may contain:
-<ul>
-<li>Blanks or tabs, which are not ignored.
-<li>Ordinary characters (not %), which are expected to match the next
-non-white space character of the input stream.
-<li>Conversion specifications, consisting of a <tt>%</tt>, an optional
-assignment suppression character <tt>*</tt>, an optional number specifying
-a maximum field width, an optional <tt>h</tt>, <tt>l</tt>, or <tt>L</tt>
-indicating the width of the target, and a conversion character.
-</ul>
-A conversion specification determines the conversion of the next input field.
-Normally the result is placed in the variable pointed to by the corresponding
-argument. If assignment suppression is indicated by <tt>*</tt>, as in
-<tt>%*s</tt>, however, the input field is simply skipped; no assignment is made.
-An input field is defined as a string of non-white space characters; it
-extends either to the next white space character or until the field width, if
-specified, is exhausted. This implies that <tt>scanf</tt> will read across line
-boundaries to find its input, since newlines are white space. (White space
-characters are blank, tab, newline, carriage return, vertical tab, and
-formfeed.)
-<p>
-The conversion character indicates the interpretation of the input field. The
-corresponding argument must be a pointer. The legal conversion characters are
-shown in Table B.2.
-<p>
-The conversion characters <tt>d</tt>, <tt>i</tt>, <tt>n</tt>, <tt>o</tt>,
-<tt>u</tt>, and <tt>x</tt> may be preceded by <tt>h</tt> if the argument is a
-pointer to <tt>short</tt> rather than int, or by <tt>l</tt> (letter ell) if
-the argument is a pointer to <tt>long</tt>. The conversion characters
-<tt>e</tt>, <tt>f</tt>, and <tt>g</tt> may be preceded by <tt>l</tt> if a
-pointer to <tt>double</tt> rather than <tt>float</tt> is in the argument
-list, and by <tt>L</tt> if a pointer to a <tt>long double</tt>.
-<p align="center">
-<em><strong>Table B.2</strong> Scanf Conversions</em>
-<p align="center">
-<table border=1>
-<th align="center">Character<th align="center">Input Data; Argument type
-<tr>
-<td><tt>d</tt></td><td>decimal integer; <tt>int*</tt>
-<tr>
-<td><tt>i</tt></td><td>integer; <tt>int*</tt>. The integer may be in octal
-	       (leading <tt>0</tt>) or hexadecimal (leading
-	       <tt>0x</tt> or <tt>0X</tt>).
-<tr>
-<td><tt>o</tt></td><td>octal integer (with or without leading zero); <tt>int *</tt>.
-<tr>
-<td><tt>u</tt></td><td>unsigned decimal integer; <tt>unsigned int *</tt>.
-<tr>
-<td><tt>x</tt></td><td>hexadecimal integer (with or without leading
-	       <tt>0x</tt> or <tt>0X</tt>); <tt>int*</tt>.
-<tr>
-<td><tt>c</tt></td><td>characters; <tt>char*</tt>. The next input characters
-	       are placed in the indicated array, up to the number
-	       given by the width field; the default is 1. No
-	       <tt>'\0'</tt> is added. The normal skip over white
-	       space characters is suppressed in this case; to read
-	       the next non-white space character, use <tt>%1s</tt>.
-<tr>
-<td><tt>s</tt></td><td>string of non-white space characters (not quoted);
-	       <tt>char *</tt>, pointing to an array of characters
-	       large enough to hold the string and a terminating
-	       <tt>'\0'</tt> that will be added.
-<tr>
-<td><tt>e,f,g</tt></td><td>floating-point number; <tt>float *</tt>. The input
-		   format for <tt>float</tt>'s is an optional sign, a
-		   string of numbers possibly containing a decimal
-		   point, and an optional exponent field containing
-		   an <tt>E</tt> or <tt>e</tt> followed by a possibly
-		   signed integer.
-<tr>
-<td><tt>p</tt></td><td>pointer value as printed by <tt>printf("%p");</tt>, <tt>void *</tt>.
-<tr>
-<td><tt>n</tt></td><td>writes into the argument the number  of characters
-	       read so far by this call; <tt>int *</tt>. No input is
-	       read. The converted item count is not incremented.
-<tr>
-<td><tt>[...]</tt></td><td>matches the longest non-empty string of input
-		   characters from the set between brackets; <tt>char
-		   *</tt>. A <tt>'\0'</tt> is added. <tt>[]...]</tt>
-		   includes <tt>]</tt> in the set.
-<tr>
-<td><tt>[^...]</tt></td><td>matches the longest non-empty string of input
-		    characters <em> not</em> from the set between
-		    brackets; <tt>char *</tt>. A <tt>'\0'</tt> is
-		    added. <tt>[^]...]</tt> includes <tt>]</tt> in
-		    the set.
-<tr>
-<td><tt>%</tt></td><td>literal %; no assignment is made.</td>
-</table>
-<p>
-<dl>
-<p><dt>
-<tt>int scanf(const char *format, ...)</tt>
-<dd><tt>scanf(...)</tt> is identical to <tt>fscanf(stdin, ...)</tt>.
-<p><dt>
-<tt>int sscanf(const char *s, const char *format, ...)</tt>
-<dd><tt>sscanf(s, ...)</tt> is equivalent to <tt>scanf(...)</tt> except that
-the input characters are taken from the string <tt>s</tt>.
-</dl>
+    <tt>fscanf</tt> reads from <tt>stream</tt> under control of <tt>format</tt>,
+    and assigns converted values through subsequent arguments, <em>each of which
+        must be a pointer</em>. It returns when <tt>format</tt> is exhausted.
+    <tt>fscanf</tt> returns <tt>EOF</tt> if end of file or an error occurs before
+    any conversion; otherwise it returns the number of input items converted and
+    assigned.
+    <p>
+        The format string usually contains conversion specifications, which are used
+        to direct interpretation of input. The format string may contain:
+    <ul>
+        <li>Blanks or tabs, which are not ignored.
+        <li>Ordinary characters (not %), which are expected to match the next
+            non-white space character of the input stream.
+        <li>Conversion specifications, consisting of a <tt>%</tt>, an optional
+            assignment suppression character <tt>*</tt>, an optional number specifying
+            a maximum field width, an optional <tt>h</tt>, <tt>l</tt>, or <tt>L</tt>
+            indicating the width of the target, and a conversion character.
+    </ul>
+    A conversion specification determines the conversion of the next input field.
+    Normally the result is placed in the variable pointed to by the corresponding
+    argument. If assignment suppression is indicated by <tt>*</tt>, as in
+    <tt>%*s</tt>, however, the input field is simply skipped; no assignment is made.
+    An input field is defined as a string of non-white space characters; it
+    extends either to the next white space character or until the field width, if
+    specified, is exhausted. This implies that <tt>scanf</tt> will read across line
+    boundaries to find its input, since newlines are white space. (White space
+    characters are blank, tab, newline, carriage return, vertical tab, and
+    formfeed.)
+    <p>
+        The conversion character indicates the interpretation of the input field. The
+        corresponding argument must be a pointer. The legal conversion characters are
+        shown in Table B.2.
+    <p>
+        The conversion characters <tt>d</tt>, <tt>i</tt>, <tt>n</tt>, <tt>o</tt>,
+        <tt>u</tt>, and <tt>x</tt> may be preceded by <tt>h</tt> if the argument is a
+        pointer to <tt>short</tt> rather than int, or by <tt>l</tt> (letter ell) if
+        the argument is a pointer to <tt>long</tt>. The conversion characters
+        <tt>e</tt>, <tt>f</tt>, and <tt>g</tt> may be preceded by <tt>l</tt> if a
+        pointer to <tt>double</tt> rather than <tt>float</tt> is in the argument
+        list, and by <tt>L</tt> if a pointer to a <tt>long double</tt>.
+    <p align="center">
+        <em><strong>Table B.2</strong> Scanf Conversions</em>
+    <p align="center">
+    <table border=1>
+        <th align="center">Character
+        <th align="center">Input Data; Argument type
+            <tr>
+                <td><tt>d</tt></td>
+                <td>decimal integer; <tt>int*</tt>
+            <tr>
+                <td><tt>i</tt></td>
+                <td>integer; <tt>int*</tt>. The integer may be in octal
+                    (leading <tt>0</tt>) or hexadecimal (leading
+                    <tt>0x</tt> or <tt>0X</tt>).
+            <tr>
+                <td><tt>o</tt></td>
+                <td>octal integer (with or without leading zero); <tt>int *</tt>.
+            <tr>
+                <td><tt>u</tt></td>
+                <td>unsigned decimal integer; <tt>unsigned int *</tt>.
+            <tr>
+                <td><tt>x</tt></td>
+                <td>hexadecimal integer (with or without leading
+                    <tt>0x</tt> or <tt>0X</tt>); <tt>int*</tt>.
+            <tr>
+                <td><tt>c</tt></td>
+                <td>characters; <tt>char*</tt>. The next input characters
+                    are placed in the indicated array, up to the number
+                    given by the width field; the default is 1. No
+                    <tt>'\0'</tt> is added. The normal skip over white
+                    space characters is suppressed in this case; to read
+                    the next non-white space character, use <tt>%1s</tt>.
+            <tr>
+                <td><tt>s</tt></td>
+                <td>string of non-white space characters (not quoted);
+                    <tt>char *</tt>, pointing to an array of characters
+                    large enough to hold the string and a terminating
+                    <tt>'\0'</tt> that will be added.
+            <tr>
+                <td><tt>e,f,g</tt></td>
+                <td>floating-point number; <tt>float *</tt>. The input
+                    format for <tt>float</tt>'s is an optional sign, a
+                    string of numbers possibly containing a decimal
+                    point, and an optional exponent field containing
+                    an <tt>E</tt> or <tt>e</tt> followed by a possibly
+                    signed integer.
+            <tr>
+                <td><tt>p</tt></td>
+                <td>pointer value as printed by <tt>printf("%p");</tt>, <tt>void *</tt>.
+            <tr>
+                <td><tt>n</tt></td>
+                <td>writes into the argument the number of characters
+                    read so far by this call; <tt>int *</tt>. No input is
+                    read. The converted item count is not incremented.
+            <tr>
+                <td><tt>[...]</tt></td>
+                <td>matches the longest non-empty string of input
+                    characters from the set between brackets; <tt>char
+                        *</tt>. A <tt>'\0'</tt> is added. <tt>[]...]</tt>
+                    includes <tt>]</tt> in the set.
+            <tr>
+                <td><tt>[^...]</tt></td>
+                <td>matches the longest non-empty string of input
+                    characters <em> not</em> from the set between
+                    brackets; <tt>char *</tt>. A <tt>'\0'</tt> is
+                    added. <tt>[^]...]</tt> includes <tt>]</tt> in
+                    the set.
+            <tr>
+                <td><tt>%</tt></td>
+                <td>literal %; no assignment is made.</td>
+    </table>
+    <p>
+    <dl>
+        <p>
+            <dt>
+                <tt>int scanf(const char *format, ...)</tt>
+            <dd><tt>scanf(...)</tt> is identical to <tt>fscanf(stdin, ...)</tt>.
+                <p>
+            <dt>
+                <tt>int sscanf(const char *s, const char *format, ...)</tt>
+            <dd><tt>sscanf(s, ...)</tt> is equivalent to <tt>scanf(...)</tt> except that
+                the input characters are taken from the string <tt>s</tt>.
+    </dl>
 
-<h3><a name="sb.1.4">B.1.4 Character Input and Output Functions</a></h3>
-<dl>
-<p><dt>
-<tt>int fgetc(FILE *stream)</tt>
-<dd><tt>fgetc</tt> returns the next character of <tt>stream</tt> as an
-<tt>unsigned char</tt> (converted to an <tt>int</tt>), or <tt>EOF</tt> if
-end of file or error occurs.
-<p><dt>
-<tt>char *fgets(char *s, int n, FILE *stream)</tt>
-<dd><tt>fgets</tt> reads at most the next <tt>n-1</tt> characters into the
-array <tt>s</tt>, stopping if a newline is encountered; the newline is
-included in the array, which is terminated by <tt>'\0'</tt>.
-<tt>fgets</tt> returns <tt>s</tt>, or <tt>NULL</tt> if end of file or
-error occurs.
-<p><dt>
-<tt>int fputc(int c, FILE *stream)</tt>
-<dd><tt>fputc</tt> writes the character <tt>c</tt> (converted to an
-<tt>unsigend char</tt>) on <tt>stream</tt>. It returns the character
-written, or <tt>EOF</tt> for error.
-<p><dt>
-<tt>int fputs(const char *s, FILE *stream)</tt>
-<dd><tt>fputs</tt> writes the string <tt>s</tt> (which need not contain
-<tt>\n</tt>) on <tt>stream</tt>; it returns non-negative, or <tt>EOF</tt>
-for an error.
-<p><dt>
-<tt>int getc(FILE *stream)</tt>
-<dd><tt>getc</tt> is equivalent to <tt>fgetc</tt> except that if it is a
-macro, it may evaluate <tt>stream</tt> more than once.
-<p><dt>
-<tt>int getchar(void)</tt>
-<dd><tt>getchar</tt> is equivalent to <tt>getc(stdin)</tt>.
-<p><dt>
-<tt>char *gets(char *s)</tt>
-<dd><tt>gets</tt> reads the next input line into the array <tt>s</tt>; it
-replaces the terminating newline with <tt>'\0'</tt>. It returns
-<tt>s</tt>, or <tt>NULL</tt> if end of file or error occurs.
-<p><dt>
-<tt>int putc(int c, FILE *stream)</tt>
-<dd><tt>putc</tt> is equivalent to <tt>fputc</tt> except that if it is a macro, it may
-evaluate <tt>stream</tt> more than once.
-<p><dt>
-<tt>int putchar(int c)</tt>
-<dd><tt>putchar(c)</tt> is equivalent to <tt>putc(c,stdout)</tt>.
-<p><dt>
-<tt>int puts(const char *s)</tt>
-<dd><tt>puts</tt> writes the string <tt>s</tt> and a newline to
-<tt>stdout</tt>. It returns <tt>EOF</tt> if an error occurs, non-negative
-otherwise.
-<p><dt>
-<tt>int ungetc(int c, FILE *stream)</tt>
-<dd><tt>ungetc</tt> pushes <tt>c</tt> (converted to an <tt>unsigned
-char</tt>) back onto <tt>stream</tt>, where it will be returned on the
-next read. Only one character of pushback per stream is guaranteed.
-<tt>EOF</tt> may not be pushed back. <tt>ungetc</tt> returns the
-character pushed back, or <tt>EOF</tt> for error.
-</dl>
+    <h3><a name="sb.1.4">B.1.4 Character Input and Output Functions</a></h3>
+    <dl>
+        <p>
+            <dt>
+                <tt>int fgetc(FILE *stream)</tt>
+            <dd><tt>fgetc</tt> returns the next character of <tt>stream</tt> as an
+                <tt>unsigned char</tt> (converted to an <tt>int</tt>), or <tt>EOF</tt> if
+                end of file or error occurs.
+                <p>
+            <dt>
+                <tt>char *fgets(char *s, int n, FILE *stream)</tt>
+            <dd><tt>fgets</tt> reads at most the next <tt>n-1</tt> characters into the
+                array <tt>s</tt>, stopping if a newline is encountered; the newline is
+                included in the array, which is terminated by <tt>'\0'</tt>.
+                <tt>fgets</tt> returns <tt>s</tt>, or <tt>NULL</tt> if end of file or
+                error occurs.
+                <p>
+            <dt>
+                <tt>int fputc(int c, FILE *stream)</tt>
+            <dd><tt>fputc</tt> writes the character <tt>c</tt> (converted to an
+                <tt>unsigend char</tt>) on <tt>stream</tt>. It returns the character
+                written, or <tt>EOF</tt> for error.
+                <p>
+            <dt>
+                <tt>int fputs(const char *s, FILE *stream)</tt>
+            <dd><tt>fputs</tt> writes the string <tt>s</tt> (which need not contain
+                <tt>\n</tt>) on <tt>stream</tt>; it returns non-negative, or <tt>EOF</tt>
+                for an error.
+                <p>
+            <dt>
+                <tt>int getc(FILE *stream)</tt>
+            <dd><tt>getc</tt> is equivalent to <tt>fgetc</tt> except that if it is a
+                macro, it may evaluate <tt>stream</tt> more than once.
+                <p>
+            <dt>
+                <tt>int getchar(void)</tt>
+            <dd><tt>getchar</tt> is equivalent to <tt>getc(stdin)</tt>.
+                <p>
+            <dt>
+                <tt>char *gets(char *s)</tt>
+            <dd><tt>gets</tt> reads the next input line into the array <tt>s</tt>; it
+                replaces the terminating newline with <tt>'\0'</tt>. It returns
+                <tt>s</tt>, or <tt>NULL</tt> if end of file or error occurs.
+                <p>
+            <dt>
+                <tt>int putc(int c, FILE *stream)</tt>
+            <dd><tt>putc</tt> is equivalent to <tt>fputc</tt> except that if it is a macro, it may
+                evaluate <tt>stream</tt> more than once.
+                <p>
+            <dt>
+                <tt>int putchar(int c)</tt>
+            <dd><tt>putchar(c)</tt> is equivalent to <tt>putc(c,stdout)</tt>.
+                <p>
+            <dt>
+                <tt>int puts(const char *s)</tt>
+            <dd><tt>puts</tt> writes the string <tt>s</tt> and a newline to
+                <tt>stdout</tt>. It returns <tt>EOF</tt> if an error occurs, non-negative
+                otherwise.
+                <p>
+            <dt>
+                <tt>int ungetc(int c, FILE *stream)</tt>
+            <dd><tt>ungetc</tt> pushes <tt>c</tt> (converted to an <tt>unsigned
+                    char</tt>) back onto <tt>stream</tt>, where it will be returned on the
+                next read. Only one character of pushback per stream is guaranteed.
+                <tt>EOF</tt> may not be pushed back. <tt>ungetc</tt> returns the
+                character pushed back, or <tt>EOF</tt> for error.
+    </dl>
 
-<h3><a name="sb.1.5">B.1.5 Direct Input and Output Functions</a></h3>
-<dl>
-<p><dt>
-<tt>size_t fread(void *ptr, size_t size, size_t nobj, FILE *stream)</tt>
-<dd><tt>fread</tt> reads from <tt>stream</tt> into the array <tt>ptr</tt> at
-most <tt>nobj</tt> objects of size <tt>size</tt>. <tt>fread</tt> returns
-the number of objects read; this may be less than the number requested.
-<tt>feof</tt> and <tt>ferror</tt> must be used to determine status.
-<p><dt>
-<tt>size_t fwrite(const void *ptr, size_t size, size_t nobj, FILE *stream)</tt>
-<dd><tt>fwrite</tt> writes, from the array <tt>ptr</tt>, <tt>nobj</tt>
-objects of size <tt>size</tt> on <tt>stream</tt>. It returns the number
-of objects written, which is less than <tt>nobj</tt> on error.
-</dl>
+    <h3><a name="sb.1.5">B.1.5 Direct Input and Output Functions</a></h3>
+    <dl>
+        <p>
+            <dt>
+                <tt>size_t fread(void *ptr, size_t size, size_t nobj, FILE *stream)</tt>
+            <dd><tt>fread</tt> reads from <tt>stream</tt> into the array <tt>ptr</tt> at
+                most <tt>nobj</tt> objects of size <tt>size</tt>. <tt>fread</tt> returns
+                the number of objects read; this may be less than the number requested.
+                <tt>feof</tt> and <tt>ferror</tt> must be used to determine status.
+                <p>
+            <dt>
+                <tt>size_t fwrite(const void *ptr, size_t size, size_t nobj, FILE *stream)</tt>
+            <dd><tt>fwrite</tt> writes, from the array <tt>ptr</tt>, <tt>nobj</tt>
+                objects of size <tt>size</tt> on <tt>stream</tt>. It returns the number
+                of objects written, which is less than <tt>nobj</tt> on error.
+    </dl>
 
-<h3><a name="sb.1.6">B.1.6 File Positioning Functions</a></h3>
-<dl>
-<p><dt>
-<tt>int fseek(FILE *stream, long offset, int origin)</tt>
-<dd><tt>fseek</tt> sets the file position for <tt>stream</tt>; a subsequent
-read or write will access data beginning at the new position. For a
-binary file, the position is set to <tt>offset</tt> characters from
-<tt>origin</tt>, which may be <tt>SEEK_SET</tt> (beginning),
-<tt>SEEK_CUR</tt> (current position), or <tt>SEEK_END</tt> (end of file).
-For a text stream, <tt>offset</tt> must be zero, or a value returned by
-<tt>ftell</tt> (in which case <tt>origin</tt> must be <tt>SEEK_SET</tt>).
-<tt>fseek</tt> returns non-zero on error.
-<p><dt>
-<tt>long ftell(FILE *stream)</tt>
-<dd><tt>ftell</tt> returns the current file position for <tt>stream</tt>, or
-<tt>-1</tt> on error.
-<p><dt>
-<tt>void rewind(FILE *stream)</tt>
-<dd><tt>rewind(fp)</tt> is equivalent to <tt>fseek(fp, 0L, SEEK_SET); clearerr(fp)</tt>.
-<p><dt>
-<tt>int fgetpos(FILE *stream, fpos_t *ptr)</tt>
-<dd>
-<tt>fgetpos</tt> records the current position in <tt>stream</tt> in
-<tt>*ptr</tt>, for subsequent use by <tt>fsetpos</tt>. The type
-<tt>fpos_t</tt> is suitable for recording such values. <tt>fgetpos</tt>
-returns non-zero on error.
-<p><dt>
-<tt>int fsetpos(FILE *stream, const fpos_t *ptr)</tt>
-<dd><tt>fsetpos</tt> positions <tt>stream</tt> at the position recorded by
-<tt>fgetpos</tt> in <tt>*ptr</tt>. <tt>fsetpos</tt> returns non-zero on
-error.
-</dl>
+    <h3><a name="sb.1.6">B.1.6 File Positioning Functions</a></h3>
+    <dl>
+        <p>
+            <dt>
+                <tt>int fseek(FILE *stream, long offset, int origin)</tt>
+            <dd><tt>fseek</tt> sets the file position for <tt>stream</tt>; a subsequent
+                read or write will access data beginning at the new position. For a
+                binary file, the position is set to <tt>offset</tt> characters from
+                <tt>origin</tt>, which may be <tt>SEEK_SET</tt> (beginning),
+                <tt>SEEK_CUR</tt> (current position), or <tt>SEEK_END</tt> (end of file).
+                For a text stream, <tt>offset</tt> must be zero, or a value returned by
+                <tt>ftell</tt> (in which case <tt>origin</tt> must be <tt>SEEK_SET</tt>).
+                <tt>fseek</tt> returns non-zero on error.
+                <p>
+            <dt>
+                <tt>long ftell(FILE *stream)</tt>
+            <dd><tt>ftell</tt> returns the current file position for <tt>stream</tt>, or
+                <tt>-1</tt> on error.
+                <p>
+            <dt>
+                <tt>void rewind(FILE *stream)</tt>
+            <dd><tt>rewind(fp)</tt> is equivalent to <tt>fseek(fp, 0L, SEEK_SET); clearerr(fp)</tt>.
+                <p>
+            <dt>
+                <tt>int fgetpos(FILE *stream, fpos_t *ptr)</tt>
+            <dd>
+                <tt>fgetpos</tt> records the current position in <tt>stream</tt> in
+                <tt>*ptr</tt>, for subsequent use by <tt>fsetpos</tt>. The type
+                <tt>fpos_t</tt> is suitable for recording such values. <tt>fgetpos</tt>
+                returns non-zero on error.
+                <p>
+            <dt>
+                <tt>int fsetpos(FILE *stream, const fpos_t *ptr)</tt>
+            <dd><tt>fsetpos</tt> positions <tt>stream</tt> at the position recorded by
+                <tt>fgetpos</tt> in <tt>*ptr</tt>. <tt>fsetpos</tt> returns non-zero on
+                error.
+    </dl>
 
-<h3><a name="sb.1.7">B.1.7 Error Functions</a></h3>
-Many of the functions in the library set status indicators when error or end
-of file occur. These indicators may be set and tested explicitly. In
-addition, the integer expression <tt>errno</tt> (declared in
-<tt>&lt;errno.h&gt;</tt>) may contain an error number that gives further
-information about the most recent error.
-<dl>
-<p><dt>
-<tt>void clearerr(FILE *stream)</tt>
-<dd><tt>clearerr</tt> clears the end of file and error indicators for <tt>stream</tt>.
-<p><dt>
-<tt>int feof(FILE *stream)</tt>
-<dd><tt>feof</tt> returns non-zero if the end of file indicator for
-<tt>stream</tt> is set.
-<p><dt>
-<tt>int ferror(FILE *stream)</tt>
-<dd><tt>ferror</tt> returns non-zero if the error indicator for <tt>stream</tt> is set.
-<p><dt>
-<tt>void perror(const char *s)</tt>
-<dd><tt>perror(s)</tt> prints <tt>s</tt> and an implementation-defined error message
-corresponding to the integer in <tt>errno</tt>, as if by
-<p>
-&nbsp;&nbsp;&nbsp;&nbsp;<tt>fprintf(stderr, "%s: %s\n", s, "</tt><em>error message</em><tt>");</tt>
-<p>
-<dd>
-See <tt>strerror</tt> in <a href="appb.html#sb.3">Section B.3</a>.
-</dl>
+    <h3><a name="sb.1.7">B.1.7 Error Functions</a></h3>
+    Many of the functions in the library set status indicators when error or end
+    of file occur. These indicators may be set and tested explicitly. In
+    addition, the integer expression <tt>errno</tt> (declared in
+    <tt>&lt;errno.h&gt;</tt>) may contain an error number that gives further
+    information about the most recent error.
+    <dl>
+        <p>
+            <dt>
+                <tt>void clearerr(FILE *stream)</tt>
+            <dd><tt>clearerr</tt> clears the end of file and error indicators for <tt>stream</tt>.
+                <p>
+            <dt>
+                <tt>int feof(FILE *stream)</tt>
+            <dd><tt>feof</tt> returns non-zero if the end of file indicator for
+                <tt>stream</tt> is set.
+                <p>
+            <dt>
+                <tt>int ferror(FILE *stream)</tt>
+            <dd><tt>ferror</tt> returns non-zero if the error indicator for <tt>stream</tt> is set.
+                <p>
+            <dt>
+                <tt>void perror(const char *s)</tt>
+            <dd><tt>perror(s)</tt> prints <tt>s</tt> and an implementation-defined error message
+                corresponding to the integer in <tt>errno</tt>, as if by
+                <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<tt>fprintf(stderr, "%s: %s\n", s, "</tt><em>error message</em><tt>");</tt>
+                <p>
+            <dd>
+                See <tt>strerror</tt> in <a href="appb.html#sb.3">Section B.3</a>.
+    </dl>
 
-<h2><a name="sb.2">B.2 Character Class Tests: &lt;ctype.h&gt;</a></h2>
-The header <tt>&lt;ctype.h&gt;</tt> declares functions for testing
-characters. For each function, the argument list is an <tt>int</tt>, whose
-value must be <tt>EOF</tt> or representable as an <tt>unsigned char</tt>, and
-the return value is an <tt>int</tt>. The functions return non-zero (true) if
-the argument <tt>c</tt> satisfies the condition described, and zero if not.
-<p align="center">
-<table border=0>
-<td><tt>isalnum(c)</tt></td><td><tt>isalpha(c)</tt> or <tt>isdigit(c)</tt> is true</td><tr>
-<td><tt>isalpha(c)</tt></td><td><tt>isupper(c)</tt> or <tt>islower(c)</tt> is true</td><tr>
-<td><tt>iscntrl(c)</tt></td><td>control character</td><tr>
-<td><tt>isdigit(c)</tt></td><td>decimal digit</td><tr>
-<td><tt>isgraph(c)</tt></td><td>printing character except space</td><tr>
-<td><tt>islower(c)</tt></td><td>lower-case letter</td><tr>
-<td><tt>isprint(c)</tt></td><td>printing character including space</td><tr>
-<td><tt>ispunct(c)</tt></td><td>printing character except space or letter or digit</td><tr>
-<td><tt>isspace(c)</tt></td><td>space, formfeed, newline, carriage return, tab, vertical tab</td><tr>
-<td><tt>isupper(c)</tt></td><td>upper-case letter</td><tr>
-<td><tt>isxdigit(c)</tt></td><td>hexadecimal digit</td>
-</table>
-<p>
-In the seven-bit ASCII character set, the printing characters are
-<tt>0x20 (' ')</tt> to <tt>0x7E ('-')</tt>; the control characters are 0
-<tt>NUL</tt> to <tt>0x1F</tt> (US), and <tt>0x7F</tt> (DEL).
-<p>
-In addition, there are two functions that convert the case of letters:
-<p align="center">
-<table border=0>
-<td><tt>int tolower(c)</tt></td><td>convert <tt>c</tt> to lower case</td><tr>
-<td><tt>int toupper(c)</tt></td><td>convert <tt>c</tt> to upper case</td>
-</table>
-<p>
-If <tt>c</tt> is an upper-case letter, <tt>tolower(c)</tt> returns the
-corresponding lower-case letter, <tt>toupper(c)</tt> returns the
-corresponding upper-case letter; otherwise it returns <tt>c</tt>.
+    <h2><a name="sb.2">B.2 Character Class Tests: &lt;ctype.h&gt;</a></h2>
+    The header <tt>&lt;ctype.h&gt;</tt> declares functions for testing
+    characters. For each function, the argument list is an <tt>int</tt>, whose
+    value must be <tt>EOF</tt> or representable as an <tt>unsigned char</tt>, and
+    the return value is an <tt>int</tt>. The functions return non-zero (true) if
+    the argument <tt>c</tt> satisfies the condition described, and zero if not.
+    <p align="center">
+    <table border=0>
+        <td><tt>isalnum(c)</tt></td>
+        <td><tt>isalpha(c)</tt> or <tt>isdigit(c)</tt> is true</td>
+        <tr>
+            <td><tt>isalpha(c)</tt></td>
+            <td><tt>isupper(c)</tt> or <tt>islower(c)</tt> is true</td>
+        <tr>
+            <td><tt>iscntrl(c)</tt></td>
+            <td>control character</td>
+        <tr>
+            <td><tt>isdigit(c)</tt></td>
+            <td>decimal digit</td>
+        <tr>
+            <td><tt>isgraph(c)</tt></td>
+            <td>printing character except space</td>
+        <tr>
+            <td><tt>islower(c)</tt></td>
+            <td>lower-case letter</td>
+        <tr>
+            <td><tt>isprint(c)</tt></td>
+            <td>printing character including space</td>
+        <tr>
+            <td><tt>ispunct(c)</tt></td>
+            <td>printing character except space or letter or digit</td>
+        <tr>
+            <td><tt>isspace(c)</tt></td>
+            <td>space, formfeed, newline, carriage return, tab, vertical tab</td>
+        <tr>
+            <td><tt>isupper(c)</tt></td>
+            <td>upper-case letter</td>
+        <tr>
+            <td><tt>isxdigit(c)</tt></td>
+            <td>hexadecimal digit</td>
+    </table>
+    <p>
+        In the seven-bit ASCII character set, the printing characters are
+        <tt>0x20 (' ')</tt> to <tt>0x7E ('-')</tt>; the control characters are 0
+        <tt>NUL</tt> to <tt>0x1F</tt> (US), and <tt>0x7F</tt> (DEL).
+    <p>
+        In addition, there are two functions that convert the case of letters:
+    <p align="center">
+    <table border=0>
+        <td><tt>int tolower(c)</tt></td>
+        <td>convert <tt>c</tt> to lower case</td>
+        <tr>
+            <td><tt>int toupper(c)</tt></td>
+            <td>convert <tt>c</tt> to upper case</td>
+    </table>
+    <p>
+        If <tt>c</tt> is an upper-case letter, <tt>tolower(c)</tt> returns the
+        corresponding lower-case letter, <tt>toupper(c)</tt> returns the
+        corresponding upper-case letter; otherwise it returns <tt>c</tt>.
 
-<h2><a name="sb.3">B.3 String Functions: &lt;string.h&gt;</a></h2>
-There are two groups of string functions defined in the header
-<tt>&lt;string.h&gt;</tt>. The first have names beginning with <tt>str</tt>;
-the second have names beginning with <tt>mem</tt>. Except for
-<tt>memmove</tt>, the behavior is undefined if copying takes place between
-overlapping objects. Comparison functions treat arguments as <tt>unsigned
-char</tt> arrays.
-<p>
-In the following table, variables <tt>s</tt> and <tt>t</tt> are of type
-<tt>char *</tt>; <tt>cs</tt> and <tt>ct</tt> are of type <tt>const char
-*</tt>; <tt>n</tt> is of type <tt>size_t</tt>; and <tt>c</tt> is an
-<tt>int</tt> converted to <tt>char</tt>.
-<p align="center">
-<table border=0>
-<td><tt>char *strcpy(s,ct)</tt></td><td>copy string <tt>ct</tt> to string <tt>s</tt>, including
-                                        <tt>'\0'</tt>; return <tt>s</tt>.</td><tr>
-<td><tt>char *strncpy(s,ct,n)</tt></td><td>copy at most <tt>n</tt> characters of string <tt>ct</tt>
-                                           to <tt>s</tt>; return <tt>s</tt>. Pad with <tt>'\0'</tt>'s
-                                           if <tt>ct</tt> has fewer than <tt>n</tt> characters.</td><tr>
-<td><tt>char *strcat(s,ct)</tt></td><td>concatenate string <tt>ct</tt> to end of string
-                                           <tt>s</tt>; return <tt>s</tt>.</td><tr>
-<td><tt>char *strncat(s,ct,n)</tt></td><td>concatenate at most <tt>n</tt> characters of string
-                                           <tt>ct</tt> to string <tt>s</tt>, terminate <tt>s</tt> with
-                                           <tt>'\0'</tt>; return <tt>s</tt>.</td><tr>
-<td><tt>int strcmp(cs,ct)</tt></td><td>compare string <tt>cs</tt> to string <tt>ct</tt>, return
-                                           &lt;0 if <tt>cs&lt;ct</tt>, 0 if <tt>cs==ct</tt>, or &gt;0 if
-                                           <tt>cs&gt;ct</tt>.</td><tr>
-<td><tt>int strncmp(cs,ct,n)</tt></td><td>compare at most <tt>n</tt> characters of string <tt>cs</tt>
-                                           to string <tt>ct</tt>; return &lt;0 if <tt>cs&lt;ct</tt>, 0
-                                           if <tt>cs==ct</tt>, or &gt;0 if <tt>cs&gt;ct</tt>.</td><tr>
-<td><tt>char *strchr(cs,c)</tt></td><td>return pointer to first occurrence of <tt>c</tt> in
-                                           <tt>cs</tt> or <tt>NULL</tt> if not present.</td><tr>
-<td><tt>char *strrchr(cs,c)</tt></td><td>return pointer to last occurrence of <tt>c</tt> in
-                                         <tt>cs</tt> or <tt>NULL</tt> if not present.</td><tr>
-<td><tt>size_t strspn(cs,ct)</tt></td><td>return length of prefix of <tt>cs</tt> consisting of
-                                          characters in <tt>ct</tt>.</td><tr>
-<td><tt>size_t strcspn(cs,ct)</tt></td><td>return length of prefix of <tt>cs</tt> consisting of
-                                           characters <em>not</em> in <tt>ct</tt>.</td><tr>
-<td><tt>char *strpbrk(cs,ct)</tt></td><td>return pointer to first occurrence in string
-                                          <tt>cs</tt> of any character string <tt>ct</tt>, or <tt>NULL</tt>
-                                          if not present.</td><tr>
-<td><tt>char *strstr(cs,ct)</tt></td><td>return pointer to first occurrence of string
-                                         <tt>ct</tt> in <tt>cs</tt>, or <tt>NULL</tt> if not present.</td><tr>
-<td><tt>size_t strlen(cs)</tt></td><td>return length of <tt>cs</tt>.</td><tr>
-<td><tt>char *strerror(n)</tt></td><td>return pointer to implementation-defined string
-                                       corresponding to error <tt>n</tt>.</td><tr>
-<td><tt>char *strtok(s,ct)</tt></td><td><tt>strtok</tt> searches <tt>s</tt> for tokens delimited
-                                        by characters from <tt>ct</tt>; see below.</td>
-</table>
-<p>
-A sequence of calls of <tt>strtok(s,ct)</tt> splits <tt>s</tt> into tokens, each
-delimited by a character from <tt>ct</tt>. The first call in a sequence has a
-non-<tt>NULL s</tt>, it finds the first token in <tt>s</tt> consisting of
-characters not in <tt>ct</tt>; it terminates that by overwriting the next
-character of <tt>s</tt> with <tt>'\0'</tt> and returns a pointer to the token. Each
-subsequent call, indicated by a <tt>NULL</tt> value of <tt>s</tt>, returns the next
-such token, searching from just past the end of the previous one. <tt>strtok</tt>
-returns <tt>NULL</tt> when no further token is found. The string <tt>ct</tt> may be
-different on each call.
-<p>
-The <tt>mem...</tt> functions are meant for manipulating objects as character
-arrays; the intent is an interface to efficient routines. In the following
-table, <tt>s</tt> and <tt>t</tt> are of type <tt>void *</tt>; <tt>cs</tt> and <tt>ct</tt> are
-of type <tt>const void *</tt>; <tt>n</tt> is of type <tt>size_t</tt>; and <tt>c</tt> is an
-<tt>int</tt> converted to an <tt>unsigned char</tt>.
-<p align="center">
-<table border=0>
-<td><tt>void *memcpy(s,ct,n)</tt></td><td>copy <tt>n</tt> characters from <tt>ct</tt> to <tt>s</tt>,
-                                          and return <tt>s</tt>.</td><tr>
-<td><tt>void *memmove(s,ct,n)</tt></td><td>same as <tt>memcpy</tt> except that
-                                           it works even if the objects overlap.</td><tr>
-<td><tt>int memcmp(cs,ct,n)</tt></td><td>compare the first <tt>n</tt> characters of <tt>cs</tt>
-                                         with <tt>ct</tt>; return as with <tt>strcmp</tt>.</td><tr>
-<td><tt>void *memchr(cs,c,n)</tt></td><td>return pointer to first occurrence of
-                                          character <tt>c</tt> in <tt>cs</tt>, or <tt>NULL</tt>
-                                          if not present among the first <tt>n</tt>
-                                          characters.</td><tr>
-<td><tt>void *memset(s,c,n)</tt></td><td>place character <tt>c</tt> into first <tt>n</tt>
-                                         characters of <tt>s</tt>, return <tt>s</tt>.</td>
-</table>
+    <h2><a name="sb.3">B.3 String Functions: &lt;string.h&gt;</a></h2>
+    There are two groups of string functions defined in the header
+    <tt>&lt;string.h&gt;</tt>. The first have names beginning with <tt>str</tt>;
+    the second have names beginning with <tt>mem</tt>. Except for
+    <tt>memmove</tt>, the behavior is undefined if copying takes place between
+    overlapping objects. Comparison functions treat arguments as <tt>unsigned
+        char</tt> arrays.
+    <p>
+        In the following table, variables <tt>s</tt> and <tt>t</tt> are of type
+        <tt>char *</tt>; <tt>cs</tt> and <tt>ct</tt> are of type <tt>const char
+            *</tt>; <tt>n</tt> is of type <tt>size_t</tt>; and <tt>c</tt> is an
+        <tt>int</tt> converted to <tt>char</tt>.
+    <p align="center">
+    <table border=0>
+        <td><tt>char *strcpy(s,ct)</tt></td>
+        <td>copy string <tt>ct</tt> to string <tt>s</tt>, including
+            <tt>'\0'</tt>; return <tt>s</tt>.
+        </td>
+        <tr>
+            <td><tt>char *strncpy(s,ct,n)</tt></td>
+            <td>copy at most <tt>n</tt> characters of string <tt>ct</tt>
+                to <tt>s</tt>; return <tt>s</tt>. Pad with <tt>'\0'</tt>'s
+                if <tt>ct</tt> has fewer than <tt>n</tt> characters.</td>
+        <tr>
+            <td><tt>char *strcat(s,ct)</tt></td>
+            <td>concatenate string <tt>ct</tt> to end of string
+                <tt>s</tt>; return <tt>s</tt>.
+            </td>
+        <tr>
+            <td><tt>char *strncat(s,ct,n)</tt></td>
+            <td>concatenate at most <tt>n</tt> characters of string
+                <tt>ct</tt> to string <tt>s</tt>, terminate <tt>s</tt> with
+                <tt>'\0'</tt>; return <tt>s</tt>.
+            </td>
+        <tr>
+            <td><tt>int strcmp(cs,ct)</tt></td>
+            <td>compare string <tt>cs</tt> to string <tt>ct</tt>, return
+                &lt;0 if <tt>cs&lt;ct</tt>, 0 if <tt>cs==ct</tt>, or &gt;0 if
+                <tt>cs&gt;ct</tt>.
+            </td>
+        <tr>
+            <td><tt>int strncmp(cs,ct,n)</tt></td>
+            <td>compare at most <tt>n</tt> characters of string <tt>cs</tt>
+                to string <tt>ct</tt>; return &lt;0 if <tt>cs&lt;ct</tt>, 0
+                if <tt>cs==ct</tt>, or &gt;0 if <tt>cs&gt;ct</tt>.</td>
+        <tr>
+            <td><tt>char *strchr(cs,c)</tt></td>
+            <td>return pointer to first occurrence of <tt>c</tt> in
+                <tt>cs</tt> or <tt>NULL</tt> if not present.
+            </td>
+        <tr>
+            <td><tt>char *strrchr(cs,c)</tt></td>
+            <td>return pointer to last occurrence of <tt>c</tt> in
+                <tt>cs</tt> or <tt>NULL</tt> if not present.
+            </td>
+        <tr>
+            <td><tt>size_t strspn(cs,ct)</tt></td>
+            <td>return length of prefix of <tt>cs</tt> consisting of
+                characters in <tt>ct</tt>.</td>
+        <tr>
+            <td><tt>size_t strcspn(cs,ct)</tt></td>
+            <td>return length of prefix of <tt>cs</tt> consisting of
+                characters <em>not</em> in <tt>ct</tt>.</td>
+        <tr>
+            <td><tt>char *strpbrk(cs,ct)</tt></td>
+            <td>return pointer to first occurrence in string
+                <tt>cs</tt> of any character string <tt>ct</tt>, or <tt>NULL</tt>
+                if not present.
+            </td>
+        <tr>
+            <td><tt>char *strstr(cs,ct)</tt></td>
+            <td>return pointer to first occurrence of string
+                <tt>ct</tt> in <tt>cs</tt>, or <tt>NULL</tt> if not present.
+            </td>
+        <tr>
+            <td><tt>size_t strlen(cs)</tt></td>
+            <td>return length of <tt>cs</tt>.</td>
+        <tr>
+            <td><tt>char *strerror(n)</tt></td>
+            <td>return pointer to implementation-defined string
+                corresponding to error <tt>n</tt>.</td>
+        <tr>
+            <td><tt>char *strtok(s,ct)</tt></td>
+            <td><tt>strtok</tt> searches <tt>s</tt> for tokens delimited
+                by characters from <tt>ct</tt>; see below.</td>
+    </table>
+    <p>
+        A sequence of calls of <tt>strtok(s,ct)</tt> splits <tt>s</tt> into tokens, each
+        delimited by a character from <tt>ct</tt>. The first call in a sequence has a
+        non-<tt>NULL s</tt>, it finds the first token in <tt>s</tt> consisting of
+        characters not in <tt>ct</tt>; it terminates that by overwriting the next
+        character of <tt>s</tt> with <tt>'\0'</tt> and returns a pointer to the token. Each
+        subsequent call, indicated by a <tt>NULL</tt> value of <tt>s</tt>, returns the next
+        such token, searching from just past the end of the previous one. <tt>strtok</tt>
+        returns <tt>NULL</tt> when no further token is found. The string <tt>ct</tt> may be
+        different on each call.
+    <p>
+        The <tt>mem...</tt> functions are meant for manipulating objects as character
+        arrays; the intent is an interface to efficient routines. In the following
+        table, <tt>s</tt> and <tt>t</tt> are of type <tt>void *</tt>; <tt>cs</tt> and <tt>ct</tt> are
+        of type <tt>const void *</tt>; <tt>n</tt> is of type <tt>size_t</tt>; and <tt>c</tt> is an
+        <tt>int</tt> converted to an <tt>unsigned char</tt>.
+    <p align="center">
+    <table border=0>
+        <td><tt>void *memcpy(s,ct,n)</tt></td>
+        <td>copy <tt>n</tt> characters from <tt>ct</tt> to <tt>s</tt>,
+            and return <tt>s</tt>.</td>
+        <tr>
+            <td><tt>void *memmove(s,ct,n)</tt></td>
+            <td>same as <tt>memcpy</tt> except that
+                it works even if the objects overlap.</td>
+        <tr>
+            <td><tt>int memcmp(cs,ct,n)</tt></td>
+            <td>compare the first <tt>n</tt> characters of <tt>cs</tt>
+                with <tt>ct</tt>; return as with <tt>strcmp</tt>.</td>
+        <tr>
+            <td><tt>void *memchr(cs,c,n)</tt></td>
+            <td>return pointer to first occurrence of
+                character <tt>c</tt> in <tt>cs</tt>, or <tt>NULL</tt>
+                if not present among the first <tt>n</tt>
+                characters.</td>
+        <tr>
+            <td><tt>void *memset(s,c,n)</tt></td>
+            <td>place character <tt>c</tt> into first <tt>n</tt>
+                characters of <tt>s</tt>, return <tt>s</tt>.</td>
+    </table>
 
-<h2><a name="sb.4">B.4 Mathematical Functions: &lt;math.h&gt;</a></h2>
-The header <tt>&lt;math.h&gt;</tt> declares mathematical functions and macros.
-<p>
-The macros <tt>EDOM</tt> and <tt>ERANGE</tt> (found in
-<tt>&lt;errno.h&gt;</tt>) are non-zero integral constants that are used to
-signal domain and range errors for the functions; <tt>HUGE_VAL</tt> is a
-positive <tt>double</tt> value. A <em>domain error</em> occurs if an argument
-is outside the domain over which the function is defined. On a domain error,
-<tt>errno</tt> is set to <tt>EDOM</tt>; the return value is
-implementation-defined. A <em>range error</em> occurs if the result of the
-function cannot be represented as a <tt>double</tt>. If the result overflows,
-the function returns <tt>HUGE_VAL</tt> with the right sign, and
-<tt>errno</tt> is set to <tt>ERANGE</tt>. If the result underflows, the
-function returns zero; whether <tt>errno</tt> is set to <tt>ERANGE</tt> is
-implementation-defined.
-<p>
-In the following table, <tt>x</tt> and <tt>y</tt> are of type
-<tt>double</tt>, <tt>n</tt> is an <tt>int</tt>, and all functions return
-<tt>double</tt>. Angles for trigonometric functions are expressed in radians.
-<p align="center">
-<table>
-<td><tt>sin(x)</tt>    </td><td>sine of <em>x</em></td>
-<tr>
-<td><tt>cos(x)</tt>    </td><td>cosine of <em>x</em></td>
-<tr>
-<td><tt>tan(x)</tt>    </td><td>tangent of <em>x</em></td>
-<tr>
-<td><tt>asin(x)</tt>   </td><td>sin<sup>-1</sup>(x) in range [-pi/2,pi/2], x in [-1,1].</td>
-<tr>
-<td><tt>acos(x)</tt>   </td><td>cos<sup>-1</sup>(x) in range [0,pi], x in [-1,1].</td>
-<tr>
-<td><tt>atan(x)</tt>   </td><td>tan<sup>-1</sup>(x) in range [-pi/2,pi/2].</td>
-<tr>
-<td><tt>atan2(y,x)</tt></td><td>tan<sup>-1</sup>(y/x) in range [-pi,pi].</td>
-<tr>
-<td><tt>sinh(x)</tt>   </td><td>hyperbolic sine of <em>x</em></td>
-<tr>
-<td><tt>cosh(x)</tt>   </td><td>hyperbolic cosine of <em>x</em></td>
-<tr>
-<td><tt>tanh(x)</tt>   </td><td>hyperbolic tangent of <em>x</em></td>
-<tr>
-<td><tt>exp(x)</tt>    </td><td>exponential function <em>e<sup>x</sup></em></td>
-<tr>
-<td><tt>log(x)</tt>    </td><td>natural logarithm ln(x), <em>x</em>&gt;0.</td>
-<tr>
-<td><tt>log10(x)</tt>  </td><td>base 10 logarithm log<sub>10</sub>(x), <em>x</em>&gt;0.</td>
-<tr>
-<td><tt>pow(x,y)</tt>  </td><td><em>x<sup>y</sup></em>. A domain error occurs if <em>x=0</em>
-                       and <em>y&lt;=0</em>, or if <em>x&lt;0</em> and
-                       <em>y</em> is not an integer.</td>
-<tr>
-<td><tt>sqrt(x)</tt>   </td><td>sqare root of x, x&gt;=0.</td>
-<tr>
-<td><tt>ceil(x)</tt>   </td><td>smallest integer not less than <tt>x</tt>, as a <tt>double</tt>.</td>
-<tr>
-<td><tt>floor(x)</tt>  </td><td>largest integer not greater than <tt>x</tt>, as a <tt>double</tt>.</td>
-<tr>
-<td><tt>fabs(x)</tt>   </td><td>absolute value |x|</td>
-<tr>
-<td><tt>ldexp(x,n)</tt></td><td>x*2<sup>n</sup></td>
-<tr>
-<td><tt>frexp(x, int *ip)</tt></td><td>splits <em>x</em> into a normalized
-                        fraction in the interval [1/2,1) which is returned, and
-                        a power of 2, which is stored in <tt>*exp</tt>. If
-                        <em>x</em> is zero, both parts of the result are zero.</td>
-<tr>
-<td><tt>modf(x, double *ip)</tt></td><td>splits <em>x</em> into integral and
-                        fractional parts, each with the same sign as <em>x</em>.
-                        It stores the integral part in <tt>*ip</tt>, and
-                        returns the fractional part.</td>
-<tr>
-<td><tt>fmod(x,y)</tt></td><td>floating-point remainder of <em>x/y</em>, with
-                       the same sign as <em>x</em>. If <em>y</em> is zero, the
-                       result is implementation-defined.
-</table>
+    <h2><a name="sb.4">B.4 Mathematical Functions: &lt;math.h&gt;</a></h2>
+    The header <tt>&lt;math.h&gt;</tt> declares mathematical functions and macros.
+    <p>
+        The macros <tt>EDOM</tt> and <tt>ERANGE</tt> (found in
+        <tt>&lt;errno.h&gt;</tt>) are non-zero integral constants that are used to
+        signal domain and range errors for the functions; <tt>HUGE_VAL</tt> is a
+        positive <tt>double</tt> value. A <em>domain error</em> occurs if an argument
+        is outside the domain over which the function is defined. On a domain error,
+        <tt>errno</tt> is set to <tt>EDOM</tt>; the return value is
+        implementation-defined. A <em>range error</em> occurs if the result of the
+        function cannot be represented as a <tt>double</tt>. If the result overflows,
+        the function returns <tt>HUGE_VAL</tt> with the right sign, and
+        <tt>errno</tt> is set to <tt>ERANGE</tt>. If the result underflows, the
+        function returns zero; whether <tt>errno</tt> is set to <tt>ERANGE</tt> is
+        implementation-defined.
+    <p>
+        In the following table, <tt>x</tt> and <tt>y</tt> are of type
+        <tt>double</tt>, <tt>n</tt> is an <tt>int</tt>, and all functions return
+        <tt>double</tt>. Angles for trigonometric functions are expressed in radians.
+    <p align="center">
+    <table>
+        <td><tt>sin(x)</tt> </td>
+        <td>sine of <em>x</em></td>
+        <tr>
+            <td><tt>cos(x)</tt> </td>
+            <td>cosine of <em>x</em></td>
+        <tr>
+            <td><tt>tan(x)</tt> </td>
+            <td>tangent of <em>x</em></td>
+        <tr>
+            <td><tt>asin(x)</tt> </td>
+            <td>sin<sup>-1</sup>(x) in range [-pi/2,pi/2], x in [-1,1].</td>
+        <tr>
+            <td><tt>acos(x)</tt> </td>
+            <td>cos<sup>-1</sup>(x) in range [0,pi], x in [-1,1].</td>
+        <tr>
+            <td><tt>atan(x)</tt> </td>
+            <td>tan<sup>-1</sup>(x) in range [-pi/2,pi/2].</td>
+        <tr>
+            <td><tt>atan2(y,x)</tt></td>
+            <td>tan<sup>-1</sup>(y/x) in range [-pi,pi].</td>
+        <tr>
+            <td><tt>sinh(x)</tt> </td>
+            <td>hyperbolic sine of <em>x</em></td>
+        <tr>
+            <td><tt>cosh(x)</tt> </td>
+            <td>hyperbolic cosine of <em>x</em></td>
+        <tr>
+            <td><tt>tanh(x)</tt> </td>
+            <td>hyperbolic tangent of <em>x</em></td>
+        <tr>
+            <td><tt>exp(x)</tt> </td>
+            <td>exponential function <em>e<sup>x</sup></em></td>
+        <tr>
+            <td><tt>log(x)</tt> </td>
+            <td>natural logarithm ln(x), <em>x</em>&gt;0.</td>
+        <tr>
+            <td><tt>log10(x)</tt> </td>
+            <td>base 10 logarithm log<sub>10</sub>(x), <em>x</em>&gt;0.</td>
+        <tr>
+            <td><tt>pow(x,y)</tt> </td>
+            <td><em>x<sup>y</sup></em>. A domain error occurs if <em>x=0</em>
+                and <em>y&lt;=0</em>, or if <em>x&lt;0</em> and
+                <em>y</em> is not an integer.
+            </td>
+        <tr>
+            <td><tt>sqrt(x)</tt> </td>
+            <td>sqare root of x, x&gt;=0.</td>
+        <tr>
+            <td><tt>ceil(x)</tt> </td>
+            <td>smallest integer not less than <tt>x</tt>, as a <tt>double</tt>.</td>
+        <tr>
+            <td><tt>floor(x)</tt> </td>
+            <td>largest integer not greater than <tt>x</tt>, as a <tt>double</tt>.</td>
+        <tr>
+            <td><tt>fabs(x)</tt> </td>
+            <td>absolute value |x|</td>
+        <tr>
+            <td><tt>ldexp(x,n)</tt></td>
+            <td>x*2<sup>n</sup></td>
+        <tr>
+            <td><tt>frexp(x, int *ip)</tt></td>
+            <td>splits <em>x</em> into a normalized
+                fraction in the interval [1/2,1) which is returned, and
+                a power of 2, which is stored in <tt>*exp</tt>. If
+                <em>x</em> is zero, both parts of the result are zero.
+            </td>
+        <tr>
+            <td><tt>modf(x, double *ip)</tt></td>
+            <td>splits <em>x</em> into integral and
+                fractional parts, each with the same sign as <em>x</em>.
+                It stores the integral part in <tt>*ip</tt>, and
+                returns the fractional part.</td>
+        <tr>
+            <td><tt>fmod(x,y)</tt></td>
+            <td>floating-point remainder of <em>x/y</em>, with
+                the same sign as <em>x</em>. If <em>y</em> is zero, the
+                result is implementation-defined.
+    </table>
 
-<h2><a name="sb.5">B.5 Utility Functions: &lt;stdlib.h&gt;</a></h2>
-The header <tt>&lt;stdlib.h&gt;</tt> declares functions for number conversion,
-storage allocation, and similar tasks.
-<dl>
-<td>
-<tt>double atof(const char *s)</tt>
-<dd>
-<tt>atof</tt> converts <tt>s</tt> to <tt>double</tt>; it is equivalent to
-<tt>strtod(s, (char**)NULL)</tt>.
-<p><dt>
-<tt>int atoi(const char *s)</tt>
-<dd>
-converts <tt>s</tt> to <tt>int</tt>; it is equivalent to
-<tt>(int)strtol(s, (char**)NULL, 10)</tt>.
-<p><dt>
-<tt>long atol(const char *s)</tt>
-<dd>
-converts <tt>s</tt> to <tt>long</tt>; it is equivalent to
-<tt>strtol(s, (char**)NULL, 10)</tt>.
-<p><dt>
-<tt>double strtod(const char *s, char **endp)</tt>
-<dd>
-<tt>strtod</tt> converts the prefix of <tt>s</tt> to <tt>double</tt>, ignoring leading
-white space; it stores a pointer to any unconverted suffix in <tt>*endp</tt>
-unless <tt>endp</tt> is <tt>NULL</tt>. If the answer would overflow, <tt>HUGE_VAL</tt>
-is returned with the proper sign; if the answer would underflow, zero is
-returned. In either case <tt>errno</tt> is set to <tt>ERANGE</tt>.
-<p><dt>
-<tt>long strtol(const char *s, char **endp, int base)</tt>
-<dd>
-<tt>strtol</tt> converts the prefix of <tt>s</tt> to <tt>long</tt>, ignoring leading
-white space; it stores a pointer to any unconverted suffix in <tt>*endp</tt>
-unless <tt>endp</tt> is <tt>NULL</tt>. If <tt>base</tt> is between 2 and 36, conversion
-is done assuming that the input is written in that base. If <tt>base</tt> is
-zero, the base is 8, 10, or 16; leading 0 implies octal and leading <tt>0x</tt>
-or <tt>0X</tt> hexadecimal. Letters in either case represent digits from 10 to
-<tt>base-1</tt>; a leading <tt>0x</tt> or <tt>0X</tt> is permitted in base 16. If the
-answer would overflow, <tt>LONG_MAX</tt> or <tt>LONG_MIN</tt> is returned,
-depending on the sign of the result, and <tt>errno</tt> is set to <tt>ERANGE</tt>.
-<p><dt>
-<tt>unsigned long strtoul(const char *s, char **endp, int base)</tt>
-<dd>
-<tt>strtoul</tt> is the same as <tt>strtol</tt> except that the result is
-<tt>unsigned long</tt> and the error value is <tt>ULONG_MAX</tt>.
-<p><dt>
-<tt>int rand(void)</tt>
-<dd><tt>rand</tt> returns a pseudo-random integer in the range 0 to
-    <tt>RAND_MAX</tt>, which is at least 32767.
-<p><dt>
-<tt>void srand(unsigned int seed)</tt>
-<dd>
-<tt>srand</tt> uses <tt>seed</tt> as the seed for a new sequence of pseudo-random
-numbers. The initial seed is 1.
-<p><dt>
-<tt>void *calloc(size_t nobj, size_t size)</tt>
-<dd><tt>calloc</tt> returns a pointer to space for an array of <tt>nobj</tt>
-    objects, each of size <tt>size</tt>, or <tt>NULL</tt> if the request cannot
-    be satisfied. The space is initialized to zero bytes.
-<p><dt>
-<tt>void *malloc(size_t size)</tt>
-<dd><tt>malloc</tt> returns a pointer to space for an object of size <tt>size</tt>, or
-<tt>NULL</tt> if the request cannot be satisfied. The space is uninitialized.
-<p><dt>
-<tt>void *realloc(void *p, size_t size)</tt>
-<dd><tt>realloc</tt> changes the size of the object pointed to by <tt>p</tt> to
-    <tt>size</tt>. The contents will be unchanged up to the minimum of the old
-    and new sizes. If the new size is larger, the new space is uninitialized.
-    <tt>realloc</tt> returns a pointer to the new space, or <tt>NULL</tt> if
-    the request cannot be satisfied, in which case <tt>*p</tt> is unchanged.
-<p><dt>
-<tt>void free(void *p)</tt>
-<dd>
-<tt>free</tt> deallocates the space pointed to by <tt>p</tt>; it does nothing if
-<tt>p</tt> is <tt>NULL</tt>. <tt>p</tt> must be a pointer to space previously allocated
-by <tt>calloc</tt>, <tt>malloc</tt>, or <tt>realloc</tt>.
-<p><dt>
-<tt>void abort(void)</tt>
-<dd><tt>abort</tt> causes the program to terminate abnormally, as if by
-    <tt>raise(SIGABRT)</tt>.
-<p><dt>
-<tt>void exit(int status)</tt>
-<dd><tt>exit</tt> causes normal program termination. <tt>atexit</tt> functions are
-    called in reverse order of registration, open files are flushed, open streams
-    are closed, and control is returned to the environment. How <tt>status</tt> is
-    returned to the environment is implementation-dependent, but zero is taken as
-    successful termination. The values <tt>EXIT_SUCCESS</tt> and <tt>EXIT_FAILURE</tt>
-    may also be used.
-<p><dt>
-<tt>int atexit(void (*fcn)(void))</tt>
-<dd><tt>atexit</tt> registers the function <tt>fcn</tt> to be called when the program
-    terminates normally; it returns non-zero if the registration cannot be made.
-<p><dt>
-<tt>int system(const char *s)</tt>
-<dd><tt>system</tt> passes the string <tt>s</tt> to the environment for
-    execution. If <tt>s</tt> is <tt>NULL</tt>, <tt>system</tt> returns non-zero if
-    there is a command processor. If <tt>s</tt> is not <tt>NULL</tt>, the
-    return value is implementation-dependent.
-<p><dt>
-<tt>char *getenv(const char *name)</tt>
-<dd><tt>getenv</tt> returns the environment string associated with <tt>name</tt>,
-    or <tt>NULL</tt> if no string exists. Details are implementation-dependent.
-<dt><pre>
+    <h2><a name="sb.5">B.5 Utility Functions: &lt;stdlib.h&gt;</a></h2>
+    The header <tt>&lt;stdlib.h&gt;</tt> declares functions for number conversion,
+    storage allocation, and similar tasks.
+    <dl>
+        <td>
+            <tt>double atof(const char *s)</tt>
+            <dd>
+                <tt>atof</tt> converts <tt>s</tt> to <tt>double</tt>; it is equivalent to
+                <tt>strtod(s, (char**)NULL)</tt>.
+                <p>
+            <dt>
+                <tt>int atoi(const char *s)</tt>
+            <dd>
+                converts <tt>s</tt> to <tt>int</tt>; it is equivalent to
+                <tt>(int)strtol(s, (char**)NULL, 10)</tt>.
+                <p>
+            <dt>
+                <tt>long atol(const char *s)</tt>
+            <dd>
+                converts <tt>s</tt> to <tt>long</tt>; it is equivalent to
+                <tt>strtol(s, (char**)NULL, 10)</tt>.
+                <p>
+            <dt>
+                <tt>double strtod(const char *s, char **endp)</tt>
+            <dd>
+                <tt>strtod</tt> converts the prefix of <tt>s</tt> to <tt>double</tt>, ignoring leading
+                white space; it stores a pointer to any unconverted suffix in <tt>*endp</tt>
+                unless <tt>endp</tt> is <tt>NULL</tt>. If the answer would overflow, <tt>HUGE_VAL</tt>
+                is returned with the proper sign; if the answer would underflow, zero is
+                returned. In either case <tt>errno</tt> is set to <tt>ERANGE</tt>.
+                <p>
+            <dt>
+                <tt>long strtol(const char *s, char **endp, int base)</tt>
+            <dd>
+                <tt>strtol</tt> converts the prefix of <tt>s</tt> to <tt>long</tt>, ignoring leading
+                white space; it stores a pointer to any unconverted suffix in <tt>*endp</tt>
+                unless <tt>endp</tt> is <tt>NULL</tt>. If <tt>base</tt> is between 2 and 36, conversion
+                is done assuming that the input is written in that base. If <tt>base</tt> is
+                zero, the base is 8, 10, or 16; leading 0 implies octal and leading <tt>0x</tt>
+                or <tt>0X</tt> hexadecimal. Letters in either case represent digits from 10 to
+                <tt>base-1</tt>; a leading <tt>0x</tt> or <tt>0X</tt> is permitted in base 16. If the
+                answer would overflow, <tt>LONG_MAX</tt> or <tt>LONG_MIN</tt> is returned,
+                depending on the sign of the result, and <tt>errno</tt> is set to <tt>ERANGE</tt>.
+                <p>
+            <dt>
+                <tt>unsigned long strtoul(const char *s, char **endp, int base)</tt>
+            <dd>
+                <tt>strtoul</tt> is the same as <tt>strtol</tt> except that the result is
+                <tt>unsigned long</tt> and the error value is <tt>ULONG_MAX</tt>.
+                <p>
+            <dt>
+                <tt>int rand(void)</tt>
+            <dd><tt>rand</tt> returns a pseudo-random integer in the range 0 to
+                <tt>RAND_MAX</tt>, which is at least 32767.
+                <p>
+            <dt>
+                <tt>void srand(unsigned int seed)</tt>
+            <dd>
+                <tt>srand</tt> uses <tt>seed</tt> as the seed for a new sequence of pseudo-random
+                numbers. The initial seed is 1.
+                <p>
+            <dt>
+                <tt>void *calloc(size_t nobj, size_t size)</tt>
+            <dd><tt>calloc</tt> returns a pointer to space for an array of <tt>nobj</tt>
+                objects, each of size <tt>size</tt>, or <tt>NULL</tt> if the request cannot
+                be satisfied. The space is initialized to zero bytes.
+                <p>
+            <dt>
+                <tt>void *malloc(size_t size)</tt>
+            <dd><tt>malloc</tt> returns a pointer to space for an object of size <tt>size</tt>, or
+                <tt>NULL</tt> if the request cannot be satisfied. The space is uninitialized.
+                <p>
+            <dt>
+                <tt>void *realloc(void *p, size_t size)</tt>
+            <dd><tt>realloc</tt> changes the size of the object pointed to by <tt>p</tt> to
+                <tt>size</tt>. The contents will be unchanged up to the minimum of the old
+                and new sizes. If the new size is larger, the new space is uninitialized.
+                <tt>realloc</tt> returns a pointer to the new space, or <tt>NULL</tt> if
+                the request cannot be satisfied, in which case <tt>*p</tt> is unchanged.
+                <p>
+            <dt>
+                <tt>void free(void *p)</tt>
+            <dd>
+                <tt>free</tt> deallocates the space pointed to by <tt>p</tt>; it does nothing if
+                <tt>p</tt> is <tt>NULL</tt>. <tt>p</tt> must be a pointer to space previously allocated
+                by <tt>calloc</tt>, <tt>malloc</tt>, or <tt>realloc</tt>.
+                <p>
+            <dt>
+                <tt>void abort(void)</tt>
+            <dd><tt>abort</tt> causes the program to terminate abnormally, as if by
+                <tt>raise(SIGABRT)</tt>.
+                <p>
+            <dt>
+                <tt>void exit(int status)</tt>
+            <dd><tt>exit</tt> causes normal program termination. <tt>atexit</tt> functions are
+                called in reverse order of registration, open files are flushed, open streams
+                are closed, and control is returned to the environment. How <tt>status</tt> is
+                returned to the environment is implementation-dependent, but zero is taken as
+                successful termination. The values <tt>EXIT_SUCCESS</tt> and <tt>EXIT_FAILURE</tt>
+                may also be used.
+                <p>
+            <dt>
+                <tt>int atexit(void (*fcn)(void))</tt>
+            <dd><tt>atexit</tt> registers the function <tt>fcn</tt> to be called when the program
+                terminates normally; it returns non-zero if the registration cannot be made.
+                <p>
+            <dt>
+                <tt>int system(const char *s)</tt>
+            <dd><tt>system</tt> passes the string <tt>s</tt> to the environment for
+                execution. If <tt>s</tt> is <tt>NULL</tt>, <tt>system</tt> returns non-zero if
+                there is a command processor. If <tt>s</tt> is not <tt>NULL</tt>, the
+                return value is implementation-dependent.
+                <p>
+            <dt>
+                <tt>char *getenv(const char *name)</tt>
+            <dd><tt>getenv</tt> returns the environment string associated with <tt>name</tt>,
+                or <tt>NULL</tt> if no string exists. Details are implementation-dependent.
+            <dt>
+                <pre>
 void *bsearch(const void *key, const void *base,
               size_t n, size_t size,
               int (*cmp)(const void *keyval, const void *datum))
 </pre>
-<dd><tt>bsearch</tt> searches <tt>base[0]...base[n-1]</tt> for an item that matches
-    <tt>*key</tt>. The function <tt>cmp</tt> must return negative if its first argument
-    (the search key) is less than its second (a table entry), zero if equal, and
-    positive if greater. Items in the array <tt>base</tt> must be in ascending order.
-    <tt>bsearch</tt> returns a pointer to a matching item, or <tt>NULL</tt> if none
-    exists.
-<dt><pre>
+            <dd><tt>bsearch</tt> searches <tt>base[0]...base[n-1]</tt> for an item that matches
+                <tt>*key</tt>. The function <tt>cmp</tt> must return negative if its first argument
+                (the search key) is less than its second (a table entry), zero if equal, and
+                positive if greater. Items in the array <tt>base</tt> must be in ascending order.
+                <tt>bsearch</tt> returns a pointer to a matching item, or <tt>NULL</tt> if none
+                exists.
+            <dt>
+                <pre>
 void qsort(void *base, size_t n, size_t size,
            int (*cmp)(const void *, const void *))
 </pre>
-<dd><tt>qsort</tt> sorts into ascending order an array <tt>base[0]...base[n-1]</tt>
-    of objects of size <tt>size</tt>. The comparison function <tt>cmp</tt> is as in
-    <tt>bsearch</tt>.
-<p><dt>
-<tt>int abs(int n)</tt>
-<dd><tt>abs</tt> returns the absolute value of its <tt>int</tt> argument.
-<p><dt>
-<tt>long labs(long n)</tt>
-<dd><tt>labs</tt> returns the absolute value of its <tt>long</tt> argument.
-<p><dt>
-<tt>div_t div(int num, int denom)</tt>
-<dd><tt>div</tt> computes the quotient and remainder of <tt>num/denom</tt>. The results
-    are stored in the <tt>int</tt> members <tt>quot</tt> and <tt>rem</tt> of a structure
-    of type <tt>div_t</tt>.
-<p><dt>
-<tt>ldiv_t ldiv(long num, long denom)</tt>
-<dd><tt>ldiv</tt> computes the quotient and remainder of <tt>num/denom</tt>.
-    The results are stored in the <tt>long</tt> members <tt>quot</tt> and
-    <tt>rem</tt> of a structure of type <tt>ldiv_t</tt>.
-</dl>
+            <dd><tt>qsort</tt> sorts into ascending order an array <tt>base[0]...base[n-1]</tt>
+                of objects of size <tt>size</tt>. The comparison function <tt>cmp</tt> is as in
+                <tt>bsearch</tt>.
+                <p>
+            <dt>
+                <tt>int abs(int n)</tt>
+            <dd><tt>abs</tt> returns the absolute value of its <tt>int</tt> argument.
+                <p>
+            <dt>
+                <tt>long labs(long n)</tt>
+            <dd><tt>labs</tt> returns the absolute value of its <tt>long</tt> argument.
+                <p>
+            <dt>
+                <tt>div_t div(int num, int denom)</tt>
+            <dd><tt>div</tt> computes the quotient and remainder of <tt>num/denom</tt>. The results
+                are stored in the <tt>int</tt> members <tt>quot</tt> and <tt>rem</tt> of a structure
+                of type <tt>div_t</tt>.
+                <p>
+            <dt>
+                <tt>ldiv_t ldiv(long num, long denom)</tt>
+            <dd><tt>ldiv</tt> computes the quotient and remainder of <tt>num/denom</tt>.
+                The results are stored in the <tt>long</tt> members <tt>quot</tt> and
+                <tt>rem</tt> of a structure of type <tt>ldiv_t</tt>.
+    </dl>
 
-<h2><a name="sb.6">B.6 Diagnostics: &lt;assert.h&gt;</a></h2>
-The <tt>assert</tt> macro is used to add diagnostics to programs:
-<p>
-&nbsp;&nbsp;<tt>void assert(int <em>expression</em>)</tt>
-<p>
-If <em>expression</em> is zero when
-<p>
-&nbsp;&nbsp;<tt>assert(<em>expression</em>)</tt>
-<p>
-is executed, the <tt>assert</tt> macro will print on <tt>stderr</tt> a message,
-such as
-<p>
-&nbsp;&nbsp;<tt>Assertion failed:</tt> <em>expression</em>, <tt>file</tt> <em>filename</em>, <tt>line</tt> <em>nnn</em>
-<p>
-It then calls <tt>abort</tt> to terminate execution. The source filename and
-line number come from the preprocessor macros <tt>__FILE__</tt> and
-<tt>__LINE__</tt>.
-<p>
-If <tt>NDEBUG</tt> is defined at the time <tt>&lt;assert.h&gt;</tt> is included,
-the assert macro is ignored.
+    <h2><a name="sb.6">B.6 Diagnostics: &lt;assert.h&gt;</a></h2>
+    The <tt>assert</tt> macro is used to add diagnostics to programs:
+    <p>
+        &nbsp;&nbsp;<tt>void assert(int <em>expression</em>)</tt>
+    <p>
+        If <em>expression</em> is zero when
+    <p>
+        &nbsp;&nbsp;<tt>assert(<em>expression</em>)</tt>
+    <p>
+        is executed, the <tt>assert</tt> macro will print on <tt>stderr</tt> a message,
+        such as
+    <p>
+        &nbsp;&nbsp;<tt>Assertion failed:</tt> <em>expression</em>, <tt>file</tt> <em>filename</em>, <tt>line</tt>
+        <em>nnn</em>
+    <p>
+        It then calls <tt>abort</tt> to terminate execution. The source filename and
+        line number come from the preprocessor macros <tt>__FILE__</tt> and
+        <tt>__LINE__</tt>.
+    <p>
+        If <tt>NDEBUG</tt> is defined at the time <tt>&lt;assert.h&gt;</tt> is included,
+        the assert macro is ignored.
 
-<h2><a name="sb.7">B.7 Variable Argument Lists: &lt;stdarg.h&gt;</a></h2>
-The header <tt>&lt;stdarg.h&gt;</tt> provides facilities for stepping through a list
-of function arguments of unknown number and type.
-<p>
-Suppose <tt>lastarg</tt> is the last named parameter of a function <tt>f</tt>
-with a variable number of arguments. Then declare within <tt>f</tt> a variable
-of type <tt>va_list</tt> that will point to each argument in turn:
-<pre>
+    <h2><a name="sb.7">B.7 Variable Argument Lists: &lt;stdarg.h&gt;</a></h2>
+    The header <tt>&lt;stdarg.h&gt;</tt> provides facilities for stepping through a list
+    of function arguments of unknown number and type.
+    <p>
+        Suppose <tt>lastarg</tt> is the last named parameter of a function <tt>f</tt>
+        with a variable number of arguments. Then declare within <tt>f</tt> a variable
+        of type <tt>va_list</tt> that will point to each argument in turn:
+    <pre>
    va_list ap;
 </pre>
-<tt>ap</tt> must be initialized once with the macro <tt>va_start</tt> before
-any unnamed argument is accessed:
-<p>
-&nbsp;&nbsp;<tt>va_start(va_list ap, </tt><em>lastarg</em><tt>);</tt>
-<p>
-Thereafter, each execution of the macro <tt>va_arg</tt> will produce a value
-that has the type and value of the next unnamed argument, and will also
-modify <tt>ap</tt> so the next use of <tt>va_arg</tt> returns the next argument:
-<p>
-&nbsp;&nbsp;<em>type</em> <tt>va_arg(va_list ap, </tt><em>type</em><tt>);</tt>
-<p>
-The macro
-<pre>
+    <tt>ap</tt> must be initialized once with the macro <tt>va_start</tt> before
+    any unnamed argument is accessed:
+    <p>
+        &nbsp;&nbsp;<tt>va_start(va_list ap, </tt><em>lastarg</em><tt>);</tt>
+    <p>
+        Thereafter, each execution of the macro <tt>va_arg</tt> will produce a value
+        that has the type and value of the next unnamed argument, and will also
+        modify <tt>ap</tt> so the next use of <tt>va_arg</tt> returns the next argument:
+    <p>
+        &nbsp;&nbsp;<em>type</em> <tt>va_arg(va_list ap, </tt><em>type</em><tt>);</tt>
+    <p>
+        The macro
+    <pre>
    void va_end(va_list ap);
 </pre>
-must be called once after the arguments have been processed but before
-<tt>f</tt> is exited.
+    must be called once after the arguments have been processed but before
+    <tt>f</tt> is exited.
 
-<h2><a name="sb.8">B.8 Non-local Jumps: &lt;setjmp.h&gt;</a></h2>
-The declarations in <tt>&lt;setjmp.h&gt;</tt> provide a way to avoid the normal
-function call and return sequence, typically to permit an immediate return
-from a deeply nested function call.
-<dl>
-<dt>
-<tt>int setjmp(jmp_buf env)</tt>
-<dd>The macro <tt>setjmp</tt> saves state information in <tt>env</tt> for use by
-    <tt>longjmp</tt>. The return is zero from a direct call of <tt>setjmp</tt>, and
-    non-zero from a subsequent call of <tt>longjmp</tt>. A call to <tt>setjmp</tt>
-    can only occur in certain contexts, basically the test of <tt>if</tt>,
-    <tt>switch</tt>, and loops, and only in simple relational expressions.
-</dl>
-<pre>
+    <h2><a name="sb.8">B.8 Non-local Jumps: &lt;setjmp.h&gt;</a></h2>
+    The declarations in <tt>&lt;setjmp.h&gt;</tt> provide a way to avoid the normal
+    function call and return sequence, typically to permit an immediate return
+    from a deeply nested function call.
+    <dl>
+        <dt>
+            <tt>int setjmp(jmp_buf env)</tt>
+        <dd>The macro <tt>setjmp</tt> saves state information in <tt>env</tt> for use by
+            <tt>longjmp</tt>. The return is zero from a direct call of <tt>setjmp</tt>, and
+            non-zero from a subsequent call of <tt>longjmp</tt>. A call to <tt>setjmp</tt>
+            can only occur in certain contexts, basically the test of <tt>if</tt>,
+            <tt>switch</tt>, and loops, and only in simple relational expressions.
+    </dl>
+    <pre>
       if (setjmp(env) == 0)
           /* get here on direct call */
       else
           /* get here by calling longjmp */
 </pre>
 
-<dl>
-<dt>
-<tt>void longjmp(jmp_buf env, int val)</tt>
-<dd><tt>longjmp</tt> restores the state saved by the most recent call to
-    <tt>setjmp</tt>, using the information saved in <tt>env</tt>, and execution
-    resumes as if the <tt>setjmp</tt> function had just executed and returned
-    the non-zero value <tt>val</tt>. The function containing the <tt>setjmp</tt>
-    must not have terminated. Accessible objects have the values they had at
-    the time <tt>longjmp</tt> was called, except that non-<tt>volatile</tt>
-    automatic variables in the function calling <tt>setjmp</tt> become
-    undefined if they were changed after the <tt>setjmp</tt> call.
-</dl>
+    <dl>
+        <dt>
+            <tt>void longjmp(jmp_buf env, int val)</tt>
+        <dd><tt>longjmp</tt> restores the state saved by the most recent call to
+            <tt>setjmp</tt>, using the information saved in <tt>env</tt>, and execution
+            resumes as if the <tt>setjmp</tt> function had just executed and returned
+            the non-zero value <tt>val</tt>. The function containing the <tt>setjmp</tt>
+            must not have terminated. Accessible objects have the values they had at
+            the time <tt>longjmp</tt> was called, except that non-<tt>volatile</tt>
+            automatic variables in the function calling <tt>setjmp</tt> become
+            undefined if they were changed after the <tt>setjmp</tt> call.
+    </dl>
 
-<h2><a name="sb.9">B.9 Signals: &lt;signal.h&gt;</a></h2>
-The header <tt>&lt;signal.h&gt;</tt> provides facilities for handling exceptional
-conditions that arise during execution, such as an interrupt signal from an
-external source or an error in execution.
-<pre>
+    <h2><a name="sb.9">B.9 Signals: &lt;signal.h&gt;</a></h2>
+    The header <tt>&lt;signal.h&gt;</tt> provides facilities for handling exceptional
+    conditions that arise during execution, such as an interrupt signal from an
+    external source or an error in execution.
+    <pre>
 void (*signal(int sig, void (*handler)(int)))(int)
 </pre>
-<tt>signal</tt> determines how subsequent signals will be handled. If <tt>
-handler</tt> is <tt>SIG_DFL</tt>, the implementation-defined default behavior is
-used, if it is <tt>SIG_IGN</tt>, the signal is ignored; otherwise, the function
-pointed to by <tt>handler</tt> will be called, with the argument of the type of
-signal. Valid signals include
-<p>
-<table align="center" border=0>
-<td><tt>SIGABRT</tt></td><td>abnormal termination, e.g., from <tt>abort</tt></td><tr>
-<td><tt>SIGFPE </tt></td><td>arithmetic error, e.g., zero divide or overflow</td><tr>
-<td><tt>SIGILL </tt></td><td>illegal function image, e.g., illegal instruction</td><tr>
-<td><tt>SIGINT </tt></td><td>interactive attention, e.g., interrupt</td><tr>
-<td><tt>SIGSEGV</tt></td><td>illegal storage access, e.g., access outside memory limits</td><tr>
-<td><tt>SIGTERM&nbsp;&nbsp;</tt></td><td>termination request sent to this program</td><tr>
-</table>
-<p>
-<tt>signal</tt> returns the previous value of <tt>handler</tt> for the specific
-signal, or <tt>SIG_ERR</tt> if an error occurs.
-<p>
-When a signal <tt>sig</tt> subsequently occurs, the signal is restored to its
-default behavior; then the signal-handler function is called, as if by
-<tt>(*handler)(sig)</tt>. If the handler returns, execution will resume where it
-was when the signal occurred.
-<p>
-The initial state of signals is implementation-defined.
-<pre>
+    <tt>signal</tt> determines how subsequent signals will be handled. If <tt>
+        handler</tt> is <tt>SIG_DFL</tt>, the implementation-defined default behavior is
+    used, if it is <tt>SIG_IGN</tt>, the signal is ignored; otherwise, the function
+    pointed to by <tt>handler</tt> will be called, with the argument of the type of
+    signal. Valid signals include
+    <p>
+    <table align="center" border=0>
+        <td><tt>SIGABRT</tt></td>
+        <td>abnormal termination, e.g., from <tt>abort</tt></td>
+        <tr>
+            <td><tt>SIGFPE </tt></td>
+            <td>arithmetic error, e.g., zero divide or overflow</td>
+        <tr>
+            <td><tt>SIGILL </tt></td>
+            <td>illegal function image, e.g., illegal instruction</td>
+        <tr>
+            <td><tt>SIGINT </tt></td>
+            <td>interactive attention, e.g., interrupt</td>
+        <tr>
+            <td><tt>SIGSEGV</tt></td>
+            <td>illegal storage access, e.g., access outside memory limits</td>
+        <tr>
+            <td><tt>SIGTERM&nbsp;&nbsp;</tt></td>
+            <td>termination request sent to this program</td>
+        <tr>
+    </table>
+    <p>
+        <tt>signal</tt> returns the previous value of <tt>handler</tt> for the specific
+        signal, or <tt>SIG_ERR</tt> if an error occurs.
+    <p>
+        When a signal <tt>sig</tt> subsequently occurs, the signal is restored to its
+        default behavior; then the signal-handler function is called, as if by
+        <tt>(*handler)(sig)</tt>. If the handler returns, execution will resume where it
+        was when the signal occurred.
+    <p>
+        The initial state of signals is implementation-defined.
+    <pre>
 int raise(int sig)
 </pre>
-<tt>raise</tt> sends the signal <tt>sig</tt> to the program; it returns
-non-zero if unsuccessful.
+    <tt>raise</tt> sends the signal <tt>sig</tt> to the program; it returns
+    non-zero if unsuccessful.
 
-<h2><a name="sb.10">B.10 Date and Time Functions: &lt;time.h&gt;</a></h2>
-The header <tt>&lt;time.h&gt;</tt> declares types and functions for manipulating date
-and time. Some functions process <em>local time</em>, which may differ from
-calendar time, for example because of time zone. <tt>clock_t</tt> and
-<tt>time_t</tt> are arithmetic types representing times, and <tt>struct tm</tt>
-holds the components of a calendar time:
-<p>
-<table align="center">
-<td><tt>int tm_sec;  </tt></td><td>seconds after the minute (0,61)</td><tr>
-<td><tt>int tm_min;  </tt></td><td>minutes after the hour (0,59)</td><tr>
-<td><tt>int tm_hour; </tt></td><td>hours since midnight (0,23)</td><tr>
-<td><tt>int tm_mday; </tt></td><td>day of the month (1,31)</td><tr>
-<td><tt>int tm_mon;  </tt></td><td>months <em>since</em> January (0,11)</td><tr>
-<td><tt>int tm_year; </tt></td><td>years since 1900</td><tr>
-<td><tt>int tm_wday; </tt></td><td>days since Sunday (0,6)</td><tr>
-<td><tt>int tm_yday; </tt></td><td>days since January 1 (0,365)</td><tr>
-<td><tt>int tm_isdst;</tt></td><td>Daylight Saving Time flag</td>
-</table>
-<p>
-<tt>tm_isdst</tt> is positive if Daylight Saving Time is in effect, zero if
-not, and negative if the information is not available.
-<p>
-<dl>
-<p><dt>
-<tt>clock_t clock(void)</tt>
-<dd>
-<tt>clock</tt> returns the processor time used by the program since the
-beginning of execution, or <tt>-1</tt> if unavailable. <tt>clock()/CLK_PER_SEC</tt>
-is a time in seconds.
-<p><dt>
-<tt>time_t time(time_t *tp)</tt>
-<dd>
-<tt>time</tt> returns the current calendar time or <tt>-1</tt> if the time is not
-available. If <tt>tp</tt> is not <tt>NULL</tt>, the return value is also assigned
-to <tt>*tp</tt>.
-<p><dt>
-<tt>double difftime(time_t time2, time_t time1)</tt>
-<dd>
-<tt>difftime</tt> returns <tt>time2-time1</tt> expressed in seconds.
-<p><dt>
-<tt>time_t mktime(struct tm *tp)</tt>
-<dd>
-<tt>mktime</tt> converts the local time in the structure <tt>*tp</tt> into calendar
-time in the same representation used by <tt>time</tt>. The components will have
-values in the ranges shown. <tt>mktime</tt> returns the calendar time or <tt>-1</tt>
-if it cannot be represented.
-</dl>
-The next four functions return pointers to static objects that may be
-overwritten by other calls.
-<dl>
-<dt>
-<tt>char *asctime(const struct tm *tp)</tt>
-<dd>
-<tt>asctime</tt>< converts the time in the structure <tt>*tp</tt> into a string
-of the form
-<pre>
+    <h2><a name="sb.10">B.10 Date and Time Functions: &lt;time.h&gt;</a></h2>
+    The header <tt>&lt;time.h&gt;</tt> declares types and functions for manipulating date
+    and time. Some functions process <em>local time</em>, which may differ from
+    calendar time, for example because of time zone. <tt>clock_t</tt> and
+    <tt>time_t</tt> are arithmetic types representing times, and <tt>struct tm</tt>
+    holds the components of a calendar time:
+    <p>
+    <table align="center">
+        <td><tt>int tm_sec; </tt></td>
+        <td>seconds after the minute (0,61)</td>
+        <tr>
+            <td><tt>int tm_min; </tt></td>
+            <td>minutes after the hour (0,59)</td>
+        <tr>
+            <td><tt>int tm_hour; </tt></td>
+            <td>hours since midnight (0,23)</td>
+        <tr>
+            <td><tt>int tm_mday; </tt></td>
+            <td>day of the month (1,31)</td>
+        <tr>
+            <td><tt>int tm_mon; </tt></td>
+            <td>months <em>since</em> January (0,11)</td>
+        <tr>
+            <td><tt>int tm_year; </tt></td>
+            <td>years since 1900</td>
+        <tr>
+            <td><tt>int tm_wday; </tt></td>
+            <td>days since Sunday (0,6)</td>
+        <tr>
+            <td><tt>int tm_yday; </tt></td>
+            <td>days since January 1 (0,365)</td>
+        <tr>
+            <td><tt>int tm_isdst;</tt></td>
+            <td>Daylight Saving Time flag</td>
+    </table>
+    <p>
+        <tt>tm_isdst</tt> is positive if Daylight Saving Time is in effect, zero if
+        not, and negative if the information is not available.
+    <p>
+    <dl>
+        <p>
+            <dt>
+                <tt>clock_t clock(void)</tt>
+            <dd>
+                <tt>clock</tt> returns the processor time used by the program since the
+                beginning of execution, or <tt>-1</tt> if unavailable. <tt>clock()/CLK_PER_SEC</tt>
+                is a time in seconds.
+                <p>
+            <dt>
+                <tt>time_t time(time_t *tp)</tt>
+            <dd>
+                <tt>time</tt> returns the current calendar time or <tt>-1</tt> if the time is not
+                available. If <tt>tp</tt> is not <tt>NULL</tt>, the return value is also assigned
+                to <tt>*tp</tt>.
+                <p>
+            <dt>
+                <tt>double difftime(time_t time2, time_t time1)</tt>
+            <dd>
+                <tt>difftime</tt> returns <tt>time2-time1</tt> expressed in seconds.
+                <p>
+            <dt>
+                <tt>time_t mktime(struct tm *tp)</tt>
+            <dd>
+                <tt>mktime</tt> converts the local time in the structure <tt>*tp</tt> into calendar
+                time in the same representation used by <tt>time</tt>. The components will have
+                values in the ranges shown. <tt>mktime</tt> returns the calendar time or <tt>-1</tt>
+                if it cannot be represented.
+    </dl>
+    The next four functions return pointers to static objects that may be
+    overwritten by other calls.
+    <dl>
+        <dt>
+            <tt>char *asctime(const struct tm *tp)</tt>
+        <dd>
+            <tt>asctime</tt>
+            < converts the time in the structure <tt>*tp</tt> into a string
+                of the form
+                <pre>
       Sun Jan  3 15:14:13 1988\n\0
 </pre>
-<p><dt>
-<tt>char *ctime(const time_t *tp)</tt>
-<dd>
-<tt>ctime</tt> converts the calendar time <tt>*tp</tt> to local time; it is
-equivalent to
-<pre>
+                <p>
+        <dt>
+            <tt>char *ctime(const time_t *tp)</tt>
+        <dd>
+            <tt>ctime</tt> converts the calendar time <tt>*tp</tt> to local time; it is
+            equivalent to
+            <pre>
       asctime(localtime(tp)) 
 </pre>
-<dt>
-<tt>struct tm *gmtime(const time_t *tp)</tt>
-<dd>
-<tt>gmtime</tt> converts the calendar time <tt>*tp</tt> into Coordinated
-Universal Time (UTC). It returns <tt>NULL</tt> if UTC is not available. The
-name <tt>gmtime</tt> has historical significance.
-<p><dt>
-<tt>struct tm *localtime(const time_t *tp)</tt>
-<dd>
-<tt>localtime</tt> converts the calendar time <tt>*tp</tt> into local time.
-<p><dt>
-<tt>size_t strftime(char *s, size_t smax, const char *fmt, const struct tm *tp)</tt>
-<dd>
-<tt>strftime</tt> formats date and time information from <tt>*tp</tt> into <tt>s</tt>
-according to <tt>fmt</tt>, which is analogous to a <tt>printf</tt> format. Ordinary
-characters (including the terminating <tt>'\0'</tt>) are copied into
-<tt>s</tt>. Each %c is replaced as described below, using values appropriate for
-the local environment. No more than <tt>smax</tt> characters are placed into 
-<tt>s</tt>. <tt>strftime</tt> returns the number of characters, excluding the
-<tt>'\0'</tt>, or zero if more than <tt>smax</tt> characters were produced.
-</dl>
-<p>
-<table align="center">
-<td><tt>%a</tt></td><td>abbreviated weekday name.</td><tr>
-<td><tt>%A</tt></td><td>full weekday name.</td><tr>
-<td><tt>%b</tt></td><td>abbreviated month name.</td><tr>
-<td><tt>%B</tt></td><td>full month name.</td><tr>
-<td><tt>%c</tt></td><td>local date and time representation.</td><tr>
-<td><tt>%d</tt></td><td>day of the month (<tt>01-31</tt>).</td><tr>
-<td><tt>%H</tt></td><td>hour (24-hour clock) <tt>(00-23)</tt>.</td><tr>
-<td><tt>%I</tt></td><td>hour (12-hour clock) <tt>(01-12)</tt>.</td><tr>
-<td><tt>%j</tt></td><td>day of the year <tt>(001-366)</tt>.</td><tr>
-<td><tt>%m</tt></td><td>month <tt>(01-12)</tt>.</td><tr>
-<td><tt>%M</tt></td><td>minute <tt>(00-59)</tt>.</td><tr>
-<td><tt>%p</tt></td><td>local equivalent of AM or PM.</td><tr>
-<td><tt>%S</tt></td><td>second <tt>(00-61)</tt>.</td><tr>
-<td><tt>%U</tt></td><td>week number of the year (Sunday as 1st day of week) <tt>(00-53)</tt>.</td><tr>
-<td><tt>%w</tt></td><td>weekday (<tt>0-6</tt>, Sunday is 0).</td><tr>
-<td><tt>%W</tt></td><td>week number of the year (Monday as 1st day of week) <tt>(00-53)</tt>.</td><tr>
-<td><tt>%x</tt></td><td>local date representation.</td><tr>
-<td><tt>%X</tt></td><td>local time representation.</td><tr>
-<td><tt>%y</tt></td><td>year without century <tt>(00-99)</tt>.</td><tr>
-<td><tt>%Y</tt></td><td>year with century.</td><tr>
-<td><tt>%Z</tt></td><td>time zone name, if any.</td><tr>
-<td><tt>%%&nbsp;&nbsp;</tt></td><td>%</td>
-</table>
+        <dt>
+            <tt>struct tm *gmtime(const time_t *tp)</tt>
+        <dd>
+            <tt>gmtime</tt> converts the calendar time <tt>*tp</tt> into Coordinated
+            Universal Time (UTC). It returns <tt>NULL</tt> if UTC is not available. The
+            name <tt>gmtime</tt> has historical significance.
+            <p>
+        <dt>
+            <tt>struct tm *localtime(const time_t *tp)</tt>
+        <dd>
+            <tt>localtime</tt> converts the calendar time <tt>*tp</tt> into local time.
+            <p>
+        <dt>
+            <tt>size_t strftime(char *s, size_t smax, const char *fmt, const struct tm *tp)</tt>
+        <dd>
+            <tt>strftime</tt> formats date and time information from <tt>*tp</tt> into <tt>s</tt>
+            according to <tt>fmt</tt>, which is analogous to a <tt>printf</tt> format. Ordinary
+            characters (including the terminating <tt>'\0'</tt>) are copied into
+            <tt>s</tt>. Each %c is replaced as described below, using values appropriate for
+            the local environment. No more than <tt>smax</tt> characters are placed into
+            <tt>s</tt>. <tt>strftime</tt> returns the number of characters, excluding the
+            <tt>'\0'</tt>, or zero if more than <tt>smax</tt> characters were produced.
+    </dl>
+    <p>
+    <table align="center">
+        <td><tt>%a</tt></td>
+        <td>abbreviated weekday name.</td>
+        <tr>
+            <td><tt>%A</tt></td>
+            <td>full weekday name.</td>
+        <tr>
+            <td><tt>%b</tt></td>
+            <td>abbreviated month name.</td>
+        <tr>
+            <td><tt>%B</tt></td>
+            <td>full month name.</td>
+        <tr>
+            <td><tt>%c</tt></td>
+            <td>local date and time representation.</td>
+        <tr>
+            <td><tt>%d</tt></td>
+            <td>day of the month (<tt>01-31</tt>).</td>
+        <tr>
+            <td><tt>%H</tt></td>
+            <td>hour (24-hour clock) <tt>(00-23)</tt>.</td>
+        <tr>
+            <td><tt>%I</tt></td>
+            <td>hour (12-hour clock) <tt>(01-12)</tt>.</td>
+        <tr>
+            <td><tt>%j</tt></td>
+            <td>day of the year <tt>(001-366)</tt>.</td>
+        <tr>
+            <td><tt>%m</tt></td>
+            <td>month <tt>(01-12)</tt>.</td>
+        <tr>
+            <td><tt>%M</tt></td>
+            <td>minute <tt>(00-59)</tt>.</td>
+        <tr>
+            <td><tt>%p</tt></td>
+            <td>local equivalent of AM or PM.</td>
+        <tr>
+            <td><tt>%S</tt></td>
+            <td>second <tt>(00-61)</tt>.</td>
+        <tr>
+            <td><tt>%U</tt></td>
+            <td>week number of the year (Sunday as 1st day of week) <tt>(00-53)</tt>.</td>
+        <tr>
+            <td><tt>%w</tt></td>
+            <td>weekday (<tt>0-6</tt>, Sunday is 0).</td>
+        <tr>
+            <td><tt>%W</tt></td>
+            <td>week number of the year (Monday as 1st day of week) <tt>(00-53)</tt>.</td>
+        <tr>
+            <td><tt>%x</tt></td>
+            <td>local date representation.</td>
+        <tr>
+            <td><tt>%X</tt></td>
+            <td>local time representation.</td>
+        <tr>
+            <td><tt>%y</tt></td>
+            <td>year without century <tt>(00-99)</tt>.</td>
+        <tr>
+            <td><tt>%Y</tt></td>
+            <td>year with century.</td>
+        <tr>
+            <td><tt>%Z</tt></td>
+            <td>time zone name, if any.</td>
+        <tr>
+            <td><tt>%%&nbsp;&nbsp;</tt></td>
+            <td>%</td>
+    </table>
 
-<h2><a name="sb.11">B.11 Implementation-defined Limits: &lt;limits.h&gt; and &lt;float.h&gt;</a></h2>
-The header <tt>&lt;limits.h&gt;</tt> defines constants for the sizes of
-integral types. The values below are acceptable minimum magnitudes; larger
-values may be used.
-<p>
-<table align="center" border=0>
-<td><tt>CHAR_BIT&nbsp;&nbsp; </tt></td><td>8</td><td>bits in a <tt>char</tt></td>
-<tr>
-<td><tt>CHAR_MAX </tt></td><td><tt>UCHAR_MAX</tt> <em>or</em> <tt>SCHAR_MAX</tt>&nbsp;&nbsp;</td><td>maximum value of <tt>char</tt>
-<tr>
-<td><tt>CHAR_MIN </tt></td><td><tt>0</tt> <em>or</em> <tt>SCHAR_MIN</tt></td><td>maximum value of <tt>char</tt></td>
-<tr>
-<td><tt>INT_MAX  </tt></td><td><tt>32767</tt></td><td>maximum value of <tt>int</tt></td>
-<tr>
-<td><tt>INT_MIN  </tt></td><td><tt>-32767</tt></td><td>minimum value of <tt>int</tt></td>
-<tr>
-<td><tt>LONG_MAX </tt></td><td><tt>2147483647</tt></td><td>maximum value of <tt>long</tt></td>
-<tr>
-<td><tt>LONG_MIN </tt></td><td><tt>-2147483647</tt></td><td>minimum value of <tt>long</tt></td>
-<tr>
-<td><tt>SCHAR_MAX</tt></td><td><tt>+127</tt></td><td>maximum value of <tt>signed char</tt></td>
-<tr>
-<td><tt>SCHAR_MIN</tt></td><td><tt>-127</tt></td><td>minimum value of <tt>signed char</tt></td>
-<tr>
-<td><tt>SHRT_MAX </tt></td><td><tt>+32767</tt></td><td>maximum value of <tt>short</tt></td>
-<tr>
-<td><tt>SHRT_MIN </tt></td><td><tt>-32767</tt></td><td>minimum value of <tt>short</tt></td>
-<tr>
-<td><tt>UCHAR_MAX</tt></td><td><tt>255</tt></td><td>maximum value of <tt>unsigned char</tt></td>
-<tr>
-<td><tt>UINT_MAX </tt></td><td><tt>65535</tt></td><td>maximum value of <tt>unsigned int</tt></td>
-<tr>
-<td><tt>ULONG_MAX</tt></td><td><tt>4294967295</tt></td><td>maximum value of <tt>unsigned long</tt></td>
-<tr>
-<td><tt>USHRT_MAX</tt></td><td><tt>65535</tt></td><td>maximum value of <tt>unsigned short</tt></td>
-</table>
-<p>
-The names in the table below, a subset of <tt>&lt;float.h&gt;</tt>, are constants
-related to floating-point arithmetic. When a value is given, it represents
-the minimum magnitude for the corresponding quantity. Each implementation
-defines appropriate values.
-<p>
-<table align="center" border=0>
-<td><tt>FLT_RADIX   </tt></td><td><tt>2</tt></td><td>radix of exponent, representation, e.g., 2, 16</td>
-<tr>
-<td><tt>FLT_ROUNDS  </tt></td><td></td>          <td>floating-point rounding mode for addition</td>
-<tr>
-<td><tt>FLT_DIG     </tt></td><td><tt>6</tt></td><td>decimal digits of precision</td>
-<tr>
-<td><tt>FLT_EPSILON </tt></td><td><tt>1E-5</tt></td><td>smallest number <em>x</em> such that 1.0+x != 1.0</td>
-<tr>
-<td><tt>FLT_MANT_DIG&nbsp;&nbsp;</tt></td><td></td><td>number of base <tt>FLT_RADIX</tt> in mantissa</td>
-<tr>
-<td><tt>FLT_MAX     </tt></td><td><tt>1E+37&nbsp;&nbsp;</tt></td><td>maximum floating-point number</td>
-<tr>
-<td><tt>FLT_MAX_EXP </tt></td><td></td><td>maximum <em>n</em> such that <tt>FLT_RADIX</tt><sup>n-1</sup> is representable</td>
-<tr>
-<td><tt>FLT_MIN     </tt></td><td><tt>1E-37</tt></td><td>minimum normalized floating-point number</td>
-<tr>
-<td><tt>FLT_MIN_EXP </tt></td><td></td><td>minimum <em>n</em> such that 10<sup><em>n</em></sup> is a normalized number</td>
-<tr>
-<td><tt>DBL_DIG     </tt></td><td><tt>10</tt></td><td>decimal digits of precision</td>
-<tr>
-<td><tt>DBL_EPSILON </tt></td><td><tt>1E-9</tt></td><td>smallest number <em>x</em> such that 1.0+x != 1.0</td>
-<tr>
-<td><tt>DBL_MANT_DIG</tt></td><td></td><td>number of base <tt>FLT_RADIX</tt> in mantissa</td>
-<tr>
-<td><tt>DBL_MAX     </tt></td><td><tt>1E+37</tt></td><td>maximum <tt>double</tt> floating-point number</td>
-<tr>
-<td><tt>DBL_MAX_EXP </tt></td><td></td><td>maximum <em>n</em> such that <tt>FLT_RADIX</tt><sup>n-1</sup> is representable</td>
-<tr>
-<td><tt>DBL_MIN     </tt></td><td><tt>1E-37</tt></td><td>minimum normalized <tt>double</tt> floating-point number</td>
-<tr>
-<td><tt>DBL_MIN_EXP </tt></td><td></td><td>minimum <em>n</em> such that 10<sup><em>n</em></sup> is a normalized number</td>
-</table>
-<p>
-<hr>
-<p align="center">
-<a href="appa.html">Back to Appendix A</a>&nbsp;--&nbsp;
-<a href="index.html">Index</a>&nbsp;--&nbsp;
-<a href="appc.html">Appendix C</a>
-<p>
-<hr>
+    <h2><a name="sb.11">B.11 Implementation-defined Limits: &lt;limits.h&gt; and &lt;float.h&gt;</a></h2>
+    The header <tt>&lt;limits.h&gt;</tt> defines constants for the sizes of
+    integral types. The values below are acceptable minimum magnitudes; larger
+    values may be used.
+    <p>
+    <table align="center" border=0>
+        <td><tt>CHAR_BIT&nbsp;&nbsp; </tt></td>
+        <td>8</td>
+        <td>bits in a <tt>char</tt></td>
+        <tr>
+            <td><tt>CHAR_MAX </tt></td>
+            <td><tt>UCHAR_MAX</tt> <em>or</em> <tt>SCHAR_MAX</tt>&nbsp;&nbsp;</td>
+            <td>maximum value of <tt>char</tt>
+        <tr>
+            <td><tt>CHAR_MIN </tt></td>
+            <td><tt>0</tt> <em>or</em> <tt>SCHAR_MIN</tt></td>
+            <td>maximum value of <tt>char</tt></td>
+        <tr>
+            <td><tt>INT_MAX </tt></td>
+            <td><tt>32767</tt></td>
+            <td>maximum value of <tt>int</tt></td>
+        <tr>
+            <td><tt>INT_MIN </tt></td>
+            <td><tt>-32767</tt></td>
+            <td>minimum value of <tt>int</tt></td>
+        <tr>
+            <td><tt>LONG_MAX </tt></td>
+            <td><tt>2147483647</tt></td>
+            <td>maximum value of <tt>long</tt></td>
+        <tr>
+            <td><tt>LONG_MIN </tt></td>
+            <td><tt>-2147483647</tt></td>
+            <td>minimum value of <tt>long</tt></td>
+        <tr>
+            <td><tt>SCHAR_MAX</tt></td>
+            <td><tt>+127</tt></td>
+            <td>maximum value of <tt>signed char</tt></td>
+        <tr>
+            <td><tt>SCHAR_MIN</tt></td>
+            <td><tt>-127</tt></td>
+            <td>minimum value of <tt>signed char</tt></td>
+        <tr>
+            <td><tt>SHRT_MAX </tt></td>
+            <td><tt>+32767</tt></td>
+            <td>maximum value of <tt>short</tt></td>
+        <tr>
+            <td><tt>SHRT_MIN </tt></td>
+            <td><tt>-32767</tt></td>
+            <td>minimum value of <tt>short</tt></td>
+        <tr>
+            <td><tt>UCHAR_MAX</tt></td>
+            <td><tt>255</tt></td>
+            <td>maximum value of <tt>unsigned char</tt></td>
+        <tr>
+            <td><tt>UINT_MAX </tt></td>
+            <td><tt>65535</tt></td>
+            <td>maximum value of <tt>unsigned int</tt></td>
+        <tr>
+            <td><tt>ULONG_MAX</tt></td>
+            <td><tt>4294967295</tt></td>
+            <td>maximum value of <tt>unsigned long</tt></td>
+        <tr>
+            <td><tt>USHRT_MAX</tt></td>
+            <td><tt>65535</tt></td>
+            <td>maximum value of <tt>unsigned short</tt></td>
+    </table>
+    <p>
+        The names in the table below, a subset of <tt>&lt;float.h&gt;</tt>, are constants
+        related to floating-point arithmetic. When a value is given, it represents
+        the minimum magnitude for the corresponding quantity. Each implementation
+        defines appropriate values.
+    <p>
+    <table align="center" border=0>
+        <td><tt>FLT_RADIX </tt></td>
+        <td><tt>2</tt></td>
+        <td>radix of exponent, representation, e.g., 2, 16</td>
+        <tr>
+            <td><tt>FLT_ROUNDS </tt></td>
+            <td></td>
+            <td>floating-point rounding mode for addition</td>
+        <tr>
+            <td><tt>FLT_DIG </tt></td>
+            <td><tt>6</tt></td>
+            <td>decimal digits of precision</td>
+        <tr>
+            <td><tt>FLT_EPSILON </tt></td>
+            <td><tt>1E-5</tt></td>
+            <td>smallest number <em>x</em> such that 1.0+x != 1.0</td>
+        <tr>
+            <td><tt>FLT_MANT_DIG&nbsp;&nbsp;</tt></td>
+            <td></td>
+            <td>number of base <tt>FLT_RADIX</tt> in mantissa</td>
+        <tr>
+            <td><tt>FLT_MAX </tt></td>
+            <td><tt>1E+37&nbsp;&nbsp;</tt></td>
+            <td>maximum floating-point number</td>
+        <tr>
+            <td><tt>FLT_MAX_EXP </tt></td>
+            <td></td>
+            <td>maximum <em>n</em> such that <tt>FLT_RADIX</tt><sup>n-1</sup> is representable</td>
+        <tr>
+            <td><tt>FLT_MIN </tt></td>
+            <td><tt>1E-37</tt></td>
+            <td>minimum normalized floating-point number</td>
+        <tr>
+            <td><tt>FLT_MIN_EXP </tt></td>
+            <td></td>
+            <td>minimum <em>n</em> such that 10<sup><em>n</em></sup> is a normalized number</td>
+        <tr>
+            <td><tt>DBL_DIG </tt></td>
+            <td><tt>10</tt></td>
+            <td>decimal digits of precision</td>
+        <tr>
+            <td><tt>DBL_EPSILON </tt></td>
+            <td><tt>1E-9</tt></td>
+            <td>smallest number <em>x</em> such that 1.0+x != 1.0</td>
+        <tr>
+            <td><tt>DBL_MANT_DIG</tt></td>
+            <td></td>
+            <td>number of base <tt>FLT_RADIX</tt> in mantissa</td>
+        <tr>
+            <td><tt>DBL_MAX </tt></td>
+            <td><tt>1E+37</tt></td>
+            <td>maximum <tt>double</tt> floating-point number</td>
+        <tr>
+            <td><tt>DBL_MAX_EXP </tt></td>
+            <td></td>
+            <td>maximum <em>n</em> such that <tt>FLT_RADIX</tt><sup>n-1</sup> is representable</td>
+        <tr>
+            <td><tt>DBL_MIN </tt></td>
+            <td><tt>1E-37</tt></td>
+            <td>minimum normalized <tt>double</tt> floating-point number</td>
+        <tr>
+            <td><tt>DBL_MIN_EXP </tt></td>
+            <td></td>
+            <td>minimum <em>n</em> such that 10<sup><em>n</em></sup> is a normalized number</td>
+    </table>
+    <p>
+        <hr>
+    <p align="center">
+        <a href="appa.html">Back to Appendix A</a>&nbsp;--&nbsp;
+        <a href="index.html">Index</a>&nbsp;--&nbsp;
+        <a href="appc.html">Appendix C</a>
+    <p>
+        <hr>
 </body>
+
 </html>

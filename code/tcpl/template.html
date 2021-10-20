@@ -1,80 +1,99 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Exercise Template</title>
-<style type="text/css">
-<!--
-.STYLE1 {font-weight: bold}
-.STYLE2 {color: #FF0000}
--->
-</style>
-</head>
-<body>
-<hr>
-<p align="center">
-<a href="guide.html">Back to Guide</a>&nbsp;--&nbsp;
-<a href="index.html">Index</a>&nbsp;--&nbsp;
-<a href="chapter1.html">Chapter 1</a>
-<p>
-<hr>
 
-<h1>Exercise Template</h1>
-<p>
-Even though most exercises only need a single source file, it is a good practice
-to put each exercise within its own directory. A typical exercise contains the
-following parts.
-</p>
-<ul>
-<li>The source file `foo.c'</li>
-<li>The makefile, which can be a classcial makefile `GNUmakefile' or a morden CMake file `CMakeLists.txt'. </li>
-<li>The test cases `inputNNN.txt' and `expectedNNN.txt'. </li>
-<li>The script to run the tests `go.sh'. </li>
-</ul>
-<p>
-To make the life easier, I have created a template at <a href="https://github.com/zedware/notebook/blob/master/samples/template">The Exercise Template</a>.
-And there is a shell script `init.sh' in its parent directory. We can use it to generate the directory
-for the exercises. For exmaple:<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;$ ./init.sh ex3_puzzle<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;$ ls -1 ex3_puzzle/<br>
-&nbsp;&nbsp;&nbsp;&nbsp;CMakeLists.txt<br>
-&nbsp;&nbsp;&nbsp;&nbsp;GNUmakefile<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ex3-puzzle.c<br>
-&nbsp;&nbsp;&nbsp;&nbsp;expected1.txt<br>
-&nbsp;&nbsp;&nbsp;&nbsp;expected2.txt<br>
-&nbsp;&nbsp;&nbsp;&nbsp;go.sh<br>
-&nbsp;&nbsp;&nbsp;&nbsp;input1.txt<br>
-&nbsp;&nbsp;&nbsp;&nbsp;input2.txt<br>
-</p>
-<p>
-We can make the program by GNUmakefile,<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;$ export prog=ex3_puzzle && make -f GNUmakefile<br>
-&nbsp;&nbsp;&nbsp;&nbsp;$ ./go.sh<br>
-<br>
-Or make it by CMake,<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;$ cmake -B build<br>
-&nbsp;&nbsp;&nbsp;&nbsp;$ make -C build<br>
-&nbsp;&nbsp;&nbsp;&nbsp;$ ./go.sh<br>
-<br>
-By default, go.sh will run two tests. For more test cases, <br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;$ ./go.sh 1 10<br>
-<br>
-Will run for 10 tests from input1.txt to input10.txt.
-</p>
-<p>
-There is also an old version of the exercise template, and solutions to 
-some of the exercises at <a href="https://github.com/zedware/notebook/tree/master/samples/tcpl">Yet Another Template and Solutions</a>.
-</p>
-<hr>
-<p align="center">
-<a href="intro.html">Back to Introduction</a>&nbsp;--&nbsp;
-<a href="index.html">Index</a>&nbsp;--&nbsp;
-<a href="chapter1.html">Chapter 1</a>
-<p>
-<hr>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Exercise Template</title>
+    <style type="text/css">
+        <!--
+        .STYLE1 {
+            font-weight: bold
+        }
+
+        .STYLE2 {
+            color: #FF0000
+        }
+        -->
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2QMPH4XTZX');
+    </script>
+</head>
+
+<body>
+    <hr>
+    <p align="center">
+        <a href="guide.html">Back to Guide</a>&nbsp;--&nbsp;
+        <a href="index.html">Index</a>&nbsp;--&nbsp;
+        <a href="chapter1.html">Chapter 1</a>
+    <p>
+        <hr>
+
+    <h1>Exercise Template</h1>
+    <p>
+        Even though most exercises only need a single source file, it is a good practice
+        to put each exercise within its own directory. A typical exercise contains the
+        following parts.
+    </p>
+    <ul>
+        <li>The source file `foo.c'</li>
+        <li>The makefile, which can be a classcial makefile `GNUmakefile' or a morden CMake file `CMakeLists.txt'. </li>
+        <li>The test cases `inputNNN.txt' and `expectedNNN.txt'. </li>
+        <li>The script to run the tests `go.sh'. </li>
+    </ul>
+    <p>
+        To make the life easier, I have created a template at <a
+            href="https://github.com/zedware/notebook/blob/master/samples/template">The Exercise Template</a>.
+        And there is a shell script `init.sh' in its parent directory. We can use it to generate the directory
+        for the exercises. For exmaple:<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$ ./init.sh ex3_puzzle<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$ ls -1 ex3_puzzle/<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;CMakeLists.txt<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;GNUmakefile<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;ex3-puzzle.c<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;expected1.txt<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;expected2.txt<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;go.sh<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;input1.txt<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;input2.txt<br>
+    </p>
+    <p>
+        We can make the program by GNUmakefile,<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$ export prog=ex3_puzzle && make -f GNUmakefile<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$ ./go.sh<br>
+        <br>
+        Or make it by CMake,<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$ cmake -B build<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$ make -C build<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$ ./go.sh<br>
+        <br>
+        By default, go.sh will run two tests. For more test cases, <br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$ ./go.sh 1 10<br>
+        <br>
+        Will run for 10 tests from input1.txt to input10.txt.
+    </p>
+    <p>
+        There is also an old version of the exercise template, and solutions to
+        some of the exercises at <a href="https://github.com/zedware/notebook/tree/master/samples/tcpl">Yet Another
+            Template and Solutions</a>.
+    </p>
+    <hr>
+    <p align="center">
+        <a href="intro.html">Back to Introduction</a>&nbsp;--&nbsp;
+        <a href="index.html">Index</a>&nbsp;--&nbsp;
+        <a href="chapter1.html">Chapter 1</a>
+    <p>
+        <hr>
 </body>
+
 </html>

@@ -1,14 +1,26 @@
 <HTML>
+
 <HEAD>
-<title>1.6.2"CICS-Supplied Transactions"via IBM BookManager BookServer</title>
+  <title>1.6.2"CICS-Supplied Transactions"via IBM BookManager BookServer</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body> 
-<banner> 
-<H4> 1.6.2 Command options</H4> 
-</banner> 
-<p> <kbd>ON|OFF</kbd> <br> 
-  specifies whether the EDF screen is to be switched ON or OFF. The default is ON. If you specify ON or OFF, you <B>must</B> enter the preceding comma, as shown in the following examples:
-<pre width="80">
+
+<body>
+  <banner>
+    <H4> 1.6.2 Command options</H4>
+  </banner>
+  <p> <kbd>ON|OFF</kbd> <br>
+    specifies whether the EDF screen is to be switched ON or OFF. The default is ON. If you specify ON or OFF, you
+    <B>must</B> enter the preceding comma, as shown in the following examples:
+  <pre width="80">
 
          <samp>CEDF</samp> <samp>T33A</samp> 
 
@@ -17,12 +29,15 @@
          <samp>CEDF</samp> <samp>,ON</samp> 
 
          <samp>CEDF</samp> <samp>,OFF</samp> 
-</pre> 
-<p><kbd>sessionid</kbd> <br> 
-  specifies the session identifier used to test a transaction attached across an MRO, APPC, or LU6.1 session. All CICS commands processed by the attached transaction are monitored. </p> 
-<p><kbd>sysid</kbd> <br> 
-  specifies the system identifier used to test a transaction across an MRO or APPC session. </p> 
-<kbd>termid</kbd> <br> 
-specifies the identifier of the terminal on which the transaction to be tested is being run. If you do not provide an identifier, the terminal at which you enter the CEDF transaction is assumed.
+</pre>
+  <p><kbd>sessionid</kbd> <br>
+    specifies the session identifier used to test a transaction attached across an MRO, APPC, or LU6.1 session. All CICS
+    commands processed by the attached transaction are monitored. </p>
+  <p><kbd>sysid</kbd> <br>
+    specifies the system identifier used to test a transaction across an MRO or APPC session. </p>
+  <kbd>termid</kbd> <br>
+  specifies the identifier of the terminal on which the transaction to be tested is being run. If you do not provide an
+  identifier, the terminal at which you enter the CEDF transaction is assumed.
 </BODY>
+
 </HTML>

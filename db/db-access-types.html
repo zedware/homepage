@@ -1,495 +1,545 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<meta http-equiv="Content-Type"
-content="text/html; charset=utf-8">
-<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
-<title>Access 的数据类型</title>
-<style type="text/css">
-<!--
-.style_times {font-family: "Times New Roman", Times, serif}
-.style3 {font-family: "Times New Roman", Times, serif; font-weight: bold;}
-.style1 {font-size: larger}
--->
-</style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="zedware"
+    content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+  <title>Access 的数据类型</title>
+  <style type="text/css">
+    <!--
+    .style_times {
+      font-family: "Times New Roman", Times, serif
+    }
+
+    .style3 {
+      font-family: "Times New Roman", Times, serif;
+      font-weight: bold;
+    }
+
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">Access 的数据类型</p> 
-<hr> 
-<dl> 
-  <dt><strong>通过 ODBC API 获得的 ACCESS 2000 数据类型</strong> 
-</dl> 
-<table border="1" cellspacing="0"> 
-  <tr> 
-    <td align="left">TYPE_NAME </td> 
-    <td align="left">DATA_TYPE </td> 
-    <td align="left">COLUMN_SIZE </td> 
-    <td align="left">LITERAL_PREFIX </td> 
-    <td align="left">LITERAL_SUFFIX </td> 
-    <td align="left">CREATE_PARAMS </td> 
-    <td align="left">NULLABLE </td> 
-    <td align="left">CASE_SENSITIVE </td> 
-    <td align="left">SEARCHABLE </td> 
-    <td align="left">UNSIGNED_ATTRIBUTE </td> 
-    <td align="left">FIXED_PREC_SCALE </td> 
-    <td align="left">AUTO_UNIQUE_VALUE </td> 
-    <td align="left">LOCAL_TYPE_NAME </td> 
-    <td align="left">MINIMUM_SCALE </td> 
-    <td align="left">MAXIMUM_SCALE </td> 
-    <td align="left">SQL_DATA_TYPE </td> 
-    <td align="left">SQL_DATETIME_SUB </td> 
-    <td align="left">NUM_PREC_RADIX </td> 
-    <td align="left">INTERVAL_PRECISION </td> 
-  </tr> 
-  <tr> 
-    <td align="left">BINARY </td> 
-    <td align="left">-2 </td> 
-    <td align="left">510 </td> 
-    <td align="left">0x </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">length </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">-2 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">BIT </td> 
-    <td align="left">-7 </td> 
-    <td align="left">1 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">2 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">-7 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">BYTE </td> 
-    <td align="left">-6 </td> 
-    <td align="left">3 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">2 </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">-6 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">10 </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">CHAR </td> 
-    <td align="left">1 </td> 
-    <td align="left">255 </td> 
-    <td align="left">' </td> 
-    <td align="left">' </td> 
-    <td align="left">length </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">3 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">COUNTER </td> 
-    <td align="left">4 </td> 
-    <td align="left">10 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">2 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">1 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">4 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">10 </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">CURRENCY </td> 
-    <td align="left">2 </td> 
-    <td align="left">19 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">2 </td> 
-    <td align="left">0 </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">4 </td> 
-    <td align="left">4 </td> 
-    <td align="left">2 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">10 </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">DATETIME </td> 
-    <td align="left">93 </td> 
-    <td align="left">19 </td> 
-    <td align="left"># </td> 
-    <td align="left"># </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">2 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">9 </td> 
-    <td align="left">3 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">DOUBLE </td> 
-    <td align="left">8 </td> 
-    <td align="left">53 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">2 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">8 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">2 </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">GUID </td> 
-    <td align="left">-11 </td> 
-    <td align="left">36 </td> 
-    <td align="left">' </td> 
-    <td align="left">' </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">-11 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">INTEGER </td> 
-    <td align="left">4 </td> 
-    <td align="left">10 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">2 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">4 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">10 </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">LONGBINARY </td> 
-    <td align="left">-4 </td> 
-    <td align="left">1073741823 </td> 
-    <td align="left">0x </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">-4 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">LONGCHAR </td> 
-    <td align="left">-1 </td> 
-    <td align="left">1073741823 </td> 
-    <td align="left">' </td> 
-    <td align="left">' </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">-1 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">REAL </td> 
-    <td align="left">7 </td> 
-    <td align="left">24 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">2 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">7 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">2 </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">SMALLINT </td> 
-    <td align="left">5 </td> 
-    <td align="left">5 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">2 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">5 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">10 </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">VARBINARY </td> 
-    <td align="left">-3 </td> 
-    <td align="left">510 </td> 
-    <td align="left">0x </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">length </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">-3 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-  <tr> 
-    <td align="left">VARCHAR </td> 
-    <td align="left">12 </td> 
-    <td align="left">255 </td> 
-    <td align="left">' </td> 
-    <td align="left">' </td> 
-    <td align="left">length </td> 
-    <td align="left">1 </td> 
-    <td align="left">0 </td> 
-    <td align="left">3 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">0 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">12 </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-    <td align="left">&lt;null&gt; </td> 
-  </tr> 
-</table> 
-<p><strong>2、OLE DB Provider for Microsoft Jet （Data Type Support）</strong></p> 
-<p><span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">　</span><span class="style3">(See http://msdn.microsoft.com for details)</span> <br> 
-  　 <span class="style_times">Textual columns in Jet are now UNICODE instead of ANSI/DBCS. Compression is used to keep text from taking twice as much space. All IISAMs that store text columns in DBCS have implicit conversions done when read through Jet 4.0. When running against the Jet 3.5 OLE DB provider, all API calls had implicit coercions done already and it was possible to read ANSI data as UNICODE through the regular coercion process. Now, in a similar fashion, applications that need compatibility can use the coercion service in the OLE DB layer to convert back to ANSI if necessary. Not all ANSI/UNICODE conversions are lossless―converting from one to the other and back again can yield different results.</span></p> 
-<P class="style_times"><span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">　 </span>New data types have been added to Microsoft Jet 4.0. Specifically, Jet now has a numeric type for arbitrary precision data and a large, non-BLOB binary type. These are named Decimal and BigBinary, respectively. Information about these types is published in the PROVIDER_TYPES schema. These types do not work on previous .mdb file formats. The following table maps Jet data types to OLE DB data types.</P> 
-<DIV class="tablediv style_times"> 
-  <TABLE border="1" cellSpacing="0" > 
-    <TR vAlign="top"> 
-      <TH width="26%"> 4.0 Jet type name</TH> 
-      <TH width="24%"> OLE DB DBTYPE</TH> 
-      <TH width="27%"> Maximum size (4.0)</TH> 
-      <TH width="23%"> 3.5 type name</TH> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">Bit</TD> 
-      <TD width="24%">DBTYPE_BOOL</TD> 
-      <TD width="27%">&nbsp;</TD> 
-      <TD width="23%">Bit</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">BigBinary</TD> 
-      <TD width="24%">DBTYPE_BYTES</TD> 
-      <TD width="27%">4000 bytes</TD> 
-      <TD width="23%">n/a</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">Byte</TD> 
-      <TD width="24%">DBTYPE_UI1</TD> 
-      <TD width="27%">&nbsp;</TD> 
-      <TD width="23%">Byte</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">Currency</TD> 
-      <TD width="24%">DBTYPE_CY</TD> 
-      <TD width="27%">&nbsp;</TD> 
-      <TD width="23%">Currency</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">DateTime</TD> 
-      <TD width="24%">DBTYPE_DATE</TD> 
-      <TD width="27%">&nbsp;</TD> 
-      <TD width="23%">DateTime</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">Decimal</TD> 
-      <TD width="24%">DBTYPE_NUMERIC</TD> 
-      <TD width="27%">28 digits (base 10)</TD> 
-      <TD width="23%">n/a</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">Double</TD> 
-      <TD width="24%">DBTYPE_R8</TD> 
-      <TD width="27%">&nbsp;</TD> 
-      <TD width="23%">Double</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">GUID</TD> 
-      <TD width="24%">DBTYPE_GUID</TD> 
-      <TD width="27%">&nbsp;</TD> 
-      <TD width="23%">GUID</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">Long</TD> 
-      <TD width="24%">DBTYPE_I4</TD> 
-      <TD width="27%">&nbsp;</TD> 
-      <TD width="23%">Long</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">LongBinary</TD> 
-      <TD width="24%">DBTYPE_BYTES</TD> 
-      <TD width="27%">1073741823 bytes</TD> 
-      <TD width="23%">LongBinary</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">LongText</TD> 
-      <TD width="24%">DBTYPE_WSTR</TD> 
-      <TD width="27%">536870910 characters</TD> 
-      <TD width="23%">LongText</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">Short</TD> 
-      <TD width="24%">DBTYPE_I2</TD> 
-      <TD width="27%">&nbsp;</TD> 
-      <TD width="23%">Short</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">Single</TD> 
-      <TD width="24%">DBTYPE_R4</TD> 
-      <TD width="27%">&nbsp;</TD> 
-      <TD width="23%">Single</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">VarBinary</TD> 
-      <TD width="24%">DBTYPE_BYTES</TD> 
-      <TD width="27%">510 bytes</TD> 
-      <TD width="23%">Binary</TD> 
-    </TR> 
-    <TR vAlign="top"> 
-      <TD width="26%">VarChar</TD> 
-      <TD width="24%">DBTYPE_WSTR</TD> 
-      <TD width="27%">255 characters</TD> 
-      <TD width="23%">Text</TD> 
-    </TR> 
-  </TABLE> 
-</DIV> 
-<P class="style_times"><span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">　 </span>To provide a more consistent data type naming scheme for Microsoft providers, Jet has modified the Text data type slightly. While the underlying storage has remained the same, the implications of the name <I>text</I> as used in SQL commands have changed. While Text in Jet referred to a short type, <I>text</I> in SQL Server is a BLOB field (akin to the Jet LongText/Memo type). When using commands, Text with no size now implies a LongText, while Text with a size (<I>text(255)</I>) still means the shorter, non-BLOB text field. The SQL data type <I>varchar</I> retains the original meaning of Text in Jet, so the OLE DB provider for Jet now exposes Jet's short text field as <I>varchar</I> instead of Text, because this behavior cannot be described in a generic fashion through OLE DB mechanisms. Applications that assume they can pass the provider type name as Text will break because the definition of Text is now ambiguous. As such, it doesn't resolve to anything in the version 4.0 provider.</P> 
-<P class="style_times"> <span style="font-size: 12.0pt;  color: black;    font-family: "Times New Roman", Times, serif;">　 </span>To better comply with the OLE DB spec, the version 4.0 provider has also changed the name of the Binary column. The semantic meaning of Binary is unchanged, however, and it is still recognized in the version 4.0 provider as the short binary type. This change should be transparent to existing clients. New clients should use VarBinary in their applications.</P> 
-<hr> 
-<div align="center"><a href="mailto:zedware_at_gmail_dot_com"><font size="3" face="Times New Roman, Times, serif">Copyright @2000-2003，zedware_at_gmail_dot_com</font></a> </div> 
-<div align="center"> 
-  <div align="center"><font face="Times New Roman, Times, serif">Last modified on
-    <!-- #BeginDate format:fcIS1 -->Wednesday, 2005-02-16<!-- #EndDate --> 
-    </font> </div> 
-</div> 
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1">Access 的数据类型</p>
+  <hr>
+  <dl>
+    <dt><strong>通过 ODBC API 获得的 ACCESS 2000 数据类型</strong>
+  </dl>
+  <table border="1" cellspacing="0">
+    <tr>
+      <td align="left">TYPE_NAME </td>
+      <td align="left">DATA_TYPE </td>
+      <td align="left">COLUMN_SIZE </td>
+      <td align="left">LITERAL_PREFIX </td>
+      <td align="left">LITERAL_SUFFIX </td>
+      <td align="left">CREATE_PARAMS </td>
+      <td align="left">NULLABLE </td>
+      <td align="left">CASE_SENSITIVE </td>
+      <td align="left">SEARCHABLE </td>
+      <td align="left">UNSIGNED_ATTRIBUTE </td>
+      <td align="left">FIXED_PREC_SCALE </td>
+      <td align="left">AUTO_UNIQUE_VALUE </td>
+      <td align="left">LOCAL_TYPE_NAME </td>
+      <td align="left">MINIMUM_SCALE </td>
+      <td align="left">MAXIMUM_SCALE </td>
+      <td align="left">SQL_DATA_TYPE </td>
+      <td align="left">SQL_DATETIME_SUB </td>
+      <td align="left">NUM_PREC_RADIX </td>
+      <td align="left">INTERVAL_PRECISION </td>
+    </tr>
+    <tr>
+      <td align="left">BINARY </td>
+      <td align="left">-2 </td>
+      <td align="left">510 </td>
+      <td align="left">0x </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">length </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">-2 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">BIT </td>
+      <td align="left">-7 </td>
+      <td align="left">1 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">2 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">-7 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">BYTE </td>
+      <td align="left">-6 </td>
+      <td align="left">3 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">2 </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">-6 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">10 </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">CHAR </td>
+      <td align="left">1 </td>
+      <td align="left">255 </td>
+      <td align="left">' </td>
+      <td align="left">' </td>
+      <td align="left">length </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">3 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">COUNTER </td>
+      <td align="left">4 </td>
+      <td align="left">10 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">2 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">1 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">4 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">10 </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">CURRENCY </td>
+      <td align="left">2 </td>
+      <td align="left">19 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">2 </td>
+      <td align="left">0 </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">4 </td>
+      <td align="left">4 </td>
+      <td align="left">2 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">10 </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">DATETIME </td>
+      <td align="left">93 </td>
+      <td align="left">19 </td>
+      <td align="left"># </td>
+      <td align="left"># </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">2 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">9 </td>
+      <td align="left">3 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">DOUBLE </td>
+      <td align="left">8 </td>
+      <td align="left">53 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">2 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">8 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">2 </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">GUID </td>
+      <td align="left">-11 </td>
+      <td align="left">36 </td>
+      <td align="left">' </td>
+      <td align="left">' </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">-11 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">INTEGER </td>
+      <td align="left">4 </td>
+      <td align="left">10 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">2 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">4 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">10 </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">LONGBINARY </td>
+      <td align="left">-4 </td>
+      <td align="left">1073741823 </td>
+      <td align="left">0x </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">-4 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">LONGCHAR </td>
+      <td align="left">-1 </td>
+      <td align="left">1073741823 </td>
+      <td align="left">' </td>
+      <td align="left">' </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">-1 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">REAL </td>
+      <td align="left">7 </td>
+      <td align="left">24 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">2 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">7 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">2 </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">SMALLINT </td>
+      <td align="left">5 </td>
+      <td align="left">5 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">2 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">5 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">10 </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">VARBINARY </td>
+      <td align="left">-3 </td>
+      <td align="left">510 </td>
+      <td align="left">0x </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">length </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">-3 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+    <tr>
+      <td align="left">VARCHAR </td>
+      <td align="left">12 </td>
+      <td align="left">255 </td>
+      <td align="left">' </td>
+      <td align="left">' </td>
+      <td align="left">length </td>
+      <td align="left">1 </td>
+      <td align="left">0 </td>
+      <td align="left">3 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">0 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">12 </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+      <td align="left">&lt;null&gt; </td>
+    </tr>
+  </table>
+  <p><strong>2、OLE DB Provider for Microsoft Jet （Data Type Support）</strong></p>
+  <p><span style="font-size: 12.0pt;  color: black;    font-family: " Times New Roman", Times, serif;">　</span><span
+      class="style3">(See http://msdn.microsoft.com for details)</span> <br>
+    　 <span class="style_times">Textual columns in Jet are now UNICODE instead of ANSI/DBCS. Compression is used to keep
+      text from taking twice as much space. All IISAMs that store text columns in DBCS have implicit conversions done
+      when read through Jet 4.0. When running against the Jet 3.5 OLE DB provider, all API calls had implicit coercions
+      done already and it was possible to read ANSI data as UNICODE through the regular coercion process. Now, in a
+      similar fashion, applications that need compatibility can use the coercion service in the OLE DB layer to convert
+      back to ANSI if necessary. Not all ANSI/UNICODE conversions are lossless―converting from one to the other and back
+      again can yield different results.</span></p>
+  <P class="style_times"><span style="font-size: 12.0pt;  color: black;    font-family: " Times New Roman", Times,
+      serif;">　 </span>New data types have been added to Microsoft Jet 4.0. Specifically, Jet now has a numeric type for
+    arbitrary precision data and a large, non-BLOB binary type. These are named Decimal and BigBinary, respectively.
+    Information about these types is published in the PROVIDER_TYPES schema. These types do not work on previous .mdb
+    file formats. The following table maps Jet data types to OLE DB data types.</P>
+  <DIV class="tablediv style_times">
+    <TABLE border="1" cellSpacing="0">
+      <TR vAlign="top">
+        <TH width="26%"> 4.0 Jet type name</TH>
+        <TH width="24%"> OLE DB DBTYPE</TH>
+        <TH width="27%"> Maximum size (4.0)</TH>
+        <TH width="23%"> 3.5 type name</TH>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">Bit</TD>
+        <TD width="24%">DBTYPE_BOOL</TD>
+        <TD width="27%">&nbsp;</TD>
+        <TD width="23%">Bit</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">BigBinary</TD>
+        <TD width="24%">DBTYPE_BYTES</TD>
+        <TD width="27%">4000 bytes</TD>
+        <TD width="23%">n/a</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">Byte</TD>
+        <TD width="24%">DBTYPE_UI1</TD>
+        <TD width="27%">&nbsp;</TD>
+        <TD width="23%">Byte</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">Currency</TD>
+        <TD width="24%">DBTYPE_CY</TD>
+        <TD width="27%">&nbsp;</TD>
+        <TD width="23%">Currency</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">DateTime</TD>
+        <TD width="24%">DBTYPE_DATE</TD>
+        <TD width="27%">&nbsp;</TD>
+        <TD width="23%">DateTime</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">Decimal</TD>
+        <TD width="24%">DBTYPE_NUMERIC</TD>
+        <TD width="27%">28 digits (base 10)</TD>
+        <TD width="23%">n/a</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">Double</TD>
+        <TD width="24%">DBTYPE_R8</TD>
+        <TD width="27%">&nbsp;</TD>
+        <TD width="23%">Double</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">GUID</TD>
+        <TD width="24%">DBTYPE_GUID</TD>
+        <TD width="27%">&nbsp;</TD>
+        <TD width="23%">GUID</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">Long</TD>
+        <TD width="24%">DBTYPE_I4</TD>
+        <TD width="27%">&nbsp;</TD>
+        <TD width="23%">Long</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">LongBinary</TD>
+        <TD width="24%">DBTYPE_BYTES</TD>
+        <TD width="27%">1073741823 bytes</TD>
+        <TD width="23%">LongBinary</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">LongText</TD>
+        <TD width="24%">DBTYPE_WSTR</TD>
+        <TD width="27%">536870910 characters</TD>
+        <TD width="23%">LongText</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">Short</TD>
+        <TD width="24%">DBTYPE_I2</TD>
+        <TD width="27%">&nbsp;</TD>
+        <TD width="23%">Short</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">Single</TD>
+        <TD width="24%">DBTYPE_R4</TD>
+        <TD width="27%">&nbsp;</TD>
+        <TD width="23%">Single</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">VarBinary</TD>
+        <TD width="24%">DBTYPE_BYTES</TD>
+        <TD width="27%">510 bytes</TD>
+        <TD width="23%">Binary</TD>
+      </TR>
+      <TR vAlign="top">
+        <TD width="26%">VarChar</TD>
+        <TD width="24%">DBTYPE_WSTR</TD>
+        <TD width="27%">255 characters</TD>
+        <TD width="23%">Text</TD>
+      </TR>
+    </TABLE>
+  </DIV>
+  <P class="style_times"><span style="font-size: 12.0pt;  color: black;    font-family: " Times New Roman", Times,
+      serif;">　 </span>To provide a more consistent data type naming scheme for Microsoft providers, Jet has modified
+    the Text data type slightly. While the underlying storage has remained the same, the implications of the name
+    <I>text</I> as used in SQL commands have changed. While Text in Jet referred to a short type, <I>text</I> in SQL
+    Server is a BLOB field (akin to the Jet LongText/Memo type). When using commands, Text with no size now implies a
+    LongText, while Text with a size (<I>text(255)</I>) still means the shorter, non-BLOB text field. The SQL data type
+    <I>varchar</I> retains the original meaning of Text in Jet, so the OLE DB provider for Jet now exposes Jet's short
+    text field as <I>varchar</I> instead of Text, because this behavior cannot be described in a generic fashion through
+    OLE DB mechanisms. Applications that assume they can pass the provider type name as Text will break because the
+    definition of Text is now ambiguous. As such, it doesn't resolve to anything in the version 4.0 provider.</P>
+  <P class="style_times"> <span style="font-size: 12.0pt;  color: black;    font-family: " Times New Roman", Times,
+      serif;">　 </span>To better comply with the OLE DB spec, the version 4.0 provider has also changed the name of the
+    Binary column. The semantic meaning of Binary is unchanged, however, and it is still recognized in the version 4.0
+    provider as the short binary type. This change should be transparent to existing clients. New clients should use
+    VarBinary in their applications.</P>
+  <hr>
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">
+      <font size="3" face="Times New Roman, Times, serif">Copyright @2000-2003，zedware_at_gmail_dot_com</font>
+    </a> </div>
+  <div align="center">
+    <div align="center">
+      <font face="Times New Roman, Times, serif">Last modified on
+        <!-- #BeginDate format:fcIS1 -->Wednesday, 2005-02-16
+        <!-- #EndDate -->
+      </font>
+    </div>
+  </div>
 </body>
+
 </html>

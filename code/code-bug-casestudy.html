@@ -1,193 +1,242 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<title>软件开发中的BUG案例</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</style>
+  <title>软件开发中的BUG案例</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1 style1">软件开发中的BUG案例</p> 
-<hr> 
-<p><strong>1 概述</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;众所周知，软件开发过程中BUG是难以避免的。但是一个训练有素的程序员却能将BUG的出现率尽可能的降低。本文档将BUG粗略地分为几个大类，以便于学习参考。</p>
-<ul>
-  <li>程序结构和处理逻辑类：包括程序的结构，算法的选择和实现等。</li>
-  <li>可移植性类：包括跨平台代码的移植、封装等。</li>
-  <li>可维护性类：包括诊断性代码、测试支持、注释、命名风格等。</li>
-  <li>其他问题：不好归类的BUG、实践技巧等。</li>
-</ul>
-<p><strong>2 程序结构和处理逻辑</strong></p>
-<p><strong>2.1 ##</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;某Linux应用程序采用了DailyBuild，为了自动维护其构建版本号，我们将每日构建的版本号单独定义为：</p>
-<blockquote>
-  <p>#define BUILDNO “0001”</p>
-</blockquote>
-<p>需要引用该版本号的地方采用了预编译操作符“##”：</p>
-<blockquote>
-  <p>#define VERSION “8.0.”##BUILDNO””<br>
-  #define VERSION_STR “8.0.”##BUILDNO” Special Release for RedHat Linux 8.0”</p>
-</blockquote>
-<p>这在GCC 3.3之前工作得很好，可是换成了 GCC 3.3.1 后，出现了错误：</p>
-<blockquote>
-  <p>foo.c:127:33: pasting &quot;&quot;8.0.&quot;&quot; and &quot;BUILDNO&quot; does not give a valid preprocessing token</p>
-</blockquote>
-<p>解决的办法很简单，就是将“##”去掉。结尾的空串””也是多余的。操作符“##”的用途主要是用于宏展开时将参数保留为字符串形式，例如：</p>
-<blockquote>
-  <p>#define __CONCAT(x, y) x##y<br>
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1 style1">软件开发中的BUG案例</p>
+  <hr>
+  <p><strong>1 概述</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;众所周知，软件开发过程中BUG是难以避免的。但是一个训练有素的程序员却能将BUG的出现率尽可能的降低。本文档将BUG粗略地分为几个大类，以便于学习参考。</p>
+  <ul>
+    <li>程序结构和处理逻辑类：包括程序的结构，算法的选择和实现等。</li>
+    <li>可移植性类：包括跨平台代码的移植、封装等。</li>
+    <li>可维护性类：包括诊断性代码、测试支持、注释、命名风格等。</li>
+    <li>其他问题：不好归类的BUG、实践技巧等。</li>
+  </ul>
+  <p><strong>2 程序结构和处理逻辑</strong></p>
+  <p><strong>2.1 ##</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;某Linux应用程序采用了DailyBuild，为了自动维护其构建版本号，我们将每日构建的版本号单独定义为：</p>
+  <blockquote>
+    <p>#define BUILDNO “0001”</p>
+  </blockquote>
+  <p>需要引用该版本号的地方采用了预编译操作符“##”：</p>
+  <blockquote>
+    <p>#define VERSION “8.0.”##BUILDNO””<br>
+      #define VERSION_STR “8.0.”##BUILDNO” Special Release for RedHat Linux 8.0”</p>
+  </blockquote>
+  <p>这在GCC 3.3之前工作得很好，可是换成了 GCC 3.3.1 后，出现了错误：</p>
+  <blockquote>
+    <p>foo.c:127:33: pasting &quot;&quot;8.0.&quot;&quot; and &quot;BUILDNO&quot; does not give a valid preprocessing
+      token</p>
+  </blockquote>
+  <p>解决的办法很简单，就是将“##”去掉。结尾的空串””也是多余的。操作符“##”的用途主要是用于宏展开时将参数保留为字符串形式，例如：</p>
+  <blockquote>
+    <p>#define __CONCAT(x, y) x##y<br>
+      <br>
+      __CONCAT(foo, bar)
+    </p>
+  </blockquote>
+  <p><strong>2.2 变量初始化</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;某系统支持UNIX命令行风格的命令，例如：DISPLAY
+    SETTINGS等。其语法分析代码中使用了一个全局字符串数组，用于记录某些特殊的语法片断。可是该变量不是每次语法分析启动前都初始化的，导致以下现象发生了：</p>
+  <blockquote>
+    <p>某个命令执行第一次没有问题，但连续执行4次就会导致系统内部的内存检查模块报告异常。</p>
+  </blockquote>
+  <p>因为问题很容易重现，系统内部的内存检查机制工作正常，很快定位到相关的代码：</p>
+  <blockquote>
+    <p>char ParseString[1024];<br>
+      <br>if (ParseString == NULL) /* 注1 */<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;strcpy(ParseString, parse_segment);<br>
+      else<br>
+      &nbsp;&nbsp;&nbsp; strcat(ParseString, parse_segment);
+    </p>
+  </blockquote>
+  <p>原来是strcat每次都是盲目地往ParseString后面追加字符串，执行4次后内存越界了。解决的办法很简单，在语法分析初始化的地方给ParseString初始化：</p>
+  <blockquote>
+    <p>ParseString[0] = '\0';</p>
+  </blockquote>
+  <p>显然“注1”标记的代码也是不对的，至少应该改为：</p>
+  <blockquote>
+    <p>if (ParseString[0] == '\0')</p>
+  </blockquote>
+  <p>事实上，这部分的代码问题相当严重，已经违背了当初系统设计的基本原则，要解决其全部问题，只能重新进行设计和编码了。从客户反映来看，出自该部分的BUG也最多。</p>
+  <p><strong>2.3 日志信息不能及时写到文件</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;某系统采用标准输入输出函数进行诊断性的日志信息输出，在不将错误输出重定向到文件时，日志信息能够及时输出。例如：</p>
+  <blockquote>
+    <p>c:\foo&gt; foo.exe<br>
+      <br>
+      LOG: FOO is starting up<br>
+      LOG: Using data file located at c:\foo\data\db.dat<br>
+      LOG: Client 1 connected
+    </p>
+  </blockquote>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;可是在将错误输出重定向到文件，并在UltraEdit中打开该文件时，不能及时看到日志信息。一天早上，程序员小A突然大叫：“系统的日志信息没有了!”。资深程序员老K跑去一看，命令行使用方式正常，UltraEdit中打开的文件中有主进程打出的信息，并不是什么也没有。不过子进程的输出不见了。命令行：
+  </p>
+  <blockquote>
+    <p>C:\foo&gt; foo.exe 2&gt;foo.log</p>
+  </blockquote>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;乍一看，似乎整个日志系统失效了。该系统是C/S结构，服务器会生成一些服务进程，首先怀疑是不是子进程的输出被丢弃了。经过代码分析，表明创建子进程时已经处理了各种句柄的继承，不应该存在问题。随意地连上了一个客户端，发了不少命令过去，再看看日志文件，主进程和子进程的日志记录一个也不少。至此，问题已经比较明确：应该是某些地方忘了调用fflush()了。找到系统的log_trace()函数，补上fflush()，测试、回归测试，搞定。
+  </p>
+  <p><strong>2.4 共享数据的同步处理</strong></p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;某系统已经运行了一定的年份了。系统结构比较传统，是多进程结构。在UNIX下的表现不错，于是决定将其搬到Windows上来。移植当然是个比较麻烦的过程，也遇到了不少问题。经过几个月的努力，系统已经可以在Windows上运行了。可是压力测试下，偶尔会出现一些错误信息：
+  </p>
+  <blockquote>
+    <p>“无效的系统配置参数”</p>
+  </blockquote>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;在UNIX下，fork()进程时，子进程会自动继承父进程当前所有的全局变量和打开的句柄等。可是在Windows下，这些就不能完全照搬了。我们只好把某些全局变量通过一块专门的共享内存由父进程传递给子进程。这些全局变量就包含了几个全局的系统配置参数。怀疑出问题的地方自然就在这段代码了。
+  </p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;出现错误信息的时候，我们让系统assert(false)，程序就会自动弹出一个带有“Abort”、“Retry”、“Ignore”按钮的对话框（这其实是VC的调试功能）。点击“Retry”，即可追踪出错的进程了。看了半天，毫无头绪，不理解父进程传递来的东西怎么会突然变成了“无效参数”了呢？
+  </p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;一夜没睡好。早上起来突然醒悟了：一定是共享内存的同步没做好。父进程在填写完共享内存中的参数后，要等待子进程读完参数信息，才能再次fork()（Windows下其实是CreateProcess()）下一个子进程。修改、测试、回归测试、压力测试，一切OK。
+  </p>
+  <p><strong>2.5 预编译宏：WIN32</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;某系统为第三方的开发者提供了一套函数库，采用的是Windows下的DLL。函数库的头文件foo.h写得无可挑剔：</p>
+  <blockquote>
+    <p>#ifndef FOO_H<br>
+      #define FOO_H</p>
+    <p>#ifndef DLLIMPORT<br>
+      #ifdef WIN32<br>
+      <br>
+      #define DLLIMPORT __declspec(dllimport)<br>
+      <br>
+      #else<br>
+      <br>
+      #define DLLIMPORT<br>
+      <br>
+      #endif /* WIN32 */<br>
+      #endif /* !DLLIMPORT */
+    </p>
+    <p>#ifdef __cplusplus<br>
+      extern &quot;C&quot; {<br>
+      #endif<br>
+      <br>
+      extern DLLIMPORT struct foo_struct?foo_var;
+    </p>
+    <p>void bar(void);</p>
+    <p>#ifdef __cplusplus<br>
+      }<br>
+      #endif<br>
+      <br>
+      #endif /* FOO_H */
+    </p>
+  </blockquote>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;系统内部测试、用户试用，反馈都很好。突然某一天，有个用户发邮件来了，“你们的系统怎么连变量都没有初始化？”。经过仔细询问，原来在他们的程序中发现变量foo_var的成员没有初始化，函数库无法使用。请用户将他的例子代码发送过来。这用户没用VC自动生成的项目，自己写的Makefile，用NMAKE编译。打开Makefile，问题就在这里了：
+  </p>
+  <blockquote>
+    <p>PROJECT = test<br>
+      CPP = cl<br>
+      LINK = link<br>
+      <br>
+      INCS = /I&quot;C:\Program Files\Microsoft Visual Studio\VC98\Include&quot;<br>
+      INCS = $(INCS) /I&quot;C:\Program Files\foo\include&quot;<br>
+      <br>
+      LIBS = /LIBPATH:&quot;C:\Program Files\Microsoft Visual Studio\VC98\lib&quot;<br>
+      LIBS = $(LIBS) /LIBPATH:&quot;C:\Program Files\foo\lib&quot;<br>
+      <br>
+      OBJS =<br>
+      LINKLIB = kernel32.lib user32.lib<br>
+      LINKLIB = $(LINKLIB) libfoo.lib
+    </p>
+    <p>CPPOPT = $(INCS) /O2 /Ot /G6 /c<br>
+      LINKOPT = $(LIBS) /SUBSYSTEM:CONSOLE /MACHINE:X86 $(LINKLIB) $(OBJS) /OUT:$(PROJECT).exe</p>
+    <p>$(PROJECT).exe: $(PROJECT).obj $(OBJS)</p>
+    <p>.c.obj:<br>
+      $(CPP) $(CPPOPT) $&lt;</p>
+    <p>.obj.exe:<br>
+      $(LINK) $(LINKOPT) $&lt;</p>
+    <p>“/D WIN32”到哪儿去了？没有了它，foo.h将不会导出DLL中的foo_var．</p>
+  </blockquote>
+  <p><strong>3 可移植性</strong></p>
+  <p><strong>3.1 signed char</strong></p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;类型char应该是C中使用的最多的数据类型了。可是你可曾想到，char类型并不是那么的简单易用，由它导致的BUG甚至会耗费了好多天的时间？在吃过一次苦头后，下面的文档对你应该有些助益：
+  </p>
+  <blockquote>
+    <p><strong>MSDN:</strong><br>
+      The char type is used to store the integer value of a member of therepresentable character set. That integer value
+      is the ASCII code corresponding to the specified character. </p>
+    <p><strong>Microsoft Specific ―&gt;</strong><br>
+      Character values of type unsigned char have a range from 0 to 0xFF hexadecimal. A signed char has range 0x80 to
+      0x7F. These ranges translate to 0 to 255 decimal, and –128 to +127 decimal, respectively. The /J compiler option
+      changes the default from signed to unsigned.
+    <p><strong>END Microsoft Specific</strong><br>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;VC中char缺省对应为signed char，因此下面的语句是正确的：</p>
+  <blockquote>
+    char flag;<br>
+    if (flag == -1)<br>
+    …<br>
+  </blockquote>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;可是其他的编译器未必如此（况且CL的开关“/J”还可以改变VC的缺省设置）。上述的代码显然是不可移植的。要么避免对char类型使用0x00-0x7F之外的值（例如：-1），要么改用signed
+    char或int等。</p>
+  <p><strong>4 可维护性</strong></p>
+  <p><strong>4.1 修改函数参数个数</strong></p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;某系统中划分了很多子系统，为了保证系统的层次清晰，各子系统严格定义了调用层次和对外的接口API。系统大量使用了C语言中常用的办法：静态函数，来避免不必要的外部函数。处于性能优化的考虑，某开发人员给现有的一个对外函数foo()增加了一个开关参数，指示其是否进行特别的优化处理。但是这个函数在几十个地方被调用，修改接口势必涉及所有这些地方。而需要将这个新参数设置为true的地方仅有一个文件bar.c，该文件包含两处对foo()的调用。因此我们采用下面的修改办法：
+  </p>
+  <blockquote>
+    1. 将foo()改名为foo_ex()；<br>
+    2. 重写新的foo()为：<br>
     <br>
-  __CONCAT(foo, bar)</p>
-</blockquote>
-<p><strong>2.2 变量初始化</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;某系统支持UNIX命令行风格的命令，例如：DISPLAY SETTINGS等。其语法分析代码中使用了一个全局字符串数组，用于记录某些特殊的语法片断。可是该变量不是每次语法分析启动前都初始化的，导致以下现象发生了：</p>
-<blockquote>
-  <p>某个命令执行第一次没有问题，但连续执行4次就会导致系统内部的内存检查模块报告异常。</p>
-</blockquote>
-<p>因为问题很容易重现，系统内部的内存检查机制工作正常，很快定位到相关的代码：</p>
-<blockquote>
-  <p>char ParseString[1024];<br>
-  <br>if (ParseString == NULL) /* 注1 */<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;strcpy(ParseString, parse_segment);<br>
-  else<br>
-&nbsp;&nbsp;&nbsp;  strcat(ParseString, parse_segment);</p>
-</blockquote>
-<p>原来是strcat每次都是盲目地往ParseString后面追加字符串，执行4次后内存越界了。解决的办法很简单，在语法分析初始化的地方给ParseString初始化：</p>
-<blockquote>
-  <p>ParseString[0] = '\0';</p>
-</blockquote>
-<p>显然“注1”标记的代码也是不对的，至少应该改为：</p>
-<blockquote>
-  <p>if (ParseString[0] == '\0')</p>
-</blockquote>
-<p>事实上，这部分的代码问题相当严重，已经违背了当初系统设计的基本原则，要解决其全部问题，只能重新进行设计和编码了。从客户反映来看，出自该部分的BUG也最多。</p>
-<p><strong>2.3 日志信息不能及时写到文件</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;某系统采用标准输入输出函数进行诊断性的日志信息输出，在不将错误输出重定向到文件时，日志信息能够及时输出。例如：</p>
-<blockquote>
-  <p>c:\foo&gt; foo.exe<br>
+    inline void foo(void)<br>
+    {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;foo_ex(false);<br>
+    }<br>
     <br>
-  LOG: FOO is starting up<br>
-  LOG: Using data file located at c:\foo\data\db.dat<br>
-  LOG: Client 1 connected</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;可是在将错误输出重定向到文件，并在UltraEdit中打开该文件时，不能及时看到日志信息。一天早上，程序员小A突然大叫：“系统的日志信息没有了!”。资深程序员老K跑去一看，命令行使用方式正常，UltraEdit中打开的文件中有主进程打出的信息，并不是什么也没有。不过子进程的输出不见了。命令行：</p>
-<blockquote>
-  <p>C:\foo&gt; foo.exe 2&gt;foo.log</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;乍一看，似乎整个日志系统失效了。该系统是C/S结构，服务器会生成一些服务进程，首先怀疑是不是子进程的输出被丢弃了。经过代码分析，表明创建子进程时已经处理了各种句柄的继承，不应该存在问题。随意地连上了一个客户端，发了不少命令过去，再看看日志文件，主进程和子进程的日志记录一个也不少。至此，问题已经比较明确：应该是某些地方忘了调用fflush()了。找到系统的log_trace()函数，补上fflush()，测试、回归测试，搞定。</p>
-<p><strong>2.4 共享数据的同步处理</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;某系统已经运行了一定的年份了。系统结构比较传统，是多进程结构。在UNIX下的表现不错，于是决定将其搬到Windows上来。移植当然是个比较麻烦的过程，也遇到了不少问题。经过几个月的努力，系统已经可以在Windows上运行了。可是压力测试下，偶尔会出现一些错误信息：</p>
-<blockquote>
-  <p>“无效的系统配置参数”</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;在UNIX下，fork()进程时，子进程会自动继承父进程当前所有的全局变量和打开的句柄等。可是在Windows下，这些就不能完全照搬了。我们只好把某些全局变量通过一块专门的共享内存由父进程传递给子进程。这些全局变量就包含了几个全局的系统配置参数。怀疑出问题的地方自然就在这段代码了。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;出现错误信息的时候，我们让系统assert(false)，程序就会自动弹出一个带有“Abort”、“Retry”、“Ignore”按钮的对话框（这其实是VC的调试功能）。点击“Retry”，即可追踪出错的进程了。看了半天，毫无头绪，不理解父进程传递来的东西怎么会突然变成了“无效参数”了呢？</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;一夜没睡好。早上起来突然醒悟了：一定是共享内存的同步没做好。父进程在填写完共享内存中的参数后，要等待子进程读完参数信息，才能再次fork()（Windows下其实是CreateProcess()）下一个子进程。修改、测试、回归测试、压力测试，一切OK。</p>
-<p><strong>2.5 预编译宏：WIN32</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;某系统为第三方的开发者提供了一套函数库，采用的是Windows下的DLL。函数库的头文件foo.h写得无可挑剔：</p>
-<blockquote>
-  <p>#ifndef FOO_H<br>
-  #define FOO_H</p>
-  <p>#ifndef DLLIMPORT<br>
-  #ifdef WIN32<br>
-  <br>
-  #define DLLIMPORT __declspec(dllimport)<br>
-  <br>
-  #else<br>
-  <br>
-  #define DLLIMPORT<br>
-  <br>
-  #endif /* WIN32 */<br>
-  #endif /* !DLLIMPORT */</p>
-  <p>#ifdef __cplusplus<br>
-  extern &quot;C&quot; {<br>
-  #endif<br>
-  <br>
-    extern DLLIMPORT struct foo_struct?foo_var;</p>
-  <p>void bar(void);</p>
-  <p>#ifdef __cplusplus<br>
-  }<br>
-  #endif<br>
-  <br>
-    #endif /* FOO_H */</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;系统内部测试、用户试用，反馈都很好。突然某一天，有个用户发邮件来了，“你们的系统怎么连变量都没有初始化？”。经过仔细询问，原来在他们的程序中发现变量foo_var的成员没有初始化，函数库无法使用。请用户将他的例子代码发送过来。这用户没用VC自动生成的项目，自己写的Makefile，用NMAKE编译。打开Makefile，问题就在这里了：</p>
-<blockquote>
-  <p>PROJECT = test<br>
-  CPP = cl<br>
-  LINK = link<br>
-  <br>
-  INCS = /I&quot;C:\Program Files\Microsoft Visual Studio\VC98\Include&quot;<br>
-  INCS = $(INCS) /I&quot;C:\Program Files\foo\include&quot;<br>
-  <br>
-  LIBS = /LIBPATH:&quot;C:\Program Files\Microsoft Visual Studio\VC98\lib&quot;<br>
-  LIBS = $(LIBS) /LIBPATH:&quot;C:\Program Files\foo\lib&quot;<br>
-  <br>
-  OBJS =<br>
-  LINKLIB = kernel32.lib user32.lib<br>
-  LINKLIB = $(LINKLIB) libfoo.lib</p>
-  <p>CPPOPT = $(INCS) /O2 /Ot /G6 /c<br>
-  LINKOPT = $(LIBS) /SUBSYSTEM:CONSOLE /MACHINE:X86 $(LINKLIB) $(OBJS) /OUT:$(PROJECT).exe</p>
-  <p>$(PROJECT).exe: $(PROJECT).obj $(OBJS)</p>
-  <p>.c.obj:<br>
-  $(CPP) $(CPPOPT) $&lt;</p>
-  <p>.obj.exe:<br>
-  $(LINK) $(LINKOPT) $&lt;</p>
-  <p>“/D WIN32”到哪儿去了？没有了它，foo.h将不会导出DLL中的foo_var．</p>
-</blockquote>
-<p><strong>3 可移植性</strong></p>
-<p><strong>3.1 signed char</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;类型char应该是C中使用的最多的数据类型了。可是你可曾想到，char类型并不是那么的简单易用，由它导致的BUG甚至会耗费了好多天的时间？在吃过一次苦头后，下面的文档对你应该有些助益：</p>
-<blockquote>
-  <p><strong>MSDN:</strong><br>
-    The char type is used to store the integer value of a member of therepresentable character set. That integer value is the ASCII code corresponding to the specified character. </p>
-  <p><strong>Microsoft Specific ―&gt;</strong><br>
-    Character values of type unsigned char have a range from 0 to 0xFF hexadecimal. A signed char has range 0x80 to 0x7F. These ranges translate to 0 to 255 decimal, and –128 to +127 decimal, respectively. The /J compiler option changes the default from signed to unsigned.
-  <p><strong>END Microsoft Specific</strong><br>
-</blockquote>    
-<p>&nbsp;&nbsp;&nbsp;&nbsp;VC中char缺省对应为signed char，因此下面的语句是正确的：</p>
-<blockquote>
-char flag;<br>
-if (flag == -1)<br>
-…<br>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;可是其他的编译器未必如此（况且CL的开关“/J”还可以改变VC的缺省设置）。上述的代码显然是不可移植的。要么避免对char类型使用0x00-0x7F之外的值（例如：-1），要么改用signed char或int等。</p>
-<p><strong>4 可维护性</strong></p>
-<p><strong>4.1 修改函数参数个数</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;某系统中划分了很多子系统，为了保证系统的层次清晰，各子系统严格定义了调用层次和对外的接口API。系统大量使用了C语言中常用的办法：静态函数，来避免不必要的外部函数。处于性能优化的考虑，某开发人员给现有的一个对外函数foo()增加了一个开关参数，指示其是否进行特别的优化处理。但是这个函数在几十个地方被调用，修改接口势必涉及所有这些地方。而需要将这个新参数设置为true的地方仅有一个文件bar.c，该文件包含两处对foo()的调用。因此我们采用下面的修改办法：
-</p>
-<blockquote>
-1. 将foo()改名为foo_ex()；<br>
-2. 重写新的foo()为：<br>
-<br>
-inline void foo(void)<br>
-{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;foo_ex(false);<br>
-}<br>
-<br>
-3. 将bar.c中对foo()的调用修改为foo_ex(true);<br>
-</blockquote>
-<p>当然，这种方法的使用仅适合于某些特殊的场合：</p>
-<blockquote>
-1. 调用foo的地方太多，而用到foo_ex的地方很少且比较集中<br>
-2. 子系统对外的接口轻易不能变化<br>
-3. 其他子系统甚至应用程序的源代码不能得到<br>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;这种办法在Windows的WIN32 API升级中经常可以看到。比如：CreateWindowEx()、WaitForSingleObjectEx()等等。</p>
-<p><strong>5 其他问题</strong></p>
-<p><strong>5.1 从EXE中导出函数和数据</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;开发动态连接库时，我们需要导出函数和数据。在Windows中开发DLL更为简单，VC、BCB等IDE都提供了非常好的向导。编译器对导入/导出函数和数据的支持比较类似，一般都是采用dllimport/dllexport这样的关键字来修饰函数和数据的定义。当然，DEF文件也是比较方便的。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;其实EXE文件也可以导出函数和数据。只不过我们不能在其DEF文件中写上LIBRARY节。在EXE调用DLL，而被调用的DLL又想调用EXE中的函数和使用EXE中数据时，就需要采用这样的功能了。
-</p>
-<hr>
-<div align="center"> 
-  <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2006,zedware_at_gmail_dot_com</a><br> 
-    Last modified on
-    <!-- #BeginDate format:fcIS1 -->Friday, 2006-03-03<!-- #EndDate --> 
-  </div> 
-</div> 
+    3. 将bar.c中对foo()的调用修改为foo_ex(true);<br>
+  </blockquote>
+  <p>当然，这种方法的使用仅适合于某些特殊的场合：</p>
+  <blockquote>
+    1. 调用foo的地方太多，而用到foo_ex的地方很少且比较集中<br>
+    2. 子系统对外的接口轻易不能变化<br>
+    3. 其他子系统甚至应用程序的源代码不能得到<br>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;这种办法在Windows的WIN32 API升级中经常可以看到。比如：CreateWindowEx()、WaitForSingleObjectEx()等等。</p>
+  <p><strong>5 其他问题</strong></p>
+  <p><strong>5.1 从EXE中导出函数和数据</strong></p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;开发动态连接库时，我们需要导出函数和数据。在Windows中开发DLL更为简单，VC、BCB等IDE都提供了非常好的向导。编译器对导入/导出函数和数据的支持比较类似，一般都是采用dllimport/dllexport这样的关键字来修饰函数和数据的定义。当然，DEF文件也是比较方便的。
+  </p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;其实EXE文件也可以导出函数和数据。只不过我们不能在其DEF文件中写上LIBRARY节。在EXE调用DLL，而被调用的DLL又想调用EXE中的函数和使用EXE中数据时，就需要采用这样的功能了。
+  </p>
+  <hr>
+  <div align="center">
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2006,zedware_at_gmail_dot_com</a><br>
+      Last modified on
+      <!-- #BeginDate format:fcIS1 -->Friday, 2006-03-03
+      <!-- #EndDate -->
+    </div>
+  </div>
 </body>
+
 </html>

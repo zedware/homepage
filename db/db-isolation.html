@@ -1,88 +1,157 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<title>事务的隔离级别（Transaction Isolation Level）</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</style>
+  <title>事务的隔离级别（Transaction Isolation Level）</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">事务的隔离级别（Transaction Isolation Level）</p> 
-<hr>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;事务隔离级别是对事务之间的隔离性作出的一个度量。它通常以下面的几个指标进行考察： ( 这些指标都是从读的角度来分析的，即分析写操作对读操作的影响 ) </p>
-<p>&#149;&nbsp; 读脏数据 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;读脏数据其实就是读未提交的数据。例如事务 A 更新了一个记录，事务 B 在事务 A 提交之前读到了更新后的记录值。如果事务 A 做了回滚，事务 B 读到的数据就是实际上不曾存在过的数据。 </p>
-<p>&#149;&nbsp; 不可重复读 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;不可重复读的意思是同一个事务在生存期间读同一条记录，得到的记录值却不同。例如事务 A 读了一条记录，事务 B 对该记录进行删除（或更新），随后提交。如果事务 A 重新读该记录，就会发现记录值变化了（或者该记录已经不存在了）。 </p>
-<p>&#149;&nbsp; 幻象 (phantoms) </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;幻象的意思是指某些记录满足搜索条件，但却没有被找出来。例如事务 A 通过查询选出了一些满足条件 A 的记录，此时事务 B 通过插入或更新产生了新的满足条件 A 的记录。若事务 A 重新执行刚才的查询，得到的结果集就和刚才的不同。 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;SQL92 定义的四种事务隔离级别就是以上述的集中情况来描述的。如下表所示： </p>
-<div align="center"></div>
-<table border="1" align="center" cellpadding="0" cellspacing="0">
-  <tr>
-    <td width="28%" valign="top"><p align="center"><strong>事务隔离级别 </strong><strong></strong></p></td>
-    <td width="16%" valign="top"><p align="center"><strong>读脏数据 </strong><strong></strong></p></td>
-    <td width="21%" valign="top"><p align="center"><strong>不可重复读 </strong><strong></strong></p></td>
-    <td width="16%" valign="top"><p align="center"><strong>幻象 </strong><strong></strong></p></td>
-    <td width="16%" valign="top"><p align="center"><strong>隔离级别 </strong><strong></strong></p></td>
-  </tr>
-  <tr>
-    <td width="28%" valign="top"><p>读未提交数据 </p></td>
-    <td width="16%" valign="top"><p>Y </p></td>
-    <td width="21%" valign="top"><p>Y </p></td>
-    <td width="16%" valign="top"><p>Y </p></td>
-    <td width="16%" valign="top"><p>最低 </p></td>
-  </tr>
-  <tr>
-    <td width="28%" valign="top"><p>读提交数据 </p></td>
-    <td width="16%" valign="top">N</td>
-    <td width="21%" valign="top"><p>Y </p></td>
-    <td width="16%" valign="top"><p>Y </p></td>
-    <td width="16%" valign="top"><p>低 </p></td>
-  </tr>
-  <tr>
-    <td width="28%" valign="top"><p>可重复读 </p></td>
-    <td width="16%" valign="top">N</td>
-    <td width="21%" valign="top">N</td>
-    <td width="16%" valign="top"><p>Y </p></td>
-    <td width="16%" valign="top"><p>高 </p></td>
-  </tr>
-  <tr>
-    <td width="28%" valign="top"><p>可串行 </p></td>
-    <td width="16%" valign="top">N</td>
-    <td width="21%" valign="top">N</td>
-    <td width="16%" valign="top">N</td>
-    <td width="16%" valign="top"><p>最高 </p></td>
-  </tr>
-</table>
-<div align="center"></div>
-<div align="center"></div>
-<div align="center"></div>
-<div align="center"></div>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;具体的 DBMS 为了支持这些不同的隔离级别，会采用不同的方法。如果 DBMS 采用封锁机制，可能的实现策略如下：（封锁有几个不同的特性，其一是封锁的粒度，例如数据库级的封锁、表级的封锁、记录级的封锁、字段级的封锁等；其二是封锁的类型，例如读锁、写锁、意向锁等；其三是封锁的生存期，例如：短锁、长锁等） </p>
-<p>&#149;&nbsp; 读未提交数据 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;此时事务之间其实没有什么隔离性，即一个事务对数据的任何修改可以在提交之前被其他事务查看到。 DBMS 此时可以禁用系统实现时为支持隔离级别而设置的机制。运行于此级别的事务通常应该是只读事务，例如进行不太精确的统计等。 </p>
-<p>&#149;&nbsp; 读提交数据 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;事务 A 正在修改某些记录，它可能是采用封锁的方法锁住这些记录，事务 B 试图读这些记录，则它必须等到事务 A 释放封锁。为了保证 B 不读脏数据，事务 A 应该在提交或回滚时释放这些封锁。对于要读的记录，事务（无论是 A 还是 B ）都应该采用读封锁，对于要修改或删除的记录，事务都应该采用写封锁。读锁可以在读完该记录后立即释放，写锁应该在事务提交或回滚时才释放。可将用完记录就释放的封锁成为短锁，将保持到事务结束的封锁称为长锁。 </p>
-<p>&#149;&nbsp; 可重复读 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;此时和“读提交数据”的区别在于将上述的读锁由短锁改成长锁。这样其他事务不可能更新或删除本事务正在访问的数据。但是其他事务可能插入新的记录。 </p>
-<p>&#149;&nbsp; 可串行化 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;显然，此时需要的封锁更严格。事务总是对其影响的记录范围做封锁。若事务中有 SQL 语句： <strong>SELECT * FROM Orders </strong><strong>， </strong>则读封锁的范围为整个 Orders 表，从而保证其他事务不会插入满足该查询的记录。若事务中有 SQL 语句： <strong>DELETE FROM Orders WHERE Status = 'CLOSED' </strong><strong>， </strong>则写封锁的范围为所有满足 WHERE 条件的记录，避免其他事务插入或更新得到满足该条件的记录，简单的实现可以写封锁整个表。 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;需要注意的是，事务的隔离级别并不影响事务查看本身对数据的修改，也就是说，事务总可以查看自己对数据的修改。事务的隔离级别需要根据实际需要设定，隔离级别越低，事务之间的并发程度就越高；事务的隔离级别越高，事务之间的并发程度就越低。 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;参考文献2、3对SQL92中定义的隔离级别进行了详尽的分析，并给出了明确的批评和解释。要准确地理解事务隔离级别在理论研究和实际产品中的实现，还需要对并发控制方法、日志恢复系统等有深入的了解。</p>
-<p><strong>参考文献：</strong></p>
-<p>1.Microsoft, <a href="http://www.microsoft.com/technet/prodtechnol/sql/2005/SQL05B.mspx">SQL Server 2005 Beta 2 Snapshot Isolation</a> <br>
-  2.Hal Berenson, Phil Bernstein, Jim Gray, Jim Meton, Elizabeth O'Neil, Patrick O'Neil, <a href="http://research.microsoft.com/research/pubs/view.aspx?tr_id=5">A Critique of ANSI SQL Isolation Levels <br>
-  </a>3.Atul Adya, Barbara Liskov, Patrick O'Neil, <a href="http://research.microsoft.com/%7Eadya/pubs/icde00.pdf">Generalized Isolation Level Definitions </a> </p>
-<div align="center">
-<hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br> 
-    Last modified on
-    <!-- #BeginDate format:fcIS1 -->Friday, 2005-08-05<!-- #EndDate --> 
-  </div> 
-</div> 
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1">事务的隔离级别（Transaction Isolation Level）</p>
+  <hr>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;事务隔离级别是对事务之间的隔离性作出的一个度量。它通常以下面的几个指标进行考察： ( 这些指标都是从读的角度来分析的，即分析写操作对读操作的影响 ) </p>
+  <p>&#149;&nbsp; 读脏数据 </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;读脏数据其实就是读未提交的数据。例如事务 A 更新了一个记录，事务 B 在事务 A 提交之前读到了更新后的记录值。如果事务 A 做了回滚，事务 B
+    读到的数据就是实际上不曾存在过的数据。 </p>
+  <p>&#149;&nbsp; 不可重复读 </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;不可重复读的意思是同一个事务在生存期间读同一条记录，得到的记录值却不同。例如事务 A 读了一条记录，事务 B 对该记录进行删除（或更新），随后提交。如果事务 A
+    重新读该记录，就会发现记录值变化了（或者该记录已经不存在了）。 </p>
+  <p>&#149;&nbsp; 幻象 (phantoms) </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;幻象的意思是指某些记录满足搜索条件，但却没有被找出来。例如事务 A 通过查询选出了一些满足条件 A 的记录，此时事务 B 通过插入或更新产生了新的满足条件 A 的记录。若事务 A
+    重新执行刚才的查询，得到的结果集就和刚才的不同。 </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;SQL92 定义的四种事务隔离级别就是以上述的集中情况来描述的。如下表所示： </p>
+  <div align="center"></div>
+  <table border="1" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="28%" valign="top">
+        <p align="center"><strong>事务隔离级别 </strong><strong></strong></p>
+      </td>
+      <td width="16%" valign="top">
+        <p align="center"><strong>读脏数据 </strong><strong></strong></p>
+      </td>
+      <td width="21%" valign="top">
+        <p align="center"><strong>不可重复读 </strong><strong></strong></p>
+      </td>
+      <td width="16%" valign="top">
+        <p align="center"><strong>幻象 </strong><strong></strong></p>
+      </td>
+      <td width="16%" valign="top">
+        <p align="center"><strong>隔离级别 </strong><strong></strong></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="28%" valign="top">
+        <p>读未提交数据 </p>
+      </td>
+      <td width="16%" valign="top">
+        <p>Y </p>
+      </td>
+      <td width="21%" valign="top">
+        <p>Y </p>
+      </td>
+      <td width="16%" valign="top">
+        <p>Y </p>
+      </td>
+      <td width="16%" valign="top">
+        <p>最低 </p>
+      </td>
+    </tr>
+    <tr>
+      <td width="28%" valign="top">
+        <p>读提交数据 </p>
+      </td>
+      <td width="16%" valign="top">N</td>
+      <td width="21%" valign="top">
+        <p>Y </p>
+      </td>
+      <td width="16%" valign="top">
+        <p>Y </p>
+      </td>
+      <td width="16%" valign="top">
+        <p>低 </p>
+      </td>
+    </tr>
+    <tr>
+      <td width="28%" valign="top">
+        <p>可重复读 </p>
+      </td>
+      <td width="16%" valign="top">N</td>
+      <td width="21%" valign="top">N</td>
+      <td width="16%" valign="top">
+        <p>Y </p>
+      </td>
+      <td width="16%" valign="top">
+        <p>高 </p>
+      </td>
+    </tr>
+    <tr>
+      <td width="28%" valign="top">
+        <p>可串行 </p>
+      </td>
+      <td width="16%" valign="top">N</td>
+      <td width="21%" valign="top">N</td>
+      <td width="16%" valign="top">N</td>
+      <td width="16%" valign="top">
+        <p>最高 </p>
+      </td>
+    </tr>
+  </table>
+  <div align="center"></div>
+  <div align="center"></div>
+  <div align="center"></div>
+  <div align="center"></div>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;具体的 DBMS 为了支持这些不同的隔离级别，会采用不同的方法。如果 DBMS
+    采用封锁机制，可能的实现策略如下：（封锁有几个不同的特性，其一是封锁的粒度，例如数据库级的封锁、表级的封锁、记录级的封锁、字段级的封锁等；其二是封锁的类型，例如读锁、写锁、意向锁等；其三是封锁的生存期，例如：短锁、长锁等） </p>
+  <p>&#149;&nbsp; 读未提交数据 </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;此时事务之间其实没有什么隔离性，即一个事务对数据的任何修改可以在提交之前被其他事务查看到。 DBMS
+    此时可以禁用系统实现时为支持隔离级别而设置的机制。运行于此级别的事务通常应该是只读事务，例如进行不太精确的统计等。 </p>
+  <p>&#149;&nbsp; 读提交数据 </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;事务 A 正在修改某些记录，它可能是采用封锁的方法锁住这些记录，事务 B 试图读这些记录，则它必须等到事务 A 释放封锁。为了保证 B 不读脏数据，事务 A
+    应该在提交或回滚时释放这些封锁。对于要读的记录，事务（无论是 A 还是 B
+    ）都应该采用读封锁，对于要修改或删除的记录，事务都应该采用写封锁。读锁可以在读完该记录后立即释放，写锁应该在事务提交或回滚时才释放。可将用完记录就释放的封锁成为短锁，将保持到事务结束的封锁称为长锁。 </p>
+  <p>&#149;&nbsp; 可重复读 </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;此时和“读提交数据”的区别在于将上述的读锁由短锁改成长锁。这样其他事务不可能更新或删除本事务正在访问的数据。但是其他事务可能插入新的记录。 </p>
+  <p>&#149;&nbsp; 可串行化 </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;显然，此时需要的封锁更严格。事务总是对其影响的记录范围做封锁。若事务中有 SQL 语句： <strong>SELECT * FROM Orders
+    </strong><strong>， </strong>则读封锁的范围为整个 Orders 表，从而保证其他事务不会插入满足该查询的记录。若事务中有 SQL 语句： <strong>DELETE FROM Orders WHERE
+      Status = 'CLOSED' </strong><strong>， </strong>则写封锁的范围为所有满足 WHERE 条件的记录，避免其他事务插入或更新得到满足该条件的记录，简单的实现可以写封锁整个表。 </p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;需要注意的是，事务的隔离级别并不影响事务查看本身对数据的修改，也就是说，事务总可以查看自己对数据的修改。事务的隔离级别需要根据实际需要设定，隔离级别越低，事务之间的并发程度就越高；事务的隔离级别越高，事务之间的并发程度就越低。
+  </p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;参考文献2、3对SQL92中定义的隔离级别进行了详尽的分析，并给出了明确的批评和解释。要准确地理解事务隔离级别在理论研究和实际产品中的实现，还需要对并发控制方法、日志恢复系统等有深入的了解。
+  </p>
+  <p><strong>参考文献：</strong></p>
+  <p>1.Microsoft, <a href="http://www.microsoft.com/technet/prodtechnol/sql/2005/SQL05B.mspx">SQL Server 2005 Beta 2
+      Snapshot Isolation</a> <br>
+    2.Hal Berenson, Phil Bernstein, Jim Gray, Jim Meton, Elizabeth O'Neil, Patrick O'Neil, <a
+      href="http://research.microsoft.com/research/pubs/view.aspx?tr_id=5">A Critique of ANSI SQL Isolation Levels <br>
+    </a>3.Atul Adya, Barbara Liskov, Patrick O'Neil, <a
+      href="http://research.microsoft.com/%7Eadya/pubs/icde00.pdf">Generalized Isolation Level Definitions </a> </p>
+  <div align="center">
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br>
+      Last modified on
+      <!-- #BeginDate format:fcIS1 -->Friday, 2005-08-05
+      <!-- #EndDate -->
+    </div>
+  </div>
 </body>
+
 </html>

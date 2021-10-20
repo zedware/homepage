@@ -1,82 +1,113 @@
 <html>
-<head>
-<meta http-equiv="Content-Type"
 
-content="text/html; charset=utf-8">
-<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
-<title>头文件的组织</title>
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</style>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="zedware"
+    content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+  <title>头文件的组织</title>
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">头文件的组织</p> 
-<hr> 
-<p align="left"><span style="FONT-SIZE: 12pt; COLOR: black;    ">　　C语言中头文件的组织也需要遵循一定的规则，这样才能保证程序结构的清晰。最基本的要求是一个头文件中的东西不要太多。如果程序比较小，所有的常量定义、全局变量定义、结构定义、函数声明放在一个头文件中是可行的；反之则需要划分为多个文件存放。常用的规则包括：</span></p> 
-<p align="left">&nbsp;&nbsp;&nbsp;<span style="font-size: 12pt; color: black;    "> 1、在每个头文件中加上如下的定义：（假设头文件的名字为MyDemo.h）<br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p> 
-<blockquote> 
-  <p><span style="font-size: 12pt; color: black;    ">#ifndef MY_DEMO_H<br> 
-#define MY_DEMO_H<br>
-  </span><span style="font-size: 12pt; color: black;    "><br>
-  #endif // MY_DEMO_H</span></p> 
-  <p><span style="font-size: 12pt; color: black;    ">这样有助于消灭头文件被多次include导致的错误。</span></p> 
-</blockquote> 
-<p align="left">&nbsp;&nbsp;&nbsp;<span style="font-size: 12pt; color: black;    "> 2、对于全局变量，自然要尽可能少用。如果系统实在需要使用全局变量，就应该遵循一般的用法：在逻辑相关的源文件中定义全局变量，在头文件中进行声明，而不要将定义放到源文件中。</span></p>
-<p align="left"><span style="font-size: 12pt; color: black;    ">&nbsp;&nbsp;&nbsp;&nbsp;下面这个办法是我为了处理某个老项目而采用的，正常情况下最好不要使用。如果你想将全局变量统一进行管理，可以用一个单独的文件存放全局变量的定义。例如MyVariable.h，其内容如下：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
-<blockquote> 
-  <p><span style="font-size: 12pt; color: black;    ">#ifndef MY_VARIABLE_H<br> 
-#define MY_VARIABLE_H</span></p> 
-  <p><span style="font-size: 12pt; color: black;    ">int&nbsp;&nbsp;&nbsp;&nbsp; gMyInt;<br> 
-short&nbsp;&nbsp; gMyShort;&nbsp;&nbsp;&nbsp;</span></p> 
-  <p><span style="font-size: 12pt; color: black;    ">#endif // MY_VARIABLE_H</span></p> 
-</blockquote> 
-<p align="left"><span style="font-size: 12pt; color: black;    "> </span><span style="FONT-SIZE: 12pt; COLOR: black;    ">　　</span><span style="font-size: 12pt; color: black;    ">但是这样的定义可能会导致严重的问题，它不允许在多个源文件中include MyVariable.h。我们只能也只需要在一个源文件中include MyVariable.h，而在其他源文件中只能采用extern int gMyInt这样的形式来声明，这可以另外定义一个和MyVariable.h对应的头文件XMyVariable.h来定义这些extern int gMyInt。可是这种方法需要将变量在声明一遍，麻烦不说，还容易产生不一致。其实可以简单地解决这个问题： 
-  </span></p> 
-<blockquote> 
-  <p><span style="font-size: 12pt; color: black;    "> #ifndef MY_VARIABLE_H<br> 
-#define MY_VARIABLE_H<br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> 
-#ifndef MY_NO_EXTERN<br> 
-#define MY_EXTERN extern<br> 
-#else<br> 
-#define MY_EXTERN<br> 
-#endif // MY_NO_EXTERN</span></p> 
-  <p align="left"><span style="font-size: 12pt; color: black;    ">MY_EXTERN int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gMyInt;<br> 
-MY_EXTERN short&nbsp;&nbsp;&nbsp; gMyShort;&nbsp;</span></p> 
-  <p><span style="font-size: 12pt; color: black;    ">#endif // MY_VARIABLE_H</span></p> 
-</blockquote> 
-<p><span style="font-size: 12pt; color: black;    ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size: 12pt; color: black;    ">这下子可以在所有的源文件中include MyVariable.h了，不过需要在其中一个文件中先定义MY_NO_EXTERN，然后再include，以保证变量被定义过一次：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p> 
-<blockquote> 
-  <p><span style="font-size: 12pt; color: black;    ">#define MY_NO_EXTERN<br> 
-#include MyVariable.h</span></p> 
-</blockquote> 
-<p><span style="font-size: 12pt; color: black;    ">3、函数的声明需要考虑C和C++混用的情况。我经常用C写一些底层的代码，然后用C++（多半是VC++）来做界面，并调用底层的C函数。例如： 
-  </span></p> 
-<blockquote> 
-  <p><span style="font-size: 12pt; color: black;    "> #ifndef MY_FUNCTION_H<br> 
-#define MY_FUNCTION_H</span></p> 
-  <p align="left"><span style="font-size: 12pt; color: black;    ">#ifdef __cplusplus<br> 
-extern &quot;C&quot; {<br> 
-#endif // __cplusplus<br> 
-    <br> 
-int MyFunc(int, char *);<br> 
-    <br> 
-#ifdef __cplusplus<br> 
-&nbsp; }<br> 
-#endif // __cplusplus&nbsp;</span></p> 
-  <p align="left"><span style="font-size: 12pt; color: black;    ">#endif // MY_FUNCTION_H</span></p> 
-</blockquote> 
-<dl> 
-  <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005，zedware_at_gmail_dot_com</font></a> </div> 
-  <dt> 
-    <div align="center">Last modified on
-      <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08<!-- #EndDate --> 
-    </div> 
-  </dt> 
-</dl> 
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1">头文件的组织</p>
+  <hr>
+  <p align="left"><span
+      style="FONT-SIZE: 12pt; COLOR: black;    ">　　C语言中头文件的组织也需要遵循一定的规则，这样才能保证程序结构的清晰。最基本的要求是一个头文件中的东西不要太多。如果程序比较小，所有的常量定义、全局变量定义、结构定义、函数声明放在一个头文件中是可行的；反之则需要划分为多个文件存放。常用的规则包括：</span>
+  </p>
+  <p align="left">&nbsp;&nbsp;&nbsp;<span style="font-size: 12pt; color: black;    ">
+      1、在每个头文件中加上如下的定义：（假设头文件的名字为MyDemo.h）<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+  <blockquote>
+    <p><span style="font-size: 12pt; color: black;    ">#ifndef MY_DEMO_H<br>
+        #define MY_DEMO_H<br>
+      </span><span style="font-size: 12pt; color: black;    "><br>
+        #endif // MY_DEMO_H</span></p>
+    <p><span style="font-size: 12pt; color: black;    ">这样有助于消灭头文件被多次include导致的错误。</span></p>
+  </blockquote>
+  <p align="left">&nbsp;&nbsp;&nbsp;<span style="font-size: 12pt; color: black;    ">
+      2、对于全局变量，自然要尽可能少用。如果系统实在需要使用全局变量，就应该遵循一般的用法：在逻辑相关的源文件中定义全局变量，在头文件中进行声明，而不要将定义放到源文件中。</span></p>
+  <p align="left"><span
+      style="font-size: 12pt; color: black;    ">&nbsp;&nbsp;&nbsp;&nbsp;下面这个办法是我为了处理某个老项目而采用的，正常情况下最好不要使用。如果你想将全局变量统一进行管理，可以用一个单独的文件存放全局变量的定义。例如MyVariable.h，其内容如下：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </span></p>
+  <blockquote>
+    <p><span style="font-size: 12pt; color: black;    ">#ifndef MY_VARIABLE_H<br>
+        #define MY_VARIABLE_H</span></p>
+    <p><span style="font-size: 12pt; color: black;    ">int&nbsp;&nbsp;&nbsp;&nbsp; gMyInt;<br>
+        short&nbsp;&nbsp; gMyShort;&nbsp;&nbsp;&nbsp;</span></p>
+    <p><span style="font-size: 12pt; color: black;    ">#endif // MY_VARIABLE_H</span></p>
+  </blockquote>
+  <p align="left"><span style="font-size: 12pt; color: black;    "> </span><span
+      style="FONT-SIZE: 12pt; COLOR: black;    ">　　</span><span
+      style="font-size: 12pt; color: black;    ">但是这样的定义可能会导致严重的问题，它不允许在多个源文件中include
+      MyVariable.h。我们只能也只需要在一个源文件中include MyVariable.h，而在其他源文件中只能采用extern int
+      gMyInt这样的形式来声明，这可以另外定义一个和MyVariable.h对应的头文件XMyVariable.h来定义这些extern int
+      gMyInt。可是这种方法需要将变量在声明一遍，麻烦不说，还容易产生不一致。其实可以简单地解决这个问题：
+    </span></p>
+  <blockquote>
+    <p><span style="font-size: 12pt; color: black;    "> #ifndef MY_VARIABLE_H<br>
+        #define MY_VARIABLE_H<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        #ifndef MY_NO_EXTERN<br>
+        #define MY_EXTERN extern<br>
+        #else<br>
+        #define MY_EXTERN<br>
+        #endif // MY_NO_EXTERN</span></p>
+    <p align="left"><span style="font-size: 12pt; color: black;    ">MY_EXTERN int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        gMyInt;<br>
+        MY_EXTERN short&nbsp;&nbsp;&nbsp; gMyShort;&nbsp;</span></p>
+    <p><span style="font-size: 12pt; color: black;    ">#endif // MY_VARIABLE_H</span></p>
+  </blockquote>
+  <p><span style="font-size: 12pt; color: black;    ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+      style="font-size: 12pt; color: black;    ">这下子可以在所有的源文件中include
+      MyVariable.h了，不过需要在其中一个文件中先定义MY_NO_EXTERN，然后再include，以保证变量被定义过一次：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </p>
+  <blockquote>
+    <p><span style="font-size: 12pt; color: black;    ">#define MY_NO_EXTERN<br>
+        #include MyVariable.h</span></p>
+  </blockquote>
+  <p><span
+      style="font-size: 12pt; color: black;    ">3、函数的声明需要考虑C和C++混用的情况。我经常用C写一些底层的代码，然后用C++（多半是VC++）来做界面，并调用底层的C函数。例如：
+    </span></p>
+  <blockquote>
+    <p><span style="font-size: 12pt; color: black;    "> #ifndef MY_FUNCTION_H<br>
+        #define MY_FUNCTION_H</span></p>
+    <p align="left"><span style="font-size: 12pt; color: black;    ">#ifdef __cplusplus<br>
+        extern &quot;C&quot; {<br>
+        #endif // __cplusplus<br>
+        <br>
+        int MyFunc(int, char *);<br>
+        <br>
+        #ifdef __cplusplus<br>
+        &nbsp; }<br>
+        #endif // __cplusplus&nbsp;</span></p>
+    <p align="left"><span style="font-size: 12pt; color: black;    ">#endif // MY_FUNCTION_H</span></p>
+  </blockquote>
+  <dl>
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005，zedware_at_gmail_dot_com</font>
+        </a> </div>
+    <dt>
+      <div align="center">Last modified on
+        <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08
+        <!-- #EndDate -->
+      </div>
+    </dt>
+  </dl>
 </body>
+
 </html>

@@ -1,82 +1,99 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>A Guide to Students</title>
-<style type="text/css">
-<!--
-.STYLE1 {font-weight: bold}
-.STYLE2 {color: #FF0000}
--->
-</style>
-</head>
-<body>
-<hr>
-<p align="center">
-<a href="intro.html">Back to Introduction</a>&nbsp;--&nbsp;
-<a href="index.html">Index</a>&nbsp;--&nbsp;
-<a href="chapter1.html">Chapter 1</a>
-<p>
-<hr>
 
-<h1>A Guide to the Students</h1>
-<p>
-In the good old days, we learned programming on the old machines, 
-like VAX, IBM PC, Sun Workstation, Mac, etc. On DOS and Windows, the classical 
-IDEs (Integrated Development Environment) are Turbo C/C++ and Borland C/C++, then 
-Microsoft Visual Studio, followed by Eclipse. Nowadays, writing programs 
-heavily depended on a modern IDE. Among them, Visual Studio Code
-(vscode) from Microsoft, CLion from JetBrains, Xcode from Apple are the 
-most popular ones.  Traditionnal editors like Vim and Emacs are still widely 
-used. Powered by modern plugins, they can also be configured as powerful as
-the modern IDEs. For beginners, I would suggest using the IDEs. But if you
-are comfortable with Linux, using Vim or Emacs is also ok.
-<p>
-All of the IDEs or editors must run on an Operating System. We can choose 
-among the different distributions of Linux, macOS, and Windows. If we use a 
-Windows laptop, the Windows Subsystem for Linux (esp. the version 2, WSL2) is 
-a good choice if you prefer a Linux environment. As in the era of Cloud Computing, 
-we can also the virtual machines provided by the Cloud vendors like Amazon Web Service, 
-Microsoft Azure or Google Cloud, etc. The big three Cloud Providers in China are
-Alibaba Cloud (Aliyun), Huawei Cloud, and Tencent Cloud.
-<p>
-Installing the operating system, the IDEs or editors, or compilers are out of the 
-scope of the book. Please refer to the resources on the Internet, or ask the 
-teaching assistants if you are enrolled in a university course. Possible combinations are:
-<ul>
-<li>Ubuntu + Visual Studio Code + gcc/gdb (clang/lldb)</li> 
-<li>macOS + Visual Studio Code + clang/lldb</li>
-<li>Windows (WSL2 with Ubuntu) + Visual Studio Code + gcc/gdb (clang/lldb)</li>
-<li>Windows + Visual Studio (with the compiler and tools, MSVC)</li>
-</ul>
-<p>
-Some universities in China recommend students to use Windows + Visual Studio Code + MinGW.
-I think it is not a good idea, since MinGW is not used widely in the industry.
-</p>
-<p>
-Lastly, being familiar with the tools is critical for a programmer. But the materials
-are ignored in most courses provided by the universities all over the world.
-<a href="https://missing.csail.mit.edu">The Missing Semester of Your CS Education</a>
-from MIT is probably the best one to fix it. It will teach you how to master the 
-command-line tools, text editors, the Git version control system, security, and cryptography.
-<p>
-Little changes are made to the text of the original K&R C book. Some of the text are 
-changed to bold text, while some comments are inserted in Chinese. And the sample code 
-has some minor changes to make it more like real programs nowadays, for example, "main()" is changed 
-to "int main(void)", and always has a return statement.
-</p>
-<p>
-It is hard to write programs correctly without any bugs. And most beginners may tend to 
-use a debugger like `gdb' or `lldb' to debug. Some may use the interactive interface in 
-IDEs. I would prefer the basic output statements like `printf', and the `assert' statement. 
-Knowing each line we write can help build good habits and write bugless code. A debugger 
-is more helpful to analyse the coredump.
-</p>
-<hr>
-<p align="center">
-<a href="intro.html">Back to Introduction</a>&nbsp;--&nbsp;
-<a href="index.html">Index</a>&nbsp;--&nbsp;
-<a href="chapter1.html">Chapter 1</a>
-<p>
-<hr>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>A Guide to Students</title>
+    <style type="text/css">
+        <!--
+        .STYLE1 {
+            font-weight: bold
+        }
+
+        .STYLE2 {
+            color: #FF0000
+        }
+        -->
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2QMPH4XTZX');
+    </script>
+</head>
+
+<body>
+    <hr>
+    <p align="center">
+        <a href="intro.html">Back to Introduction</a>&nbsp;--&nbsp;
+        <a href="index.html">Index</a>&nbsp;--&nbsp;
+        <a href="chapter1.html">Chapter 1</a>
+    <p>
+        <hr>
+
+    <h1>A Guide to the Students</h1>
+    <p>
+        In the good old days, we learned programming on the old machines,
+        like VAX, IBM PC, Sun Workstation, Mac, etc. On DOS and Windows, the classical
+        IDEs (Integrated Development Environment) are Turbo C/C++ and Borland C/C++, then
+        Microsoft Visual Studio, followed by Eclipse. Nowadays, writing programs
+        heavily depended on a modern IDE. Among them, Visual Studio Code
+        (vscode) from Microsoft, CLion from JetBrains, Xcode from Apple are the
+        most popular ones. Traditionnal editors like Vim and Emacs are still widely
+        used. Powered by modern plugins, they can also be configured as powerful as
+        the modern IDEs. For beginners, I would suggest using the IDEs. But if you
+        are comfortable with Linux, using Vim or Emacs is also ok.
+    <p>
+        All of the IDEs or editors must run on an Operating System. We can choose
+        among the different distributions of Linux, macOS, and Windows. If we use a
+        Windows laptop, the Windows Subsystem for Linux (esp. the version 2, WSL2) is
+        a good choice if you prefer a Linux environment. As in the era of Cloud Computing,
+        we can also the virtual machines provided by the Cloud vendors like Amazon Web Service,
+        Microsoft Azure or Google Cloud, etc. The big three Cloud Providers in China are
+        Alibaba Cloud (Aliyun), Huawei Cloud, and Tencent Cloud.
+    <p>
+        Installing the operating system, the IDEs or editors, or compilers are out of the
+        scope of the book. Please refer to the resources on the Internet, or ask the
+        teaching assistants if you are enrolled in a university course. Possible combinations are:
+    <ul>
+        <li>Ubuntu + Visual Studio Code + gcc/gdb (clang/lldb)</li>
+        <li>macOS + Visual Studio Code + clang/lldb</li>
+        <li>Windows (WSL2 with Ubuntu) + Visual Studio Code + gcc/gdb (clang/lldb)</li>
+        <li>Windows + Visual Studio (with the compiler and tools, MSVC)</li>
+    </ul>
+    <p>
+        Some universities in China recommend students to use Windows + Visual Studio Code + MinGW.
+        I think it is not a good idea, since MinGW is not used widely in the industry.
+    </p>
+    <p>
+        Lastly, being familiar with the tools is critical for a programmer. But the materials
+        are ignored in most courses provided by the universities all over the world.
+        <a href="https://missing.csail.mit.edu">The Missing Semester of Your CS Education</a>
+        from MIT is probably the best one to fix it. It will teach you how to master the
+        command-line tools, text editors, the Git version control system, security, and cryptography.
+    <p>
+        Little changes are made to the text of the original K&R C book. Some of the text are
+        changed to bold text, while some comments are inserted in Chinese. And the sample code
+        has some minor changes to make it more like real programs nowadays, for example, "main()" is changed
+        to "int main(void)", and always has a return statement.
+    </p>
+    <p>
+        It is hard to write programs correctly without any bugs. And most beginners may tend to
+        use a debugger like `gdb' or `lldb' to debug. Some may use the interactive interface in
+        IDEs. I would prefer the basic output statements like `printf', and the `assert' statement.
+        Knowing each line we write can help build good habits and write bugless code. A debugger
+        is more helpful to analyse the coredump.
+    </p>
+    <hr>
+    <p align="center">
+        <a href="intro.html">Back to Introduction</a>&nbsp;--&nbsp;
+        <a href="index.html">Index</a>&nbsp;--&nbsp;
+        <a href="chapter1.html">Chapter 1</a>
+    <p>
+        <hr>
 </body>
+
 </html>

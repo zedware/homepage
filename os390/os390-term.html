@@ -1,30 +1,69 @@
 <HTML>
+
 <HEAD>
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<TITLE>网络资源</TITLE>
-<STYLE type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</STYLE>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+  <TITLE>网络资源</TITLE>
+  <STYLE type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </STYLE>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </HEAD>
-<BODY bgcolor="#FFFFFF" LINK="#0000ff" VLINK="#800080"> 
-<P ALIGN="CENTER" class="style1"><font>主机和终端的连接方式</font></P> 
-<hr> 
-<P><FONT >　　IBM大型主机自然支持的是传统的主机/终端模式了，常见的情况是主机房存放主机、主控制台、外设、电源等，然后从主机的通道口用电缆（一般是光纤吧）接到终端控制器，由其分出很多同轴电缆，接到终端。终端是一种处理能力很弱的设备，可能带有一个很小的磁盘以及一些实用程序（例如在终端和主机之间传送文件）。这种接线方式使得终端距离主机房不可能很远，而且扩展很不方便。实际上，在各个单位都存在一大批淘汰下来的微机，如果能用它们做终端，即可以节约成本，又可以增加可用的机器数。用微机作为主机的终端，可以采用几种方法，比如：</font></P> 
-<P><font>1、仍旧采用主机上接出来的同轴电缆。</font></P> 
-<P><font>　　这种方法并没有完全消除传统方式的缺点，不过用微机取代了专用的终端。但是微机必须安装带BNC接口的网卡及相应的驱动，还需要与之配套的模拟终端程序。</font></P> 
-<P><font>2、通过路由器接到局域网</font></P> 
-<P><font>　 这种方法可以接入大量的微机作为终端，当然其代价更大。首先，需要从主机的通道口接线到路由器（该路由器必须支持这种连接），然后将路由器通过集线器接到局域网上。为了使得它们可以正常工作，还需要在主机、路由器和微机上做一些设置。微机上要安装模拟终端软件和SNA协议，当然微机之间、微机和路由器之间还是可以通过TCP/IP协议连接的。这种方法的代价更大，但是带来的好处也是多多。提供该解决方案的出色代表是CISCO公司。 </font></P> 
-<p><font>3、通过NT服务器接到局域网</font></p> 
-<p><font>　 通过微软NT服务器连接到主机上，还需要安装Microsoft SNA Server（注意不是DNA Server），以实现协议转换、代码转换等等功能。</font></p> 
-<p><font>　　要是主机已经启用了TCP/IP支持，上面提到的协议转换也是多余的了。用了IBM的东西，多花点代价是没有办法的事情，恐怕今日的微软也将变成昔日的IBM，让我们拭目以待吧。</font></p> 
-<hr>
-<div align="center"><a href="mailto:zedware_at_gmail_dot_com"><font face="Times New Roman, Times, serif" size="3">Copyright 2000-2005，zedware_at_gmail_dot_com</font></a><br>
-  Last modified on
-  <!-- #BeginDate format:fcIS1 -->Wednesday, 2005-02-16<!-- #EndDate -->
-  
-</div>
-<div align="center"><a href="mailto:zedware_at_gmail_dot_com"></a> </div> 
+
+<BODY bgcolor="#FFFFFF" LINK="#0000ff" VLINK="#800080">
+  <P ALIGN="CENTER" class="style1">
+    <font>主机和终端的连接方式</font>
+  </P>
+  <hr>
+  <P>
+    <FONT>
+      　　IBM大型主机自然支持的是传统的主机/终端模式了，常见的情况是主机房存放主机、主控制台、外设、电源等，然后从主机的通道口用电缆（一般是光纤吧）接到终端控制器，由其分出很多同轴电缆，接到终端。终端是一种处理能力很弱的设备，可能带有一个很小的磁盘以及一些实用程序（例如在终端和主机之间传送文件）。这种接线方式使得终端距离主机房不可能很远，而且扩展很不方便。实际上，在各个单位都存在一大批淘汰下来的微机，如果能用它们做终端，即可以节约成本，又可以增加可用的机器数。用微机作为主机的终端，可以采用几种方法，比如：
+    </font>
+  </P>
+  <P>
+    <font>1、仍旧采用主机上接出来的同轴电缆。</font>
+  </P>
+  <P>
+    <font>　　这种方法并没有完全消除传统方式的缺点，不过用微机取代了专用的终端。但是微机必须安装带BNC接口的网卡及相应的驱动，还需要与之配套的模拟终端程序。</font>
+  </P>
+  <P>
+    <font>2、通过路由器接到局域网</font>
+  </P>
+  <P>
+    <font>　
+      这种方法可以接入大量的微机作为终端，当然其代价更大。首先，需要从主机的通道口接线到路由器（该路由器必须支持这种连接），然后将路由器通过集线器接到局域网上。为了使得它们可以正常工作，还需要在主机、路由器和微机上做一些设置。微机上要安装模拟终端软件和SNA协议，当然微机之间、微机和路由器之间还是可以通过TCP/IP协议连接的。这种方法的代价更大，但是带来的好处也是多多。提供该解决方案的出色代表是CISCO公司。
+    </font>
+  </P>
+  <p>
+    <font>3、通过NT服务器接到局域网</font>
+  </p>
+  <p>
+    <font>　 通过微软NT服务器连接到主机上，还需要安装Microsoft SNA Server（注意不是DNA Server），以实现协议转换、代码转换等等功能。</font>
+  </p>
+  <p>
+    <font>　　要是主机已经启用了TCP/IP支持，上面提到的协议转换也是多余的了。用了IBM的东西，多花点代价是没有办法的事情，恐怕今日的微软也将变成昔日的IBM，让我们拭目以待吧。</font>
+  </p>
+  <hr>
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">
+      <font face="Times New Roman, Times, serif" size="3">Copyright 2000-2005，zedware_at_gmail_dot_com</font>
+    </a><br>
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Wednesday, 2005-02-16
+    <!-- #EndDate -->
+
+  </div>
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com"></a> </div>
 </BODY>
+
 </HTML>

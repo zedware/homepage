@@ -1,44 +1,68 @@
 <HTML>
+
 <HEAD>
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<META NAME="Generator" CONTENT="Microsoft Word 97">
-<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
-<style type="text/css">
-<!--
-.style1 {
-	font-size: larger;
-}
--->
-</style>
-<title>嵌入CICS命令的COBOL程序</title>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+  <META NAME="Generator" CONTENT="Microsoft Word 97">
+  <META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger;
+    }
+    -->
+  </style>
+  <title>嵌入CICS命令的COBOL程序</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </HEAD>
-<BODY LINK="#0000ff" VLINK="#800080"> 
-<P ALIGN="CENTER"><font size="5">嵌入CICS命令的COBOL程序</font></P> 
-<hr> 
-<P><FONT >　<span class="110V"> </span></font><FONT >COBOL程序中嵌入CICS命令和汇编中嵌入CICS命令有所不同。请看下面的例子：</font></P> 
-<P> <FONT >　IDENTIFICATION DIVISION.<BR> 
-  　 PROGRAM-ID. EXAM.<BR> 
-  　 AUTHOR. UNIWARE.<BR> 
-  </font><FONT >.*</FONT><FONT >ENVIRONMENT DIVISION.<BR> 
-  　 CONFIGURATION SECTION.<BR> 
-  .*<BR> 
-  　 DATA DIVISION.<BR> 
-  　 WORKING-STORAGE SECTION.<BR> 
-  　 01 HELLO 　　　</FONT> <FONT >PIC X(32).<BR> 
-  　 01 ABS-TIME 　　PIC S9(15) COMP-3.<BR> 
-  .*<BR> 
-  　 PROCEDURE DIVISION.<BR> 
-  　　　 EXEC CICS ASKTIME ABSTIME(ABS-TIME) END-EXEC.<BR> 
-  　　　 MOVE 'THIS IS A EXAMPLE!' TO HELLO.<BR> 
-  　　　 EXEC CICS WRITEQ TS QUEUE('EXAMQ')<BR> 
-  　　　　　　　　 FROM(HELLO)<BR> 
-  　　　　　　　　 LENGTH(LENGTH OF HELLO)<BR> 
-  　　　　　　　　 END-EXEC.<BR> 
-  　　　 EXEC CICS RETURN END-EXEC.</font></P> 
-<hr> 
-<div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</font></a> <br> 
-  Last modified on
-  <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08<!-- #EndDate --> 
-</div> 
+
+<BODY LINK="#0000ff" VLINK="#800080">
+  <P ALIGN="CENTER">
+    <font size="5">嵌入CICS命令的COBOL程序</font>
+  </P>
+  <hr>
+  <P>
+    <FONT>　<span class="110V"> </span></font>
+    <FONT>COBOL程序中嵌入CICS命令和汇编中嵌入CICS命令有所不同。请看下面的例子：</font>
+  </P>
+  <P>
+    <FONT>　IDENTIFICATION DIVISION.<BR>
+      　 PROGRAM-ID. EXAM.<BR>
+      　 AUTHOR. UNIWARE.<BR>
+    </font>
+    <FONT>.*</FONT>
+    <FONT>ENVIRONMENT DIVISION.<BR>
+      　 CONFIGURATION SECTION.<BR>
+      .*<BR>
+      　 DATA DIVISION.<BR>
+      　 WORKING-STORAGE SECTION.<BR>
+      　 01 HELLO 　　　</FONT>
+    <FONT>PIC X(32).<BR>
+      　 01 ABS-TIME 　　PIC S9(15) COMP-3.<BR>
+      .*<BR>
+      　 PROCEDURE DIVISION.<BR>
+      　　　 EXEC CICS ASKTIME ABSTIME(ABS-TIME) END-EXEC.<BR>
+      　　　 MOVE 'THIS IS A EXAMPLE!' TO HELLO.<BR>
+      　　　 EXEC CICS WRITEQ TS QUEUE('EXAMQ')<BR>
+      　　　　　　　　 FROM(HELLO)<BR>
+      　　　　　　　　 LENGTH(LENGTH OF HELLO)<BR>
+      　　　　　　　　 END-EXEC.<BR>
+      　　　 EXEC CICS RETURN END-EXEC.</font>
+  </P>
+  <hr>
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</font></a>
+    <br>
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08
+    <!-- #EndDate -->
+  </div>
 </BODY>
+
 </HTML>

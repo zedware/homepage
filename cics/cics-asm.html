@@ -1,52 +1,67 @@
 <html>
-<head>
-<meta http-equiv="Content-Type"
 
-content="text/html; charset=utf-8">
-<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
-<title>嵌入CICS命令的汇编程序</title>
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</style>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="zedware"
+    content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+  <title>嵌入CICS命令的汇编程序</title>
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body> 
-<p align="center" class="style1">嵌入CICS命令的汇编程序</p> 
-<hr> 
-<p>　 CICS命令非常直观，但是在嵌入不同的宿主语言时仍然需要遵循不同的书写规则。例如下面的汇编程序：</p> 
-<p>*ASM XOPTS(NOEPILOG)<br> 
-  　 　 　 &nbsp; TITLE 'SIMPLE EXAMPLE'<br> 
-  *-这是一个在SYS1.MACLIB中的宏，将寄存器命名为Rn <br> 
-  　 　 　 YREGS<br> 
-  *-注意，寄存器R1、R13、R14、R15为CICS所保留<br> 
-  COMMREG　<span class="110V">EQU </span> 　 R6<br> 
-  *-变量定义<br> 
-  　 　 　 DFHEISTG<br> 
-  DEBUG　<span class="110V">　</span>DS　　 CL16<br> 
-  *-通讯区（程序接口参数区）<br> 
-  COMMDAT　DSECT<br> 
-  　　　　 USING　*,COMMREG<br> 
-  COMMREC　EQU　　*<br> 
-  HELLO　　DS 　　CL32<br> 
-  　　　　 EJECT <br> 
-  *-主程序<br> 
-  MAINBODY DFHEIENT CODEREG=(3,4)<br> 
-  *-设定通讯区寄存器指向通讯区<br> 
-  　　　　 L　　　COMMREG,DFHEICAP<br> 
-  *-使用CICS命令写CICS的临时队列（TQ），注意第72列有一个非空字符“X”<br> 
-  *-表示续行<br> 
-  　　　　 MVC 　 DEBUG,=C'SIMPLE EXAMPLE'<br> 
-  　　　　 EXEC 　CICS WRITEQ TS QUEUE('EXAMQ')　　　　　　　　　　　　 X　<br> 
-  　　　　　　　　 FROM(DEBUG) LENGTH(16)<span class="110V"><br> 
-  </span>　　　　 EXEC 　CICS WRITEQ TS QUEUE('EXAMQ')　　　　　　　　　　　　 X　<br> 
-  　　　　　　　　 FROM(HELLO) LENGTH(32)<br> 
-  RETURN　 EXEC　 CICS RETURN<br> 
-  　　　　 END</p> 
-<hr> 
-<div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</font></a> <br> 
-  Last modified on
-  <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08<!-- #EndDate --> 
-</div> 
+
+<body>
+  <p align="center" class="style1">嵌入CICS命令的汇编程序</p>
+  <hr>
+  <p>　 CICS命令非常直观，但是在嵌入不同的宿主语言时仍然需要遵循不同的书写规则。例如下面的汇编程序：</p>
+  <p>*ASM XOPTS(NOEPILOG)<br>
+    　 　 　 &nbsp; TITLE 'SIMPLE EXAMPLE'<br>
+    *-这是一个在SYS1.MACLIB中的宏，将寄存器命名为Rn <br>
+    　 　 　 YREGS<br>
+    *-注意，寄存器R1、R13、R14、R15为CICS所保留<br>
+    COMMREG　<span class="110V">EQU </span> 　 R6<br>
+    *-变量定义<br>
+    　 　 　 DFHEISTG<br>
+    DEBUG　<span class="110V">　</span>DS　　 CL16<br>
+    *-通讯区（程序接口参数区）<br>
+    COMMDAT　DSECT<br>
+    　　　　 USING　*,COMMREG<br>
+    COMMREC　EQU　　*<br>
+    HELLO　　DS 　　CL32<br>
+    　　　　 EJECT <br>
+    *-主程序<br>
+    MAINBODY DFHEIENT CODEREG=(3,4)<br>
+    *-设定通讯区寄存器指向通讯区<br>
+    　　　　 L　　　COMMREG,DFHEICAP<br>
+    *-使用CICS命令写CICS的临时队列（TQ），注意第72列有一个非空字符“X”<br>
+    *-表示续行<br>
+    　　　　 MVC 　 DEBUG,=C'SIMPLE EXAMPLE'<br>
+    　　　　 EXEC 　CICS WRITEQ TS QUEUE('EXAMQ')　　　　　　　　　　　　 X　<br>
+    　　　　　　　　 FROM(DEBUG) LENGTH(16)<span class="110V"><br>
+    </span>　　　　 EXEC 　CICS WRITEQ TS QUEUE('EXAMQ')　　　　　　　　　　　　 X　<br>
+    　　　　　　　　 FROM(HELLO) LENGTH(32)<br>
+    RETURN　 EXEC　 CICS RETURN<br>
+    　　　　 END</p>
+  <hr>
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</font></a>
+    <br>
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08
+    <!-- #EndDate -->
+  </div>
 </body>
+
 </html>

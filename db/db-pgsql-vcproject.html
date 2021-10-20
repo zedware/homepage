@@ -1,28 +1,62 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<title>用VC++编译PostgreSQL 8.0.3</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</style>
+  <title>用VC++编译PostgreSQL 8.0.3</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">用VC++编译PostgreSQL 8.0.3</p> 
-<hr> 
-<p> &nbsp;&nbsp;&nbsp;&nbsp;著名的开源软件 <a href="http://www.linux.org/">Linux </a>、 <a href="http://www.apache.org/">Apache </a>、 <a href="http://www.mysql.com">MySQL </a>和 <a href="http://www.php.net/">PHP </a>、 <a href="http://blog.china-pub.com/www.python.org">Python </a>、 <a href="http://blog.china-pub.com/www.perl.org">Perl </a>等因广泛采用而被统一简称为LAMP。似乎MySQL也因此掩盖了其他开源数据库软件的光芒。其实在嵌入式数据库应用中，Berkeley DB等被采用的更多，在企业级应用中 <a href="http://www.postgresql.org">PostgreSQL </a>可能更胜一筹。MySQL伴随者Internet的兴起，凭着易用性、对Web应用的良好支持等优秀特点更加引人注目。 <br>
-PostgreSQL也是历史悠久的一个软件了。学过操作系统的人都应该知道著名的加州大学伯克利分校（ <a href="http://www.berkeley.edu/">UC Berkeley </a>）和源于这里的 <a href="http://en.wikipedia.org/wiki/Berkeley_Software_Distribution">BSD UNIX </a>版本。当然现在的 <a href="http://www.freebsd.org/">FreeBSD </a>、 <a href="http://www.openbsd.org/">OpenBSD </a>、 <a href="http://www.netbsd.org/">NetBSD </a>就是BSD UNIX的子孙了。而PostgreSQL也源于伯克利的数据库原型系统Postgres。其实 <a href="http://en.wikipedia.org/wiki/PostgreSQL">Postgres </a>之前还有一个著名的原型系统叫 <a href="http://en.wikipedia.org/wiki/Ingres">Ingres </a>（还记得IBM那个著名的关系数据库原型系统 <a href="http://en.wikipedia.org/wiki/System_R">System R </a>吗？）。 <a href="http://db.cs.berkeley.edu/">Berkeley Database Research </a>一直是一支活跃的研究队伍，不断推出了新的研究原型。 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;可惜的是，PostgreSQL这样一个软件却迟迟没有Windows版本，在8.0之前只能在Cygwin上模拟运行。当然不太可能作为企业的生产系统。8.0及其之后的版本终于支持Windows了，可是仍然需要 <a href="http://www.mingw.org/">MinGW </a>（Minimal GNU for Windows, <a href="http://sourceforge.net/projects/mingw/">MinGW at SourceForge </a>） 作为开发环境。这对Windows平台的爱好者来说，还是增加了接触它的难度。为了方便大家的使用，我基于8.0.3版本给其增加了VC++ 6.0的项目文件。不过真正的开发还是得依赖于MinGW。这也不能怪我或PostgreSQL的开发小组，毕竟这是从UNIX上移植过来的一个项目。 MySQL的开发其实也依赖不少UNIX工具。 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;既然PostgreSQL已经有了Windows版本，给它增加VC++的项目文件并不是一件难事。具体的项目信息可以访问： <a href="http://pgfoundry.org/projects/vcproject">http://pgfoundry.org/projects/vcproject</a>。如果你还觉得VC++ 6.0比较老土，完全可以自己生成VC++ 7.0或后续版本的项目文件。有了VC++的项目文件，用它来做做实验、完成作业可能要稍微方便一些了。 <br>
-</p>
-<div align="center"> 
-  <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2006,zedware_at_gmail_dot_com</a><br> 
-    Last modified on
-    <!-- #BeginDate format:fcIS1 -->Thursday, 2006-05-18<!-- #EndDate --> 
-  </div> 
-</div> 
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1">用VC++编译PostgreSQL 8.0.3</p>
+  <hr>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;著名的开源软件 <a href="http://www.linux.org/">Linux </a>、 <a
+      href="http://www.apache.org/">Apache </a>、 <a href="http://www.mysql.com">MySQL </a>和 <a
+      href="http://www.php.net/">PHP </a>、 <a href="http://blog.china-pub.com/www.python.org">Python </a>、 <a
+      href="http://blog.china-pub.com/www.perl.org">Perl
+    </a>等因广泛采用而被统一简称为LAMP。似乎MySQL也因此掩盖了其他开源数据库软件的光芒。其实在嵌入式数据库应用中，Berkeley DB等被采用的更多，在企业级应用中 <a
+      href="http://www.postgresql.org">PostgreSQL </a>可能更胜一筹。MySQL伴随者Internet的兴起，凭着易用性、对Web应用的良好支持等优秀特点更加引人注目。 <br>
+    PostgreSQL也是历史悠久的一个软件了。学过操作系统的人都应该知道著名的加州大学伯克利分校（ <a href="http://www.berkeley.edu/">UC Berkeley </a>）和源于这里的 <a
+      href="http://en.wikipedia.org/wiki/Berkeley_Software_Distribution">BSD UNIX </a>版本。当然现在的 <a
+      href="http://www.freebsd.org/">FreeBSD </a>、 <a href="http://www.openbsd.org/">OpenBSD </a>、 <a
+      href="http://www.netbsd.org/">NetBSD </a>就是BSD UNIX的子孙了。而PostgreSQL也源于伯克利的数据库原型系统Postgres。其实 <a
+      href="http://en.wikipedia.org/wiki/PostgreSQL">Postgres </a>之前还有一个著名的原型系统叫 <a
+      href="http://en.wikipedia.org/wiki/Ingres">Ingres </a>（还记得IBM那个著名的关系数据库原型系统 <a
+      href="http://en.wikipedia.org/wiki/System_R">System R </a>吗？）。 <a href="http://db.cs.berkeley.edu/">Berkeley
+      Database Research </a>一直是一支活跃的研究队伍，不断推出了新的研究原型。 </p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;可惜的是，PostgreSQL这样一个软件却迟迟没有Windows版本，在8.0之前只能在Cygwin上模拟运行。当然不太可能作为企业的生产系统。8.0及其之后的版本终于支持Windows了，可是仍然需要
+    <a href="http://www.mingw.org/">MinGW </a>（Minimal GNU for Windows, <a
+      href="http://sourceforge.net/projects/mingw/">MinGW at SourceForge </a>）
+    作为开发环境。这对Windows平台的爱好者来说，还是增加了接触它的难度。为了方便大家的使用，我基于8.0.3版本给其增加了VC++
+    6.0的项目文件。不过真正的开发还是得依赖于MinGW。这也不能怪我或PostgreSQL的开发小组，毕竟这是从UNIX上移植过来的一个项目。 MySQL的开发其实也依赖不少UNIX工具。 </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;既然PostgreSQL已经有了Windows版本，给它增加VC++的项目文件并不是一件难事。具体的项目信息可以访问： <a
+      href="http://pgfoundry.org/projects/vcproject">http://pgfoundry.org/projects/vcproject</a>。如果你还觉得VC++
+    6.0比较老土，完全可以自己生成VC++ 7.0或后续版本的项目文件。有了VC++的项目文件，用它来做做实验、完成作业可能要稍微方便一些了。 <br>
+  </p>
+  <div align="center">
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2006,zedware_at_gmail_dot_com</a><br>
+      Last modified on
+      <!-- #BeginDate format:fcIS1 -->Thursday, 2006-05-18
+      <!-- #EndDate -->
+    </div>
+  </div>
 </body>
+
 </html>

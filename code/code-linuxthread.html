@@ -1,129 +1,159 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<title>Linux thread programming</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
-.style2 {color: #FF0000}
--->
-</style>
+  <title>Linux thread programming</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+
+    .style2 {
+      color: #FF0000
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">Linux thread programming</p> 
-<hr> 
-<p>  &nbsp;&nbsp;&nbsp;&nbsp;Linux 的多线程编程相对 Windows 而言，确实比较麻烦，有些东西还往往让初学者却步。不过 hackers 却很少将大家的糟糕体验当作一回事，有时甚至会埋怨用户水平太差。让我们先看一个简单的示例程序。</p>
-<p>  &nbsp;&nbsp;&nbsp;&nbsp;确认一下我所使用的 Linux 内核版本：</p>
-<p>$ uname -a<br>
-Linux dev <span class="style2">2.4.21</span>-9.30AXsmp #1 SMP Wed May 26 23:37:09 EDT 2004 i686 i686 i386 GNU/Linux</p>
-<p>  $ cat -n pthread.c<br>
-&nbsp;&nbsp;&nbsp;&nbsp;1<br>
-&nbsp;&nbsp;&nbsp;&nbsp;2 #include &lt;signal.h&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;3 #include &lt;pthread.h&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;4<br>
-&nbsp;&nbsp;&nbsp;&nbsp;5 int main(void)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;6 {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;7 &nbsp;&nbsp;&nbsp;&nbsp;kill(54321, SIGUSR1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;8 &nbsp;&nbsp;&nbsp;&nbsp;pthread_kill(54321, SIGUSR1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;9<br>
-&nbsp;&nbsp;&nbsp;10 &nbsp;&nbsp;&nbsp;return 0;<br>
-&nbsp;&nbsp;&nbsp;11 }<br>
-&nbsp;&nbsp;&nbsp;12</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;我们想简单的测试一下 kill(), pthread_kill()，kill 一个不存在的进程或线程，看看系统是怎么反应的。很不幸，一出手就遇到了问题：</p>
-<p>$ gcc -Wall <span class="style2">-pthread</span> pthread.c<br>
-  $ .a.out<br>
-Segmentation fault</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;把 man 手册打开看看，这种用法明明是正确的啊。上面这个小程序中 kill() 的执行是正确的，问题出在 pthread_kill()。Google 一番，找到了以下的一些链接：</p>
-<a href="http://groups.google.co.za/group/comp.unix.programmer/browse_thread/thread/2f9d01b6c189a450/31e07ad65bb44485?lnk=st&q=pthread_kill+segmentation+fault+&rnum=2#31e07ad65bb44485">What is wrong with pthread_kill on Redhat Linux ???</a><br>
-<br>
-<a href="http://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=169995">Crash running pthread_kill on dead thread</a><p>  <a href="http://people.redhat.com/drepper/assumekernel.html">Explaining LD_ASSUME_KERNEL</a>，Ulrich Drepper, 2004-5-12</p>
-<p><a href="http://www.puschitz.com/InstallingOracle9i.shtml">  Installing Oracle9i 32-bit on Red Hat Enterprise Linux Advanced Server 4, 3, 2.1, and on Red Hat 9, 8.0, 7.3, 7.2, 7.1 (x86)</a>，by Werner Puschitz</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;原来 Linux 下有几种不同的线程实现，Ulrich Drepper 在 <a href="http://people.redhat.com/drepper/assumekernel.html">Explaining LD_ASSUME_KERNEL</a> 中说得很清楚。我们需要做：</p>
-<p>$ export LD_ASSUME_KERNEL=2.4.1<br>
-  $ ./a.out (OK)</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;现在，我们来看看下一个问题。一般的，我们要引用某个函数库 libfoo.a ，都是加个编译参数 -lfoo ，怎么对多线程就成了上面的 -pthread 了呢？原来 -pthread 和 -lpthread 之间的差别还是很重要的。我们试试：</p>
-<p>$ gcc -Wall --verbose <span class="style2">-pthread</span> pthread.c<br>
-  Reading specs from /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/specs<br>
-  Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/u<br>
-  sr/share/info --enable-shared --enable-threads=posix --disable-checking --with-s<br>
-  ystem-zlib --enable-__cxa_atexit --host=i386-asianux-linux<br>
-  Thread model: posix<br>
-  gcc version 3.2.3 20030502 (Asianux 1.0 3.2.3-36)<br>
-/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/cc1 -lang-c -v -D__GNUC__=3 -D__GNUC_<br>
-MINOR__=2 -D__GNUC_PATCHLEVEL__=3 -D__GXX_ABI_VERSION=102 -D__ELF__ -Dunix -D__g<br>
-nu_linux__ -Dlinux -D__ELF__ -D__unix__ -D__gnu_linux__ -D__linux__ -D__unix -D_<br>
-_linux -Asystem=posix -D__NO_INLINE__ -D__STDC_HOSTED__=1 -Acpu=i386 -Amachine=i<br>
-386 -Di386 -D__i386 -D__i386__ -D__tune_i386__ <span class="style2">-D_REENTRANT</span> pthread.c -quiet -du<br>
-mpbase pthread.c -Wall -version -o /tmp/ccXGJ44s.s<br>
-GNU CPP version 3.2.3 20030502 (Asianux 1.0 3.2.3-36) (cpplib) (i386 Linux/ELF)<br>
-GNU C version 3.2.3 20030502 (Asianux 1.0 3.2.3-36) (i386-asianux-linux)<br>
-compiled by GNU C version 3.2.3 20030502 (Asianux 1.0 3.2.3-36).<br>
-ignoring nonexistent directory &quot;/usr/i386-asianux-linux/include&quot;<br>
-#include &quot;...&quot; search starts here:<br>
-#include &lt;...&gt; search starts here:<br>
-/usr/local/include<br>
-/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/include<br>
-/usr/include<br>
-End of search list.<br>
-as -V -Qy -o /tmp/ccmf0nLO.o /tmp/ccXGJ44s.s<br>
-GNU assembler version 2.14.90.0.4 (i386-asianux-linux) using BFD version 2.14.90<br>
-.0.4 20030523<br>
-/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/collect2 --eh-frame-hdr -m elf_i386 -<br>
-dynamic-linker /lib/ld-linux.so.2 /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../.<br>
-./../crt1.o /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../../crti.o /usr/lib/g<br>
-cc-lib/i386-asianux-linux/3.2.3/crtbegin.o -L/usr/lib/gcc-lib/i386-asianux-linux<br>
-/3.2.3 -L/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../.. /tmp/ccmf0nLO.o -lgc<br>
-c -lgcc_eh <span class="style2">-lpthread</span> -lc -lgcc -lgcc_eh /usr/lib/gcc-lib/i386-asianux-linux/3.2.<br>
-3/crtend.o /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../../crtn.o</p>
-<p>$ gcc -Wall --verbose <span class="style2">-lpthread</span> pthread.c<br>
-  Reading specs from /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/specs<br>
-  Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/u<br>
-  sr/share/info --enable-shared --enable-threads=posix --disable-checking --with-s<br>
-  ystem-zlib --enable-__cxa_atexit --host=i386-asianux-linux<br>
-  Thread model: posix<br>
-  gcc version 3.2.3 20030502 (Asianux 1.0 3.2.3-36)<br>
-/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/cc1 -lang-c -v -D__GNUC__=3 -D__GNUC_<br>
-MINOR__=2 -D__GNUC_PATCHLEVEL__=3 -D__GXX_ABI_VERSION=102 -D__ELF__ -Dunix -D__g<br>
-nu_linux__ -Dlinux -D__ELF__ -D__unix__ -D__gnu_linux__ -D__linux__ -D__unix -D_<br>
-_linux -Asystem=posix -D__NO_INLINE__ -D__STDC_HOSTED__=1 -Acpu=i386 -Amachine=i<br>
-386 -Di386 -D__i386 -D__i386__ -D__tune_i386__ pthread.c -quiet -dumpbase pthrea<br>
-d.c -Wall -version -o /tmp/ccFonYlv.s<br>
-GNU CPP version 3.2.3 20030502 (Asianux 1.0 3.2.3-36) (cpplib) (i386 Linux/ELF)<br>
-GNU C version 3.2.3 20030502 (Asianux 1.0 3.2.3-36) (i386-asianux-linux)<br>
-compiled by GNU C version 3.2.3 20030502 (Asianux 1.0 3.2.3-36).<br>
-ignoring nonexistent directory &quot;/usr/i386-asianux-linux/include&quot;<br>
-#include &quot;...&quot; search starts here:<br>
-#include &lt;...&gt; search starts here:<br>
-/usr/local/include<br>
-/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/include<br>
-/usr/include<br>
-End of search list.<br>
-as -V -Qy -o /tmp/ccizA2YS.o /tmp/ccFonYlv.s<br>
-GNU assembler version 2.14.90.0.4 (i386-asianux-linux) using BFD version 2.14.90<br>
-.0.4 20030523<br>
-/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/collect2 --eh-frame-hdr -m elf_i386 -<br>
-dynamic-linker /lib/ld-linux.so.2 /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../.<br>
-./../crt1.o /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../../crti.o /usr/lib/g<br>
-cc-lib/i386-asianux-linux/3.2.3/crtbegin.o -L/usr/lib/gcc-lib/i386-asianux-linux<br>
-/3.2.3 -L/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../.. <span class="style2">-lpthread</span> /tmp/ccizA<br>
-2YS.o -lgcc -lgcc_eh -lc -lgcc -lgcc_eh /usr/lib/gcc-lib/i386-asianux-linux/3.2.<br>
-3/crtend.o /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../../crtn.o</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;原来前者自动加了个 <span class="style2">-D_REENTRANT</span>，至于这个东西有什么特殊之处，还是看看 
 
- 
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1">Linux thread programming</p>
+  <hr>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;Linux 的多线程编程相对 Windows 而言，确实比较麻烦，有些东西还往往让初学者却步。不过 hackers
+    却很少将大家的糟糕体验当作一回事，有时甚至会埋怨用户水平太差。让我们先看一个简单的示例程序。</p>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;确认一下我所使用的 Linux 内核版本：</p>
+  <p>$ uname -a<br>
+    Linux dev <span class="style2">2.4.21</span>-9.30AXsmp #1 SMP Wed May 26 23:37:09 EDT 2004 i686 i686 i386 GNU/Linux
+  </p>
+  <p> $ cat -n pthread.c<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;1<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;2 #include &lt;signal.h&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;3 #include &lt;pthread.h&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;4<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;5 int main(void)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;6 {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;7 &nbsp;&nbsp;&nbsp;&nbsp;kill(54321, SIGUSR1);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;8 &nbsp;&nbsp;&nbsp;&nbsp;pthread_kill(54321, SIGUSR1);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;9<br>
+    &nbsp;&nbsp;&nbsp;10 &nbsp;&nbsp;&nbsp;return 0;<br>
+    &nbsp;&nbsp;&nbsp;11 }<br>
+    &nbsp;&nbsp;&nbsp;12</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;我们想简单的测试一下 kill(), pthread_kill()，kill 一个不存在的进程或线程，看看系统是怎么反应的。很不幸，一出手就遇到了问题：</p>
+  <p>$ gcc -Wall <span class="style2">-pthread</span> pthread.c<br>
+    $ .a.out<br>
+    Segmentation fault</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;把 man 手册打开看看，这种用法明明是正确的啊。上面这个小程序中 kill() 的执行是正确的，问题出在 pthread_kill()。Google 一番，找到了以下的一些链接：
+  </p>
+  <a
+    href="http://groups.google.co.za/group/comp.unix.programmer/browse_thread/thread/2f9d01b6c189a450/31e07ad65bb44485?lnk=st&q=pthread_kill+segmentation+fault+&rnum=2#31e07ad65bb44485">What
+    is wrong with pthread_kill on Redhat Linux ???</a><br>
+  <br>
+  <a href="http://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=169995">Crash running pthread_kill on dead thread</a>
+  <p> <a href="http://people.redhat.com/drepper/assumekernel.html">Explaining LD_ASSUME_KERNEL</a>，Ulrich Drepper,
+    2004-5-12</p>
+  <p><a href="http://www.puschitz.com/InstallingOracle9i.shtml"> Installing Oracle9i 32-bit on Red Hat Enterprise Linux
+      Advanced Server 4, 3, 2.1, and on Red Hat 9, 8.0, 7.3, 7.2, 7.1 (x86)</a>，by Werner Puschitz</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;原来 Linux 下有几种不同的线程实现，Ulrich Drepper 在 <a
+      href="http://people.redhat.com/drepper/assumekernel.html">Explaining LD_ASSUME_KERNEL</a> 中说得很清楚。我们需要做：</p>
+  <p>$ export LD_ASSUME_KERNEL=2.4.1<br>
+    $ ./a.out (OK)</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;现在，我们来看看下一个问题。一般的，我们要引用某个函数库 libfoo.a ，都是加个编译参数 -lfoo ，怎么对多线程就成了上面的 -pthread 了呢？原来 -pthread
+    和 -lpthread 之间的差别还是很重要的。我们试试：</p>
+  <p>$ gcc -Wall --verbose <span class="style2">-pthread</span> pthread.c<br>
+    Reading specs from /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/specs<br>
+    Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/u<br>
+    sr/share/info --enable-shared --enable-threads=posix --disable-checking --with-s<br>
+    ystem-zlib --enable-__cxa_atexit --host=i386-asianux-linux<br>
+    Thread model: posix<br>
+    gcc version 3.2.3 20030502 (Asianux 1.0 3.2.3-36)<br>
+    /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/cc1 -lang-c -v -D__GNUC__=3 -D__GNUC_<br>
+    MINOR__=2 -D__GNUC_PATCHLEVEL__=3 -D__GXX_ABI_VERSION=102 -D__ELF__ -Dunix -D__g<br>
+    nu_linux__ -Dlinux -D__ELF__ -D__unix__ -D__gnu_linux__ -D__linux__ -D__unix -D_<br>
+    _linux -Asystem=posix -D__NO_INLINE__ -D__STDC_HOSTED__=1 -Acpu=i386 -Amachine=i<br>
+    386 -Di386 -D__i386 -D__i386__ -D__tune_i386__ <span class="style2">-D_REENTRANT</span> pthread.c -quiet -du<br>
+    mpbase pthread.c -Wall -version -o /tmp/ccXGJ44s.s<br>
+    GNU CPP version 3.2.3 20030502 (Asianux 1.0 3.2.3-36) (cpplib) (i386 Linux/ELF)<br>
+    GNU C version 3.2.3 20030502 (Asianux 1.0 3.2.3-36) (i386-asianux-linux)<br>
+    compiled by GNU C version 3.2.3 20030502 (Asianux 1.0 3.2.3-36).<br>
+    ignoring nonexistent directory &quot;/usr/i386-asianux-linux/include&quot;<br>
+    #include &quot;...&quot; search starts here:<br>
+    #include &lt;...&gt; search starts here:<br>
+    /usr/local/include<br>
+    /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/include<br>
+    /usr/include<br>
+    End of search list.<br>
+    as -V -Qy -o /tmp/ccmf0nLO.o /tmp/ccXGJ44s.s<br>
+    GNU assembler version 2.14.90.0.4 (i386-asianux-linux) using BFD version 2.14.90<br>
+    .0.4 20030523<br>
+    /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/collect2 --eh-frame-hdr -m elf_i386 -<br>
+    dynamic-linker /lib/ld-linux.so.2 /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../.<br>
+    ./../crt1.o /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../../crti.o /usr/lib/g<br>
+    cc-lib/i386-asianux-linux/3.2.3/crtbegin.o -L/usr/lib/gcc-lib/i386-asianux-linux<br>
+    /3.2.3 -L/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../.. /tmp/ccmf0nLO.o -lgc<br>
+    c -lgcc_eh <span class="style2">-lpthread</span> -lc -lgcc -lgcc_eh /usr/lib/gcc-lib/i386-asianux-linux/3.2.<br>
+    3/crtend.o /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../../crtn.o</p>
+  <p>$ gcc -Wall --verbose <span class="style2">-lpthread</span> pthread.c<br>
+    Reading specs from /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/specs<br>
+    Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/u<br>
+    sr/share/info --enable-shared --enable-threads=posix --disable-checking --with-s<br>
+    ystem-zlib --enable-__cxa_atexit --host=i386-asianux-linux<br>
+    Thread model: posix<br>
+    gcc version 3.2.3 20030502 (Asianux 1.0 3.2.3-36)<br>
+    /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/cc1 -lang-c -v -D__GNUC__=3 -D__GNUC_<br>
+    MINOR__=2 -D__GNUC_PATCHLEVEL__=3 -D__GXX_ABI_VERSION=102 -D__ELF__ -Dunix -D__g<br>
+    nu_linux__ -Dlinux -D__ELF__ -D__unix__ -D__gnu_linux__ -D__linux__ -D__unix -D_<br>
+    _linux -Asystem=posix -D__NO_INLINE__ -D__STDC_HOSTED__=1 -Acpu=i386 -Amachine=i<br>
+    386 -Di386 -D__i386 -D__i386__ -D__tune_i386__ pthread.c -quiet -dumpbase pthrea<br>
+    d.c -Wall -version -o /tmp/ccFonYlv.s<br>
+    GNU CPP version 3.2.3 20030502 (Asianux 1.0 3.2.3-36) (cpplib) (i386 Linux/ELF)<br>
+    GNU C version 3.2.3 20030502 (Asianux 1.0 3.2.3-36) (i386-asianux-linux)<br>
+    compiled by GNU C version 3.2.3 20030502 (Asianux 1.0 3.2.3-36).<br>
+    ignoring nonexistent directory &quot;/usr/i386-asianux-linux/include&quot;<br>
+    #include &quot;...&quot; search starts here:<br>
+    #include &lt;...&gt; search starts here:<br>
+    /usr/local/include<br>
+    /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/include<br>
+    /usr/include<br>
+    End of search list.<br>
+    as -V -Qy -o /tmp/ccizA2YS.o /tmp/ccFonYlv.s<br>
+    GNU assembler version 2.14.90.0.4 (i386-asianux-linux) using BFD version 2.14.90<br>
+    .0.4 20030523<br>
+    /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/collect2 --eh-frame-hdr -m elf_i386 -<br>
+    dynamic-linker /lib/ld-linux.so.2 /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../.<br>
+    ./../crt1.o /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../../crti.o /usr/lib/g<br>
+    cc-lib/i386-asianux-linux/3.2.3/crtbegin.o -L/usr/lib/gcc-lib/i386-asianux-linux<br>
+    /3.2.3 -L/usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../.. <span class="style2">-lpthread</span> /tmp/ccizA<br>
+    2YS.o -lgcc -lgcc_eh -lc -lgcc -lgcc_eh /usr/lib/gcc-lib/i386-asianux-linux/3.2.<br>
+    3/crtend.o /usr/lib/gcc-lib/i386-asianux-linux/3.2.3/../../../crtn.o</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;原来前者自动加了个 <span class="style2">-D_REENTRANT</span>，至于这个东西有什么特殊之处，还是看看
 
 
 
- 
 
-Dave Butenhof 等的回答吧：<a href="http://groups.google.com/group/comp.programming.threads/browse_thread/thread/3421291b410e0826/47ede1ee7b41beb6?lnk=st&q=%22-lpthread%22+%22-pthread%22+difference&rnum=1#47ede1ee7b41beb6">-pthread and -lpthread</a>。 </p>
-<div align="center"> 
-  <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2007,zedware_at_gmail_dot_com</a><br> 
-    Last modified on
-    <!-- #BeginDate format:fcIS1 -->Monday, 2006-08-21<!-- #EndDate --> 
-  </div> 
-</div> 
+
+
+
+    Dave Butenhof 等的回答吧：<a
+      href="http://groups.google.com/group/comp.programming.threads/browse_thread/thread/3421291b410e0826/47ede1ee7b41beb6?lnk=st&q=%22-lpthread%22+%22-pthread%22+difference&rnum=1#47ede1ee7b41beb6">-pthread
+      and -lpthread</a>。 </p>
+  <div align="center">
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2007,zedware_at_gmail_dot_com</a><br>
+      Last modified on
+      <!-- #BeginDate format:fcIS1 -->Monday, 2006-08-21
+      <!-- #EndDate -->
+    </div>
+  </div>
 </body>
+
 </html>

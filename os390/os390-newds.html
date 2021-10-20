@@ -1,34 +1,53 @@
 <html>
-<head>
-<meta http-equiv="Content-Type"
 
-content="text/html; charset=utf-8">
-<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
-<title>如何定义一个新的数据集？</title>
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</style>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="zedware"
+    content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+  <title>如何定义一个新的数据集？</title>
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">如何定义一个新的数据集？ </p> 
-<hr> 
-<p align="left"><font face="宋体">　　</font>进入到TSO/ISPF里面，在命令输入行输入P.3.2，按下执行键，就直达了操纵数据集的窗口。填好Project、Group和Type后面的空白，在命令输入行输入A即可进入下一步。假如这些分别为填成：FREESOFT、IDIOT@CN、COBOL，可惜都不能超过8个字符。 需要注意的是，OS/390中定义一个分区数据集不像Windows里面新建一个文件夹，它要求给出：<br> 
-  <font face="宋体">　</font> 1、Volume serial: 数据集所在的卷（就当是Windows里面的分区吧）<br> 
-  <font face="宋体">　</font> 2、Generic unit: （我一般不填这个）<br> 
-  <font face="宋体">　</font> 3、Space units: 空间分配的单位（是块、磁道、柱面、KB、MB还是BYTES）<br> 
-  <font face="宋体">　</font> 4、Primary quantity: 空间分配的初始数值（第一次分配几块、几磁道等）<br> 
-  <font face="宋体">　</font> 5、Secondary quantity: 空间分配的增长数值（空间不够时一次追加分配几块、几磁道等） <br> 
-  <font face="宋体">　</font> 6、Directory blocks: 允许几个目录块（0表示顺序数据集，相当于闻到死的一个文件而不是文件夹）<br> 
-  <font face="宋体">　</font> 7、Record format: 记录格式（定长、变长）<br> 
-  <font face="宋体">　</font> 8、Record length; 记录长度（对于定长格式是每个记录的长度，谁叫它是定长的！对于变长记录，是最大长度。不过要注意系统用了几个字节来记录控制信息，实际的最长记录要短这么几个字节） <br> 
-  <font face="宋体">　</font> 9、Block size: 数据块的大小 <br> 
-  <font face="宋体">　</font>10、Expiration date: 失效日期（这个比较厉害！不过可以不指定） </p> 
-<hr> 
-<div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a> <br> 
-  Last modified on
-  <!-- #BeginDate format:fcIS1 -->Friday, 2005-03-18<!-- #EndDate --> 
-</div> 
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1">如何定义一个新的数据集？ </p>
+  <hr>
+  <p align="left">
+    <font face="宋体">　　</font>
+    进入到TSO/ISPF里面，在命令输入行输入P.3.2，按下执行键，就直达了操纵数据集的窗口。填好Project、Group和Type后面的空白，在命令输入行输入A即可进入下一步。假如这些分别为填成：FREESOFT、IDIOT@CN、COBOL，可惜都不能超过8个字符。
+    需要注意的是，OS/390中定义一个分区数据集不像Windows里面新建一个文件夹，它要求给出：<br>
+    <font face="宋体">　</font> 1、Volume serial: 数据集所在的卷（就当是Windows里面的分区吧）<br>
+    <font face="宋体">　</font> 2、Generic unit: （我一般不填这个）<br>
+    <font face="宋体">　</font> 3、Space units: 空间分配的单位（是块、磁道、柱面、KB、MB还是BYTES）<br>
+    <font face="宋体">　</font> 4、Primary quantity: 空间分配的初始数值（第一次分配几块、几磁道等）<br>
+    <font face="宋体">　</font> 5、Secondary quantity: 空间分配的增长数值（空间不够时一次追加分配几块、几磁道等） <br>
+    <font face="宋体">　</font> 6、Directory blocks: 允许几个目录块（0表示顺序数据集，相当于闻到死的一个文件而不是文件夹）<br>
+    <font face="宋体">　</font> 7、Record format: 记录格式（定长、变长）<br>
+    <font face="宋体">　</font> 8、Record length;
+    记录长度（对于定长格式是每个记录的长度，谁叫它是定长的！对于变长记录，是最大长度。不过要注意系统用了几个字节来记录控制信息，实际的最长记录要短这么几个字节） <br>
+    <font face="宋体">　</font> 9、Block size: 数据块的大小 <br>
+    <font face="宋体">　</font>10、Expiration date: 失效日期（这个比较厉害！不过可以不指定）
+  </p>
+  <hr>
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a> <br>
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Friday, 2005-03-18
+    <!-- #EndDate -->
+  </div>
 </body>
+
 </html>

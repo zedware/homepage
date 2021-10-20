@@ -3,276 +3,340 @@
 <!-- CID = 10260 -->
 <!-- CHAN_LOC = cat.comptech.devenv -->
 <!-- GROUP = comp.lang.cobol -->
+
 <head>
-<meta name="keywords" content="deja, dejanews, usenet, newsgroup, articles, search, query, discussion">
-<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
-<title>Max Length of Linkage Section</title>
-<style>
+  <meta name="keywords" content="deja, dejanews, usenet, newsgroup, articles, search, query, discussion">
+  <meta name="zedware"
+    content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+  <title>Max Length of Linkage Section</title>
+  <style>
+    <!--
+    #blue {
+      color: #6666cc;
+    }
+
+    #gray {
+      color: #666677;
+    }
+
+    #green {
+      color: #cccc66;
+    }
+
+    #grey {
+      color: #666677;
+    }
+
+    #indigo {
+      color: #003399;
+    }
+
+    #lilac {
+      color: #ccccff;
+    }
+
+    #reallyred {
+      color: #cc0000;
+    }
+
+    #red {
+      color: #ff6600;
+    }
+
+    #white {
+      color: #ffffff;
+    }
+
+    #yellow {
+      color: #ffcc66;
+    }
+
+    .boldorange {
+      color: #ff6600;
+      font-family: geneva, arial;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .chicago {
+      font-family: chicago, arial black, arial;
+      font-size: 55em;
+      letter-spacing: 0pt;
+    }
+
+    .courier {
+      font-family: courier new, courier;
+      font-size: 12px;
+      letter-spacing: 0pt;
+    }
+
+    .large {
+      font-family: geneva, arial;
+      font-size: 11pt;
+      letter-spacing: 1pt;
+    }
+
+    .med {
+      font-family: geneva, arial;
+      font-size: 9.25pt;
+      letter-spacing: 0pt;
+    }
+
+    .menu {
+      background-color: #ffffff;
+      border-color: #000000;
+      border-style: solid;
+      border-width: 2px;
+      color: #000000;
+      font-family: geneva, arial;
+      font-size: 10px;
+      font-weight: normal;
+      layer-background-color: #ffffff;
+      padding: 0px;
+      position: absolute;
+      visibility: hidden;
+      width: 165;
+    }
+
+    .size10 {
+      font-family: geneva, arial;
+      font-size: .10pt;
+    }
+
+    .size12 {
+      font-family: geneva, arial;
+      font-size: .12pt;
+    }
 
-<!--
+    .size8 {
+      font-family: geneva, arial;
+      font-size: .8pt;
+    }
 
-#blue 
+    .small {
+      font-family: geneva, arial;
+      font-size: 7.85pt;
+      letter-spacing: 0pt;
+    }
 
-{ color: #6666cc; }
+    .verdana {
+      font-family: verdana, geneva, arial;
+      font-size: 7pt;
+      letter-spacing: 0pt;
+    }
 
-#gray 
+    .xlarge {
+      font-family: geneva, arial;
+      font-size: 18px;
+      letter-spacing: 0pt;
+    }
 
-{ color: #666677; }
+    .xxlarge {
+      font-family: geneva, arial;
+      font-size: 18pt;
+      letter-spacing: 0pt;
+    }
 
-#green 
+    A.DARK2 {
+      color: #ff6600;
+    }
 
-{ color: #cccc66; }
+    A.DARK3 {
+      color: #ff3300;
+    }
 
-#grey 
+    A.LIGHT2 {
+      color: #ffcc66;
+    }
 
-{ color: #666677; }
+    b.bold {
+      color: #000000;
+      font-family: geneva, arial;
+      font-size: 9.25pt;
+      font-weight: bold;
+      letter-spacing: 0pt;
+    }
 
-#indigo 
+    td {
+      font-family: geneva, arial;
+      font-size: 9.25pt;
+      letter-spacing: 0pt;
+    }
 
-{ color: #003399; }
+    td B {
+      font-family: geneva, arial;
+      font-size: 9.25pt;
+      font-weight: bold;
+      letter-spacing: 0pt;
+    }
+    -->
 
-#lilac 
+  </style>
+  <script>
 
-{ color: #ccccff; }
+< !--
 
-#reallyred 
+      function goOpener(myLink, closeme, closeonly) {
 
-{ color: #cc0000; }
+        if (!(window.focus && window.opener)) return true;
 
-#red 
+        window.opener.focus();
 
-{ color: #ff6600; }
+        if (!closeonly) window.opener.location.href = myLink.href;
 
-#white 
+        if (closeme) window.close();
 
-{ color: #ffffff; }
+        return false;
 
-#yellow 
+      }
 
-{ color: #ffcc66; }
+    function close_window(milliseconds) {
 
-.boldorange 
+      setTimeout('self.close()', milliseconds);
 
-{ color: #ff6600; font-family: geneva,arial; font-size: 18px; font-weight: bold; }
+    }
 
-.chicago 
+    function popup_1(url, width, height, scrollbars) {
 
-{ font-family: chicago,arial black,arial; font-size: 55em; letter-spacing: 0pt; }
+      var urlpat = /^http:/;
 
-.courier 
+      if (!urlpat.test(url)) {
 
-{ font-family: courier new,courier; font-size: 12px; letter-spacing: 0pt; }
+        url = 'http://www.deja.com/' + url;
 
-.large 
+      }
 
-{ font-family: geneva,arial; font-size: 11pt; letter-spacing: 1pt; }
+      width = width || 350;
 
-.med 
+      height = height || 480;
 
-{ font-family: geneva,arial; font-size: 9.25pt; letter-spacing: 0pt; }
+      scrollbars = scrollbars || 'no';
 
-.menu 
+      var props = 'toolbar=no,location=no,status=no,scrollbars=' + scrollbars + ',menubar=no,resizable=yes,copyhistory=no,width=' + width + ',height=' + height;
 
-{ background-color: #ffffff; border-color: #000000; border-style: solid; border-width: 2px; color: #000000; font-family: geneva,arial; font-size: 10px; font-weight: normal; layer-background-color: #ffffff; padding: 0px; position: absolute; visibility: hidden; width: 165; }
+      rateWin = window.open(url, 'popup_1', props);
 
-.size10 
+      window.name = "mainWindow"; // this renames the "main" browser window
 
-{ font-family: geneva,arial; font-size: .10pt; }
+      rateWin.resizeTo(width, height); // this resizes the popup 
 
-.size12 
+      rateWin.focus(); // this brings the popup to focus
 
-{ font-family: geneva,arial; font-size: .12pt; }
+    }
 
-.size8 
+    function popup_ext(url, width, height, scrollbars) {
 
-{ font-family: geneva,arial; font-size: .8pt; }
+      width = width || 640;
 
-.small 
+      height = height || 480;
 
-{ font-family: geneva,arial; font-size: 7.85pt; letter-spacing: 0pt; }
+      scrollbars = scrollbars || 'no';
 
-.verdana 
+      var props = 'toolbar=no,location=no,status=no,scrollbars=' + scrollbars + ',menubar=no,resizable=yes,copyhistory=no,width=' + width + ',height=' + height;
 
-{ font-family: verdana,geneva,arial; font-size: 7pt; letter-spacing: 0pt; }
+      indrevWin = window.open(url, 'popup_ext', props);
 
-.xlarge 
+      window.name = "mainWindow"; // this renames the "main" browser window
 
-{ font-family: geneva,arial; font-size: 18px; letter-spacing: 0pt; }
+      indrevWin.focus(); // this brings the popup to focus
 
-.xxlarge 
+    }
 
-{ font-family: geneva,arial; font-size: 18pt; letter-spacing: 0pt; }
+    function backorClose() {
 
-A.DARK2 
+      var histCount = window.history.length
 
-{ color: #ff6600; }
+      if (histCount >= 1) {
 
-A.DARK3 
+        window.history.back(1)
 
-{ color: #ff3300; }
+      } else {
 
-A.LIGHT2 
+        window.close()
 
-{ color: #ffcc66; }
+      }
 
-b.bold 
-
-{ color: #000000; font-family: geneva,arial; font-size: 9.25pt; font-weight: bold; letter-spacing: 0pt; }
-
-td 
-
-{ font-family: geneva,arial; font-size: 9.25pt; letter-spacing: 0pt; }
-
-td B 
-
-{ font-family: geneva,arial; font-size: 9.25pt; font-weight: bold; letter-spacing: 0pt; }
-
--->
-
-</style>
-<script>
-
-<!--
-
-function goOpener(myLink,closeme,closeonly) {
-
-if (! (window.focus && window.opener))return true;
-
-window.opener.focus();
-
-if (! closeonly)window.opener.location.href=myLink.href;
-
-if (closeme)window.close();
-
-return false;
-
-} 
-
-function close_window(milliseconds) {
-
-setTimeout('self.close()',milliseconds);
-
-}
-
-function popup_1(url,width,height,scrollbars) {
-
-var urlpat = /^http:/;
-
-if (! urlpat.test(url)) {
-
-url = 'http://www.deja.com/' + url;
-
-}
-
-width = width || 350;
-
-height = height || 480;
-
-scrollbars = scrollbars || 'no';
-
-var props = 'toolbar=no,location=no,status=no,scrollbars=' + scrollbars + ',menubar=no,resizable=yes,copyhistory=no,width=' + width + ',height=' + height;
-
-rateWin = window.open(url,'popup_1',props);
-
-window.name="mainWindow"; // this renames the "main" browser window
-
-rateWin.resizeTo(width,height); // this resizes the popup 
-
-rateWin.focus(); // this brings the popup to focus
-
-}
-
-function popup_ext(url,width,height,scrollbars) {
-
-width = width || 640;
-
-height = height || 480;
-
-scrollbars = scrollbars || 'no';
-
-var props = 'toolbar=no,location=no,status=no,scrollbars=' + scrollbars + ',menubar=no,resizable=yes,copyhistory=no,width=' + width + ',height=' + height;
-
-indrevWin = window.open(url,'popup_ext',props);
-
-window.name="mainWindow"; // this renames the "main" browser window
-
-indrevWin.focus(); // this brings the popup to focus
-
-}
-
-function backorClose() {
-
-var histCount = window.history.length
-
-if (histCount >= 1) {
-
-window.history.back(1)
-
-} else {
-
-window.close()
-
-}
-
-}
+    }
 
 // -->
 
-</script>
-<base href="http://www.deja.com/" name="main">
+  </script>
+  <base href="http://www.deja.com/" name="main">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor=#ffffff text=#000000 link=#0000cc vlink=#663399 alink=#ff6600 > 
-<table bgcolor=#ffffff border=0 cellpadding=0 cellspacing=0 width=100%> 
-  <tr> 
-    <td width=100%><img src="http://g.deja.com/gifs/20x20.gif" width=130 height=1 hspace=0></td> 
-    <td width=20><img src="http://g.deja.com/gifs/20x20.gif" width=20 height=1 hspace=0></td> 
-    <td width=2 rowspan=2 bgcolor=#000000><IMG src="http://g.deja.com/gifs/20x20.gif" width=2 height=1 hspace=0></td> 
-    <td width=137 bgcolor=#6666cc><img src="http://g.deja.com/gifs/20x20.gif" width=130 height=1 hspace=0></td> 
-  </tr> 
-</table> 
-<table border=0 cellspacing=0 cellpadding=2 width=100%> 
-  <tr valign=top> 
-    <td>Subject:</td> 
-    <td width=100%><b>Re: Max Length of Linkage Section.</b></td> 
-  </tr> 
-  <tr valign=top> 
-    <td>Date:</td> 
-    <td>11/30/2000</td> 
-  </tr> 
-  <tr valign=top> 
-    <td>Author:</td> 
-    <td><a href="http://www.deja.com/profile.xp?author=scomstock@aol.com%20(S%20Comstock)&ST=PS"><b>S Comstock</b></a> &lt;<a href="mailto:scomstock@aol.com">scomstock@aol.com</a>&gt;</td> 
-  </tr> 
-</table> 
-<table width=100% border=0 cellspacing=0 cellpadding=5 height="539"> 
-  <tr> 
-    <td bgcolor=#eeeeee > <p>  
-      <p> Gary Morrison writes ...<br> 
-&nbsp;<br> 
-        <font color="#666600">&gt;Does anyone know the maximum length of data that can be passed to a COBOL SQL<br> 
-&gt;<br> 
-&gt;and COBOL LE program? <br> 
-        </font> &nbsp;<br> 
-        By &quot;COBOL SQL program&quot; I assume you mean a COBOL program that has embedded SQL calls. The fact that a COBOL program has such calls has no influence on the data that can be passed to it. Now if the program is a CICS COBOL program, I believe there are CICS restrictions.<br> 
-&nbsp;<br> 
-        By &quot;COBOL LE program&quot; I assume you mean an LE COBOL program. That is, a COBOL program compiled using one of the LE COBOL compilers; or do you mean a COBOL program that calls LE services? [English, what a bother for Americans!] <br> 
-&nbsp;<br> 
-        According to the IBM COBOL Language Reference manual (SC26-9046-03): <br> 
-&nbsp;<br> 
-        Linkage Section: 134,217,727 bytes is the maximum size. However, this same pub says there is &quot;no limit&quot; to the number of level 01 and level 77 items in the Linkage Section. This seems to be a contradiction. If the 134,217,727 number is correct then there can not be so many level 01 or level 77 items that their storage size exceeds this number.<br> 
-&nbsp;<br> 
-        Hope this helps,<br> 
-&nbsp;<br> 
-&nbsp;<br> 
-        Steve Comstock<br> 
-        Telephone: 303-393-8716<br> 
-        www.trainersfriend.com<br> 
-        email: <a href="http://www.deja.com/profile.xp?author=steve@trainersfriend.com&ST=">steve@trainersfriend.com</a><br> 
-        256-B S. Monaco Parkway<br> 
-        Denver, CO 80224<br> 
-        USA<br> </td> 
-  </tr> 
-</table> 
-<p>&nbsp;</p> 
+
+<body bgcolor=#ffffff text=#000000 link=#0000cc vlink=#663399 alink=#ff6600>
+  <table bgcolor=#ffffff border=0 cellpadding=0 cellspacing=0 width=100%>
+    <tr>
+      <td width=100%><img src="http://g.deja.com/gifs/20x20.gif" width=130 height=1 hspace=0></td>
+      <td width=20><img src="http://g.deja.com/gifs/20x20.gif" width=20 height=1 hspace=0></td>
+      <td width=2 rowspan=2 bgcolor=#000000><IMG src="http://g.deja.com/gifs/20x20.gif" width=2 height=1 hspace=0></td>
+      <td width=137 bgcolor=#6666cc><img src="http://g.deja.com/gifs/20x20.gif" width=130 height=1 hspace=0></td>
+    </tr>
+  </table>
+  <table border=0 cellspacing=0 cellpadding=2 width=100%>
+    <tr valign=top>
+      <td>Subject:</td>
+      <td width=100%><b>Re: Max Length of Linkage Section.</b></td>
+    </tr>
+    <tr valign=top>
+      <td>Date:</td>
+      <td>11/30/2000</td>
+    </tr>
+    <tr valign=top>
+      <td>Author:</td>
+      <td><a href="http://www.deja.com/profile.xp?author=scomstock@aol.com%20(S%20Comstock)&ST=PS"><b>S Comstock</b></a>
+        &lt;<a href="mailto:scomstock@aol.com">scomstock@aol.com</a>&gt;</td>
+    </tr>
+  </table>
+  <table width=100% border=0 cellspacing=0 cellpadding=5 height="539">
+    <tr>
+      <td bgcolor=#eeeeee>
+        <p>
+        <p> Gary Morrison writes ...<br>
+          &nbsp;<br>
+          <font color="#666600">&gt;Does anyone know the maximum length of data that can be passed to a COBOL SQL<br>
+            &gt;<br>
+            &gt;and COBOL LE program? <br>
+          </font> &nbsp;<br>
+          By &quot;COBOL SQL program&quot; I assume you mean a COBOL program that has embedded SQL calls. The fact that
+          a COBOL program has such calls has no influence on the data that can be passed to it. Now if the program is a
+          CICS COBOL program, I believe there are CICS restrictions.<br>
+          &nbsp;<br>
+          By &quot;COBOL LE program&quot; I assume you mean an LE COBOL program. That is, a COBOL program compiled using
+          one of the LE COBOL compilers; or do you mean a COBOL program that calls LE services? [English, what a bother
+          for Americans!] <br>
+          &nbsp;<br>
+          According to the IBM COBOL Language Reference manual (SC26-9046-03): <br>
+          &nbsp;<br>
+          Linkage Section: 134,217,727 bytes is the maximum size. However, this same pub says there is &quot;no
+          limit&quot; to the number of level 01 and level 77 items in the Linkage Section. This seems to be a
+          contradiction. If the 134,217,727 number is correct then there can not be so many level 01 or level 77 items
+          that their storage size exceeds this number.<br>
+          &nbsp;<br>
+          Hope this helps,<br>
+          &nbsp;<br>
+          &nbsp;<br>
+          Steve Comstock<br>
+          Telephone: 303-393-8716<br>
+          www.trainersfriend.com<br>
+          email: <a
+            href="http://www.deja.com/profile.xp?author=steve@trainersfriend.com&ST=">steve@trainersfriend.com</a><br>
+          256-B S. Monaco Parkway<br>
+          Denver, CO 80224<br>
+          USA<br>
+      </td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
 </body>
+
 </html>

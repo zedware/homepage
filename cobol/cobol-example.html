@@ -1,96 +1,177 @@
 <HTML>
+
 <HEAD>
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<TITLE>COBOL例子程序</TITLE>
-<META NAME="Version" CONTENT="8.0.3813">
-<meta name="Date" content="2003/07/30">
-<META NAME="Template" CONTENT="C:\Program Files\Microsoft Office\Office\HTML.DOT">
-<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
-<style type="text/css">
-<!--
-.style1 {
-	font-size: larger;
-}
--->
-</style>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+  <TITLE>COBOL例子程序</TITLE>
+  <META NAME="Version" CONTENT="8.0.3813">
+  <meta name="Date" content="2003/07/30">
+  <META NAME="Template" CONTENT="C:\Program Files\Microsoft Office\Office\HTML.DOT">
+  <meta name="zedware"
+    content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger;
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </HEAD>
-<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#ffffff"> 
-<P align="center" class="style1">COBOL<FONT >例子程序和编译运行作业</FONT> </P> 
-<hr> 
-<br> 
-<FONT > </FONT> 
-<table width="100%" border="1"> 
-  <tr> 
-    <td width="34%"> <div align="center">文件描述</div></td> 
-    <td width="11%"> <div align="center">文件大小</div></td> 
-    <td width="19%"> <div align="center">文件格式</div></td> 
-    <td width="36%"> <div align="center">参考链接</div></td> 
-  </tr> 
-  <tr> 
-    <td width="34%">Fujitsu PowerCOBOL 3.0</td> 
-    <td width="11%"> <div align="center">11.4M</div></td> 
-    <td width="19%"> <p align="center">自解包压缩程序</p></td> 
-    <td width="36%"> <div align="center"><a href="http://download.cnet.com">http://download.cnet.com</a></div></td> 
-  </tr> 
-  <tr> 
-    <td width="34%">数字处理例程（Jud McClendon）</td> 
-    <td width="11%"> <div align="center">3K</div></td> 
-    <td width="19%"> <div align="center">ZIP文件</div></td> 
-    <td width="36%"> <div align="center"><a href="getnum.zip">getnum.zip</a></div></td> 
-  </tr> 
-  <tr> 
-    <td width="34%">数字字符转换（Jud McClendon）</td> 
-    <td width="11%"> <div align="center">5K</div></td> 
-    <td width="19%"> <div align="center">ZIP文件</div></td> 
-    <td width="36%"> <div align="center"><a href="money.zip">money.zip</a></div></td> 
-  </tr> 
-  <tr> 
-    <td width="34%">Shell排序（Jud McClendon）</td> 
-    <td width="11%"> <div align="center">4k</d><!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08<!-- #EndDate -->> 
-    <td width="36%"> <div align="center"><a href="shelsrt.zip">shelsrt.zip</a></div></td> 
-  </tr> 
-  <tr> 
-    <td width="34%">检查输入的日期（uniware）</td> 
-    <td width="11%"> <div align="center">4K</div></td> 
-    <td width="19%"> <div align="center">文本文件</div></td> 
-    <td width="36%"> <div align="center"><a href="chkdate.txt">chkdate.txt</a></div></td> 
-  </tr> 
-  <tr> 
-    <td width="34%" height="25">打印ASCII/EBCDIC代码（uniware）</td> 
-    <td width="11%" height="25"> <div align="center">2K</div></td> 
-    <td width="19%" height="25"> <div align="center">文本文件</div></td> 
-    <td width="36%" height="25"> <div align="center"><a href="printcode.txt">printcode.txt</a></div></td> 
-  </tr> 
-  <tr> 
-    <td width="34%">打印日历（uniware)</td> 
-    <td width="11%"> <div align="center">8K</div></td> 
-    <td width="19%"> <div align="center">文本文件</div></td> 
-    <td width="36%"> <div align="center"><a href="calendar.txt">calendar.txt</a></div></td> 
-  </tr> 
-  <tr> 
-    <td width="34%">文件排序（uniware）</td> 
-    <td width="11%"> <div align="center">6K</div></td> 
-    <td width="19%"> <div align="center">文本文件</div></td> 
-    <td width="36%"> <div align="center"><a href="sort.txt">sort.txt</a></div></td> 
-  </tr> 
-  <tr> 
-    <td width="34%">字符串转换成数字（<font size="2">Erlend Moen</font>）</td> 
-    <td width="11%"> <div align="center">17K</div></td> 
-    <td width="19%"> <div align="center">HTML文件</div></td> 
-    <td width="36%"> <div align="center"><a href="cobol-str2num.html">str2num.html</a></div></td> 
-  </tr> 
-  <tr> 
-    <td width="34%">编译链接运行COBOL程序的作业</td> 
-    <td width="11%"> <div align="center">5K</div></td> 
-    <td width="19%"> <div align="center">文本文件</div></td> 
-    <td width="36%"> <div align="center"><a href="complier-link-run.txt">complier-link-run.txt</a></div></td> 
-  </tr> 
-</table> 
-<br> 
-<hr> 
-<div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a> <br> 
-  Last modified on
-  <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08<!-- #EndDate --> 
-</div> 
+
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#ffffff">
+  <P align="center" class="style1">COBOL<FONT>例子程序和编译运行作业</FONT>
+  </P>
+  <hr>
+  <br>
+  <FONT> </FONT>
+  <table width="100%" border="1">
+    <tr>
+      <td width="34%">
+        <div align="center">文件描述</div>
+      </td>
+      <td width="11%">
+        <div align="center">文件大小</div>
+      </td>
+      <td width="19%">
+        <div align="center">文件格式</div>
+      </td>
+      <td width="36%">
+        <div align="center">参考链接</div>
+      </td>
+    </tr>
+    <tr>
+      <td width="34%">Fujitsu PowerCOBOL 3.0</td>
+      <td width="11%">
+        <div align="center">11.4M</div>
+      </td>
+      <td width="19%">
+        <p align="center">自解包压缩程序</p>
+      </td>
+      <td width="36%">
+        <div align="center"><a href="http://download.cnet.com">http://download.cnet.com</a></div>
+      </td>
+    </tr>
+    <tr>
+      <td width="34%">数字处理例程（Jud McClendon）</td>
+      <td width="11%">
+        <div align="center">3K</div>
+      </td>
+      <td width="19%">
+        <div align="center">ZIP文件</div>
+      </td>
+      <td width="36%">
+        <div align="center"><a href="getnum.zip">getnum.zip</a></div>
+      </td>
+    </tr>
+    <tr>
+      <td width="34%">数字字符转换（Jud McClendon）</td>
+      <td width="11%">
+        <div align="center">5K</div>
+      </td>
+      <td width="19%">
+        <div align="center">ZIP文件</div>
+      </td>
+      <td width="36%">
+        <div align="center"><a href="money.zip">money.zip</a></div>
+      </td>
+    </tr>
+    <tr>
+      <td width="34%">Shell排序（Jud McClendon）</td>
+      <td width="11%">
+        <div align="center">4k</d><!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08
+          <!-- #EndDate -->>
+      <td width="36%">
+        <div align="center"><a href="shelsrt.zip">shelsrt.zip</a></div>
+      </td>
+    </tr>
+    <tr>
+      <td width="34%">检查输入的日期（uniware）</td>
+      <td width="11%">
+        <div align="center">4K</div>
+      </td>
+      <td width="19%">
+        <div align="center">文本文件</div>
+      </td>
+      <td width="36%">
+        <div align="center"><a href="chkdate.txt">chkdate.txt</a></div>
+      </td>
+    </tr>
+    <tr>
+      <td width="34%" height="25">打印ASCII/EBCDIC代码（uniware）</td>
+      <td width="11%" height="25">
+        <div align="center">2K</div>
+      </td>
+      <td width="19%" height="25">
+        <div align="center">文本文件</div>
+      </td>
+      <td width="36%" height="25">
+        <div align="center"><a href="printcode.txt">printcode.txt</a></div>
+      </td>
+    </tr>
+    <tr>
+      <td width="34%">打印日历（uniware)</td>
+      <td width="11%">
+        <div align="center">8K</div>
+      </td>
+      <td width="19%">
+        <div align="center">文本文件</div>
+      </td>
+      <td width="36%">
+        <div align="center"><a href="calendar.txt">calendar.txt</a></div>
+      </td>
+    </tr>
+    <tr>
+      <td width="34%">文件排序（uniware）</td>
+      <td width="11%">
+        <div align="center">6K</div>
+      </td>
+      <td width="19%">
+        <div align="center">文本文件</div>
+      </td>
+      <td width="36%">
+        <div align="center"><a href="sort.txt">sort.txt</a></div>
+      </td>
+    </tr>
+    <tr>
+      <td width="34%">字符串转换成数字（<font size="2">Erlend Moen</font>）</td>
+      <td width="11%">
+        <div align="center">17K</div>
+      </td>
+      <td width="19%">
+        <div align="center">HTML文件</div>
+      </td>
+      <td width="36%">
+        <div align="center"><a href="cobol-str2num.html">str2num.html</a></div>
+      </td>
+    </tr>
+    <tr>
+      <td width="34%">编译链接运行COBOL程序的作业</td>
+      <td width="11%">
+        <div align="center">5K</div>
+      </td>
+      <td width="19%">
+        <div align="center">文本文件</div>
+      </td>
+      <td width="36%">
+        <div align="center"><a href="complier-link-run.txt">complier-link-run.txt</a></div>
+      </td>
+    </tr>
+  </table>
+  <br>
+  <hr>
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a> <br>
+    Last modified on
+    <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08
+    <!-- #EndDate -->
+  </div>
 </BODY>
+
 </HTML>

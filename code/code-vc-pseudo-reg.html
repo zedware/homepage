@@ -1,343 +1,482 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<title>VC中的伪寄存器</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</style>
+  <title>VC中的伪寄存器</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1 style1">VC中的伪寄存器</p>
-<hr> 
-<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;在VC的集成开发环境中调试程序时，可以在“QuickWatch”、“Watch”窗口中方便地查看和修改变量的取值，也可以进行一些表达式计算，甚至可以在设置断点时使用这些变量生成条件表达式。“Watch”窗口还可以查看VC定义的一些特殊变量，它们被称为伪寄存器（Pseudo Registers）。伪寄存器及其用途参见下表：</p>
-<table width=544 border=1 align="center" cellpadding=0 cellspacing=0>
-  <tr>
-    <td width=129 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span style='font-family:宋体'>伪寄存器</span></p></td>
-    <td width=415 valign=top class="Normal">
-      <p align=left style='text-align:left;
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1 style1">VC中的伪寄存器</p>
+  <hr>
+  <p align="left">
+    &nbsp;&nbsp;&nbsp;&nbsp;在VC的集成开发环境中调试程序时，可以在“QuickWatch”、“Watch”窗口中方便地查看和修改变量的取值，也可以进行一些表达式计算，甚至可以在设置断点时使用这些变量生成条件表达式。“Watch”窗口还可以查看VC定义的一些特殊变量，它们被称为伪寄存器（Pseudo
+    Registers）。伪寄存器及其用途参见下表：</p>
+  <table width=544 border=1 align="center" cellpadding=0 cellspacing=0>
+    <tr>
+      <td width=129 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span style='font-family:宋体'>伪寄存器</span></p>
+      </td>
+      <td width=415 valign=top class="Normal">
+        <p align=left style='text-align:left;
   text-autospace:none'><span style='font-family:
-  宋体;'>说明</span></p></td>
-  </tr>
-  <tr>
-    <td width=129 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@ERR</span></p></td>
-    <td width=415 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span style='font-family:宋体;'>最近的错误号。也就是<span
-  lang=EN-US>GetLastError()的返回值。调试时若想知道一个API调用的返回值，只需在Watch窗口中写上它，而不需要在代码中插入一堆</span></span><span
-  lang=EN-US style='font-family:宋体'>DWORD dwErr = GetLastError();</span></p></td>
-  </tr>
-  <tr>
-    <td width=129 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@TIB</span></p></td>
-    <td width=415 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span style='font-family:宋体;'>当前线程的线程信息块（<span
-  lang=EN-US>Thread Information Block）。</span></span></p></td>
-  </tr>
-  <tr>
-    <td width=129 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@CLK</span></p></td>
-    <td width=415 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span style='font-family:宋体;'>时钟寄存器</span></p></td>
-  </tr>
-  <tr>
-    <td width=129 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@EAX, @EBX, @ECX, @EDX, @ESI, @EDI, @EIP, @ESP, @EBP, @EFL</span></p></td>
-    <td width=415 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>Intel CPU 寄存器</span></p></td>
-  </tr>
-  <tr>
-    <td width=129 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@CS, @DS, @ES, @SS, @FS, @GS</span></p></td>
-    <td width=415 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>Intel CPU 段寄存器</span></p></td>
-  </tr>
-  <tr>
-    <td width=129 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@ST0, @ST1, @ST2, @ST3, @ST4, @ST5, @ST6, @ST7</span></p></td>
-    <td width=415 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>Intel CPU 浮点运算寄存器</span></p></td>
-  </tr>
-  <tr>
-    <td width=129 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@HANDLES</span></p></td>
-    <td width=415 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>VC++.NET才支持</span></p></td>
-  </tr>
-  <tr>
-    <td width=129 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@MM0,@MM1</span></p>
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@MM2,@MM3</span></p>
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@MM4,@MM5</span></p>
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@MM6,@MM7</span></p>
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@MXCSR</span></p></td>
-    <td width=415 valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>Intel MMX 寄存器</span></p></td>
-  </tr>
-</table>
-<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;我们还可以在“QuickWatch”和“Watch”窗口中使用格式符号来改变变量取值的显示方式。可用的格式符号包括：</p>
-<table width="97%" border=1 align="center" cellpadding=0 cellspacing=0>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p align=left style='text-align:left;text-autospace:none'><span style='font-family:
-  宋体'>符号</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>说明</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>示例取值</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>显示结果</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>d,I</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>带符号的整数</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0xF000F065</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>-268373915</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>U</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>不带符号的整数</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0065</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>101</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>o</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>不带符号的八进制数</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0xF065</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0170145</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>x,X</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>十六进制数</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>61541(十进制)</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0000F065</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>l,h</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>用在<span
-  lang=EN-US>d, i, u, o, x, X之前，l表示长整数，h表示短整数</span></span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>00406042,hx</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0c22</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>f</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>带符号的浮点数</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>3./2.</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>1.500000</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>E</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>带符号的科学记数法</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>3./2.</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>1.500000e+000</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>g</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>带符号的浮点数或带符号的科学记数法，采用二者之中较短的一种记法</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>3./2.</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>1.5</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>c</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>单个字符</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0065</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>'e'</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>s</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>ANSI字符串</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0012fde8</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>“Hello world”</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>su</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>UNICODE字符串</span></p></td>
-    <td width="20%" valign=top class="Normal">&nbsp; </td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>“Hello world”</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>st</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>ANSI字符串或UNICODE字符串，依赖于文件autoexp.dat中的UNICODE字符串设置</span></p></td>
-    <td width="20%" valign=top class="Normal">&nbsp; </td>
-    <td width="28%" valign=top class="Normal">&nbsp; </td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>hr</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>HRESULT或WIN32错误码</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x00000000L</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>S_OK</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>wc</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>窗口类标记<span
-  lang=EN-US>WC</span></span><span lang=EN-US style='font-family:宋体'>_xxx</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x00000040 </span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>WC_DEFAULTCHAR</span></p></td>
-  </tr>
-  <tr>
-    <td width="9%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>wm</span></p></td>
-    <td width="41%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>Windows消息</span></p></td>
-    <td width="20%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0010</span></p></td>
-    <td width="28%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>WM_CLOSE</span></p></td>
-  </tr>
-</table>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;对于指定内存地址中的内容，还可以采用以下的格式符号：</p>
-<table width="100%" border=1 align="center" cellpadding=0 cellspacing=0>
-  <tr>
-    <td width="11%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>符号</span></p></td>
-    <td width="24%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>说明</span></p></td>
-    <td width="63%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>示例和显示结果</span></p></td>
-  </tr>
-  <tr>
-    <td width="11%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>ma</span></p></td>
-    <td width="24%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>显示<span
-  lang=EN-US>64个 ASCII字符</span></span></p></td>
-    <td width="63%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac .4...0...&quot;.0W&amp;.......1W&amp;.0.:W..1....&quot;..1.JO&amp;.1.2..&quot;..1...0y....1</span></p></td>
-  </tr>
-  <tr>
-    <td width="11%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>m</span></p></td>
-    <td width="24%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>以十六进制显示<span
-  lang=EN-US>16字节的数据，后面是这16字节对应的ASCII字符 </span></span></p></td>
-    <td width="63%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac B3 34 CB 00 84 30 94 80 FF 22 8A 30 57 26 00 00 .4...0...&quot;.0W&amp;..</span></p></td>
-  </tr>
-  <tr>
-    <td width="11%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>mb</span></p></td>
-    <td width="24%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>同上</span></p></td>
-    <td width="63%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac B3 34 CB 00 84 30 94 80 FF 22 8A 30 57 26 00 00 .4...0...&quot;.0W&amp;..</span></p></td>
-  </tr>
-  <tr>
-    <td width="11%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>mw</span></p></td>
-    <td width="24%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>显示<span
-  lang=EN-US>8个word</span></span></p></td>
-    <td width="63%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac 34B3 00CB 3084 8094 22FF 308A 2657 0000</span></p></td>
-  </tr>
-  <tr>
-    <td width="11%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>md</span></p></td>
-    <td width="24%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>显示<span
-  lang=EN-US>4 个doubleword</span></span></p></td>
-    <td width="63%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac 00CB34B3 80943084 308A22FF 00002657</span></p></td>
-  </tr>
-  <tr>
-    <td width="11%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>mq</span></p></td>
-    <td width="24%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>显示<span
-  lang=EN-US>4个 quadword</span></span></p></td>
-    <td width="63%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac 7ffdf00000000000 5f441a790012fdd4</span></p></td>
-  </tr>
-  <tr>
-    <td width="11%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>mu</span></p></td>
-    <td width="24%" valign=top class="Normal">
-      <p><span style='font-family:宋体'>显示<span
-  lang=EN-US>8个word，常用于显示UNICODE字符</span></span></p></td>
-    <td width="63%" valign=top class="Normal">
-      <p><span lang=EN-US style='  font-family:宋体'>0x0012fc60 8478 77f4 ffff ffff 0000 0000 0000 0000</span></p></td>
-  </tr>
-</table>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;在字符数组名称前加上&amp;，可以以字符串的形式显示该数组：&amp;fruit_names。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;格式字符同样可以用在表达式后面：</p>
-<blockquote>
-  <p>fruit_names[1], mb<br>
-    count,d </p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;可以使用操作BY, WO, DW查看指定地址或寄存器指向的值。其中BY返回指针指向处一个字节的内容，WO返回指针指向处一个字的内容，DW返回指针指向处一个双字的内容。这些操作可以用在变量、寄存器或常量后。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;也可以使用上下文操作{ }来查看指定地址处的内容。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;可以在未展开（即变量前面显示的还是＋）的结构、数组、指针、对象后使用格式符。如果随后展开该变量，则指定的格式影响所有成员。不能对每个成员指定不同的格式。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;在指针变量后用数字n作为格式符，将以数组形式查看指向的地址处的n个数组成员。例如：</p>
-<blockquote>
-  <p>ptr,10</p>
-</blockquote>
-<p><strong>参考文献：</strong></p>
-<p>1、<a href="http://msdn.microsoft.com/library/techart/msdn_vc6mgrtn.htm">http://msdn.microsoft.com/library/techart/msdn_vc6mgrtn.htm</a><br>
-  2、<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vcug98/html/asug_symbols_for_watch_variables.asp">http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vcug98/html/asug_symbols_for_watch_variables.asp</a><br>
-  3、<a href="http://www.highprogrammer.com/alan/windev/visualstudio.html">http://www.highprogrammer.com/alan/windev/visualstudio.html</a><br>
-  4、<a href="http://www.codeproject.com/debug/pseudoregister.asp">http://www.codeproject.com/debug/pseudoregister.asp</a></p>
-<div align="center">
-  <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br> 
-    Last modified on
-    <!-- #BeginDate format:fcIS1 -->Thursday, 2004-09-09<!-- #EndDate --> 
-  </div> 
-</div> 
+  宋体;'>说明</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=129 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@ERR</span>
+        </p>
+      </td>
+      <td width=415 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span style='font-family:宋体;'>最近的错误号。也就是<span
+              lang=EN-US>GetLastError()的返回值。调试时若想知道一个API调用的返回值，只需在Watch窗口中写上它，而不需要在代码中插入一堆</span></span><span lang=EN-US
+            style='font-family:宋体'>DWORD dwErr = GetLastError();</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=129 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@TIB</span>
+        </p>
+      </td>
+      <td width=415 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span style='font-family:宋体;'>当前线程的线程信息块（<span
+              lang=EN-US>Thread Information Block）。</span></span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=129 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@CLK</span>
+        </p>
+      </td>
+      <td width=415 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span style='font-family:宋体;'>时钟寄存器</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=129 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@EAX, @EBX,
+            @ECX, @EDX, @ESI, @EDI, @EIP, @ESP, @EBP, @EFL</span></p>
+      </td>
+      <td width=415 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>Intel CPU
+            寄存器</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=129 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@CS, @DS,
+            @ES, @SS, @FS, @GS</span></p>
+      </td>
+      <td width=415 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>Intel CPU
+            段寄存器</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=129 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@ST0, @ST1,
+            @ST2, @ST3, @ST4, @ST5, @ST6, @ST7</span></p>
+      </td>
+      <td width=415 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>Intel CPU
+            浮点运算寄存器</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=129 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US
+            style='font-family:宋体;'>@HANDLES</span></p>
+      </td>
+      <td width=415 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US
+            style='font-family:宋体;'>VC++.NET才支持</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=129 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US
+            style='font-family:宋体;'>@MM0,@MM1</span></p>
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US
+            style='font-family:宋体;'>@MM2,@MM3</span></p>
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US
+            style='font-family:宋体;'>@MM4,@MM5</span></p>
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US
+            style='font-family:宋体;'>@MM6,@MM7</span></p>
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>@MXCSR</span>
+        </p>
+      </td>
+      <td width=415 valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span lang=EN-US style='font-family:宋体;'>Intel MMX
+            寄存器</span></p>
+      </td>
+    </tr>
+  </table>
+  <p align="left">&nbsp;&nbsp;&nbsp;&nbsp;我们还可以在“QuickWatch”和“Watch”窗口中使用格式符号来改变变量取值的显示方式。可用的格式符号包括：</p>
+  <table width="97%" border=1 align="center" cellpadding=0 cellspacing=0>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p align=left style='text-align:left;text-autospace:none'><span style='font-family:
+  宋体'>符号</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>说明</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>示例取值</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>显示结果</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>d,I</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>带符号的整数</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0xF000F065</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>-268373915</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>U</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>不带符号的整数</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0065</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>101</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>o</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>不带符号的八进制数</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0xF065</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0170145</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>x,X</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>十六进制数</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>61541(十进制)</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0000F065</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>l,h</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>用在<span lang=EN-US>d, i, u, o, x, X之前，l表示长整数，h表示短整数</span></span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>00406042,hx</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0c22</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>f</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>带符号的浮点数</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>3./2.</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>1.500000</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>E</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>带符号的科学记数法</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>3./2.</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>1.500000e+000</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>g</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>带符号的浮点数或带符号的科学记数法，采用二者之中较短的一种记法</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>3./2.</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>1.5</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>c</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>单个字符</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0065</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>'e'</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>s</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>ANSI字符串</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0012fde8</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>“Hello world”</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>su</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>UNICODE字符串</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">&nbsp; </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>“Hello world”</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>st</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>ANSI字符串或UNICODE字符串，依赖于文件autoexp.dat中的UNICODE字符串设置</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">&nbsp; </td>
+      <td width="28%" valign=top class="Normal">&nbsp; </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>hr</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>HRESULT或WIN32错误码</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x00000000L</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>S_OK</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>wc</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>窗口类标记<span lang=EN-US>WC</span></span><span lang=EN-US
+            style='font-family:宋体'>_xxx</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x00000040 </span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>WC_DEFAULTCHAR</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="9%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>wm</span></p>
+      </td>
+      <td width="41%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>Windows消息</span></p>
+      </td>
+      <td width="20%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0010</span></p>
+      </td>
+      <td width="28%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>WM_CLOSE</span></p>
+      </td>
+    </tr>
+  </table>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;对于指定内存地址中的内容，还可以采用以下的格式符号：</p>
+  <table width="100%" border=1 align="center" cellpadding=0 cellspacing=0>
+    <tr>
+      <td width="11%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>符号</span></p>
+      </td>
+      <td width="24%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>说明</span></p>
+      </td>
+      <td width="63%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>示例和显示结果</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="11%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>ma</span></p>
+      </td>
+      <td width="24%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>显示<span lang=EN-US>64个 ASCII字符</span></span></p>
+      </td>
+      <td width="63%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac
+            .4...0...&quot;.0W&amp;.......1W&amp;.0.:W..1....&quot;..1.JO&amp;.1.2..&quot;..1...0y....1</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="11%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>m</span></p>
+      </td>
+      <td width="24%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>以十六进制显示<span lang=EN-US>16字节的数据，后面是这16字节对应的ASCII字符 </span></span></p>
+      </td>
+      <td width="63%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac B3 34 CB 00 84 30 94 80 FF 22 8A 30 57 26 00 00
+            .4...0...&quot;.0W&amp;..</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="11%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>mb</span></p>
+      </td>
+      <td width="24%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>同上</span></p>
+      </td>
+      <td width="63%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac B3 34 CB 00 84 30 94 80 FF 22 8A 30 57 26 00 00
+            .4...0...&quot;.0W&amp;..</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="11%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>mw</span></p>
+      </td>
+      <td width="24%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>显示<span lang=EN-US>8个word</span></span></p>
+      </td>
+      <td width="63%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac 34B3 00CB 3084 8094 22FF 308A 2657 0000</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="11%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>md</span></p>
+      </td>
+      <td width="24%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>显示<span lang=EN-US>4 个doubleword</span></span></p>
+      </td>
+      <td width="63%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac 00CB34B3 80943084 308A22FF 00002657</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="11%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>mq</span></p>
+      </td>
+      <td width="24%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>显示<span lang=EN-US>4个 quadword</span></span></p>
+      </td>
+      <td width="63%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0012ffac 7ffdf00000000000 5f441a790012fdd4</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="11%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>mu</span></p>
+      </td>
+      <td width="24%" valign=top class="Normal">
+        <p><span style='font-family:宋体'>显示<span lang=EN-US>8个word，常用于显示UNICODE字符</span></span></p>
+      </td>
+      <td width="63%" valign=top class="Normal">
+        <p><span lang=EN-US style='  font-family:宋体'>0x0012fc60 8478 77f4 ffff ffff 0000 0000 0000 0000</span></p>
+      </td>
+    </tr>
+  </table>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;在字符数组名称前加上&amp;，可以以字符串的形式显示该数组：&amp;fruit_names。</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;格式字符同样可以用在表达式后面：</p>
+  <blockquote>
+    <p>fruit_names[1], mb<br>
+      count,d </p>
+  </blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;可以使用操作BY, WO,
+    DW查看指定地址或寄存器指向的值。其中BY返回指针指向处一个字节的内容，WO返回指针指向处一个字的内容，DW返回指针指向处一个双字的内容。这些操作可以用在变量、寄存器或常量后。</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;也可以使用上下文操作{ }来查看指定地址处的内容。</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;可以在未展开（即变量前面显示的还是＋）的结构、数组、指针、对象后使用格式符。如果随后展开该变量，则指定的格式影响所有成员。不能对每个成员指定不同的格式。</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;在指针变量后用数字n作为格式符，将以数组形式查看指向的地址处的n个数组成员。例如：</p>
+  <blockquote>
+    <p>ptr,10</p>
+  </blockquote>
+  <p><strong>参考文献：</strong></p>
+  <p>1、<a
+      href="http://msdn.microsoft.com/library/techart/msdn_vc6mgrtn.htm">http://msdn.microsoft.com/library/techart/msdn_vc6mgrtn.htm</a><br>
+    2、<a
+      href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vcug98/html/asug_symbols_for_watch_variables.asp">http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vcug98/html/asug_symbols_for_watch_variables.asp</a><br>
+    3、<a
+      href="http://www.highprogrammer.com/alan/windev/visualstudio.html">http://www.highprogrammer.com/alan/windev/visualstudio.html</a><br>
+    4、<a
+      href="http://www.codeproject.com/debug/pseudoregister.asp">http://www.codeproject.com/debug/pseudoregister.asp</a>
+  </p>
+  <div align="center">
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br>
+      Last modified on
+      <!-- #BeginDate format:fcIS1 -->Thursday, 2004-09-09
+      <!-- #EndDate -->
+    </div>
+  </div>
 </body>
+
 </html>

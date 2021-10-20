@@ -1,241 +1,267 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<title>GNU gprof 的使用以及常见问题</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
-.style2 {color: #FF0000}
--->
-</style>
+  <title>GNU gprof 的使用以及常见问题</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+
+    .style2 {
+      color: #FF0000
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">GNU gprof 的使用以及常见问题</p> 
-<hr> 
-<p> &nbsp;&nbsp;&nbsp;&nbsp;gprof 对于 profiling 非常有用，不过初学者可能会遇到一些障碍。下面我们从最简单的例子开始，一步步深入，希望能够容易明白一点了。</p>
-<p>$ uname -a<br>
-  Linux dev 2.4.21-9.30AXsmp #1 SMP Wed May 26 23:37:09 EDT 2004 i686 i686 i386 GNU/Linux</p>
-<p>$ gprof --version<br>
-  GNU gprof 2.14.90.0.4<br>
-  Based on BSD gprof, copyright 1983 Regents of the University of California.<br>
-  This program is free software. This program has absolutely no warranty.<br>
-</p>
-<p>$ cat foo.c</p>
-<p>int main(void)<br>
-  {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;hello world\n&quot;);<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
-  }</p>
-<p>$ gcc -g -pg foo.c</p>
-<p>  $ ./a.out<br>
-  hello world</p>
-<p>  $ gprof<br>
-  <span class="style2">gprof: gmon.out file is missing call-graph data</span></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;这个结果有点莫名其妙。难道这个简单的一个例子都过不了？其实这是 gprof 的一个“feature”，也许是专门用来迷惑初学者的。出错的原因参见：<a href="http://gcc.gnu.org/ml/gcc-help/2006-06/msg00037.html">http://gcc.gnu.org/ml/gcc-help/2006-06/msg00037.html</a>，是我们的函数过于简单，其中没有什么函数调用导致的。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;让我们换个复杂一点的例子看看。</p>
-<p>$ cat bar.c</p>
-<p>static int sub(void);</p>
-<p>int main(void)<br>
-  {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;int i;</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;hello world\n&quot;);</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;for (i = 0; i &lt; 10; i++)<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub();</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
-  }</p>
-<p>static int sub(void)<br>
-  {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
-  }</p>
-<p>$ gcc -g -pg bar.c<br>
-  $ ./a.out<br>
-  hello world</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;注意这次输出的信息正常了，不过显得有点罗嗦。后面我们将采用“gprof -b”简化之。命令“gprof”其实就是“gprof a.out gmon.out”。</p>
-<p>  $ gprof<br>
-  Flat profile:</p>
-<p>Each sample counts as 0.01 seconds.<br>
-  no time accumulated</p>
-<p> % cumulative self self total<br>
-  time seconds seconds calls Ts/call Ts/call name<br>
-  0.00 0.00 0.00 10 0.00 0.00 sub</p>
-<p> % the percentage of the total running time of the<br>
-  time program used by this function.</p>
-<p>cumulative a running sum of the number of seconds accounted<br>
-  seconds for by this function and those listed above it.</p>
-<p> self the number of seconds accounted for by this<br>
-  seconds function alone. This is the major sort for this<br>
-  listing.</p>
-<p>calls the number of times this function was invoked, if<br>
-  this function is profiled, else blank.</p>
-<p> self the average number of milliseconds spent in this<br>
-  ms/call function per call, if this function is profiled,<br>
-  else blank.</p>
-<p> total the average number of milliseconds spent in this<br>
-  ms/call function and its descendents per call, if this<br>
-  function is profiled, else blank.</p>
-<p>name the name of the function. This is the minor sort<br>
-  for this listing. The index shows the location of<br>
-  the function in the gprof listing. If the index is<br>
-  in parenthesis it shows where it would appear in<br>
-  the gprof listing if it were to be printed.<br>
-</p>
-<p> Call graph (explanation follows)<br>
-</p>
-<p>granularity: each sample hit covers 4 byte(s) no time propagated</p>
-<p>index % time self children called name<br>
-  0.00 0.00 10/10 main [8]<br>
-  [1] 0.0 0.00 0.00 10 sub [1]<br>
-  -----------------------------------------------</p>
-<p> This table describes the call tree of the program, and was sorted by<br>
-  the total amount of time spent in each function and its children.</p>
-<p> Each entry in this table consists of several lines. The line with the<br>
-  index number at the left hand margin lists the current function.<br>
-  The lines above it list the functions that called this function,<br>
-  and the lines below it list the functions this one called.<br>
-  This line lists:<br>
-  index A unique number given to each element of the table.<br>
-  Index numbers are sorted numerically.<br>
-  The index number is printed next to every function name so<br>
-  it is easier to look up where the function in the table.</p>
-<p> % time This is the percentage of the `total' time that was spent<br>
-  in this function and its children. Note that due to<br>
-  different viewpoints, functions excluded by options, etc,<br>
-  these numbers will NOT add up to 100%.</p>
-<p> self This is the total amount of time spent in this function.</p>
-<p> children This is the total amount of time propagated into this<br>
-  function by its children.</p>
-<p> called This is the number of times the function was called.<br>
-  If the function called itself recursively, the number<br>
-  only includes non-recursive calls, and is followed by<br>
-  a `+' and the number of recursive calls.</p>
-<p> name The name of the current function. The index number is<br>
-  printed after it. If the function is a member of a<br>
-  cycle, the cycle number is printed between the<br>
-  function's name and the index number.<br>
-</p>
-<p> For the function's parents, the fields have the following meanings:</p>
-<p> self This is the amount of time that was propagated directly<br>
-  from the function into this parent.</p>
-<p> children This is the amount of time that was propagated from<br>
-  the function's children into this parent.</p>
-<p> called This is the number of times this parent called the<br>
-  function `/' the total number of times the function<br>
-  was called. Recursive calls to the function are not<br>
-  included in the number after the `/'.</p>
-<p> name This is the name of the parent. The parent's index<br>
-  number is printed after it. If the parent is a<br>
-  member of a cycle, the cycle number is printed between<br>
-  the name and the index number.</p>
-<p> If the parents of the function cannot be determined, the word<br>
-  `&lt;spontaneous&gt;' is printed in the `name' field, and all the other<br>
-  fields are blank.</p>
-<p> For the function's children, the fields have the following meanings:</p>
-<p> self This is the amount of time that was propagated directly<br>
-  from the child into the function.</p>
-<p> children This is the amount of time that was propagated from the<br>
-  child's children to the function.</p>
-<p> called This is the number of times the function called<br>
-  this child `/' the total number of times the child<br>
-  was called. Recursive calls by the child are not<br>
-  listed in the number after the `/'.</p>
-<p> name This is the name of the child. The child's index<br>
-  number is printed after it. If the child is a<br>
-  member of a cycle, the cycle number is printed<br>
-  between the name and the index number.</p>
-<p> If there are any cycles (circles) in the call graph, there is an<br>
-  entry for the cycle-as-a-whole. This entry shows who called the<br>
-  cycle (as parents) and the members of the cycle (as children.)<br>
-  The `+' recursive calls entry shows the number of function calls that<br>
-  were internal to the cycle, and the calls entry for each member shows,<br>
-  for that member, how many times it was called from other members of<br>
-  the cycle.</p>
-<p>&nbsp;</p>
-<p>Index by function name</p>
-<p> [1] sub (bar.c)<br>
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1">GNU gprof 的使用以及常见问题</p>
+  <hr>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;gprof 对于 profiling 非常有用，不过初学者可能会遇到一些障碍。下面我们从最简单的例子开始，一步步深入，希望能够容易明白一点了。</p>
+  <p>$ uname -a<br>
+    Linux dev 2.4.21-9.30AXsmp #1 SMP Wed May 26 23:37:09 EDT 2004 i686 i686 i386 GNU/Linux</p>
+  <p>$ gprof --version<br>
+    GNU gprof 2.14.90.0.4<br>
+    Based on BSD gprof, copyright 1983 Regents of the University of California.<br>
+    This program is free software. This program has absolutely no warranty.<br>
+  </p>
+  <p>$ cat foo.c</p>
+  <p>int main(void)<br>
+    {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;hello world\n&quot;);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+    }</p>
+  <p>$ gcc -g -pg foo.c</p>
+  <p> $ ./a.out<br>
+    hello world</p>
+  <p> $ gprof<br>
+    <span class="style2">gprof: gmon.out file is missing call-graph data</span>
+  </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;这个结果有点莫名其妙。难道这个简单的一个例子都过不了？其实这是 gprof 的一个“feature”，也许是专门用来迷惑初学者的。出错的原因参见：<a
+      href="http://gcc.gnu.org/ml/gcc-help/2006-06/msg00037.html">http://gcc.gnu.org/ml/gcc-help/2006-06/msg00037.html</a>，是我们的函数过于简单，其中没有什么函数调用导致的。
+  </p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;让我们换个复杂一点的例子看看。</p>
+  <p>$ cat bar.c</p>
+  <p>static int sub(void);</p>
+  <p>int main(void)<br>
+    {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;int i;</p>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;hello world\n&quot;);</p>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;for (i = 0; i &lt; 10; i++)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub();</p>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+    }</p>
+  <p>static int sub(void)<br>
+    {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+    }</p>
+  <p>$ gcc -g -pg bar.c<br>
+    $ ./a.out<br>
+    hello world</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;注意这次输出的信息正常了，不过显得有点罗嗦。后面我们将采用“gprof -b”简化之。命令“gprof”其实就是“gprof a.out gmon.out”。</p>
+  <p> $ gprof<br>
+    Flat profile:</p>
+  <p>Each sample counts as 0.01 seconds.<br>
+    no time accumulated</p>
+  <p> % cumulative self self total<br>
+    time seconds seconds calls Ts/call Ts/call name<br>
+    0.00 0.00 0.00 10 0.00 0.00 sub</p>
+  <p> % the percentage of the total running time of the<br>
+    time program used by this function.</p>
+  <p>cumulative a running sum of the number of seconds accounted<br>
+    seconds for by this function and those listed above it.</p>
+  <p> self the number of seconds accounted for by this<br>
+    seconds function alone. This is the major sort for this<br>
+    listing.</p>
+  <p>calls the number of times this function was invoked, if<br>
+    this function is profiled, else blank.</p>
+  <p> self the average number of milliseconds spent in this<br>
+    ms/call function per call, if this function is profiled,<br>
+    else blank.</p>
+  <p> total the average number of milliseconds spent in this<br>
+    ms/call function and its descendents per call, if this<br>
+    function is profiled, else blank.</p>
+  <p>name the name of the function. This is the minor sort<br>
+    for this listing. The index shows the location of<br>
+    the function in the gprof listing. If the index is<br>
+    in parenthesis it shows where it would appear in<br>
+    the gprof listing if it were to be printed.<br>
+  </p>
+  <p> Call graph (explanation follows)<br>
+  </p>
+  <p>granularity: each sample hit covers 4 byte(s) no time propagated</p>
+  <p>index % time self children called name<br>
+    0.00 0.00 10/10 main [8]<br>
+    [1] 0.0 0.00 0.00 10 sub [1]<br>
+    -----------------------------------------------</p>
+  <p> This table describes the call tree of the program, and was sorted by<br>
+    the total amount of time spent in each function and its children.</p>
+  <p> Each entry in this table consists of several lines. The line with the<br>
+    index number at the left hand margin lists the current function.<br>
+    The lines above it list the functions that called this function,<br>
+    and the lines below it list the functions this one called.<br>
+    This line lists:<br>
+    index A unique number given to each element of the table.<br>
+    Index numbers are sorted numerically.<br>
+    The index number is printed next to every function name so<br>
+    it is easier to look up where the function in the table.</p>
+  <p> % time This is the percentage of the `total' time that was spent<br>
+    in this function and its children. Note that due to<br>
+    different viewpoints, functions excluded by options, etc,<br>
+    these numbers will NOT add up to 100%.</p>
+  <p> self This is the total amount of time spent in this function.</p>
+  <p> children This is the total amount of time propagated into this<br>
+    function by its children.</p>
+  <p> called This is the number of times the function was called.<br>
+    If the function called itself recursively, the number<br>
+    only includes non-recursive calls, and is followed by<br>
+    a `+' and the number of recursive calls.</p>
+  <p> name The name of the current function. The index number is<br>
+    printed after it. If the function is a member of a<br>
+    cycle, the cycle number is printed between the<br>
+    function's name and the index number.<br>
+  </p>
+  <p> For the function's parents, the fields have the following meanings:</p>
+  <p> self This is the amount of time that was propagated directly<br>
+    from the function into this parent.</p>
+  <p> children This is the amount of time that was propagated from<br>
+    the function's children into this parent.</p>
+  <p> called This is the number of times this parent called the<br>
+    function `/' the total number of times the function<br>
+    was called. Recursive calls to the function are not<br>
+    included in the number after the `/'.</p>
+  <p> name This is the name of the parent. The parent's index<br>
+    number is printed after it. If the parent is a<br>
+    member of a cycle, the cycle number is printed between<br>
+    the name and the index number.</p>
+  <p> If the parents of the function cannot be determined, the word<br>
+    `&lt;spontaneous&gt;' is printed in the `name' field, and all the other<br>
+    fields are blank.</p>
+  <p> For the function's children, the fields have the following meanings:</p>
+  <p> self This is the amount of time that was propagated directly<br>
+    from the child into the function.</p>
+  <p> children This is the amount of time that was propagated from the<br>
+    child's children to the function.</p>
+  <p> called This is the number of times the function called<br>
+    this child `/' the total number of times the child<br>
+    was called. Recursive calls by the child are not<br>
+    listed in the number after the `/'.</p>
+  <p> name This is the name of the child. The child's index<br>
+    number is printed after it. If the child is a<br>
+    member of a cycle, the cycle number is printed<br>
+    between the name and the index number.</p>
+  <p> If there are any cycles (circles) in the call graph, there is an<br>
+    entry for the cycle-as-a-whole. This entry shows who called the<br>
+    cycle (as parents) and the members of the cycle (as children.)<br>
+    The `+' recursive calls entry shows the number of function calls that<br>
+    were internal to the cycle, and the calls entry for each member shows,<br>
+    for that member, how many times it was called from other members of<br>
+    the cycle.</p>
+  <p>&nbsp;</p>
+  <p>Index by function name</p>
+  <p> [1] sub (bar.c)<br>
     <br>
     $ <span class="style2">gprof -b</span><br>
+    Flat profile:
+  </p>
+  <p>Each sample counts as 0.01 seconds.<br>
+    no time accumulated</p>
+  <p> % cumulative self self total<br>
+    time seconds seconds calls Ts/call Ts/call name<br>
+    0.00 0.00 0.00 10 0.00 0.00 sub<br>
+  </p>
+  <p> Call graph<br>
+  </p>
+  <p>granularity: each sample hit covers 4 byte(s) no time propagated</p>
+  <p>index % time self children called name<br>
+    0.00 0.00 10/10 main [8]<br>
+    [1] 0.0 0.00 0.00 10 sub [1]<br>
+    -----------------------------------------------<br>
+  </p>
+  <p>Index by function name</p>
+  <p> [1] sub (bar.c)</p>
+  <p>&nbsp;&nbsp;&nbsp;gprof 的这个特性很容易让初学者迷惑，可能一上来就把人吓跑了。我们再写个复杂一点点的例子，应该更容易看出 gprof 的用处了。</p>
+  <p>$ cat bar.c</p>
+  <p>static int sub(void);<br>
+    static int sub2(void);</p>
+  <p>int main(void)<br>
+    {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;sub();<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;sub2();</p>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+    }</p>
+  <p>static int sub(void)<br>
+    {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;int i;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;int res = 0;</p>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;for (i = 0; i &lt; 10000000; i++)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res += i;</p>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;return res;<br>
+    }</p>
+  <p>static int sub2(void)<br>
+    {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;int i;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;int res = 0;</p>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;for (i = 0; i &lt; 10000000; i++)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res *= i;</p>
+  <p> &nbsp;&nbsp;&nbsp;&nbsp;return res;<br>
+    }</p>
+  <p> $ gcc -g -pg bar.c</p>
+  <p> $ ./a.out</p>
+  <p> $ gprof -b<br>
     Flat profile:</p>
-<p>Each sample counts as 0.01 seconds.<br>
-  no time accumulated</p>
-<p> % cumulative self self total<br>
-  time seconds seconds calls Ts/call Ts/call name<br>
-  0.00 0.00 0.00 10 0.00 0.00 sub<br>
-</p>
-<p> Call graph<br>
-</p>
-<p>granularity: each sample hit covers 4 byte(s) no time propagated</p>
-<p>index % time self children called name<br>
-  0.00 0.00 10/10 main [8]<br>
-  [1] 0.0 0.00 0.00 10 sub [1]<br>
-  -----------------------------------------------<br>
-</p>
-<p>Index by function name</p>
-<p> [1] sub (bar.c)</p>
-<p>&nbsp;&nbsp;&nbsp;gprof 的这个特性很容易让初学者迷惑，可能一上来就把人吓跑了。我们再写个复杂一点点的例子，应该更容易看出 gprof 的用处了。</p>
-<p>$ cat bar.c</p>
-<p>static int sub(void);<br>
-  static int sub2(void);</p>
-<p>int main(void)<br>
-  {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;sub();<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;sub2();</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
-  }</p>
-<p>static int sub(void)<br>
-  {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;int i;<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;int res = 0;</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;for (i = 0; i &lt; 10000000; i++)<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res += i;</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;return res;<br>
-  }</p>
-<p>static int sub2(void)<br>
-  {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;int i;<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;int res = 0;</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;for (i = 0; i &lt; 10000000; i++)<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res *= i;</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;return res;<br>
-  }</p>
-<p>  $ gcc -g -pg bar.c</p>
-<p>  $ ./a.out</p>
-<p>  $ gprof -b<br>
-  Flat profile:</p>
-<p>Each sample counts as 0.01 seconds.<br>
-  % cumulative self self total<br>
-  time seconds seconds calls ms/call ms/call name<br>
-  <span class="style2">53.33</span> 0.08 0.08 1 80.00 80.00 <span class="style2">sub2</span><br>
-  <span class="style2">46.67</span> 0.15 0.07 1 70.00 70.00 <span class="style2">sub</span><br>
-</p>
-<p> Call graph<br>
-</p>
-<p>granularity: each sample hit covers 4 byte(s) for 6.67% of 0.15 seconds</p>
-<p>index % time self children called name<br>
-&lt;spontaneous&gt;<br>
-  [1] 100.0 0.00 0.15 main [1]<br>
-  0.08 0.00 1/1 sub2 [2]<br>
-  0.07 0.00 1/1 sub [3]<br>
-  -----------------------------------------------<br>
-  0.08 0.00 1/1 main [1]<br>
-  [2] 53.3 0.08 0.00 1 sub2 [2]<br>
-  -----------------------------------------------<br>
-  0.07 0.00 1/1 main [1]<br>
-  [3] 46.7 0.07 0.00 1 sub [3]<br>
-  -----------------------------------------------<br>
-</p>
-<p>Index by function name</p>
-<p> [3] sub (bar.c) [2] sub2 (bar.c)</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;当然了，上面给出的程序都非常简单，完全不能反映实际开发工作中的要求。实际的程序大多是多线程或多进程的，而且代码一般都比较复杂。如果我们用 gprof 来分析一个多进程的程序，很可能会发现一个进程的输出文件 gmon.out 覆盖了另外一个进程的输出文件，导致最后只能看到最后的一个。这肯定不是我们想要的结果。Google 告诉我们有一些解决办法，其中下面这个办法最简单了。在执行程序之前，进行：<br>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;$ export GMON_OUT_PREFIX=x.out<br><br>
-从此以后，生成的文件名将类似于 x.out.<进程的pid> 了，它们不再互相覆盖了。Google 也许会告诉你更多其它的办法。如果我们用 grof 来分析一个多线程的程序，则很可能会发现 gprof 处理不了子线程。很明显，这也不是我们期望的结果。对于这个问题，<a href="http://sam.zoy.org/writings/programming/gprof.html">http://sam.zoy.org/writings/programming/gprof.html</a>给出了一个不错的解决办法。
-</p>
-<div align="center"> 
-  <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2008,zedware_at_gmail_dot_com</a><br> 
-    Last modified on
-    <!-- #BeginDate format:fcIS1 -->Tuesday, 2008-10-14<!-- #EndDate --> 
-  </div> 
-</div> 
+  <p>Each sample counts as 0.01 seconds.<br>
+    % cumulative self self total<br>
+    time seconds seconds calls ms/call ms/call name<br>
+    <span class="style2">53.33</span> 0.08 0.08 1 80.00 80.00 <span class="style2">sub2</span><br>
+    <span class="style2">46.67</span> 0.15 0.07 1 70.00 70.00 <span class="style2">sub</span><br>
+  </p>
+  <p> Call graph<br>
+  </p>
+  <p>granularity: each sample hit covers 4 byte(s) for 6.67% of 0.15 seconds</p>
+  <p>index % time self children called name<br>
+    &lt;spontaneous&gt;<br>
+    [1] 100.0 0.00 0.15 main [1]<br>
+    0.08 0.00 1/1 sub2 [2]<br>
+    0.07 0.00 1/1 sub [3]<br>
+    -----------------------------------------------<br>
+    0.08 0.00 1/1 main [1]<br>
+    [2] 53.3 0.08 0.00 1 sub2 [2]<br>
+    -----------------------------------------------<br>
+    0.07 0.00 1/1 main [1]<br>
+    [3] 46.7 0.07 0.00 1 sub [3]<br>
+    -----------------------------------------------<br>
+  </p>
+  <p>Index by function name</p>
+  <p> [3] sub (bar.c) [2] sub2 (bar.c)</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;当然了，上面给出的程序都非常简单，完全不能反映实际开发工作中的要求。实际的程序大多是多线程或多进程的，而且代码一般都比较复杂。如果我们用 gprof
+    来分析一个多进程的程序，很可能会发现一个进程的输出文件 gmon.out 覆盖了另外一个进程的输出文件，导致最后只能看到最后的一个。这肯定不是我们想要的结果。Google
+    告诉我们有一些解决办法，其中下面这个办法最简单了。在执行程序之前，进行：<br>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;$ export GMON_OUT_PREFIX=x.out<br><br>
+    从此以后，生成的文件名将类似于 x.out.<进程的pid> 了，它们不再互相覆盖了。Google 也许会告诉你更多其它的办法。如果我们用 grof 来分析一个多线程的程序，则很可能会发现 gprof
+      处理不了子线程。很明显，这也不是我们期望的结果。对于这个问题，<a
+        href="http://sam.zoy.org/writings/programming/gprof.html">http://sam.zoy.org/writings/programming/gprof.html</a>给出了一个不错的解决办法。
+  </p>
+  <div align="center">
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2006-2008,zedware_at_gmail_dot_com</a><br>
+      Last modified on
+      <!-- #BeginDate format:fcIS1 -->Tuesday, 2008-10-14
+      <!-- #EndDate -->
+    </div>
+  </div>
 </body>
+
 </html>

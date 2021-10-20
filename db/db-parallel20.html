@@ -1,45 +1,60 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<title>并行数据库的二十个问题(Teradata)</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</style>
+  <title>并行数据库的二十个问题(Teradata)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1"> 并行数据库的二十个问题 (Teradata) </p> 
-<hr> 
-<ol>
-  <li>是否存在某些查询操作没有并行化 </li>
-  <li>是否对每个查询都利用了并行性 </li>
-  <li>一个查询经历几次优化 </li>
-  <li>查询间和查询内的并行度是否变化 </li>
-  <li>并行执行的基本单元是如何协调的 </li>
-  <li>数据分片策略是如何保证负载均衡的 </li>
-  <li>数据增长对数据分片策略有何影响 </li>
-  <li>采用什么样的技术支持多用户 </li>
-  <li>什么时候需要在网络间传递消息和数据 </li>
-  <li>有没有保持连接带宽的技术 </li>
-  <li>并行单元之间是如何维护封锁的 </li>
-  <li>优化器是否知道并行单元的数目 </li>
-  <li>优化器在 SMP 和 MPP 环境下是否采用不同的方法计算连接的代价 </li>
-  <li>当一个并行执行单元异常终止时，如何影响其他的并行单元 </li>
-  <li>优化器是否对采用的分片模式敏感 </li>
-  <li>并行执行单元是否互相知道和互相协调 </li>
-  <li>系统繁忙时会降低并行度吗？ </li>
-  <li>事务日志是如何在结点间并行处理的 </li>
-  <li>是否维护系统的多个代码版本――既有并行版本又有非并行版本 </li>
-  <li>系统中的 single points of control 和潜在的瓶颈是什么</li>
-</ol>
-<div align="center"> 
-  <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br> 
-    Last modified on
-    <!-- #BeginDate format:fcIS1 -->Thursday, 2005-02-17<!-- #EndDate --> 
-  </div> 
-</div> 
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1"> 并行数据库的二十个问题 (Teradata) </p>
+  <hr>
+  <ol>
+    <li>是否存在某些查询操作没有并行化 </li>
+    <li>是否对每个查询都利用了并行性 </li>
+    <li>一个查询经历几次优化 </li>
+    <li>查询间和查询内的并行度是否变化 </li>
+    <li>并行执行的基本单元是如何协调的 </li>
+    <li>数据分片策略是如何保证负载均衡的 </li>
+    <li>数据增长对数据分片策略有何影响 </li>
+    <li>采用什么样的技术支持多用户 </li>
+    <li>什么时候需要在网络间传递消息和数据 </li>
+    <li>有没有保持连接带宽的技术 </li>
+    <li>并行单元之间是如何维护封锁的 </li>
+    <li>优化器是否知道并行单元的数目 </li>
+    <li>优化器在 SMP 和 MPP 环境下是否采用不同的方法计算连接的代价 </li>
+    <li>当一个并行执行单元异常终止时，如何影响其他的并行单元 </li>
+    <li>优化器是否对采用的分片模式敏感 </li>
+    <li>并行执行单元是否互相知道和互相协调 </li>
+    <li>系统繁忙时会降低并行度吗？ </li>
+    <li>事务日志是如何在结点间并行处理的 </li>
+    <li>是否维护系统的多个代码版本――既有并行版本又有非并行版本 </li>
+    <li>系统中的 single points of control 和潜在的瓶颈是什么</li>
+  </ol>
+  <div align="center">
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br>
+      Last modified on
+      <!-- #BeginDate format:fcIS1 -->Thursday, 2005-02-17
+      <!-- #EndDate -->
+    </div>
+  </div>
 </body>
+
 </html>

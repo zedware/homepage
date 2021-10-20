@@ -1,1815 +1,1837 @@
 <html>
+
 <head>
-<style>
-.cell {  font-family: "Courier New", Courier, mono; background-color: #FFFFFF}
-.rowhead {  font-family: "Courier New", Courier, mono; font-weight: bold; color: #FFFFFF; background-color: #6666FF}
-</style>
-<title>ASCII and EBCDIC Code Table</title>
+  <style>
+    .cell {
+      font-family: "Courier New", Courier, mono;
+      background-color: #FFFFFF
+    }
+
+    .rowhead {
+      font-family: "Courier New", Courier, mono;
+      font-weight: bold;
+      color: #FFFFFF;
+      background-color: #6666FF
+    }
+  </style>
+  <title>ASCII and EBCDIC Code Table</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body link=blue vlink=purple bgcolor="#FFFFFF"> 
-<H2>ASCII AND EBCDIC CODE TABLE</H2> 
-<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="http://mcse.pair.com">MCSE Class</a> &nbsp; <a href="http://www.screenbooks.org">Screenbooks.net</a></font> <br> 
-<br> 
-<table border=1 cellspacing=3 bgcolor="#33CCCC"> 
-  <tr class="rowhead" align="center" > 
-    <td class="rowhead">Decimal</td> 
-    <td class="rowhead">Hex</td> 
-    <td class="rowhead">ASCII</td> 
-    <td class="rowhead">EBCDIC</td> 
-    <td class="rowhead">Binary</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">0</td> 
-    <td class="cell">0</td> 
-    <td class="cell">NUL</td> 
-    <td class="cell">NUL</td> 
-    <td class="cell">0000 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">1</td> 
-    <td class="cell">1</td> 
-    <td class="cell">SOH</td> 
-    <td class="cell">SOH</td> 
-    <td class="cell">0000 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">2</td> 
-    <td class="cell">2</td> 
-    <td class="cell">STX</td> 
-    <td class="cell">STX</td> 
-    <td class="cell">0000 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">3</td> 
-    <td class="cell">3</td> 
-    <td class="cell">ETX</td> 
-    <td class="cell">ETX</td> 
-    <td class="cell">0000 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">4</td> 
-    <td class="cell">4</td> 
-    <td class="cell">EOT</td> 
-    <td class="cell">SEL</td> 
-    <td class="cell">0000 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">5</td> 
-    <td class="cell">5</td> 
-    <td class="cell">ENQ</td> 
-    <td class="cell">HT</td> 
-    <td class="cell">0000 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">6</td> 
-    <td class="cell">6</td> 
-    <td class="cell">ACK</td> 
-    <td class="cell">RNL</td> 
-    <td class="cell">0000 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">7</td> 
-    <td class="cell">7</td> 
-    <td class="cell">BEL</td> 
-    <td class="cell">DEL</td> 
-    <td class="cell">0000 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">8</td> 
-    <td class="cell">8</td> 
-    <td class="cell">BS</td> 
-    <td class="cell">GE</td> 
-    <td class="cell">0000 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">9</td> 
-    <td class="cell">9</td> 
-    <td class="cell">TAB</td> 
-    <td class="cell">SPS</td> 
-    <td class="cell">0000 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">10</td> 
-    <td class="cell">A</td> 
-    <td class="cell">LF</td> 
-    <td class="cell">RPT</td> 
-    <td class="cell">0000 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">11</td> 
-    <td class="cell">B</td> 
-    <td class="cell">VT</td> 
-    <td class="cell">VT</td> 
-    <td class="cell">0000 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">12</td> 
-    <td class="cell">C</td> 
-    <td class="cell">FF</td> 
-    <td class="cell">FF</td> 
-    <td class="cell">0000 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">13</td> 
-    <td class="cell">D</td> 
-    <td class="cell">CR</td> 
-    <td class="cell">CR</td> 
-    <td class="cell">0000 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">14</td> 
-    <td class="cell">E</td> 
-    <td class="cell">SO</td> 
-    <td class="cell">SO</td> 
-    <td class="cell">0000 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">15</td> 
-    <td class="cell">F</td> 
-    <td class="cell">SI</td> 
-    <td class="cell">SI</td> 
-    <td class="cell">0000 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">16</td> 
-    <td class="cell">10</td> 
-    <td class="cell">DLE</td> 
-    <td class="cell">DLE</td> 
-    <td class="cell">0001 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">17</td> 
-    <td class="cell">11</td> 
-    <td class="cell">DC1</td> 
-    <td class="cell">DC1</td> 
-    <td class="cell">0001 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">18</td> 
-    <td class="cell">12</td> 
-    <td class="cell">DC2</td> 
-    <td class="cell">DC2</td> 
-    <td class="cell">0001 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">19</td> 
-    <td class="cell">13</td> 
-    <td class="cell">DC3</td> 
-    <td class="cell">DC3</td> 
-    <td class="cell">0001 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">20</td> 
-    <td class="cell">14</td> 
-    <td class="cell">DC4</td> 
-    <td class="cell">RES/ENP</td> 
-    <td class="cell">0001 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">21</td> 
-    <td class="cell">15</td> 
-    <td class="cell">NAK</td> 
-    <td class="cell">NL</td> 
-    <td class="cell">0001 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">22</td> 
-    <td class="cell">16</td> 
-    <td class="cell">SYN</td> 
-    <td class="cell">BS</td> 
-    <td class="cell">0001 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">23</td> 
-    <td class="cell">17</td> 
-    <td class="cell">ETB</td> 
-    <td class="cell">POC</td> 
-    <td class="cell">0001 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">24</td> 
-    <td class="cell">18</td> 
-    <td class="cell">CAN</td> 
-    <td class="cell">CAN</td> 
-    <td class="cell">0001 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">25</td> 
-    <td class="cell">19</td> 
-    <td class="cell">EM</td> 
-    <td class="cell">EM</td> 
-    <td class="cell">0001 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">26</td> 
-    <td class="cell">1A</td> 
-    <td class="cell">SUB</td> 
-    <td class="cell">UBS</td> 
-    <td class="cell">0001 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">27</td> 
-    <td class="cell">1B</td> 
-    <td class="cell">ESC</td> 
-    <td class="cell">CU1</td> 
-    <td class="cell">0001 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">28</td> 
-    <td class="cell">1C</td> 
-    <td class="cell">FS</td> 
-    <td class="cell">IFS</td> 
-    <td class="cell">0001 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">29</td> 
-    <td class="cell">1D</td> 
-    <td class="cell">GS</td> 
-    <td class="cell">IGS</td> 
-    <td class="cell">0001 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">30</td> 
-    <td class="cell">1E</td> 
-    <td class="cell">RS</td> 
-    <td class="cell">IRS</td> 
-    <td class="cell">0001 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">31</td> 
-    <td class="cell">1F</td> 
-    <td class="cell">US</td> 
-    <td class="cell">ITB/IUS</td> 
-    <td class="cell">0001 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">32</td> 
-    <td class="cell">20</td> 
-    <td class="cell"></td> 
-    <td class="cell">DS</td> 
-    <td class="cell">0010 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">33</td> 
-    <td class="cell">21</td> 
-    <td class="cell">!</td> 
-    <td class="cell">SOS</td> 
-    <td class="cell">0010 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">34</td> 
-    <td class="cell">22</td> 
-    <td class="cell">&quot;</td> 
-    <td class="cell">FS</td> 
-    <td class="cell">0010 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">35</td> 
-    <td class="cell">23</td> 
-    <td class="cell">#</td> 
-    <td class="cell">WUS</td> 
-    <td class="cell">0010 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">36</td> 
-    <td class="cell">24</td> 
-    <td class="cell">$</td> 
-    <td class="cell">BYP/INP</td> 
-    <td class="cell">0010 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">37</td> 
-    <td class="cell">25</td> 
-    <td class="cell">%</td> 
-    <td class="cell">LF</td> 
-    <td class="cell">0010 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">38</td> 
-    <td class="cell">26</td> 
-    <td class="cell">&amp;</td> 
-    <td class="cell">ETB</td> 
-    <td class="cell">0010 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">39</td> 
-    <td class="cell">27</td> 
-    <td class="cell">'</td> 
-    <td class="cell">ESC</td> 
-    <td class="cell">0010 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">40</td> 
-    <td class="cell">28</td> 
-    <td class="cell">(</td> 
-    <td class="cell">SA</td> 
-    <td class="cell">0010 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">41</td> 
-    <td class="cell">29</td> 
-    <td class="cell">)</td> 
-    <td class="cell">SFE</td> 
-    <td class="cell">0010 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">42</td> 
-    <td class="cell">2A</td> 
-    <td class="cell">*</td> 
-    <td class="cell">SM/SW</td> 
-    <td class="cell">0010 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">43</td> 
-    <td class="cell">2B</td> 
-    <td class="cell">+</td> 
-    <td class="cell">CSP</td> 
-    <td class="cell">0010 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">44</td> 
-    <td class="cell">2C</td> 
-    <td class="cell">,</td> 
-    <td class="cell">MFA</td> 
-    <td class="cell">0010 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">45</td> 
-    <td class="cell">2D</td> 
-    <td class="cell">-</td> 
-    <td class="cell">ENQ</td> 
-    <td class="cell">0010 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">46</td> 
-    <td class="cell">2E</td> 
-    <td class="cell">.</td> 
-    <td class="cell">ACK</td> 
-    <td class="cell">0010 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">47</td> 
-    <td class="cell">2F</td> 
-    <td class="cell">/</td> 
-    <td class="cell">BEL</td> 
-    <td class="cell">0010 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">48</td> 
-    <td class="cell">30</td> 
-    <td class="cell">0</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0011 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">49</td> 
-    <td class="cell">31</td> 
-    <td class="cell">1</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0011 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">50</td> 
-    <td class="cell">32</td> 
-    <td class="cell">2</td> 
-    <td class="cell">SYN</td> 
-    <td class="cell">0011 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">51</td> 
-    <td class="cell">33</td> 
-    <td class="cell">3</td> 
-    <td class="cell">IR</td> 
-    <td class="cell">0011 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">52</td> 
-    <td class="cell">34</td> 
-    <td class="cell">4</td> 
-    <td class="cell">PP</td> 
-    <td class="cell">0011 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">53</td> 
-    <td class="cell">35</td> 
-    <td class="cell">5</td> 
-    <td class="cell">TRN</td> 
-    <td class="cell">0011 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">54</td> 
-    <td class="cell">36</td> 
-    <td class="cell">6</td> 
-    <td class="cell">NBS</td> 
-    <td class="cell">0011 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">55</td> 
-    <td class="cell">37</td> 
-    <td class="cell">7</td> 
-    <td class="cell">EOT</td> 
-    <td class="cell">0011 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">56</td> 
-    <td class="cell">38</td> 
-    <td class="cell">8</td> 
-    <td class="cell">SBS</td> 
-    <td class="cell">0011 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">57</td> 
-    <td class="cell">39</td> 
-    <td class="cell">9</td> 
-    <td class="cell">IT</td> 
-    <td class="cell">0011 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">58</td> 
-    <td class="cell">3A</td> 
-    <td class="cell">:</td> 
-    <td class="cell">RFF</td> 
-    <td class="cell">0011 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">59</td> 
-    <td class="cell">3B</td> 
-    <td class="cell">;</td> 
-    <td class="cell">CU3</td> 
-    <td class="cell">0011 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">60</td> 
-    <td class="cell">3C</td> 
-    <td class="cell">&lt;</td> 
-    <td class="cell">DC4</td> 
-    <td class="cell">0011 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">61</td> 
-    <td class="cell">3D</td> 
-    <td class="cell">=</td> 
-    <td class="cell">NAK</td> 
-    <td class="cell">0011 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">62</td> 
-    <td class="cell">3E</td> 
-    <td class="cell">&gt;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0011 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">63</td> 
-    <td class="cell">3F</td> 
-    <td class="cell">?</td> 
-    <td class="cell">SUB</td> 
-    <td class="cell">0011 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">64</td> 
-    <td class="cell">40</td> 
-    <td class="cell">@</td> 
-    <td class="cell">SP</td> 
-    <td class="cell">0100 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">65</td> 
-    <td class="cell">41</td> 
-    <td class="cell">A</td> 
-    <td class="cell">RSP</td> 
-    <td class="cell">0100 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">66</td> 
-    <td class="cell">42</td> 
-    <td class="cell">B</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0100 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">67</td> 
-    <td class="cell">43</td> 
-    <td class="cell">C</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0100 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">68</td> 
-    <td class="cell">44</td> 
-    <td class="cell">D</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0100 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">69</td> 
-    <td class="cell">45</td> 
-    <td class="cell">E</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0100 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">70</td> 
-    <td class="cell">46</td> 
-    <td class="cell">F</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0100 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">71</td> 
-    <td class="cell">47</td> 
-    <td class="cell">G</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0100 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">72</td> 
-    <td class="cell">48</td> 
-    <td class="cell">H</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0100 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">73</td> 
-    <td class="cell">49</td> 
-    <td class="cell">I</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0100 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">74</td> 
-    <td class="cell">4A</td> 
-    <td class="cell">J</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0100 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">75</td> 
-    <td class="cell">4B</td> 
-    <td class="cell">K</td> 
-    <td class="cell">.</td> 
-    <td class="cell">0100 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">76</td> 
-    <td class="cell">4C</td> 
-    <td class="cell">L</td> 
-    <td class="cell">&lt;</td> 
-    <td class="cell">0100 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">77</td> 
-    <td class="cell">4D</td> 
-    <td class="cell">M</td> 
-    <td class="cell">(</td> 
-    <td class="cell">0100 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">78</td> 
-    <td class="cell">4E</td> 
-    <td class="cell">N</td> 
-    <td class="cell">+</td> 
-    <td class="cell">0100 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">79</td> 
-    <td class="cell">4F</td> 
-    <td class="cell">O</td> 
-    <td class="cell">|</td> 
-    <td class="cell">0100 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">80</td> 
-    <td class="cell">50</td> 
-    <td class="cell">P</td> 
-    <td class="cell">&amp;</td> 
-    <td class="cell">0101 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">81</td> 
-    <td class="cell">51</td> 
-    <td class="cell">Q</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0101 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">82</td> 
-    <td class="cell">52</td> 
-    <td class="cell">R</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0101 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">83</td> 
-    <td class="cell">53</td> 
-    <td class="cell">S</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0101 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">84</td> 
-    <td class="cell">54</td> 
-    <td class="cell">T</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0101 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">85</td> 
-    <td class="cell">55</td> 
-    <td class="cell">U</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0101 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">86</td> 
-    <td class="cell">56</td> 
-    <td class="cell">V</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0101 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">87</td> 
-    <td class="cell">57</td> 
-    <td class="cell">W</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0101 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">88</td> 
-    <td class="cell">58</td> 
-    <td class="cell">X</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0101 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">89</td> 
-    <td class="cell">59</td> 
-    <td class="cell">Y</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0101 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">90</td> 
-    <td class="cell">5A</td> 
-    <td class="cell">Z</td> 
-    <td class="cell">!</td> 
-    <td class="cell">0101 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">91</td> 
-    <td class="cell">5B</td> 
-    <td class="cell">[</td> 
-    <td class="cell">$</td> 
-    <td class="cell">0101 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">92</td> 
-    <td class="cell">5C</td> 
-    <td class="cell">\</td> 
-    <td class="cell">*</td> 
-    <td class="cell">0101 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">93</td> 
-    <td class="cell">5D</td> 
-    <td class="cell">]</td> 
-    <td class="cell">)</td> 
-    <td class="cell">0101 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">94</td> 
-    <td class="cell">5E</td> 
-    <td class="cell">^</td> 
-    <td class="cell">;</td> 
-    <td class="cell">0101 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">95</td> 
-    <td class="cell">5F</td> 
-    <td class="cell">_</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0101 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">96</td> 
-    <td class="cell">60</td> 
-    <td class="cell">`</td> 
-    <td class="cell">_</td> 
-    <td class="cell">0110 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">97</td> 
-    <td class="cell">61</td> 
-    <td class="cell">a</td> 
-    <td class="cell">/</td> 
-    <td class="cell">0110 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">98</td> 
-    <td class="cell">62</td> 
-    <td class="cell">b</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0110 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">99</td> 
-    <td class="cell">63</td> 
-    <td class="cell">c</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0110 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">100</td> 
-    <td class="cell">64</td> 
-    <td class="cell">d</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0110 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">101</td> 
-    <td class="cell">65</td> 
-    <td class="cell">e</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0110 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">102</td> 
-    <td class="cell">66</td> 
-    <td class="cell">f</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0110 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">103</td> 
-    <td class="cell">67</td> 
-    <td class="cell">g</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0110 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">104</td> 
-    <td class="cell">68</td> 
-    <td class="cell">h</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0110 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">105</td> 
-    <td class="cell">69</td> 
-    <td class="cell">i</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0110 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">106</td> 
-    <td class="cell">6A</td> 
-    <td class="cell">j</td> 
-    <td class="cell">|</td> 
-    <td class="cell">0110 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">107</td> 
-    <td class="cell">6B</td> 
-    <td class="cell">k</td> 
-    <td class="cell">,</td> 
-    <td class="cell">0110 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">108</td> 
-    <td class="cell">6C</td> 
-    <td class="cell">l</td> 
-    <td class="cell">%</td> 
-    <td class="cell">0110 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">109</td> 
-    <td class="cell">6D</td> 
-    <td class="cell">m</td> 
-    <td class="cell">_</td> 
-    <td class="cell">0110 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">110</td> 
-    <td class="cell">6E</td> 
-    <td class="cell">n</td> 
-    <td class="cell">&gt;</td> 
-    <td class="cell">0110 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">111</td> 
-    <td class="cell">6F</td> 
-    <td class="cell">o</td> 
-    <td class="cell">?</td> 
-    <td class="cell">0110 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">112</td> 
-    <td class="cell">70</td> 
-    <td class="cell">p</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0111 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">113</td> 
-    <td class="cell">71</td> 
-    <td class="cell">q</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0111 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">114</td> 
-    <td class="cell">72</td> 
-    <td class="cell">r</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0111 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">115</td> 
-    <td class="cell">73</td> 
-    <td class="cell">s</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0111 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">116</td> 
-    <td class="cell">74</td> 
-    <td class="cell">t</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0111 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">117</td> 
-    <td class="cell">75</td> 
-    <td class="cell">u</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0111 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">118</td> 
-    <td class="cell">76</td> 
-    <td class="cell">v</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0111 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">119</td> 
-    <td class="cell">77</td> 
-    <td class="cell">w</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0111 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">120</td> 
-    <td class="cell">78</td> 
-    <td class="cell">x</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0111 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">121</td> 
-    <td class="cell">79</td> 
-    <td class="cell">y</td> 
-    <td class="cell">`</td> 
-    <td class="cell">0111 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">122</td> 
-    <td class="cell">7A</td> 
-    <td class="cell">z</td> 
-    <td class="cell">:</td> 
-    <td class="cell">0111 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">123</td> 
-    <td class="cell">7B</td> 
-    <td class="cell">{</td> 
-    <td class="cell">#</td> 
-    <td class="cell">0111 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">124</td> 
-    <td class="cell">7C</td> 
-    <td class="cell">|</td> 
-    <td class="cell">@</td> 
-    <td class="cell">0111 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">125</td> 
-    <td class="cell">7D</td> 
-    <td class="cell">}</td> 
-    <td class="cell">'</td> 
-    <td class="cell">0111 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">126</td> 
-    <td class="cell">7E</td> 
-    <td class="cell">~</td> 
-    <td class="cell">=</td> 
-    <td class="cell">0111 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">127</td> 
-    <td class="cell">7F</td> 
-    <td class="cell">DEL</td> 
-    <td class="cell">&quot;</td> 
-    <td class="cell">0111 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">128</td> 
-    <td class="cell">80</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1000 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">129</td> 
-    <td class="cell">81</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">a</td> 
-    <td class="cell">1000 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">130</td> 
-    <td class="cell">82</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">b</td> 
-    <td class="cell">1000 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">131</td> 
-    <td class="cell">83</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">c</td> 
-    <td class="cell">1000 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">132</td> 
-    <td class="cell">84</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">d</td> 
-    <td class="cell">1000 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">133</td> 
-    <td class="cell">85</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">e</td> 
-    <td class="cell">1000 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">134</td> 
-    <td class="cell">86</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">f</td> 
-    <td class="cell">1000 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">135</td> 
-    <td class="cell">87</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">g</td> 
-    <td class="cell">1000 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">136</td> 
-    <td class="cell">88</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">h</td> 
-    <td class="cell">1000 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">137</td> 
-    <td class="cell">89</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">i</td> 
-    <td class="cell">1000 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">138</td> 
-    <td class="cell">8A</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1000 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">139</td> 
-    <td class="cell">8B</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">{</td> 
-    <td class="cell">1000 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">140</td> 
-    <td class="cell">8C</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1000 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">141</td> 
-    <td class="cell">8D</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1000 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">142</td> 
-    <td class="cell">8E</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1000 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">143</td> 
-    <td class="cell">8F</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">+</td> 
-    <td class="cell">1000 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">144</td> 
-    <td class="cell">90</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1001 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">145</td> 
-    <td class="cell">91</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">j</td> 
-    <td class="cell">1001 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">146</td> 
-    <td class="cell">92</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">k</td> 
-    <td class="cell">1001 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">147</td> 
-    <td class="cell">93</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">l</td> 
-    <td class="cell">1001 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">148</td> 
-    <td class="cell">94</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">m</td> 
-    <td class="cell">1001 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">149</td> 
-    <td class="cell">95</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">n</td> 
-    <td class="cell">1001 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">150</td> 
-    <td class="cell">96</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">o</td> 
-    <td class="cell">1001 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">151</td> 
-    <td class="cell">97</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">p</td> 
-    <td class="cell">1001 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">152</td> 
-    <td class="cell">98</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">q</td> 
-    <td class="cell">1001 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">153</td> 
-    <td class="cell">99</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">r</td> 
-    <td class="cell">1001 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">154</td> 
-    <td class="cell">9A</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1001 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">155</td> 
-    <td class="cell">9B</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">}</td> 
-    <td class="cell">1001 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">156</td> 
-    <td class="cell">9C</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1001 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">157</td> 
-    <td class="cell">9D</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1001 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">158</td> 
-    <td class="cell">9E</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1001 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">159</td> 
-    <td class="cell">9F</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1001 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">160</td> 
-    <td class="cell">A0</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1010 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">161</td> 
-    <td class="cell">A1</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1010 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">162</td> 
-    <td class="cell">A2</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">s</td> 
-    <td class="cell">1010 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">163</td> 
-    <td class="cell">A3</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">t</td> 
-    <td class="cell">1010 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">164</td> 
-    <td class="cell">A4</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">u</td> 
-    <td class="cell">1010 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">165</td> 
-    <td class="cell">A5</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">v</td> 
-    <td class="cell">1010 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">166</td> 
-    <td class="cell">A6</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">w</td> 
-    <td class="cell">1010 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">167</td> 
-    <td class="cell">A7</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">x</td> 
-    <td class="cell">1010 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">168</td> 
-    <td class="cell">A8</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">y</td> 
-    <td class="cell">1010 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">169</td> 
-    <td class="cell">A9</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">z</td> 
-    <td class="cell">1010 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">170</td> 
-    <td class="cell">AA</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1010 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">171</td> 
-    <td class="cell">AB</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1010 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">172</td> 
-    <td class="cell">AC</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1010 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">173</td> 
-    <td class="cell">AD</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">[</td> 
-    <td class="cell">1010 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">174</td> 
-    <td class="cell">AE</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1010 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">175</td> 
-    <td class="cell">AF</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1010 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">176</td> 
-    <td class="cell">B0</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">177</td> 
-    <td class="cell">B1</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">178</td> 
-    <td class="cell">B2</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">179</td> 
-    <td class="cell">B3</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">180</td> 
-    <td class="cell">B4</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">181</td> 
-    <td class="cell">B5</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">182</td> 
-    <td class="cell">B6</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">183</td> 
-    <td class="cell">B7</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">184</td> 
-    <td class="cell">B8</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">185</td> 
-    <td class="cell">B9</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">186</td> 
-    <td class="cell">BA</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">187</td> 
-    <td class="cell">BB</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">188</td> 
-    <td class="cell">BC</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">189</td> 
-    <td class="cell">BD</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">190</td> 
-    <td class="cell">BE</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">191</td> 
-    <td class="cell">BF</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1011 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">192</td> 
-    <td class="cell">C0</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1100 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">193</td> 
-    <td class="cell">C1</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">A</td> 
-    <td class="cell">1100 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">194</td> 
-    <td class="cell">C2</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">B</td> 
-    <td class="cell">1100 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">195</td> 
-    <td class="cell">C3</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">C</td> 
-    <td class="cell">1100 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">196</td> 
-    <td class="cell">C4</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">D</td> 
-    <td class="cell">1100 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">197</td> 
-    <td class="cell">C5</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">E</td> 
-    <td class="cell">1100 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">198</td> 
-    <td class="cell">C6</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">F</td> 
-    <td class="cell">1100 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">199</td> 
-    <td class="cell">C7</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">G</td> 
-    <td class="cell">1100 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">200</td> 
-    <td class="cell">C8</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">H</td> 
-    <td class="cell">1100 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">201</td> 
-    <td class="cell">C9</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">I</td> 
-    <td class="cell">1100 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">202</td> 
-    <td class="cell">CA</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1100 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">203</td> 
-    <td class="cell">CB</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1100 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">204</td> 
-    <td class="cell">CC</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1100 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">205</td> 
-    <td class="cell">CD</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1100 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">206</td> 
-    <td class="cell">CE</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1100 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">207</td> 
-    <td class="cell">CF</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1100 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">208</td> 
-    <td class="cell">D0</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1101 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">209</td> 
-    <td class="cell">D1</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">J</td> 
-    <td class="cell">1101 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">210</td> 
-    <td class="cell">D2</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">K</td> 
-    <td class="cell">1101 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">211</td> 
-    <td class="cell">D3</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">L</td> 
-    <td class="cell">1101 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">212</td> 
-    <td class="cell">D4</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">M</td> 
-    <td class="cell">1101 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">213</td> 
-    <td class="cell">D5</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">N</td> 
-    <td class="cell">1101 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">214</td> 
-    <td class="cell">D6</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">O</td> 
-    <td class="cell">1101 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">215</td> 
-    <td class="cell">D7</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">P</td> 
-    <td class="cell">1101 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">216</td> 
-    <td class="cell">D8</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">Q</td> 
-    <td class="cell">1101 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">217</td> 
-    <td class="cell">D9</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">R</td> 
-    <td class="cell">1101 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">218</td> 
-    <td class="cell">DA</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1101 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">219</td> 
-    <td class="cell">DB</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1101 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">220</td> 
-    <td class="cell">DC</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1101 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">221</td> 
-    <td class="cell">DD</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1101 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">222</td> 
-    <td class="cell">DE</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1101 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">223</td> 
-    <td class="cell">DF</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1101 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">224</td> 
-    <td class="cell">E0</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1110 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">225</td> 
-    <td class="cell">E1</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1110 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">226</td> 
-    <td class="cell">E2</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">S</td> 
-    <td class="cell">1110 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">227</td> 
-    <td class="cell">E3</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">T</td> 
-    <td class="cell">1110 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">228</td> 
-    <td class="cell">E4</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">U</td> 
-    <td class="cell">1110 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">229</td> 
-    <td class="cell">E5</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">V</td> 
-    <td class="cell">1110 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">230</td> 
-    <td class="cell">E6</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">W</td> 
-    <td class="cell">1110 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">231</td> 
-    <td class="cell">E7</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">X</td> 
-    <td class="cell">1110 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">232</td> 
-    <td class="cell">E8</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">Y</td> 
-    <td class="cell">1110 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">233</td> 
-    <td class="cell">E9</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">Z</td> 
-    <td class="cell">1110 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">234</td> 
-    <td class="cell">EA</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1110 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">235</td> 
-    <td class="cell">EB</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1110 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">236</td> 
-    <td class="cell">EC</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1110 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">237</td> 
-    <td class="cell">ED</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1110 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">238</td> 
-    <td class="cell">EE</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1110 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">239</td> 
-    <td class="cell">EF</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1110 1111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">240</td> 
-    <td class="cell">F0</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">0</td> 
-    <td class="cell">1111 0000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">241</td> 
-    <td class="cell">F1</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1</td> 
-    <td class="cell">1111 0001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">242</td> 
-    <td class="cell">F2</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">2</td> 
-    <td class="cell">1111 0010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">243</td> 
-    <td class="cell">F3</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">3</td> 
-    <td class="cell">1111 0011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">244</td> 
-    <td class="cell">F4</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">4</td> 
-    <td class="cell">1111 0100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">245</td> 
-    <td class="cell">F5</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">5</td> 
-    <td class="cell">1111 0101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">246</td> 
-    <td class="cell">F6</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">6</td> 
-    <td class="cell">1111 0110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">247</td> 
-    <td class="cell">F7</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">7</td> 
-    <td class="cell">1111 0111</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">248</td> 
-    <td class="cell">F8</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">8</td> 
-    <td class="cell">1111 1000</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">249</td> 
-    <td class="cell">F9</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">9</td> 
-    <td class="cell">1111 1001</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">250</td> 
-    <td class="cell">FA</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1111 1010</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">251</td> 
-    <td class="cell">FB</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1111 1011</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">252</td> 
-    <td class="cell">FC</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1111 1100</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">253</td> 
-    <td class="cell">FD</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1111 1101</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">254</td> 
-    <td class="cell">FE</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1111 1110</td> 
-  </tr> 
-  <tr > 
-    <td class="cell">255</td> 
-    <td class="cell">FF</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">&nbsp;</td> 
-    <td class="cell">1111 1111</td> 
-  </tr> 
-</table> 
+
+<body link=blue vlink=purple bgcolor="#FFFFFF">
+  <H2>ASCII AND EBCDIC CODE TABLE</H2>
+  <font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="http://mcse.pair.com">MCSE Class</a> &nbsp; <a
+      href="http://www.screenbooks.org">Screenbooks.net</a></font> <br>
+  <br>
+  <table border=1 cellspacing=3 bgcolor="#33CCCC">
+    <tr class="rowhead" align="center">
+      <td class="rowhead">Decimal</td>
+      <td class="rowhead">Hex</td>
+      <td class="rowhead">ASCII</td>
+      <td class="rowhead">EBCDIC</td>
+      <td class="rowhead">Binary</td>
+    </tr>
+    <tr>
+      <td class="cell">0</td>
+      <td class="cell">0</td>
+      <td class="cell">NUL</td>
+      <td class="cell">NUL</td>
+      <td class="cell">0000 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">1</td>
+      <td class="cell">1</td>
+      <td class="cell">SOH</td>
+      <td class="cell">SOH</td>
+      <td class="cell">0000 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">2</td>
+      <td class="cell">2</td>
+      <td class="cell">STX</td>
+      <td class="cell">STX</td>
+      <td class="cell">0000 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">3</td>
+      <td class="cell">3</td>
+      <td class="cell">ETX</td>
+      <td class="cell">ETX</td>
+      <td class="cell">0000 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">4</td>
+      <td class="cell">4</td>
+      <td class="cell">EOT</td>
+      <td class="cell">SEL</td>
+      <td class="cell">0000 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">5</td>
+      <td class="cell">5</td>
+      <td class="cell">ENQ</td>
+      <td class="cell">HT</td>
+      <td class="cell">0000 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">6</td>
+      <td class="cell">6</td>
+      <td class="cell">ACK</td>
+      <td class="cell">RNL</td>
+      <td class="cell">0000 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">7</td>
+      <td class="cell">7</td>
+      <td class="cell">BEL</td>
+      <td class="cell">DEL</td>
+      <td class="cell">0000 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">8</td>
+      <td class="cell">8</td>
+      <td class="cell">BS</td>
+      <td class="cell">GE</td>
+      <td class="cell">0000 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">9</td>
+      <td class="cell">9</td>
+      <td class="cell">TAB</td>
+      <td class="cell">SPS</td>
+      <td class="cell">0000 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">10</td>
+      <td class="cell">A</td>
+      <td class="cell">LF</td>
+      <td class="cell">RPT</td>
+      <td class="cell">0000 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">11</td>
+      <td class="cell">B</td>
+      <td class="cell">VT</td>
+      <td class="cell">VT</td>
+      <td class="cell">0000 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">12</td>
+      <td class="cell">C</td>
+      <td class="cell">FF</td>
+      <td class="cell">FF</td>
+      <td class="cell">0000 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">13</td>
+      <td class="cell">D</td>
+      <td class="cell">CR</td>
+      <td class="cell">CR</td>
+      <td class="cell">0000 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">14</td>
+      <td class="cell">E</td>
+      <td class="cell">SO</td>
+      <td class="cell">SO</td>
+      <td class="cell">0000 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">15</td>
+      <td class="cell">F</td>
+      <td class="cell">SI</td>
+      <td class="cell">SI</td>
+      <td class="cell">0000 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">16</td>
+      <td class="cell">10</td>
+      <td class="cell">DLE</td>
+      <td class="cell">DLE</td>
+      <td class="cell">0001 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">17</td>
+      <td class="cell">11</td>
+      <td class="cell">DC1</td>
+      <td class="cell">DC1</td>
+      <td class="cell">0001 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">18</td>
+      <td class="cell">12</td>
+      <td class="cell">DC2</td>
+      <td class="cell">DC2</td>
+      <td class="cell">0001 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">19</td>
+      <td class="cell">13</td>
+      <td class="cell">DC3</td>
+      <td class="cell">DC3</td>
+      <td class="cell">0001 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">20</td>
+      <td class="cell">14</td>
+      <td class="cell">DC4</td>
+      <td class="cell">RES/ENP</td>
+      <td class="cell">0001 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">21</td>
+      <td class="cell">15</td>
+      <td class="cell">NAK</td>
+      <td class="cell">NL</td>
+      <td class="cell">0001 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">22</td>
+      <td class="cell">16</td>
+      <td class="cell">SYN</td>
+      <td class="cell">BS</td>
+      <td class="cell">0001 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">23</td>
+      <td class="cell">17</td>
+      <td class="cell">ETB</td>
+      <td class="cell">POC</td>
+      <td class="cell">0001 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">24</td>
+      <td class="cell">18</td>
+      <td class="cell">CAN</td>
+      <td class="cell">CAN</td>
+      <td class="cell">0001 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">25</td>
+      <td class="cell">19</td>
+      <td class="cell">EM</td>
+      <td class="cell">EM</td>
+      <td class="cell">0001 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">26</td>
+      <td class="cell">1A</td>
+      <td class="cell">SUB</td>
+      <td class="cell">UBS</td>
+      <td class="cell">0001 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">27</td>
+      <td class="cell">1B</td>
+      <td class="cell">ESC</td>
+      <td class="cell">CU1</td>
+      <td class="cell">0001 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">28</td>
+      <td class="cell">1C</td>
+      <td class="cell">FS</td>
+      <td class="cell">IFS</td>
+      <td class="cell">0001 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">29</td>
+      <td class="cell">1D</td>
+      <td class="cell">GS</td>
+      <td class="cell">IGS</td>
+      <td class="cell">0001 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">30</td>
+      <td class="cell">1E</td>
+      <td class="cell">RS</td>
+      <td class="cell">IRS</td>
+      <td class="cell">0001 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">31</td>
+      <td class="cell">1F</td>
+      <td class="cell">US</td>
+      <td class="cell">ITB/IUS</td>
+      <td class="cell">0001 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">32</td>
+      <td class="cell">20</td>
+      <td class="cell"></td>
+      <td class="cell">DS</td>
+      <td class="cell">0010 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">33</td>
+      <td class="cell">21</td>
+      <td class="cell">!</td>
+      <td class="cell">SOS</td>
+      <td class="cell">0010 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">34</td>
+      <td class="cell">22</td>
+      <td class="cell">&quot;</td>
+      <td class="cell">FS</td>
+      <td class="cell">0010 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">35</td>
+      <td class="cell">23</td>
+      <td class="cell">#</td>
+      <td class="cell">WUS</td>
+      <td class="cell">0010 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">36</td>
+      <td class="cell">24</td>
+      <td class="cell">$</td>
+      <td class="cell">BYP/INP</td>
+      <td class="cell">0010 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">37</td>
+      <td class="cell">25</td>
+      <td class="cell">%</td>
+      <td class="cell">LF</td>
+      <td class="cell">0010 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">38</td>
+      <td class="cell">26</td>
+      <td class="cell">&amp;</td>
+      <td class="cell">ETB</td>
+      <td class="cell">0010 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">39</td>
+      <td class="cell">27</td>
+      <td class="cell">'</td>
+      <td class="cell">ESC</td>
+      <td class="cell">0010 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">40</td>
+      <td class="cell">28</td>
+      <td class="cell">(</td>
+      <td class="cell">SA</td>
+      <td class="cell">0010 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">41</td>
+      <td class="cell">29</td>
+      <td class="cell">)</td>
+      <td class="cell">SFE</td>
+      <td class="cell">0010 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">42</td>
+      <td class="cell">2A</td>
+      <td class="cell">*</td>
+      <td class="cell">SM/SW</td>
+      <td class="cell">0010 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">43</td>
+      <td class="cell">2B</td>
+      <td class="cell">+</td>
+      <td class="cell">CSP</td>
+      <td class="cell">0010 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">44</td>
+      <td class="cell">2C</td>
+      <td class="cell">,</td>
+      <td class="cell">MFA</td>
+      <td class="cell">0010 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">45</td>
+      <td class="cell">2D</td>
+      <td class="cell">-</td>
+      <td class="cell">ENQ</td>
+      <td class="cell">0010 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">46</td>
+      <td class="cell">2E</td>
+      <td class="cell">.</td>
+      <td class="cell">ACK</td>
+      <td class="cell">0010 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">47</td>
+      <td class="cell">2F</td>
+      <td class="cell">/</td>
+      <td class="cell">BEL</td>
+      <td class="cell">0010 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">48</td>
+      <td class="cell">30</td>
+      <td class="cell">0</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0011 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">49</td>
+      <td class="cell">31</td>
+      <td class="cell">1</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0011 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">50</td>
+      <td class="cell">32</td>
+      <td class="cell">2</td>
+      <td class="cell">SYN</td>
+      <td class="cell">0011 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">51</td>
+      <td class="cell">33</td>
+      <td class="cell">3</td>
+      <td class="cell">IR</td>
+      <td class="cell">0011 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">52</td>
+      <td class="cell">34</td>
+      <td class="cell">4</td>
+      <td class="cell">PP</td>
+      <td class="cell">0011 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">53</td>
+      <td class="cell">35</td>
+      <td class="cell">5</td>
+      <td class="cell">TRN</td>
+      <td class="cell">0011 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">54</td>
+      <td class="cell">36</td>
+      <td class="cell">6</td>
+      <td class="cell">NBS</td>
+      <td class="cell">0011 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">55</td>
+      <td class="cell">37</td>
+      <td class="cell">7</td>
+      <td class="cell">EOT</td>
+      <td class="cell">0011 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">56</td>
+      <td class="cell">38</td>
+      <td class="cell">8</td>
+      <td class="cell">SBS</td>
+      <td class="cell">0011 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">57</td>
+      <td class="cell">39</td>
+      <td class="cell">9</td>
+      <td class="cell">IT</td>
+      <td class="cell">0011 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">58</td>
+      <td class="cell">3A</td>
+      <td class="cell">:</td>
+      <td class="cell">RFF</td>
+      <td class="cell">0011 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">59</td>
+      <td class="cell">3B</td>
+      <td class="cell">;</td>
+      <td class="cell">CU3</td>
+      <td class="cell">0011 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">60</td>
+      <td class="cell">3C</td>
+      <td class="cell">&lt;</td>
+      <td class="cell">DC4</td>
+      <td class="cell">0011 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">61</td>
+      <td class="cell">3D</td>
+      <td class="cell">=</td>
+      <td class="cell">NAK</td>
+      <td class="cell">0011 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">62</td>
+      <td class="cell">3E</td>
+      <td class="cell">&gt;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0011 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">63</td>
+      <td class="cell">3F</td>
+      <td class="cell">?</td>
+      <td class="cell">SUB</td>
+      <td class="cell">0011 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">64</td>
+      <td class="cell">40</td>
+      <td class="cell">@</td>
+      <td class="cell">SP</td>
+      <td class="cell">0100 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">65</td>
+      <td class="cell">41</td>
+      <td class="cell">A</td>
+      <td class="cell">RSP</td>
+      <td class="cell">0100 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">66</td>
+      <td class="cell">42</td>
+      <td class="cell">B</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0100 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">67</td>
+      <td class="cell">43</td>
+      <td class="cell">C</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0100 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">68</td>
+      <td class="cell">44</td>
+      <td class="cell">D</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0100 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">69</td>
+      <td class="cell">45</td>
+      <td class="cell">E</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0100 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">70</td>
+      <td class="cell">46</td>
+      <td class="cell">F</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0100 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">71</td>
+      <td class="cell">47</td>
+      <td class="cell">G</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0100 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">72</td>
+      <td class="cell">48</td>
+      <td class="cell">H</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0100 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">73</td>
+      <td class="cell">49</td>
+      <td class="cell">I</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0100 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">74</td>
+      <td class="cell">4A</td>
+      <td class="cell">J</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0100 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">75</td>
+      <td class="cell">4B</td>
+      <td class="cell">K</td>
+      <td class="cell">.</td>
+      <td class="cell">0100 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">76</td>
+      <td class="cell">4C</td>
+      <td class="cell">L</td>
+      <td class="cell">&lt;</td>
+      <td class="cell">0100 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">77</td>
+      <td class="cell">4D</td>
+      <td class="cell">M</td>
+      <td class="cell">(</td>
+      <td class="cell">0100 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">78</td>
+      <td class="cell">4E</td>
+      <td class="cell">N</td>
+      <td class="cell">+</td>
+      <td class="cell">0100 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">79</td>
+      <td class="cell">4F</td>
+      <td class="cell">O</td>
+      <td class="cell">|</td>
+      <td class="cell">0100 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">80</td>
+      <td class="cell">50</td>
+      <td class="cell">P</td>
+      <td class="cell">&amp;</td>
+      <td class="cell">0101 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">81</td>
+      <td class="cell">51</td>
+      <td class="cell">Q</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0101 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">82</td>
+      <td class="cell">52</td>
+      <td class="cell">R</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0101 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">83</td>
+      <td class="cell">53</td>
+      <td class="cell">S</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0101 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">84</td>
+      <td class="cell">54</td>
+      <td class="cell">T</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0101 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">85</td>
+      <td class="cell">55</td>
+      <td class="cell">U</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0101 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">86</td>
+      <td class="cell">56</td>
+      <td class="cell">V</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0101 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">87</td>
+      <td class="cell">57</td>
+      <td class="cell">W</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0101 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">88</td>
+      <td class="cell">58</td>
+      <td class="cell">X</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0101 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">89</td>
+      <td class="cell">59</td>
+      <td class="cell">Y</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0101 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">90</td>
+      <td class="cell">5A</td>
+      <td class="cell">Z</td>
+      <td class="cell">!</td>
+      <td class="cell">0101 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">91</td>
+      <td class="cell">5B</td>
+      <td class="cell">[</td>
+      <td class="cell">$</td>
+      <td class="cell">0101 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">92</td>
+      <td class="cell">5C</td>
+      <td class="cell">\</td>
+      <td class="cell">*</td>
+      <td class="cell">0101 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">93</td>
+      <td class="cell">5D</td>
+      <td class="cell">]</td>
+      <td class="cell">)</td>
+      <td class="cell">0101 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">94</td>
+      <td class="cell">5E</td>
+      <td class="cell">^</td>
+      <td class="cell">;</td>
+      <td class="cell">0101 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">95</td>
+      <td class="cell">5F</td>
+      <td class="cell">_</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0101 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">96</td>
+      <td class="cell">60</td>
+      <td class="cell">`</td>
+      <td class="cell">_</td>
+      <td class="cell">0110 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">97</td>
+      <td class="cell">61</td>
+      <td class="cell">a</td>
+      <td class="cell">/</td>
+      <td class="cell">0110 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">98</td>
+      <td class="cell">62</td>
+      <td class="cell">b</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0110 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">99</td>
+      <td class="cell">63</td>
+      <td class="cell">c</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0110 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">100</td>
+      <td class="cell">64</td>
+      <td class="cell">d</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0110 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">101</td>
+      <td class="cell">65</td>
+      <td class="cell">e</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0110 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">102</td>
+      <td class="cell">66</td>
+      <td class="cell">f</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0110 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">103</td>
+      <td class="cell">67</td>
+      <td class="cell">g</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0110 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">104</td>
+      <td class="cell">68</td>
+      <td class="cell">h</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0110 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">105</td>
+      <td class="cell">69</td>
+      <td class="cell">i</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0110 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">106</td>
+      <td class="cell">6A</td>
+      <td class="cell">j</td>
+      <td class="cell">|</td>
+      <td class="cell">0110 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">107</td>
+      <td class="cell">6B</td>
+      <td class="cell">k</td>
+      <td class="cell">,</td>
+      <td class="cell">0110 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">108</td>
+      <td class="cell">6C</td>
+      <td class="cell">l</td>
+      <td class="cell">%</td>
+      <td class="cell">0110 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">109</td>
+      <td class="cell">6D</td>
+      <td class="cell">m</td>
+      <td class="cell">_</td>
+      <td class="cell">0110 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">110</td>
+      <td class="cell">6E</td>
+      <td class="cell">n</td>
+      <td class="cell">&gt;</td>
+      <td class="cell">0110 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">111</td>
+      <td class="cell">6F</td>
+      <td class="cell">o</td>
+      <td class="cell">?</td>
+      <td class="cell">0110 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">112</td>
+      <td class="cell">70</td>
+      <td class="cell">p</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0111 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">113</td>
+      <td class="cell">71</td>
+      <td class="cell">q</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0111 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">114</td>
+      <td class="cell">72</td>
+      <td class="cell">r</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0111 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">115</td>
+      <td class="cell">73</td>
+      <td class="cell">s</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0111 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">116</td>
+      <td class="cell">74</td>
+      <td class="cell">t</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0111 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">117</td>
+      <td class="cell">75</td>
+      <td class="cell">u</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0111 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">118</td>
+      <td class="cell">76</td>
+      <td class="cell">v</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0111 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">119</td>
+      <td class="cell">77</td>
+      <td class="cell">w</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0111 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">120</td>
+      <td class="cell">78</td>
+      <td class="cell">x</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0111 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">121</td>
+      <td class="cell">79</td>
+      <td class="cell">y</td>
+      <td class="cell">`</td>
+      <td class="cell">0111 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">122</td>
+      <td class="cell">7A</td>
+      <td class="cell">z</td>
+      <td class="cell">:</td>
+      <td class="cell">0111 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">123</td>
+      <td class="cell">7B</td>
+      <td class="cell">{</td>
+      <td class="cell">#</td>
+      <td class="cell">0111 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">124</td>
+      <td class="cell">7C</td>
+      <td class="cell">|</td>
+      <td class="cell">@</td>
+      <td class="cell">0111 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">125</td>
+      <td class="cell">7D</td>
+      <td class="cell">}</td>
+      <td class="cell">'</td>
+      <td class="cell">0111 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">126</td>
+      <td class="cell">7E</td>
+      <td class="cell">~</td>
+      <td class="cell">=</td>
+      <td class="cell">0111 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">127</td>
+      <td class="cell">7F</td>
+      <td class="cell">DEL</td>
+      <td class="cell">&quot;</td>
+      <td class="cell">0111 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">128</td>
+      <td class="cell">80</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1000 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">129</td>
+      <td class="cell">81</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">a</td>
+      <td class="cell">1000 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">130</td>
+      <td class="cell">82</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">b</td>
+      <td class="cell">1000 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">131</td>
+      <td class="cell">83</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">c</td>
+      <td class="cell">1000 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">132</td>
+      <td class="cell">84</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">d</td>
+      <td class="cell">1000 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">133</td>
+      <td class="cell">85</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">e</td>
+      <td class="cell">1000 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">134</td>
+      <td class="cell">86</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">f</td>
+      <td class="cell">1000 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">135</td>
+      <td class="cell">87</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">g</td>
+      <td class="cell">1000 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">136</td>
+      <td class="cell">88</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">h</td>
+      <td class="cell">1000 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">137</td>
+      <td class="cell">89</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">i</td>
+      <td class="cell">1000 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">138</td>
+      <td class="cell">8A</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1000 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">139</td>
+      <td class="cell">8B</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">{</td>
+      <td class="cell">1000 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">140</td>
+      <td class="cell">8C</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1000 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">141</td>
+      <td class="cell">8D</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1000 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">142</td>
+      <td class="cell">8E</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1000 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">143</td>
+      <td class="cell">8F</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">+</td>
+      <td class="cell">1000 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">144</td>
+      <td class="cell">90</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1001 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">145</td>
+      <td class="cell">91</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">j</td>
+      <td class="cell">1001 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">146</td>
+      <td class="cell">92</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">k</td>
+      <td class="cell">1001 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">147</td>
+      <td class="cell">93</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">l</td>
+      <td class="cell">1001 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">148</td>
+      <td class="cell">94</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">m</td>
+      <td class="cell">1001 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">149</td>
+      <td class="cell">95</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">n</td>
+      <td class="cell">1001 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">150</td>
+      <td class="cell">96</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">o</td>
+      <td class="cell">1001 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">151</td>
+      <td class="cell">97</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">p</td>
+      <td class="cell">1001 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">152</td>
+      <td class="cell">98</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">q</td>
+      <td class="cell">1001 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">153</td>
+      <td class="cell">99</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">r</td>
+      <td class="cell">1001 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">154</td>
+      <td class="cell">9A</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1001 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">155</td>
+      <td class="cell">9B</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">}</td>
+      <td class="cell">1001 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">156</td>
+      <td class="cell">9C</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1001 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">157</td>
+      <td class="cell">9D</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1001 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">158</td>
+      <td class="cell">9E</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1001 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">159</td>
+      <td class="cell">9F</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1001 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">160</td>
+      <td class="cell">A0</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1010 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">161</td>
+      <td class="cell">A1</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1010 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">162</td>
+      <td class="cell">A2</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">s</td>
+      <td class="cell">1010 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">163</td>
+      <td class="cell">A3</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">t</td>
+      <td class="cell">1010 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">164</td>
+      <td class="cell">A4</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">u</td>
+      <td class="cell">1010 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">165</td>
+      <td class="cell">A5</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">v</td>
+      <td class="cell">1010 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">166</td>
+      <td class="cell">A6</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">w</td>
+      <td class="cell">1010 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">167</td>
+      <td class="cell">A7</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">x</td>
+      <td class="cell">1010 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">168</td>
+      <td class="cell">A8</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">y</td>
+      <td class="cell">1010 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">169</td>
+      <td class="cell">A9</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">z</td>
+      <td class="cell">1010 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">170</td>
+      <td class="cell">AA</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1010 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">171</td>
+      <td class="cell">AB</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1010 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">172</td>
+      <td class="cell">AC</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1010 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">173</td>
+      <td class="cell">AD</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">[</td>
+      <td class="cell">1010 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">174</td>
+      <td class="cell">AE</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1010 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">175</td>
+      <td class="cell">AF</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1010 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">176</td>
+      <td class="cell">B0</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">177</td>
+      <td class="cell">B1</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">178</td>
+      <td class="cell">B2</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">179</td>
+      <td class="cell">B3</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">180</td>
+      <td class="cell">B4</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">181</td>
+      <td class="cell">B5</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">182</td>
+      <td class="cell">B6</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">183</td>
+      <td class="cell">B7</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">184</td>
+      <td class="cell">B8</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">185</td>
+      <td class="cell">B9</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">186</td>
+      <td class="cell">BA</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">187</td>
+      <td class="cell">BB</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">188</td>
+      <td class="cell">BC</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">189</td>
+      <td class="cell">BD</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">190</td>
+      <td class="cell">BE</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">191</td>
+      <td class="cell">BF</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1011 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">192</td>
+      <td class="cell">C0</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1100 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">193</td>
+      <td class="cell">C1</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">A</td>
+      <td class="cell">1100 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">194</td>
+      <td class="cell">C2</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">B</td>
+      <td class="cell">1100 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">195</td>
+      <td class="cell">C3</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">C</td>
+      <td class="cell">1100 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">196</td>
+      <td class="cell">C4</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">D</td>
+      <td class="cell">1100 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">197</td>
+      <td class="cell">C5</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">E</td>
+      <td class="cell">1100 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">198</td>
+      <td class="cell">C6</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">F</td>
+      <td class="cell">1100 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">199</td>
+      <td class="cell">C7</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">G</td>
+      <td class="cell">1100 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">200</td>
+      <td class="cell">C8</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">H</td>
+      <td class="cell">1100 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">201</td>
+      <td class="cell">C9</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">I</td>
+      <td class="cell">1100 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">202</td>
+      <td class="cell">CA</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1100 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">203</td>
+      <td class="cell">CB</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1100 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">204</td>
+      <td class="cell">CC</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1100 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">205</td>
+      <td class="cell">CD</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1100 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">206</td>
+      <td class="cell">CE</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1100 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">207</td>
+      <td class="cell">CF</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1100 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">208</td>
+      <td class="cell">D0</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1101 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">209</td>
+      <td class="cell">D1</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">J</td>
+      <td class="cell">1101 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">210</td>
+      <td class="cell">D2</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">K</td>
+      <td class="cell">1101 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">211</td>
+      <td class="cell">D3</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">L</td>
+      <td class="cell">1101 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">212</td>
+      <td class="cell">D4</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">M</td>
+      <td class="cell">1101 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">213</td>
+      <td class="cell">D5</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">N</td>
+      <td class="cell">1101 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">214</td>
+      <td class="cell">D6</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">O</td>
+      <td class="cell">1101 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">215</td>
+      <td class="cell">D7</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">P</td>
+      <td class="cell">1101 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">216</td>
+      <td class="cell">D8</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">Q</td>
+      <td class="cell">1101 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">217</td>
+      <td class="cell">D9</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">R</td>
+      <td class="cell">1101 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">218</td>
+      <td class="cell">DA</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1101 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">219</td>
+      <td class="cell">DB</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1101 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">220</td>
+      <td class="cell">DC</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1101 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">221</td>
+      <td class="cell">DD</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1101 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">222</td>
+      <td class="cell">DE</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1101 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">223</td>
+      <td class="cell">DF</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1101 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">224</td>
+      <td class="cell">E0</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1110 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">225</td>
+      <td class="cell">E1</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1110 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">226</td>
+      <td class="cell">E2</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">S</td>
+      <td class="cell">1110 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">227</td>
+      <td class="cell">E3</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">T</td>
+      <td class="cell">1110 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">228</td>
+      <td class="cell">E4</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">U</td>
+      <td class="cell">1110 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">229</td>
+      <td class="cell">E5</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">V</td>
+      <td class="cell">1110 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">230</td>
+      <td class="cell">E6</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">W</td>
+      <td class="cell">1110 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">231</td>
+      <td class="cell">E7</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">X</td>
+      <td class="cell">1110 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">232</td>
+      <td class="cell">E8</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">Y</td>
+      <td class="cell">1110 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">233</td>
+      <td class="cell">E9</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">Z</td>
+      <td class="cell">1110 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">234</td>
+      <td class="cell">EA</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1110 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">235</td>
+      <td class="cell">EB</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1110 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">236</td>
+      <td class="cell">EC</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1110 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">237</td>
+      <td class="cell">ED</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1110 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">238</td>
+      <td class="cell">EE</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1110 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">239</td>
+      <td class="cell">EF</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1110 1111</td>
+    </tr>
+    <tr>
+      <td class="cell">240</td>
+      <td class="cell">F0</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">0</td>
+      <td class="cell">1111 0000</td>
+    </tr>
+    <tr>
+      <td class="cell">241</td>
+      <td class="cell">F1</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1</td>
+      <td class="cell">1111 0001</td>
+    </tr>
+    <tr>
+      <td class="cell">242</td>
+      <td class="cell">F2</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">2</td>
+      <td class="cell">1111 0010</td>
+    </tr>
+    <tr>
+      <td class="cell">243</td>
+      <td class="cell">F3</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">3</td>
+      <td class="cell">1111 0011</td>
+    </tr>
+    <tr>
+      <td class="cell">244</td>
+      <td class="cell">F4</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">4</td>
+      <td class="cell">1111 0100</td>
+    </tr>
+    <tr>
+      <td class="cell">245</td>
+      <td class="cell">F5</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">5</td>
+      <td class="cell">1111 0101</td>
+    </tr>
+    <tr>
+      <td class="cell">246</td>
+      <td class="cell">F6</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">6</td>
+      <td class="cell">1111 0110</td>
+    </tr>
+    <tr>
+      <td class="cell">247</td>
+      <td class="cell">F7</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">7</td>
+      <td class="cell">1111 0111</td>
+    </tr>
+    <tr>
+      <td class="cell">248</td>
+      <td class="cell">F8</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">8</td>
+      <td class="cell">1111 1000</td>
+    </tr>
+    <tr>
+      <td class="cell">249</td>
+      <td class="cell">F9</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">9</td>
+      <td class="cell">1111 1001</td>
+    </tr>
+    <tr>
+      <td class="cell">250</td>
+      <td class="cell">FA</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1111 1010</td>
+    </tr>
+    <tr>
+      <td class="cell">251</td>
+      <td class="cell">FB</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1111 1011</td>
+    </tr>
+    <tr>
+      <td class="cell">252</td>
+      <td class="cell">FC</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1111 1100</td>
+    </tr>
+    <tr>
+      <td class="cell">253</td>
+      <td class="cell">FD</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1111 1101</td>
+    </tr>
+    <tr>
+      <td class="cell">254</td>
+      <td class="cell">FE</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1111 1110</td>
+    </tr>
+    <tr>
+      <td class="cell">255</td>
+      <td class="cell">FF</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">&nbsp;</td>
+      <td class="cell">1111 1111</td>
+    </tr>
+  </table>
 </body>
+
 </html>

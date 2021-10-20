@@ -1,406 +1,515 @@
 <html>
 <!-- DW6 -->
+
 <head>
-<title>VSS、CVS、Firefly中的扩展关键字</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</style>
+  <title>VSS、CVS、Firefly中的扩展关键字</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1 style1">VSS、CVS、Firefly中的扩展关键字</p> 
-<hr> 
-<p><strong>1 概述</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;源代码管理控制系统中一般都提供了关键字扩展功能，这里从它们的手册中摘录了支持的关键字列表，供参考。</p>
-<p><strong>2 VSS</strong></p>
-<table width="80%" border=1 align="center" cellpadding=0 cellspacing="0">
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Archive: $</span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>VSS archive file location</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Author: $ </span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>User who last changed the file</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Date: $ </span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>Date and time of last checkin</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Header: $ </span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>Logfile, Revision, Date, Author</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$History: $ </span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>File history, VSS format</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$JustDate: $</span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>Date, without the time addendum.</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Log: $&nbsp; </span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>File history, RCS format</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Logfile: $ </span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>Same as Archive</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Modtime: $ </span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>Date and time of last modification</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Revision: $ </span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>VSS version number</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Workfile: $ </span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>File name</span></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$NoKeywords: $</span></p></td>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>No keyword expansion for all keywords that follow </span></p></td>
-  </tr>
-</table>
-<p><strong>3 CVS</strong></p>
-<table width="80%" border=1 align="center" cellpadding=0 cellspacing="0">
-  <tr>
-    <td width="98" valign=top class="Normal">
-      <p><span lang=EN-US>$Author: $ </span></p></td>
-    <td width="392" valign=top class="Normal">
-    <p>The login name of the user who checked in the revision.</p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Date: $ </span></p></td>
-    <td valign=top class="Normal">
-    <p>The date and time (UTC) the revision was checked in.</p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-      <p><span lang=EN-US>$Header: $ </span></p></td>
-    <td valign=top class="Normal">
-      <p>A standard header containing the full pathname of the RCS file, the revision number, the date (UTC), the author, the state, and the locker (if locked). Files will normally never be locked when you use CVS. </p>
-    <p></p></td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-    <p>$Id$ </p></td>
-    <td valign=top class="Normal">
-      <p>Same as $Header$, except that the RCS filename is without a path. </p>    </td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-    <p>$Name$ </p></td>
-    <td valign=top class="Normal">
-      <p>Tag name used to check out this file.</p>    </td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-    <p>$Locker$ </p></td>
-    <td valign=top class="Normal">
-      <p>The login name of the user who locked the revision (empty if not locked, and thus almost always useless when you are using CVS). </p>    </td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-    <p>$Log$ </p></td>
-    <td valign=top class="Normal">
-      <p>The log message supplied during commit, preceded by a header containing the RCS filename, the revision number, the author, and the date (UTC). Existing log messages are not replaced. Instead, the new log message is inserted after $Log:...$. Each new line is prefixed with the same string which precedes the $Log keyword. For example, if the file contains </p>
-      <p> /* Here is what people have been up to:<br>
-      &nbsp;*<br>
-      &nbsp;* $Log: frob.c,v $<br>
-      &nbsp;* Revision 1.1 1997/01/03 14:23:51 joe<br>
-      &nbsp;* Add the superfrobnicate option<br>
-      &nbsp;*<br>
-       &nbsp;*/<br>
-       <br>
-    then additional lines which are added when expanding the $Log keyword will be preceded by ` * '. Unlike previous versions of CVS and RCS, the comment leader from the RCS file is not used. The $Log keyword is useful for accumulating a complete change log in a source file, but for several reasons it can be problematic. See section Problems with the $Log$ keyword.</p>    </td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-    <p>$RCSfile$ </p></td>
-    <td valign=top class="Normal">
-      <p>The name of the RCS file without a path. </p>    </td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-    <p>$Revision$ </p></td>
-    <td valign=top class="Normal">
-      <p>The revision number assigned to the revision. </p>    </td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-    <p>$Source$ </p></td>
-    <td valign=top class="Normal">
-      <p>The full pathname of the RCS file. </p>    </td>
-  </tr>
-  <tr>
-    <td valign=top class="Normal">
-    <p>$State$ </p></td>
-    <td valign=top class="Normal">
-      <p>The state assigned to the revision. States can be assigned with cvs admin -s---see section admin options. </p>    </td>
-  </tr>
-</table>
-<p><strong>4 Firefly</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Firefly的关键字和SCCS的关键字基本兼容。关键字的具体含义和用法如下表所示：</p>
-<table width=80% border=1 align="center" cellpadding=0 cellspacing=0>
-  <tr>
-    <td colspan=2 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>版本号</span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%I% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>版本号</span><span
-  style='font-size:10.5pt;font-family:"Times New Roman"'> </span></p>
-      <p><span style='font-size:10.5pt;"Times New Roman"'>例如：版本号为</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>1.72</span><span
-  style='font-size:10.5pt;"Times New Roman"'>，“</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>1</span><span
-  style='font-size:10.5pt;"Times New Roman"'>”是版本号中的发布号，</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>Firefly</span><span
-  style='font-size:10.5pt;"Times New Roman"'>的发布号永远是</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>1</span><span
-  style='font-size:10.5pt;"Times New Roman"'>。“</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>72</span><span
-  style='font-size:10.5pt;"Times New Roman"'>”</span><span
-  style='font-size:10.5pt;font-family:"Times New Roman"'> </span><span
-  style='font-size:10.5pt;"Times New Roman"'>是版本号中的级别号，实际上是指该文件到根版本的距离、或深度。在</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>SCCS</span><span
-  style='font-size:10.5pt;"Times New Roman"'>，</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>SID</span><span
-  style='font-size:10.5pt;"Times New Roman"'>是包括</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>R.L.B.S. </span><span
-  style='font-size:10.5pt;"Times New Roman"'>而</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>‘R'</span><span
-  style='font-size:10.5pt;"Times New Roman"'>，</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>‘L'</span><span
-  style='font-size:10.5pt;"Times New Roman"'>，</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>‘B'</span><span
-  style='font-size:10.5pt;"Times New Roman"'>，</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>‘S'</span><span
-  style='font-size:10.5pt;"Times New Roman"'>分别是指</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>‘release'</span><span
-  style='font-size:10.5pt;"Times New Roman"'>，</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>‘level'</span><span
-  style='font-size:10.5pt;"Times New Roman"'>，</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>‘branch'</span><span
-  style='font-size:10.5pt;"Times New Roman"'>，</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>‘sequence'</span><span
-  style='font-size:10.5pt;"Times New Roman"'>。</span><span
-  style='font-size:10.5pt;font-family:"Times New Roman"'> <br>
-        <br>
-      </span><span style='font-size:10.5pt;"Times New Roman"'>在</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>Firefly</span><span
-  style='font-size:10.5pt;"Times New Roman"'>中</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>Branch </span><span
-  style='font-size:10.5pt;"Times New Roman"'>和</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>Sequence</span><span
-  style='font-size:10.5pt;"Times New Roman"'>是被忽略的。</span></p>
-    </td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%R% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>版本号中的发布号</span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%L% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>版本号中的级别号</span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%B% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>版本号中的分支号</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>(</span><span
-  style='font-size:10.5pt;"Times New Roman"'>在</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>Firefly</span><span
-  style='font-size:10.5pt;"Times New Roman"'>中忽略</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>) </span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%S% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>版本号中的序列号</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>(</span><span
-  style='font-size:10.5pt;"Times New Roman"'>在</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>Firefly</span><span
-  style='font-size:10.5pt;"Times New Roman"'>中忽略</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>) </span></p></td>
-  </tr>
-  <tr>
-    <td colspan=2 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>文件名</span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%M% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>文件名。例如：</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>String.java </span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%P%, %F% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>文件在</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>workspace</span><span
-  style='font-size:10.5pt;"Times New Roman"'>中的绝对路径例如：</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>java/lang/String.java </span></p></td>
-  </tr>
-  <tr>
-    <td colspan=2 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>时间和日期</span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%T% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>HH:mm:ss</span><span
-  style='font-size:10.5pt;"Times New Roman"'>格式表示当前时间例如：</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>11:23:45 </span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%U% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>HH:mm:ss</span><span
-  style='font-size:10.5pt;"Times New Roman"'>格式表示最新的</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman";color:red'>delta</span><span
-  style='font-size:10.5pt;"Times New Roman"'>被建立的时间例如：</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>11:23:45 </span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%D% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>yyyy/mm/dd</span><span
-  style='font-size:10.5pt;"Times New Roman"'>格式表示当前的日期例如：</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>2000/07/19 </span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%E% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>yyyy/mm/dd</span><span
-  style='font-size:10.5pt;"Times New Roman"'>格式表示最新的</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman";color:red'>delta</span><span
-  style='font-size:10.5pt;"Times New Roman"'>被建立的日期例如：</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>2000/07/19 </span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%H% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>mm/dd/yyyy</span><span
-  style='font-size:10.5pt;"Times New Roman"'>格式表示当前的日期例如：</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>07/19/2000 </span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%G% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>mm/dd/yyyy</span><span
-  style='font-size:10.5pt;"Times New Roman"'>格式表示最新的</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman";color:red'>delta</span><span
-  style='font-size:10.5pt;"Times New Roman"'>被建立的日期例如：</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>07/19/2000 </span></p></td>
-  </tr>
-  <tr>
-    <td colspan=2 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>其它</span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%Z% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>在</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>Unix</span><span
-  style='font-size:10.5pt;"Times New Roman"'>下使用的命令，表示一个字符串</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>@(#)</span><span
-  style='font-size:10.5pt;"Times New Roman"'>。用于</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>Unix</span><span
-  style='font-size:10.5pt;"Times New Roman"'>中的</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>what</span><span
-  style='font-size:10.5pt;"Times New Roman"'>目录。</span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%Y% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span style='font-size:10.5pt;"Times New Roman"'>二进制文件或文本文件。</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>text|binary </span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%A% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%Z%%Y%%M%%I%%Z%</span><span
-  style='font-size:10.5pt;"Times New Roman"'>的组合</span><span
-  style='font-size:10.5pt;font-family:"Times New Roman"'> </span></p>
-      <p><span style='font-size:10.5pt;"Times New Roman"'>例如：</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'> @(#)text fly.html 1.42@(#)</span><span style='font-size:10.5pt;"Times New Roman"'>。</span></p></td>
-  </tr>
-  <tr>
-    <td width=74 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%W% </span></p></td>
-    <td width=519 valign=top class="Normal">
-      <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%Z%%M%%I%</span><span
-  style='font-size:10.5pt;"Times New Roman"'>的组合</span><span
-  style='font-size:10.5pt;font-family:"Times New Roman"'> </span></p>
-      <p><span style='font-size:10.5pt;"Times New Roman"'>例如：</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'> @(#)fly.html 1.42 </span></p></td>
-  </tr>
-</table>
-<p><strong>参考文献：</strong></p>
-<p>1、Microsoft Visual Source Safe 联机文档<br>
-2、CVS 联机文档<br>
-3、Hansky Firefly 联机文档</p>
-<div align="center"> 
-  <hr> 
-  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br> 
-    Last modified on
-    <!-- #BeginDate format:fcIS1 -->Friday, 2004-09-10<!-- #EndDate --> 
-  </div> 
-</div> 
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1 style1">VSS、CVS、Firefly中的扩展关键字</p>
+  <hr>
+  <p><strong>1 概述</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;源代码管理控制系统中一般都提供了关键字扩展功能，这里从它们的手册中摘录了支持的关键字列表，供参考。</p>
+  <p><strong>2 VSS</strong></p>
+  <table width="80%" border=1 align="center" cellpadding=0 cellspacing="0">
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Archive: $</span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>VSS archive file location</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Author: $ </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>User who last changed the file</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Date: $ </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>Date and time of last checkin</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Header: $ </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>Logfile, Revision, Date, Author</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$History: $ </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>File history, VSS format</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$JustDate: $</span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>Date, without the time addendum.</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Log: $&nbsp; </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>File history, RCS format</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Logfile: $ </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>Same as Archive</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Modtime: $ </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>Date and time of last modification</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Revision: $ </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>VSS version number</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Workfile: $ </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>File name</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$NoKeywords: $</span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>No keyword expansion for all keywords that follow </span></p>
+      </td>
+    </tr>
+  </table>
+  <p><strong>3 CVS</strong></p>
+  <table width="80%" border=1 align="center" cellpadding=0 cellspacing="0">
+    <tr>
+      <td width="98" valign=top class="Normal">
+        <p><span lang=EN-US>$Author: $ </span></p>
+      </td>
+      <td width="392" valign=top class="Normal">
+        <p>The login name of the user who checked in the revision.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Date: $ </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p>The date and time (UTC) the revision was checked in.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p><span lang=EN-US>$Header: $ </span></p>
+      </td>
+      <td valign=top class="Normal">
+        <p>A standard header containing the full pathname of the RCS file, the revision number, the date (UTC), the
+          author, the state, and the locker (if locked). Files will normally never be locked when you use CVS. </p>
+        <p></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p>$Id$ </p>
+      </td>
+      <td valign=top class="Normal">
+        <p>Same as $Header$, except that the RCS filename is without a path. </p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p>$Name$ </p>
+      </td>
+      <td valign=top class="Normal">
+        <p>Tag name used to check out this file.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p>$Locker$ </p>
+      </td>
+      <td valign=top class="Normal">
+        <p>The login name of the user who locked the revision (empty if not locked, and thus almost always useless when
+          you are using CVS). </p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p>$Log$ </p>
+      </td>
+      <td valign=top class="Normal">
+        <p>The log message supplied during commit, preceded by a header containing the RCS filename, the revision
+          number, the author, and the date (UTC). Existing log messages are not replaced. Instead, the new log message
+          is inserted after $Log:...$. Each new line is prefixed with the same string which precedes the $Log keyword.
+          For example, if the file contains </p>
+        <p> /* Here is what people have been up to:<br>
+          &nbsp;*<br>
+          &nbsp;* $Log: frob.c,v $<br>
+          &nbsp;* Revision 1.1 1997/01/03 14:23:51 joe<br>
+          &nbsp;* Add the superfrobnicate option<br>
+          &nbsp;*<br>
+          &nbsp;*/<br>
+          <br>
+          then additional lines which are added when expanding the $Log keyword will be preceded by ` * '. Unlike
+          previous versions of CVS and RCS, the comment leader from the RCS file is not used. The $Log keyword is useful
+          for accumulating a complete change log in a source file, but for several reasons it can be problematic. See
+          section Problems with the $Log$ keyword.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p>$RCSfile$ </p>
+      </td>
+      <td valign=top class="Normal">
+        <p>The name of the RCS file without a path. </p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p>$Revision$ </p>
+      </td>
+      <td valign=top class="Normal">
+        <p>The revision number assigned to the revision. </p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p>$Source$ </p>
+      </td>
+      <td valign=top class="Normal">
+        <p>The full pathname of the RCS file. </p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="Normal">
+        <p>$State$ </p>
+      </td>
+      <td valign=top class="Normal">
+        <p>The state assigned to the revision. States can be assigned with cvs admin -s---see section admin options.
+        </p>
+      </td>
+    </tr>
+  </table>
+  <p><strong>4 Firefly</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;Firefly的关键字和SCCS的关键字基本兼容。关键字的具体含义和用法如下表所示：</p>
+  <table width=80% border=1 align="center" cellpadding=0 cellspacing=0>
+    <tr>
+      <td colspan=2 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>版本号</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%I% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>版本号</span><span
+            style='font-size:10.5pt;font-family:"Times New Roman"'> </span></p>
+        <p><span style='font-size:10.5pt;"Times New Roman"'>例如：版本号为</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>1.72</span><span
+            style='font-size:10.5pt;"Times New Roman"'>，“</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>1</span><span
+            style='font-size:10.5pt;"Times New Roman"'>”是版本号中的发布号，</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>Firefly</span><span
+            style='font-size:10.5pt;"Times New Roman"'>的发布号永远是</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>1</span><span
+            style='font-size:10.5pt;"Times New Roman"'>。“</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>72</span><span
+            style='font-size:10.5pt;"Times New Roman"'>”</span><span
+            style='font-size:10.5pt;font-family:"Times New Roman"'> </span><span
+            style='font-size:10.5pt;"Times New Roman"'>是版本号中的级别号，实际上是指该文件到根版本的距离、或深度。在</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>SCCS</span><span
+            style='font-size:10.5pt;"Times New Roman"'>，</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>SID</span><span
+            style='font-size:10.5pt;"Times New Roman"'>是包括</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>R.L.B.S. </span><span
+            style='font-size:10.5pt;"Times New Roman"'>而</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>‘R'</span><span
+            style='font-size:10.5pt;"Times New Roman"'>，</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>‘L'</span><span
+            style='font-size:10.5pt;"Times New Roman"'>，</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>‘B'</span><span
+            style='font-size:10.5pt;"Times New Roman"'>，</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>‘S'</span><span
+            style='font-size:10.5pt;"Times New Roman"'>分别是指</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>‘release'</span><span
+            style='font-size:10.5pt;"Times New Roman"'>，</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>‘level'</span><span
+            style='font-size:10.5pt;"Times New Roman"'>，</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>‘branch'</span><span
+            style='font-size:10.5pt;"Times New Roman"'>，</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>‘sequence'</span><span
+            style='font-size:10.5pt;"Times New Roman"'>。</span><span
+            style='font-size:10.5pt;font-family:"Times New Roman"'> <br>
+            <br>
+          </span><span style='font-size:10.5pt;"Times New Roman"'>在</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>Firefly</span><span
+            style='font-size:10.5pt;"Times New Roman"'>中</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>Branch </span><span
+            style='font-size:10.5pt;"Times New Roman"'>和</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>Sequence</span><span
+            style='font-size:10.5pt;"Times New Roman"'>是被忽略的。</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%R% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>版本号中的发布号</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%L% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>版本号中的级别号</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%B% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>版本号中的分支号</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>(</span><span
+            style='font-size:10.5pt;"Times New Roman"'>在</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>Firefly</span><span
+            style='font-size:10.5pt;"Times New Roman"'>中忽略</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>) </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%S% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>版本号中的序列号</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>(</span><span
+            style='font-size:10.5pt;"Times New Roman"'>在</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>Firefly</span><span
+            style='font-size:10.5pt;"Times New Roman"'>中忽略</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>) </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>文件名</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%M% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>文件名。例如：</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>String.java </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%P%, %F% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>文件在</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>workspace</span><span
+            style='font-size:10.5pt;"Times New Roman"'>中的绝对路径例如：</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>java/lang/String.java </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>时间和日期</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%T% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>HH:mm:ss</span><span
+            style='font-size:10.5pt;"Times New Roman"'>格式表示当前时间例如：</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>11:23:45 </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%U% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>HH:mm:ss</span><span
+            style='font-size:10.5pt;"Times New Roman"'>格式表示最新的</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman";color:red'>delta</span><span
+            style='font-size:10.5pt;"Times New Roman"'>被建立的时间例如：</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>11:23:45 </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%D% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>yyyy/mm/dd</span><span
+            style='font-size:10.5pt;"Times New Roman"'>格式表示当前的日期例如：</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>2000/07/19 </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%E% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>yyyy/mm/dd</span><span
+            style='font-size:10.5pt;"Times New Roman"'>格式表示最新的</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman";color:red'>delta</span><span
+            style='font-size:10.5pt;"Times New Roman"'>被建立的日期例如：</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>2000/07/19 </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%H% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>mm/dd/yyyy</span><span
+            style='font-size:10.5pt;"Times New Roman"'>格式表示当前的日期例如：</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>07/19/2000 </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%G% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>用</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>mm/dd/yyyy</span><span
+            style='font-size:10.5pt;"Times New Roman"'>格式表示最新的</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman";color:red'>delta</span><span
+            style='font-size:10.5pt;"Times New Roman"'>被建立的日期例如：</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>07/19/2000 </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>其它</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%Z% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>在</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>Unix</span><span
+            style='font-size:10.5pt;"Times New Roman"'>下使用的命令，表示一个字符串</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>@(#)</span><span
+            style='font-size:10.5pt;"Times New Roman"'>。用于</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>Unix</span><span
+            style='font-size:10.5pt;"Times New Roman"'>中的</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>what</span><span
+            style='font-size:10.5pt;"Times New Roman"'>目录。</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%Y% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span style='font-size:10.5pt;"Times New Roman"'>二进制文件或文本文件。</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'>text|binary </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%A% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%Z%%Y%%M%%I%%Z%</span><span
+            style='font-size:10.5pt;"Times New Roman"'>的组合</span><span
+            style='font-size:10.5pt;font-family:"Times New Roman"'> </span></p>
+        <p><span style='font-size:10.5pt;"Times New Roman"'>例如：</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'> @(#)text fly.html 1.42@(#)</span><span
+            style='font-size:10.5pt;"Times New Roman"'>。</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=74 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%W% </span></p>
+      </td>
+      <td width=519 valign=top class="Normal">
+        <p><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman"'>%Z%%M%%I%</span><span
+            style='font-size:10.5pt;"Times New Roman"'>的组合</span><span
+            style='font-size:10.5pt;font-family:"Times New Roman"'> </span></p>
+        <p><span style='font-size:10.5pt;"Times New Roman"'>例如：</span><span lang=EN-US
+            style='font-size:10.5pt;font-family:"Times New Roman"'> @(#)fly.html 1.42 </span></p>
+      </td>
+    </tr>
+  </table>
+  <p><strong>参考文献：</strong></p>
+  <p>1、Microsoft Visual Source Safe 联机文档<br>
+    2、CVS 联机文档<br>
+    3、Hansky Firefly 联机文档</p>
+  <div align="center">
+    <hr>
+    <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005,zedware_at_gmail_dot_com</a><br>
+      Last modified on
+      <!-- #BeginDate format:fcIS1 -->Friday, 2004-09-10
+      <!-- #EndDate -->
+    </div>
+  </div>
 </body>
+
 </html>
