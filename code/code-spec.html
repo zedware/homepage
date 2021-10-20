@@ -1,47 +1,73 @@
 <html>
-<head>
-<meta http-equiv="Content-Type"
 
-content="text/html; charset=utf-8">
-<meta name="zedware" content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
-<title>编码规范</title>
-<style type="text/css">
-<!--
-.style1 {font-size: larger}
--->
-</style>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="zedware"
+    content="一得斋,数据库管理系统,大机,DBMS,ORACLE,SQL Server,Sybase,DB2,Access,ORDBMS,SQL,ODBC,JDBC,OLEDB,ADO,SQL99,SQL3,SQL92,COBOL,CICS,OS390">
+  <title>编码规范</title>
+  <style type="text/css">
+    <!--
+    .style1 {
+      font-size: larger
+    }
+    -->
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QMPH4XTZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2QMPH4XTZX');
+  </script>
 </head>
-<body bgcolor="#FFFFFF"> 
-<p align="center" class="style1">编码规范</p> 
-<hr> 
-<p align="left"><span style="font-size: 12.0pt;  color: black;   ">　　</span>使用编程语言需要遵循的最基本的规范自然是其语法规则，但是由于各种语言自身的特点，如果我们在编程时遵循某些特定的规则，就可以大大减少编程中出错的风险，提高代码的质量，减轻维护的代价。对于正式的项目，应该严格执行公司或项目组规定的编码规范，而且应组织代码检查和评审。有关软件过程管理的内容可以参看<a href="http://www.iso9000.org/">ISO 9000</a>和<a href="http://www.sei.cmu.edu/">SEI CMM/CMMI</a>。<br> 
-  <span style="font-size: 12.0pt;  color: black;   ">　　</span><br> 
-  <span style="font-size: 12.0pt;  color: black;   ">　　</span>对于不同的编程语言来说，具体的编码规范可以有很大的不同，但是其宗旨都是一致的，就是保证代码在高质量完成需求的同时具备良好的可读性、可维护性。例如我们可以规定某个项目的C语言程序要遵循这样的规定：<a href="code-variable.html">变量的命名</a>，<a href="code-headfile.html">头文件的书写和#include</a> 等等。<br> 
-  <br> 
-  <span style="font-size: 12.0pt;  color: black;   ">　　</span>下面是一些广为采用的编码规范：<br> 
-  <br> 
-  <span style="font-size: 12.0pt;  color: black;   ">　　</span><a href="http://www.gnu.org/prep/standards.html#SEC_Top">GNU Coding Standards</a><br> 
-  <span style="font-size: 12.0pt;  color: black;   ">　　</span><br> 
-  <span style="font-size: 12.0pt;  color: black;   ">　　</span><a href="http://www.misra.org.uk/index.htm">Guidelines for the Use of the C Language in Vehicle Based Software</a></p> 
-<p align="left"><span style="font-size: 12.0pt;  color: black;   ">　　<a href="http://f1.grp.yahoofs.com/v1/0G8mPy7-iaG2wC4YXvoPkj2eohKYmZv_k7xrKNfVZ3wOIPBE8bUlO23gp_uwMClv_3pzUyduGOHEEZ4j/coding_guidelines.html">C++ Coding Guidelines</a></span></p> 
-<p align="left"><span style="font-size: 12.0pt;  color: black;   ">　　</span><a href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">SUN Code Conventions for Java</a><br> 
-</p> 
-<p align="left"> <span style="font-size: 12.0pt;  color: black;   ">　　</span>这里是一些介绍编码、编码规范的书籍：<br> 
-  <br> 
-  <span style="font-size: 12.0pt;  color: black;   ">　　</span><span style=" color: black;   ">C++编码规范，陈世忠，人民邮电出版社，2002<br> 
-  <br> 
-  </span><span style="font-size: 12.0pt;  color: black;   ">　　</span>高质量程序设计指南--C++/C语言，林锐等，电子工业出版社，2003<br> 
-  <br> 
-  <span style="font-size: 12.0pt;  color: black;   ">　　</span><span style=" color: black;   ">高质量Java程序设计</span>，顾晓刚、谢义军、林锐，电子工业出版社，2003<br> 
-<br> 
-<span style="font-size: 12.0pt;  color: black;   ">　　</span>程序设计实践，Brian W.Kernigham，Rob Pike，机械工业出版社，2002
- 
-<hr>
-<div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005，zedware_at_gmail_dot_com</a>
-  
-</div>
-<div align="center">Last modified on
-        <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08<!-- #EndDate -->
-    </div>
+
+<body bgcolor="#FFFFFF">
+  <p align="center" class="style1">编码规范</p>
+  <hr>
+  <p align="left"><span
+      style="font-size: 12.0pt;  color: black;   ">　　</span>使用编程语言需要遵循的最基本的规范自然是其语法规则，但是由于各种语言自身的特点，如果我们在编程时遵循某些特定的规则，就可以大大减少编程中出错的风险，提高代码的质量，减轻维护的代价。对于正式的项目，应该严格执行公司或项目组规定的编码规范，而且应组织代码检查和评审。有关软件过程管理的内容可以参看<a
+      href="http://www.iso9000.org/">ISO 9000</a>和<a href="http://www.sei.cmu.edu/">SEI CMM/CMMI</a>。<br>
+    <span style="font-size: 12.0pt;  color: black;   ">　　</span><br>
+    <span
+      style="font-size: 12.0pt;  color: black;   ">　　</span>对于不同的编程语言来说，具体的编码规范可以有很大的不同，但是其宗旨都是一致的，就是保证代码在高质量完成需求的同时具备良好的可读性、可维护性。例如我们可以规定某个项目的C语言程序要遵循这样的规定：<a
+      href="code-variable.html">变量的命名</a>，<a href="code-headfile.html">头文件的书写和#include</a> 等等。<br>
+    <br>
+    <span style="font-size: 12.0pt;  color: black;   ">　　</span>下面是一些广为采用的编码规范：<br>
+    <br>
+    <span style="font-size: 12.0pt;  color: black;   ">　　</span><a
+      href="http://www.gnu.org/prep/standards.html#SEC_Top">GNU Coding Standards</a><br>
+    <span style="font-size: 12.0pt;  color: black;   ">　　</span><br>
+    <span style="font-size: 12.0pt;  color: black;   ">　　</span><a href="http://www.misra.org.uk/index.htm">Guidelines
+      for the Use of the C Language in Vehicle Based Software</a>
+  </p>
+  <p align="left"><span style="font-size: 12.0pt;  color: black;   ">　　<a
+        href="http://f1.grp.yahoofs.com/v1/0G8mPy7-iaG2wC4YXvoPkj2eohKYmZv_k7xrKNfVZ3wOIPBE8bUlO23gp_uwMClv_3pzUyduGOHEEZ4j/coding_guidelines.html">C++
+        Coding Guidelines</a></span></p>
+  <p align="left"><span style="font-size: 12.0pt;  color: black;   ">　　</span><a
+      href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">SUN Code Conventions for Java</a><br>
+  </p>
+  <p align="left"> <span style="font-size: 12.0pt;  color: black;   ">　　</span>这里是一些介绍编码、编码规范的书籍：<br>
+    <br>
+    <span style="font-size: 12.0pt;  color: black;   ">　　</span><span
+      style=" color: black;   ">C++编码规范，陈世忠，人民邮电出版社，2002<br>
+      <br>
+    </span><span style="font-size: 12.0pt;  color: black;   ">　　</span>高质量程序设计指南--C++/C语言，林锐等，电子工业出版社，2003<br>
+    <br>
+    <span style="font-size: 12.0pt;  color: black;   ">　　</span><span
+      style=" color: black;   ">高质量Java程序设计</span>，顾晓刚、谢义军、林锐，电子工业出版社，2003<br>
+    <br>
+    <span style="font-size: 12.0pt;  color: black;   ">　　</span>程序设计实践，Brian W.Kernigham，Rob Pike，机械工业出版社，2002
+
+    <hr>
+  <div align="center"><a href="mailto:zedware_at_gmail_dot_com">Copyright 2000-2005，zedware_at_gmail_dot_com</a>
+
+  </div>
+  <div align="center">Last modified on
+    <!-- #BeginDate format:fcIS1 -->Wednesday, 2004-09-08
+    <!-- #EndDate -->
+  </div>
 </body>
+
 </html>
