@@ -141,7 +141,7 @@ while (<em>there's another line</em>)
    
    #define MAXLINE 1000 /* maximum input line length */
 
-  <strong> static int getline(const char line[], int max)
+  <strong> static int getline(const char line[], int max);
    static int strindex(const char source[], const char searchfor[]);</strong>
 
    const char Pattern[] = "ould";   /* pattern to search for */
@@ -154,7 +154,7 @@ while (<em>there's another line</em>)
 
        while (getline(line, MAXLINE) > 0)
        {
-           if (strindex(line, pattern) &gt;= 0)
+           if (strindex(line, Pattern) &gt;= 0)
            {
                printf("%s", line);
                found++;
@@ -165,16 +165,21 @@ while (<em>there's another line</em>)
    }
 
 <strong>   /* getline:  get line into s, return length */
-   static int getline(const char s[], int lim)</strong>
+   static int getline(char s[], int lim)</strong>
    {
-       int c, i;
+       int c;
+       int i = 0;
 
-       i = 0;
-       while (--lim > 0 && (c=getchar()) != EOF && c != '\n')
+       while (--lim > 0 && (c = getchar()) != EOF && c != '\n')
+       {
            s[i++] = c;
+       }
 
        if (c == '\n')
+       {
            s[i++] = c;
+       }
+       
        s[i] = '\0';
        
        return i;
@@ -188,9 +193,14 @@ while (<em>there's another line</em>)
        for (i = 0; s[i] != '\0'; i++)
        {
            for (j = i, k = 0; t[k] != '\0' && s[j] == t[k]; j++, k++)
+           {
                ;
+           }
+           
            if (k > 0 && t[k] == '\0')
+           {
                return i;
+           }
        }
        
        return -1;
